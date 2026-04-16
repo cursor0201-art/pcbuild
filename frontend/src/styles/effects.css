@@ -1,0 +1,87 @@
+/* Cyberpunk Effects */
+
+@keyframes glitch {
+  0% {
+    text-shadow: 2px 2px 0px #00d4ff, -2px -2px 0px #ff0080;
+  }
+  25% {
+    text-shadow: -2px -2px 0px #00d4ff, 2px 2px 0px #ff0080;
+  }
+  50% {
+    text-shadow: 2px -2px 0px #00d4ff, -2px 2px 0px #ff0080;
+  }
+  75% {
+    text-shadow: -2px 2px 0px #00d4ff, 2px -2px 0px #ff0080;
+  }
+  100% {
+    text-shadow: 2px 2px 0px #00d4ff, -2px -2px 0px #ff0080;
+  }
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 212, 255, 0.5),
+                0 0 10px rgba(0, 212, 255, 0.3),
+                0 0 15px rgba(0, 212, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.8),
+                0 0 20px rgba(0, 212, 255, 0.5),
+                0 0 30px rgba(0, 212, 255, 0.3);
+  }
+}
+
+.glitch-text {
+  animation: glitch 3s infinite;
+}
+
+.neon-pulse {
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+.neon-border {
+  position: relative;
+}
+
+.neon-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #00d4ff, #ff0080, #00ff88, #00d4ff);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+}
+
+.neon-border:hover::before {
+  opacity: 1;
+}
+
+/* Scanline effect */
+.scanlines {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 212, 255, 0.02) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(50%);
+  }
+}
