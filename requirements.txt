@@ -20,3 +20,4 @@ python-decouple
 Pillow
 django-filter
 python-telegram-bot
+pytz
