@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'GameZoneBuild.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 # Check if PostgreSQL is configured
-db_name = config('DB_NAME', default=None)
-db_user = config('DB_USER', default=None)
-db_password = config('DB_PASSWORD', default=None)
+db_name = os.getenv('DB_NAME')
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
 
 if db_name and db_user and db_password:
     # Use PostgreSQL if configured
@@ -93,8 +93,8 @@ if db_name and db_user and db_password:
             'NAME': db_name,
             'USER': db_user,
             'PASSWORD': db_password,
-            'HOST': config('DB_HOST', default='localhost'),
-            'PORT': config('DB_PORT', default='5432'),
+            'HOST': os.getenv('DB_HOST', 'localhost'),
+            'PORT': os.getenv('DB_PORT', '5432'),
         }
     }
 else:
@@ -145,8 +145,8 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media files
-MEDIA_URL = config('MEDIA_URL', default='/media/')
-MEDIA_ROOT = BASE_DIR / config('MEDIA_ROOT', default='media')
+MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
+MEDIA_ROOT = BASE_DIR / os.getenv('MEDIA_ROOT', 'media')
 
 # REST Framework
 REST_FRAMEWORK = {
@@ -183,12 +183,12 @@ class CustomResponse:
         return {'success': False, 'data': None, 'error': error_message}
 
 # Telegram settings
-TELEGRAM_BOT_TOKEN = config('BOT_TOKEN')
-TELEGRAM_CHAT_ID = config('CHAT_ID')
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', '')
 
 # Payment details
-PAYMENT_CARD_NUMBER = config('PAYMENT_CARD_NUMBER', default='8600 1234 5678 9012')
-PAYMENT_CARD_HOLDER = config('PAYMENT_CARD_HOLDER', default='GAMEZONE BUILD')
+PAYMENT_CARD_NUMBER = os.getenv('PAYMENT_CARD_NUMBER', '')
+PAYMENT_CARD_HOLDER = os.getenv('PAYMENT_CARD_HOLDER', '')
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [

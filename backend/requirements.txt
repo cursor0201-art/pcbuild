@@ -13,7 +13,6 @@ Django
 djangorestframework
 gunicorn
 psycopg2-binary
-python-dotenv
 whitenoise
 python-telegram-bot
 drf-yasg
