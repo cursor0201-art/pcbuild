@@ -14,9 +14,4 @@ djangorestframework
 gunicorn
 psycopg2-binary
 whitenoise
-python-telegram-bot
-drf-yasg
-django-filter
-Pillow
-pytz
 django-cors-headers
