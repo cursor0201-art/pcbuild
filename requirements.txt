@@ -15,3 +15,5 @@ gunicorn
 psycopg2-binary
 whitenoise
 django-cors-headers
+django-filter
+python-telegram-bot
