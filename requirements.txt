@@ -1,0 +1,17 @@
+# Django==4.2.7
+# djangorestframework==3.14.0
+# python-decouple==3.8
+# Pillow==10.0.1
+# psycopg2-binary==2.9.7
+# python-telegram-bot==20.6
+# drf-yasg==1.21.7
+# django-filter==23.3
+# gunicorn==21.2.0
+# pytz==2023.3
+
+Django
+djangorestframework
+gunicorn
+psycopg2-binary
+whitenoise
+django-cors-headers
