@@ -17,17 +17,17 @@ RUN apt-get update \
         gettext \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy project
+# Copy project first
 COPY . .
 
 # Create media directory
 RUN mkdir -p /app/media/products
 
-# Collect static files
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Collect static files after copying project
 RUN python manage.py collectstatic --noinput
 
 # Expose port
