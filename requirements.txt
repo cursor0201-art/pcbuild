@@ -15,6 +15,8 @@ gunicorn
 psycopg2-binary
 whitenoise
 django-cors-headers
-django-filters
-python-telegram-bot
 drf-yasg
+python-decouple
+Pillow
+django-filter
+python-telegram-bot
