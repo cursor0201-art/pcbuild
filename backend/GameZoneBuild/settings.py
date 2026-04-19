@@ -30,6 +30,9 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '.koyeb.app,localhost,127.0.0.1').split(',')
 
+# CSRF Trusted Origins for production
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://*.koyeb.app,http://localhost:3000,http://127.0.0.1:3000').split(',')
+
 
 # Application definition
 
