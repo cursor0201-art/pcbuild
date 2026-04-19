@@ -326,6 +326,26 @@ class OrderViewSet(CustomResponseMixin, viewsets.ModelViewSet):
         serializer = OrderSerializer(order, context={'request': request})
         return self.custom_response(data=serializer.data)
 
+    @action(detail=False, methods=['get'], permission_classes=[permissions.AllowAny])
+    def test_telegram(self, request):
+        """Test Telegram connection"""
+        try:
+            from shop.telegram_service import TelegramService
+            telegram_service = TelegramService()
+            
+            # Send test message
+            success = telegram_service.send_test_message()
+            
+            if success:
+                return self.custom_response(data={'message': 'Test message sent successfully! Check your Telegram.'})
+            else:
+                return self.custom_response(
+                    error="Failed to send test message. Check your TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in Koyeb settings.",
+                    status_code=status.HTTP_400_BAD_REQUEST
+                )
+        except Exception as e:
+            return self.custom_response(error=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     @action(detail=False, methods=['get'], permission_classes=[IsAdminUser])
     def statistics(self, request):
         """Get order statistics (admin only)"""

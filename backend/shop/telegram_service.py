@@ -117,38 +117,48 @@ class TelegramService:
         return message
 
     def send_order_notification(self, order):
-        """Send new order notification to Telegram with photos in Mahsulotlar section"""
+        """Send new order notification to Telegram with robust error handling"""
         if not self.is_configured():
+            print("Telegram bot not configured.")
             return False
 
         message, item_photos = self.format_order_message(order)
         
-        # Send text message first
+        # 1. Send text message FIRST (Crucial!)
         success = self.send_message(message)
         
-        # Send product photos with captions showing product info
-        if success and item_photos:
+        if not success:
+            print("Failed to send initial text notification.")
+            # We continue anyway to try sending photos or return False
+        
+        # 2. Send product photos with independent error handling
+        if item_photos:
+            print(f"Attempting to send {len(item_photos)} product photos...")
             for photo_field, product_name in item_photos:
                 try:
-                    # Handle ImageFieldFile object
+                    # Robust path resolution
+                    photo_path = None
                     if hasattr(photo_field, 'path'):
                         photo_path = photo_field.path
-                    elif hasattr(photo_field, 'startswith') and photo_field.startswith('/'):
-                        photo_path = f"media{photo_field}"
-                    else:
-                        photo_path = str(photo_field)
+                    elif isinstance(photo_field, str):
+                        # Handle case where it might be a relative string path
+                        if photo_field.startswith('/'):
+                            photo_path = photo_field.lstrip('/')
+                        else:
+                            photo_path = photo_field
                     
-                    # Send photo with product name as caption
-                    self.send_photo(photo_path, f"Mahsulot: {product_name}")
+                    if photo_path and os.path.exists(photo_path):
+                        self.send_photo(photo_path, f"Mahsulot: {product_name}")
+                    else:
+                        print(f"Photo path does not exist or invalid: {photo_path}")
                 except Exception as e:
-                    print(f"Failed to send photo for {product_name}: {e}")
+                    print(f"Error processing photo for {product_name}: {e}")
 
-        # Send receipt image if available
-        if success and order.receipt_image:
+        # 3. Send receipt image if available
+        if order.receipt_image:
             try:
-                photo_path = order.receipt_image.path
-                caption = f"Chek #{order.id}"
-                self.send_photo(photo_path, caption)
+                if hasattr(order.receipt_image, 'path') and os.path.exists(order.receipt_image.path):
+                    self.send_photo(order.receipt_image.path, f"Chek #{order.id}")
             except Exception as e:
                 print(f"Failed to send receipt photo: {e}")
 
