@@ -56,6 +56,7 @@ def create_sample_products():
         {
             'name': 'Intel Core i7-14700',
             'slug': 'intel-core-i7-14700',
+            'image': 'products/images_2.jpg',
             'category_slug': 'processor',
             'price': 400000,
             'brand': 'Intel',
@@ -66,6 +67,7 @@ def create_sample_products():
         {
             'name': 'Intel Core i3-10105F',
             'slug': 'intel-core-i3-10105f',
+            'image': 'products/jTlXuHIz8txufgHzF6c02yoo64P8gjKvkjYx7z4A.jpeg',
             'category_slug': 'processor',
             'price': 100000,
             'brand': 'Intel',
@@ -76,6 +78,7 @@ def create_sample_products():
         {
             'name': 'AMD Ryzen 5 3600',
             'slug': 'amd-ryzen-5-3600',
+            'image': 'products/gdub4law02dbiqa88r0di0r5gbj2rx20.jpeg',
             'category_slug': 'processor',
             'price': 216000,
             'brand': 'AMD',
@@ -86,6 +89,7 @@ def create_sample_products():
         {
             'name': 'Samsung 990 PRO 1TB',
             'slug': 'samsung-990-pro-1tb',
+            'image': 'products/4EgxtRJAtxBtYtzRCw2c-medium_default.jpg',
             'category_slug': 'ssd',
             'price': 420000,
             'brand': 'samsung',
@@ -96,6 +100,7 @@ def create_sample_products():
         {
             'name': 'Kingston 1TB NVMe',
             'slug': 'kingston-1tb-nvme',
+            'image': 'products/38x7so7032d6xirv8esz8mspza45dsdq.jpg',
             'category_slug': 'ssd',
             'price': 312300,
             'brand': 'kingston',
@@ -106,6 +111,7 @@ def create_sample_products():
         {
             'name': 'Crucial 4TB NVMe',
             'slug': 'crucial-4tb-nvme',
+            'image': 'products/0129165_0.jpeg',
             'category_slug': 'ssd',
             'price': 653000,
             'brand': 'crucial',
@@ -116,6 +122,7 @@ def create_sample_products():
         {
             'name': 'GIGABYTE P850GM',
             'slug': 'gigabyte-p850gm',
+            'image': 'products/MkuTMBsqKpCdztfoRZXy5Rm5jHG1V1kFMeYUyWey.jpeg',
             'category_slug': 'blok-pitaniya',
             'price': 712000,
             'brand': 'gigabyte',
@@ -126,6 +133,7 @@ def create_sample_products():
         {
             'name': 'GameMax GM-600B',
             'slug': 'gamemax-gm-600b',
+            'image': 'products/blok_pitaniya_600w_gamemax_gm-600b859857.webp',
             'category_slug': 'blok-pitaniya',
             'price': 895000,
             'brand': 'gamemax',
@@ -136,6 +144,7 @@ def create_sample_products():
         {
             'name': 'Cougar DarkBlader-G',
             'slug': 'cougar-darkblader-g',
+            'image': 'products/cKzUH1MjKGwRxsQa4PZLnuEVt0UdGcKicUsPGmcL.jpeg',
             'category_slug': 'korpus',
             'price': 1200000,
             'brand': 'Cougar',
@@ -146,6 +155,7 @@ def create_sample_products():
         {
             'name': 'HIPER XG300 POLARIS',
             'slug': 'hiper-xg300-polaris',
+            'image': 'products/XG300.4105.jpg',
             'category_slug': 'korpus',
             'price': 600000,
             'brand': 'Hiper',
@@ -156,6 +166,7 @@ def create_sample_products():
         {
             'name': 'Axle H510',
             'slug': 'axle-h510',
+            'image': 'products/IjhGV8L0E12hwts7UUJ0cfARvg023XuVeWLAkutO.jpeg',
             'category_slug': 'materinskaya-plata',
             'price': 298200,
             'brand': 'Axle',
@@ -166,6 +177,7 @@ def create_sample_products():
         {
             'name': 'Gigabyte H610M H DDR4',
             'slug': 'gigabyte-h610m-h-ddr4',
+            'image': 'products/materinskaya-plata-gigabyte-h610m-h-ddr4-168688-0.jpeg',
             'category_slug': 'materinskaya-plata',
             'price': 342000,
             'brand': 'Gigabyte',
@@ -176,6 +188,7 @@ def create_sample_products():
         {
             'name': 'Fujitsu',
             'slug': 'fujitsu',
+            'image': 'products/gFQpx2FOMcE3RWqDii5Z6qGPL5kUb7iYJDD80um1.jpeg',
             'category_slug': 'operativnaya-pamyat',
             'price': 360000,
             'brand': 'Fujitsu Primergy',
@@ -186,6 +199,7 @@ def create_sample_products():
         {
             'name': 'Pullout DDR4 8GB',
             'slug': 'pullout-ddr4-8gb',
+            'image': 'products/5f6c454f9fc87.webp',
             'category_slug': 'operativnaya-pamyat',
             'price': 266300,
             'brand': 'Pullout',
@@ -196,6 +210,7 @@ def create_sample_products():
         {
             'name': 'SSD Lexar 480GB SATA III',
             'slug': 'ssd-lexar-480gb-sata-iii',
+            'image': 'products/ekdki5quawgbqijwtzjddj51gtzec1hh.jpg',
             'category_slug': 'tverdotelnyj-nakopitel',
             'price': 321000,
             'brand': 'Lexar',
@@ -206,6 +221,7 @@ def create_sample_products():
         {
             'name': 'Lexar NS100 1ТБ SSD SATA',
             'slug': 'lexar-ns100-1tb-ssd-sata',
+            'image': 'products/original.webp',
             'category_slug': 'tverdotelnyj-nakopitel',
             'price': 269000,
             'brand': 'Lexar',
@@ -216,6 +232,7 @@ def create_sample_products():
         {
             'name': 'GI-H58U V2 PcCOOLER 194560887',
             'slug': 'gi-h58u-v2-pccooler-194560887',
+            'image': 'products/1.webp',
             'category_slug': 'sistema-ohlazhdeniya',
             'price': 125000,
             'brand': 'Pccooler',
@@ -226,6 +243,7 @@ def create_sample_products():
         {
             'name': 'SE-214-XT od 590',
             'slug': 'se-214-xt-od-590',
+            'image': 'products/940a4905-b2c2-4ea8-8a32-2bc7e4d7bc82.avif',
             'category_slug': 'sistema-ohlazhdeniya',
             'price': 230000,
             'brand': 'SE 24',

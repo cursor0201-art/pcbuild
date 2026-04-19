@@ -66,9 +66,9 @@ yarn-error.log*
 /frontend/dist/
 /frontend/build/
 
-# Media files (for production, use S3/cloud storage)
-/backend/media/*
-!/backend/media/.gitkeep
+# Media files
+# /backend/media/*
+# !/backend/media/.gitkeep
 
 # Cache
 .cache/
