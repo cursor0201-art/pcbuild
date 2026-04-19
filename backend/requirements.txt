@@ -8,3 +8,5 @@ drf-yasg==1.21.7
 django-filter==23.3
 gunicorn==21.2.0
 pytz==2023.3
+whitenoise
+django-cors-headers
