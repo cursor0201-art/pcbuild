@@ -4,10 +4,12 @@ WORKDIR /app
 
 COPY backend/requirements.txt .
 
-RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt
-
-# Force cache invalidation
-RUN echo "Cache invalidated at $(date)" && rm -rf /var/cache/apt/* /root/.cache/pip/* 2>/dev/null || true
+# Force complete cache invalidation
+RUN --mount=type=cache,target=/root/.cache/pip,source=cache --mount=type=cache,target=/var/cache/apt,source=cache \
+    echo "Cache invalidated at $(date)" && \
+    rm -rf /root/.cache/pip/* /var/cache/apt/* 2>/dev/null || true && \
+    pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY backend/ .
 
