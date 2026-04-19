@@ -260,7 +260,7 @@ def create_sample_products():
         if not category:
             continue
             
-        product, created = Product.objects.get_or_create(
+        product, created = Product.objects.update_or_create(
             slug=prod_data['slug'],
             defaults={**prod_data, 'category': category}
         )
