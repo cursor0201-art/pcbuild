@@ -36,21 +36,10 @@ export function Builder() {
   useEffect(() => {
     const loadCategoriesData = async () => {
       try {
-        // Direct fetch call to debug
-        const directResponse = await fetch('http://localhost:8000/api/categories/');
-        const directData = await directResponse.json();
-        console.log('Direct API Response:', directData);
-        console.log('Direct data type:', typeof directData);
-        console.log('Direct data keys:', Object.keys(directData));
-        console.log('Direct data.data:', directData.data);
-        console.log('Direct data.data type:', typeof directData.data);
-        console.log('Direct data.data keys:', typeof directData.data === 'object' ? Object.keys(directData.data) : 'N/A');
-        console.log('Is direct data.data array?', Array.isArray(directData.data));
-        
         // Extract categories from paginated response
         let categoriesArray: Category[] = [];
         
-        // Try apiService first
+        // Try apiService
         try {
           const response = await apiService.getCategories();
           console.log('API Service Response:', response);
