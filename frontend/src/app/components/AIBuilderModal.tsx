@@ -36,43 +36,48 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [productsResponse, categoriesResponse] = await Promise.all([
-          apiService.getProducts(),
-          apiService.getCategories()
-        ]);
-        
-        // Convert products to PCComponent format
-        const components = productsResponse.data.results?.map((product: Product) => ({
-          id: product.id,
-          name: product.name,
-          brand: product.brand,
-          specs: Object.entries(product.specs).map(([key, value]) => `${value}`),
-          price: parseFloat(product.price),
-          formatted_price: product.formatted_price,
-          image: product.image_url || 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400&h=300&fit=crop',
-          category_slug: product.category_slug,
-          category_name: product.category_name,
-          performance: 85 + Math.random() * 15,
-        })) || [];
-        
-        setAllComponents(components);
-        
-        // Use category slugs directly (handle paginated response)
-        console.log('Categories Response:', categoriesResponse);
-        console.log('Categories data type:', typeof categoriesResponse.data);
+        const categoriesResponse = await apiService.getCategories();
         
         let categoriesArray: Category[] = [];
         const responseData = categoriesResponse.data as any;
-        
         if (responseData.results && Array.isArray(responseData.results)) {
           categoriesArray = responseData.results;
         } else if (Array.isArray(categoriesResponse.data)) {
           categoriesArray = categoriesResponse.data;
         }
-        
         const categorySlugs = categoriesArray.map((cat: Category) => cat.slug);
-        console.log('Category slugs:', categorySlugs);
         setCategories(categorySlugs);
+
+        // Fetch first page of products for all categories in parallel
+        const productPromises = categorySlugs.map(slug => 
+          apiService.getProducts({ category_slug: slug })
+            .catch(() => ({ success: false, data: { results: [] } }))
+        );
+        const productsResponses = await Promise.all(productPromises);
+        
+        let allProds: Product[] = [];
+        productsResponses.forEach(res => {
+          if (res && res.success && res.data && res.data.results) {
+             allProds = [...allProds, ...res.data.results];
+          }
+        });
+
+        // Convert products to PCComponent format
+        const components = allProds.map((product: Product) => ({
+          id: product.id,
+          name: product.name,
+          brand: product.brand,
+          specs: Object.entries(product.specs).map(([key, value]) => `${value}`),
+          price: typeof product.price === 'string' ? parseFloat(product.price) : typeof product.price === 'number' ? product.price : 0,
+          formatted_price: product.formatted_price,
+          image: product.image_url || 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400&h=300&fit=crop',
+          category_slug: product.category_slug,
+          category_name: product.category_name,
+          performance: 85 + Math.random() * 15,
+        }));
+        
+        setAllComponents(components);
+        
       } catch (error) {
         console.error('Failed to load data for AI builder:', error);
         // Fallback to defaults

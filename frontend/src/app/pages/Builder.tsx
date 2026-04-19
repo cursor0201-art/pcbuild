@@ -23,7 +23,24 @@ export interface DynamicComponent {
 export function Builder() {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const [selectedComponents, setSelectedComponents] = useState<Record<string, DynamicComponent>>({});
+  const [selectedComponents, setSelectedComponents] = useState<Record<string, DynamicComponent>>(() => {
+    try {
+      const saved = localStorage.getItem('pcbuilder-cart');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        const initialSaved: Record<string, DynamicComponent> = {};
+        parsed.forEach((item: DynamicComponent) => {
+          if (item && item.category_slug) {
+            initialSaved[item.category_slug] = item;
+          }
+        });
+        return initialSaved;
+      }
+    } catch(e) {
+      console.error(e);
+    }
+    return {};
+  });
   const [activeCategory, setActiveCategory] = useState<string>('');
   const [showAIModal, setShowAIModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<DynamicComponent | null>(null);
