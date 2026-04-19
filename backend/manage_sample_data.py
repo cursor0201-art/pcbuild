@@ -119,7 +119,7 @@ def create_sample_products():
             'category_slug': 'blok-pitaniya',
             'price': 712000,
             'brand': 'gigabyte',
-            'specs': {"power": "850W", "efficiency": "80+ Gold", "modular": true, "form_factor": "ATX", "fan": "120mm", "protection": "OVP, OPP, SCP, UVP, OCP, OTP"},
+            'specs': {"power": "850W", "efficiency": "80+ Gold", "modular": True, "form_factor": "ATX", "fan": "120mm", "protection": "OVP, OPP, SCP, UVP, OCP, OTP"},
             'description': 'GIGABYTE P850GM — мощный модульный блок питания с высоким КПД, подходит для игровых ПК и сборок с производительными видеокартами.',
             'stock': 1068,
         },
@@ -139,7 +139,7 @@ def create_sample_products():
             'category_slug': 'korpus',
             'price': 1200000,
             'brand': 'Cougar',
-            'specs': {"type": "Mid Tower", "motherboard_support": "ATX, Micro-ATX, Mini-ITX", "material": "Steel + Tempered Glass", "color": "Black", "max_gpu_length": "≈400 mm", "cooling_support": "Air + Liquid", "fans_included": false, "front_panel": "USB 3.0, USB 2.0, Audio", "side_panel": "Tempered Glass"},
+            'specs': {"type": "Mid Tower", "motherboard_support": "ATX, Micro-ATX, Mini-ITX", "material": "Steel + Tempered Glass", "color": "Black", "max_gpu_length": "≈400 mm", "cooling_support": "Air + Liquid", "fans_included": False, "front_panel": "USB 3.0, USB 2.0, Audio", "side_panel": "Tempered Glass"},
             'description': 'Cougar DarkBlader-G — стильный игровой корпус с агрессивным дизайном и стеклянной боковой панелью, подходит для мощных сборок с хорошим охлаждением.',
             'stock': 1001,
         },
@@ -149,7 +149,7 @@ def create_sample_products():
             'category_slug': 'korpus',
             'price': 600000,
             'brand': 'Hiper',
-            'specs': {"type": "Mid Tower", "motherboard_support": "ATX, Micro-ATX, Mini-ITX", "material": "Steel + Tempered Glass", "color": "Black", "max_gpu_length": "≈360 mm", "cooling_support": "Air", "fans_included": true, "fan_count": "3-4", "front_panel": "USB 3.0, USB 2.0, Audio", "side_panel": "Tempered Glass"},
+            'specs': {"type": "Mid Tower", "motherboard_support": "ATX, Micro-ATX, Mini-ITX", "material": "Steel + Tempered Glass", "color": "Black", "max_gpu_length": "≈360 mm", "cooling_support": "Air", "fans_included": True, "fan_count": "3-4", "front_panel": "USB 3.0, USB 2.0, Audio", "side_panel": "Tempered Glass"},
             'description': 'HIPER XG300 POLARIS — доступный игровой корпус с подсветкой и предустановленными вентиляторами, подходит для бюджетных и средних сборок.',
             'stock': 998,
         },
@@ -264,10 +264,10 @@ def create_sample_orders():
     
     orders_data = [
         {
-            'customer_name': 'Juan Pérez',
+            'customer_name': 'Иван Иванов',
             'phone': '+998901234567',
-            'email': 'juan.perez@email.com',
-            'comment': 'Entregar en horario laboral',
+            'email': 'ivan@email.com',
+            'comment': 'Доставка в рабочее время',
             'items': [
                 {
                     'product_id': str(products[0].id),
@@ -285,10 +285,10 @@ def create_sample_orders():
             'status': 'confirmed'
         },
         {
-            'customer_name': 'María García',
+            'customer_name': 'Мария Петрова',
             'phone': '+998912345678',
-            'email': 'maria.garcia@email.com',
-            'comment': 'Por favor llamar antes de entregar',
+            'email': 'maria@email.com',
+            'comment': 'Позвонить перед доставкой',
             'items': [
                 {
                     'product_id': str(products[2].id),
@@ -300,9 +300,9 @@ def create_sample_orders():
             'status': 'waiting_for_payment'
         },
         {
-            'customer_name': 'Carlos Rodríguez',
+            'customer_name': 'Александр Сидоров',
             'phone': '+998923456789',
-            'comment': 'Pedido urgente',
+            'comment': 'Срочный заказ',
             'items': [
                 {
                     'product_id': str(products[3].id),
