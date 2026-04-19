@@ -40,6 +40,7 @@ export function Checkout() {
     comment: ''
   });
 
+  const [finalTotal, setFinalTotal] = useState(0);
   const total = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -88,6 +89,8 @@ export function Checkout() {
       
       if (response.success) {
         console.log('✅ Order created successfully!');
+        // Store total before clearing
+        setFinalTotal(total);
         // Clear cart after successful order
         localStorage.removeItem('pcbuilder-cart');
         setCartItems([]);
@@ -122,7 +125,7 @@ export function Checkout() {
             Мы свяжемся с вами в ближайшее время для подтверждения заказа.
           </p>
           <div className="font-black text-3xl text-white">
-            {formatPrice(total)}{' '}
+            {formatPrice(finalTotal || total)}{' '}
             <span className="text-[#00d4ff] text-xl">{t('currency')}</span>
           </div>
         </motion.div>

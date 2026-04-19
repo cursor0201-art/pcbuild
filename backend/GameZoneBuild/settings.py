@@ -188,8 +188,8 @@ class CustomResponse:
         return {'success': False, 'data': None, 'error': error_message}
 
 # Telegram settings
-TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
-TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', '')
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', os.getenv('BOT_TOKEN', ''))
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', os.getenv('CHAT_ID', ''))
 
 # Payment details
 PAYMENT_CARD_NUMBER = os.getenv('PAYMENT_CARD_NUMBER', '')
