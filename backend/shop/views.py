@@ -411,11 +411,9 @@ Example output:
 {{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
 
         def call_gemini(model_name, api_version='v1beta'):
-            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent"
-            headers = {
-                'Content-Type': 'application/json',
-                'X-goog-api-key': gemini_key
-            }
+            # The most basic and reliable URL format
+            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
+            headers = {'Content-Type': 'application/json'}
             payload = {
                 "contents": [{"parts": [{"text": system_instruction}]}],
                 "generationConfig": {"temperature": 0.2}
@@ -423,10 +421,11 @@ Example output:
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # Based on user's quickstart, gemini-flash-latest is the correct ID
+            # Trying all possible variations of model IDs
             models_to_try = [
-                ('gemini-flash-latest', 'v1beta'),
+                ('gemini-1.5-flash-8b', 'v1beta'),
                 ('gemini-1.5-flash', 'v1beta'),
+                ('gemini-flash-latest', 'v1beta'),
                 ('gemini-pro', 'v1beta'),
             ]
             
