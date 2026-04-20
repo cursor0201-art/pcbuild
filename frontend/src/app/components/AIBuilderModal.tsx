@@ -95,9 +95,10 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
       } else {
         alert("Ошибка ИИ: " + (response.error || "Не удалось подобрать сборку"));
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert("Не удалось связаться с нейросетью. Проверьте консоль.");
+      const errorMessage = error.message || "Не удалось связаться с сервером. Проверьте интернет или консоль.";
+      alert("Ошибка: " + errorMessage);
     } finally {
       setIsGenerating(false);
     }

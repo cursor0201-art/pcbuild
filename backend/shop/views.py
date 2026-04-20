@@ -417,32 +417,62 @@ Example output:
         }
 
         try:
-            r = requests.post(url, headers={'Content-Type': 'application/json'}, json=payload, timeout=15)
+            r = requests.post(url, headers={'Content-Type': 'application/json'}, json=payload, timeout=20)
+            r.raise_for_status()
             r_data = r.json()
-            if 'error' in r_data:
-                return Response({'success': False, 'error': f"Gemini Error: {r_data['error'].get('message', 'Unknown')}"})
             
+            if 'error' in r_data:
+                return Response({'success': False, 'error': f"Gemini Error: {r_data['error'].get('message', 'Unknown')}"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Check if we have candidates
+            if not r_data.get('candidates') or not r_data['candidates'][0].get('content'):
+                # This usually happens if safety filters block the response
+                reason = r_data.get('promptFeedback', {}).get('blockReason', 'Safety filters or empty response')
+                return Response({'success': False, 'error': f"ИИ не смог сгенерировать ответ. Причина: {reason}"}, status=status.HTTP_400_BAD_REQUEST)
+
             raw_text = r_data['candidates'][0]['content']['parts'][0]['text']
             
-            # Clean possible markdown format like ```json ... ```
+            # Clean possible markdown format
             raw_text = raw_text.replace("```json", "").replace("```", "").strip()
             
-            chosen_ids = json.loads(raw_text)
+            try:
+                chosen_ids = json.loads(raw_text)
+            except json.JSONDecodeError:
+                # Try to extract JSON if there's other text
+                import re
+                json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                if json_match:
+                    chosen_ids = json.loads(json_match.group())
+                else:
+                    return Response({'success': False, 'error': f"ИИ вернул неверный формат данных: {raw_text[:100]}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
             # Retrieve components
             result_map = {}
             for cat_slug, p_id in chosen_ids.items():
                 try:
+                    # Validate p_id is not empty and is a valid UUID string
+                    if not p_id or len(str(p_id)) < 30:
+                        continue
+                        
                     product = Product.objects.get(id=p_id)
                     serializer = ProductSerializer(product, context={'request': request})
-                    # Add pseudo-performance stat for frontend
                     data = serializer.data
-                    data['performance'] = 85
+                    data['performance'] = 85 + (hash(str(p_id)) % 15) # Deterministic pseudo-performance
                     result_map[cat_slug] = data
-                except Product.DoesNotExist:
+                except (Product.DoesNotExist, ValueError, Exception):
                     continue
+
+            if not result_map:
+                return Response({'success': False, 'error': "ИИ не подобрал ни одной детали или вернул неверные ID."}, status=status.HTTP_400_BAD_REQUEST)
 
             return Response({'success': True, 'data': result_map})
 
+        except requests.exceptions.Timeout:
+            return Response({'success': False, 'error': "Нейросеть долго не отвечала (Тайм-аут). Попробуйте еще раз через минуту."}, status=status.HTTP_504_GATEWAY_TIMEOUT)
+        except requests.exceptions.RequestException as e:
+            return Response({'success': False, 'error': f"Ошибка запроса к ИИ: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
-            return Response({'success': False, 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            import traceback
+            print(f"AI Builder ERROR: {str(e)}")
+            print(traceback.format_exc())
+            return Response({'success': False, 'error': f"Ошибка сервера: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
