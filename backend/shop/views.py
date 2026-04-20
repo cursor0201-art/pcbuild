@@ -424,6 +424,7 @@ Example output:
             models_to_try = [
                 ('gemini-1.5-flash-latest', 'v1beta'),
                 ('gemini-1.5-flash', 'v1'),
+                ('gemini-1.5-flash-8b', 'v1beta'),
                 ('gemini-pro', 'v1beta'),
             ]
             
@@ -438,7 +439,7 @@ Example output:
                         print(f"AI BUILDER: SUCCESS with {model}")
                         break 
                     else:
-                        last_error = f"{model} returned {r.status_code}: {r.text[:100]}"
+                        last_error = f"{model} ({version}) returned {r.status_code}: {r.text}"
                         print(f"AI BUILDER: FAILED {model} -> {r.status_code}")
                 except Exception as e:
                     last_error = str(e)
