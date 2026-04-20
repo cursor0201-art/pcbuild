@@ -410,7 +410,8 @@ Rules:
 Example output:
 {{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
 
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_key}"
+        # Using the stable v1 API version which is more reliable for gemini-1.5-flash
+        url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={gemini_key}"
         payload = {
             "contents": [{"parts": [{"text": system_instruction}]}],
             "generationConfig": {"temperature": 0.2}
