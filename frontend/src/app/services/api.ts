@@ -131,6 +131,14 @@ class ApiService {
     return this.request<PaginatedResponse<Product>>(`/products/search/?q=${encodeURIComponent(query)}`);
   }
 
+  // AI Build
+  async generateAIBuild(prompt: string): Promise<ApiResponse<any>> {
+    return this.request<any>('/ai-build/', {
+      method: 'POST',
+      body: JSON.stringify({ prompt }),
+    });
+  }
+
   // Orders
   async createOrder(orderData: {
     customer_name: string;

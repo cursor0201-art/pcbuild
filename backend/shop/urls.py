@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CategoryViewSet, ProductViewSet, OrderViewSet
+from .views import CategoryViewSet, ProductViewSet, OrderViewSet, AIBuilderView
 
 # Create a router and register our viewsets with it
 router = DefaultRouter()
@@ -11,4 +11,5 @@ router.register(r'orders', OrderViewSet)
 # API URLs are configured automatically by the router
 urlpatterns = [
     path('', include(router.urls)),
+    path('ai-build/', AIBuilderView.as_view(), name='ai-build'),
 ]

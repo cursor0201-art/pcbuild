@@ -25,9 +25,7 @@ interface AIBuilderModalProps {
 
 export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderModalProps) {
   const { t } = useLanguage();
-  const [budget, setBudget] = useState('50000000');
-  const [usage, setUsage] = useState<'gaming' | 'streaming' | 'work' | 'all'>('gaming');
-  const [performance, setPerformance] = useState<'entry' | 'mid' | 'high' | 'ultra'>('high');
+  const [promptText, setPromptText] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedBuild, setGeneratedBuild] = useState<Record<string, PCComponent> | null>(null);
   const [allComponents, setAllComponents] = useState<PCComponent[]>([]);
@@ -87,23 +85,22 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
     loadData();
   }, []);
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     setIsGenerating(true);
 
-    setTimeout(() => {
-      const selectedComponents: Record<string, PCComponent> = {};
-
-      categories.forEach((category) => {
-        const componentsInCategory = allComponents.filter((c) => c.category_slug === category);
-        if (componentsInCategory.length > 0) {
-          const randomIndex = Math.floor(Math.random() * Math.min(2, componentsInCategory.length));
-          selectedComponents[category] = componentsInCategory[randomIndex];
-        }
-      });
-
-      setGeneratedBuild(selectedComponents);
+    try {
+      const response = await apiService.generateAIBuild(promptText);
+      if (response.success && response.data) {
+        setGeneratedBuild(response.data);
+      } else {
+        alert("Ошибка ИИ: " + (response.error || "Не удалось подобрать сборку"));
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Не удалось связаться с нейросетью. Проверьте консоль.");
+    } finally {
       setIsGenerating(false);
-    }, 2000);
+    }
   };
 
   const handleUseBuild = () => {
@@ -149,70 +146,36 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
             <div className="p-8">
               {!generatedBuild ? (
                 <div className="space-y-8">
+                  <div className="mb-6 border border-[#00d4ff]/30 bg-[#00d4ff]/5 p-6">
+                    <h3 className="mb-2 font-black text-xl uppercase text-[#00d4ff]">
+                      Нейросеть GameZone
+                    </h3>
+                    <p className="text-white/70">
+                      Опишите, какой компьютер вам нужен. Чем подробнее, тем лучше ИИ подберет детали со склада!
+                    </p>
+                  </div>
+
                   <div>
                     <label className="mb-3 block font-bold text-sm uppercase tracking-wider text-white">
-                      {t('ai.budget')}
+                      Ваш запрос к ИИ
                     </label>
-                    <input
-                      type="number"
-                      value={budget}
-                      onChange={(e) => setBudget(e.target.value)}
-                      className="w-full border border-white/20 bg-[#12121a] px-6 py-4 font-bold text-2xl text-white outline-none transition-all focus:border-[#00d4ff]"
-                      placeholder="50 000 000"
+                    <textarea
+                      value={promptText}
+                      onChange={(e) => setPromptText(e.target.value)}
+                      className="w-full min-h-[150px] border border-white/20 bg-[#12121a] p-6 text-xl text-white outline-none transition-all placeholder:text-white/20 focus:border-[#00d4ff]"
+                      placeholder="Например: Собери комп для CS2, чтобы было стабильно 200+ ФПС, и уложиться надо примерно в 15 миллионов..."
                     />
-                  </div>
-
-                  <div>
-                    <label className="mb-3 block font-bold text-sm uppercase tracking-wider text-white">
-                      {t('ai.usage')}
-                    </label>
-                    <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-                      {(['gaming', 'streaming', 'work', 'all'] as const).map((option) => (
-                        <button
-                          key={option}
-                          onClick={() => setUsage(option)}
-                          className={`border px-6 py-4 font-bold text-sm uppercase transition-all ${
-                            usage === option
-                              ? 'border-[#00d4ff] bg-[#00d4ff]/10 text-[#00d4ff]'
-                              : 'border-white/20 text-white/60 hover:border-[#00d4ff]/50 hover:text-white'
-                          }`}
-                        >
-                          {t(`ai.usage.${option}`)}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="mb-3 block font-bold text-sm uppercase tracking-wider text-white">
-                      {t('ai.performance')}
-                    </label>
-                    <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-                      {(['entry', 'mid', 'high', 'ultra'] as const).map((level) => (
-                        <button
-                          key={level}
-                          onClick={() => setPerformance(level)}
-                          className={`border px-6 py-4 font-bold text-sm uppercase transition-all ${
-                            performance === level
-                              ? 'border-[#00d4ff] bg-[#00d4ff]/10 text-[#00d4ff]'
-                              : 'border-white/20 text-white/60 hover:border-[#00d4ff]/50 hover:text-white'
-                          }`}
-                        >
-                          {t(`ai.performance.${level}`)}
-                        </button>
-                      ))}
-                    </div>
                   </div>
 
                   <button
                     onClick={handleGenerate}
-                    disabled={isGenerating}
+                    disabled={isGenerating || promptText.trim().length < 5}
                     className="w-full bg-gradient-to-r from-[#00d4ff] to-[#ff0080] px-8 py-5 font-black text-lg uppercase text-white transition-all hover:shadow-[0_0_30px_rgba(0,212,255,0.5)] disabled:opacity-50"
                   >
                     {isGenerating ? (
                       <span className="flex items-center justify-center gap-3">
                         <Cpu className="h-5 w-5 animate-spin" />
-                        ГЕНЕРАЦИЯ...
+                        ИИ ДУМАЕТ...
                       </span>
                     ) : (
                       t('ai.generate')

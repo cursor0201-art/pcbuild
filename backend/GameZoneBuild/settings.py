@@ -195,6 +195,9 @@ TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', os.getenv('CHAT_ID', ''))
 PAYMENT_CARD_NUMBER = os.getenv('PAYMENT_CARD_NUMBER', '')
 PAYMENT_CARD_HOLDER = os.getenv('PAYMENT_CARD_HOLDER', '')
 
+# Gemini API Integration
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
+
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

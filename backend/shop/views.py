@@ -371,3 +371,78 @@ class OrderViewSet(CustomResponseMixin, viewsets.ModelViewSet):
             status='confirmed').aggregate(total=Sum('total_price'))['total'] or 0
         
         return self.custom_response(data=stats)
+
+
+from rest_framework.views import APIView
+import json
+import requests
+
+class AIBuilderView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        prompt_text = request.data.get('prompt', '')
+        if not prompt_text:
+            return Response({'success': False, 'error': 'Prompt is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        gemini_key = getattr(settings, 'GEMINI_API_KEY', None)
+        if not gemini_key:
+            return Response({'success': False, 'error': 'API key not configured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        # 1. Gather all active products to present to the AI
+        products = Product.objects.filter(is_active=True, stock__gt=0)
+        product_list = []
+        for p in products:
+            product_list.append(f"ID: {p.id} | CAT: {p.category.slug} | Name: {p.name} | Price: {p.price} UZS | Specs: {p.specs}")
+
+        products_text = "\n".join(product_list)
+
+        # 2. Build the exact system instructions
+        system_instruction = f"""You are an expert PC builder. The user wants a custom PC build based on this prompt: "{prompt_text}"
+
+Here is the current inventory in the shop:
+{products_text}
+
+Task: Choose EXACTLY 1 component for each major category (cpu, gpu, motherboard, ram, storage, power-supply, case, cooling) to build a compatible and optimal PC fitting the user's prompt. Try to balance the budget gracefully. 
+Rules:
+1. ONLY USE IDs from the inventory list provided.
+2. Return ONLY a valid JSON object map where keys are the category_slug and values are the chosen product ID string. No markdown formatting, no explanations, JUST raw JSON.
+Example output:
+{{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
+
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_key}"
+        payload = {
+            "contents": [{"parts": [{"text": system_instruction}]}],
+            "generationConfig": {"temperature": 0.2}
+        }
+
+        try:
+            r = requests.post(url, headers={'Content-Type': 'application/json'}, json=payload, timeout=15)
+            r_data = r.json()
+            if 'error' in r_data:
+                return Response({'success': False, 'error': f"Gemini Error: {r_data['error'].get('message', 'Unknown')}"})
+            
+            raw_text = r_data['candidates'][0]['content']['parts'][0]['text']
+            
+            # Clean possible markdown format like ```json ... ```
+            raw_text = raw_text.replace("```json", "").replace("```", "").strip()
+            
+            chosen_ids = json.loads(raw_text)
+            
+            # Retrieve components
+            result_map = {}
+            for cat_slug, p_id in chosen_ids.items():
+                try:
+                    product = Product.objects.get(id=p_id)
+                    serializer = ProductSerializer(product, context={'request': request})
+                    # Add pseudo-performance stat for frontend
+                    data = serializer.data
+                    data['performance'] = 85
+                    result_map[cat_slug] = data
+                except Product.DoesNotExist:
+                    continue
+
+            return Response({'success': True, 'data': result_map})
+
+        except Exception as e:
+            return Response({'success': False, 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
