@@ -70,12 +70,12 @@ export function Cart() {
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.1 }}
-                  className="flex gap-6 border border-white/10 bg-[#12121a] p-6 transition-all hover:border-[#00d4ff]/50"
+                  className="flex flex-col sm:flex-row gap-6 border border-white/10 bg-[#12121a] p-4 sm:p-6 transition-all hover:border-[#00d4ff]/50"
                 >
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="h-32 w-40 object-cover"
+                    className="h-48 w-full sm:h-32 sm:w-40 object-cover"
                   />
                   <div className="flex flex-1 flex-col justify-between">
                     <div>

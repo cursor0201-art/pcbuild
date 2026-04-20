@@ -35,10 +35,10 @@ export function Landing() {
               {t('hero.tagline')}
             </motion.div>
 
-            <h1 className="mb-4 font-black text-8xl uppercase leading-none tracking-tighter text-white lg:text-9xl">
+            <h1 className="mb-4 font-black text-6xl md:text-8xl uppercase leading-none tracking-tighter text-white lg:text-9xl">
               {t('hero.title')}
             </h1>
-            <h1 className="mb-12 bg-gradient-to-r from-[#00d4ff] via-[#ff0080] to-[#00ff88] bg-clip-text font-black text-8xl uppercase leading-none tracking-tighter text-transparent lg:text-9xl">
+            <h1 className="mb-12 bg-gradient-to-r from-[#00d4ff] via-[#ff0080] to-[#00ff88] bg-clip-text font-black text-6xl md:text-8xl uppercase leading-none tracking-tighter text-transparent lg:text-9xl">
               {t('hero.subtitle')}
             </h1>
 
@@ -91,7 +91,7 @@ export function Landing() {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-16 font-black text-6xl uppercase tracking-tighter text-white"
+            className="mb-16 font-black text-4xl md:text-6xl uppercase tracking-tighter text-white"
           >
             {t('features.title')}
           </motion.h2>

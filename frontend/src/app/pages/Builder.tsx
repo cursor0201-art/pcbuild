@@ -180,7 +180,7 @@ export function Builder() {
     <div className="min-h-screen bg-[#0a0a0f] pt-20">
       <div className="mx-auto max-w-[1800px] p-6 lg:p-12">
         <div className="mb-8 flex items-center justify-between">
-          <h1 className="font-black text-5xl uppercase tracking-tighter text-white lg:text-6xl">
+          <h1 className="font-black text-4xl md:text-5xl uppercase tracking-tighter text-white lg:text-6xl">
             {t('builder.title')}
           </h1>
           <button
@@ -221,7 +221,7 @@ export function Builder() {
           {/* Component Selection */}
           <div className="space-y-4">
             <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
-              <h2 className="font-black text-3xl uppercase text-white">
+              <h2 className="font-black text-xl md:text-3xl uppercase text-white">
                 {categories.find(c => c.slug === activeCategory)?.name || 'Components'}
               </h2>
               {selectedInCategory && (
