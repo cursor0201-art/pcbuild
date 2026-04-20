@@ -410,16 +410,45 @@ Rules:
 Example output:
 {{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
 
-        # Using gemini-1.5-flash-latest alias and v1beta which is the most compatible endpoint
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={gemini_key}"
-        payload = {
-            "contents": [{"parts": [{"text": system_instruction}]}],
-            "generationConfig": {"temperature": 0.2}
-        }
+        def call_gemini(model_name, api_version='v1beta'):
+            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
+            payload = {
+                "contents": [{"parts": [{"text": system_instruction}]}],
+                "generationConfig": {"temperature": 0.2}
+            }
+            return requests.post(url, headers={'Content-Type': 'application/json'}, json=payload, timeout=25)
 
         try:
-            r = requests.post(url, headers={'Content-Type': 'application/json'}, json=payload, timeout=20)
-            r.raise_for_status()
+            # Try sequence: 1. Flash Latest (Fast/Smart), 2. Flash (Alias), 3. Pro (Stable fallback)
+            models_to_try = [
+                ('gemini-1.5-flash-latest', 'v1beta'),
+                ('gemini-1.5-flash', 'v1'),
+                ('gemini-pro', 'v1beta'),
+            ]
+            
+            last_error = None
+            r = None
+            
+            for model, version in models_to_try:
+                try:
+                    r = call_gemini(model, version)
+                    if r.status_code == 200:
+                        break # Found a working model!
+                    elif r.status_code == 404:
+                        last_error = f"Model {model} ({version}) not found (404)."
+                        continue # Try next one
+                    else:
+                        r.raise_for_status()
+                except Exception as e:
+                    last_error = str(e)
+                    continue
+
+            if not r or r.status_code != 200:
+                return Response({
+                    'success': False, 
+                    'error': f"ИИ недоступен. Последняя ошибка: {last_error or 'Неизвестно'}. Проверьте доступность Gemini в вашем регионе."
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
             r_data = r.json()
             
             if 'error' in r_data:
@@ -427,7 +456,6 @@ Example output:
             
             # Check if we have candidates
             if not r_data.get('candidates') or not r_data['candidates'][0].get('content'):
-                # This usually happens if safety filters block the response
                 reason = r_data.get('promptFeedback', {}).get('blockReason', 'Safety filters or empty response')
                 return Response({'success': False, 'error': f"ИИ не смог сгенерировать ответ. Причина: {reason}"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -439,7 +467,6 @@ Example output:
             try:
                 chosen_ids = json.loads(raw_text)
             except json.JSONDecodeError:
-                # Try to extract JSON if there's other text
                 import re
                 json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
                 if json_match:
@@ -451,14 +478,13 @@ Example output:
             result_map = {}
             for cat_slug, p_id in chosen_ids.items():
                 try:
-                    # Validate p_id is not empty and is a valid UUID string
                     if not p_id or len(str(p_id)) < 30:
                         continue
                         
                     product = Product.objects.get(id=p_id)
                     serializer = ProductSerializer(product, context={'request': request})
                     data = serializer.data
-                    data['performance'] = 85 + (hash(str(p_id)) % 15) # Deterministic pseudo-performance
+                    data['performance'] = 85 + (hash(str(p_id)) % 15)
                     result_map[cat_slug] = data
                 except (Product.DoesNotExist, ValueError, Exception):
                     continue
