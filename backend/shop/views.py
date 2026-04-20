@@ -411,20 +411,22 @@ Example output:
 {{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
 
         def call_gemini(model_name, api_version='v1beta'):
-            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
+            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent"
+            headers = {
+                'Content-Type': 'application/json',
+                'X-goog-api-key': gemini_key
+            }
             payload = {
                 "contents": [{"parts": [{"text": system_instruction}]}],
                 "generationConfig": {"temperature": 0.2}
             }
-            # Shorter timeout per model to prevent total request timeout
-            return requests.post(url, headers={'Content-Type': 'application/json'}, json=payload, timeout=10)
+            return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # Focusing on the most reliable AI Studio aliases
+            # Based on user's quickstart, gemini-flash-latest is the correct ID
             models_to_try = [
-                ('gemini-1.5-flash-latest', 'v1beta'),
+                ('gemini-flash-latest', 'v1beta'),
                 ('gemini-1.5-flash', 'v1beta'),
-                ('gemini-1.5-pro-latest', 'v1beta'),
                 ('gemini-pro', 'v1beta'),
             ]
             
