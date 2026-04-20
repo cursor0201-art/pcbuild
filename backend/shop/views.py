@@ -420,12 +420,12 @@ Example output:
             return requests.post(url, headers={'Content-Type': 'application/json'}, json=payload, timeout=10)
 
         try:
-            # Most precise and up-to-date model names
+            # Focusing on the most reliable AI Studio aliases
             models_to_try = [
-                ('gemini-1.5-flash', 'v1'),
+                ('gemini-1.5-flash-latest', 'v1beta'),
                 ('gemini-1.5-flash', 'v1beta'),
-                ('gemini-1.5-pro', 'v1'),
-                ('gemini-1.0-pro', 'v1'),
+                ('gemini-1.5-pro-latest', 'v1beta'),
+                ('gemini-pro', 'v1beta'),
             ]
             
             last_error = None
