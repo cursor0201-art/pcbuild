@@ -416,10 +416,11 @@ Example output:
                 "contents": [{"parts": [{"text": system_instruction}]}],
                 "generationConfig": {"temperature": 0.2}
             }
-            return requests.post(url, headers={'Content-Type': 'application/json'}, json=payload, timeout=25)
+            # Shorter timeout per model to prevent total request timeout
+            return requests.post(url, headers={'Content-Type': 'application/json'}, json=payload, timeout=10)
 
         try:
-            # Try sequence: 1. Flash Latest (Fast/Smart), 2. Flash (Alias), 3. Pro (Stable fallback)
+            # Sequence of models to try
             models_to_try = [
                 ('gemini-1.5-flash-latest', 'v1beta'),
                 ('gemini-1.5-flash', 'v1'),
@@ -431,23 +432,25 @@ Example output:
             
             for model, version in models_to_try:
                 try:
+                    print(f"AI BUILDER: Trying model {model}...")
                     r = call_gemini(model, version)
                     if r.status_code == 200:
-                        break # Found a working model!
-                    elif r.status_code == 404:
-                        last_error = f"Model {model} ({version}) not found (404)."
-                        continue # Try next one
+                        print(f"AI BUILDER: SUCCESS with {model}")
+                        break 
                     else:
-                        r.raise_for_status()
+                        last_error = f"{model} returned {r.status_code}: {r.text[:100]}"
+                        print(f"AI BUILDER: FAILED {model} -> {r.status_code}")
                 except Exception as e:
                     last_error = str(e)
+                    print(f"AI BUILDER: EXCEPTION with {model} -> {last_error}")
                     continue
 
             if not r or r.status_code != 200:
+                # If all failed, return a 400 instead of 500 to be cleaner
                 return Response({
                     'success': False, 
-                    'error': f"ИИ недоступен. Последняя ошибка: {last_error or 'Неизвестно'}. Проверьте доступность Gemini в вашем регионе."
-                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    'error': f"ИИ недоступен. {last_error}"
+                }, status=status.HTTP_400_BAD_REQUEST)
 
             r_data = r.json()
             
