@@ -431,32 +431,42 @@ Return ONLY a raw JSON object where keys are category slugs and values are produ
             return requests.post(url, headers=headers, json=payload, timeout=60)
 
         try:
-            # Using the confirmed working model
-            model = 'gemini-flash-latest'
-            version = 'v1beta'
+            # Exhaustive list of models from your diagnostic list
+            models_to_try = [
+                ('gemini-2.0-flash-lite', 'v1beta'),
+                ('gemini-flash-latest', 'v1beta'),
+                ('gemini-2.0-flash', 'v1beta'),
+                ('gemini-pro-latest', 'v1beta'),
+            ]
             
             import time
             r = None
             last_error = ""
             
-            # Smart retry for 429
-            for attempt in range(2):
-                print(f"AI BUILDER: Attempt {attempt+1} for {model}...")
-                r = call_gemini(model, version)
-                if r.status_code == 200:
-                    break
-                elif r.status_code == 429:
-                    print("AI BUILDER: Rate limited (429), waiting 2s...")
-                    time.sleep(2)
-                    continue
-                else:
-                    last_error = f"{r.status_code}: {r.text}"
-                    break
+            # Trying different models and retrying on 429/503
+            success = False
+            for model, version in models_to_try:
+                if success: break
+                
+                for attempt in range(2):
+                    print(f"AI BUILDER: Trying {model} (Attempt {attempt+1})...")
+                    r = call_gemini(model, version)
+                    
+                    if r.status_code == 200:
+                        success = True
+                        break
+                    elif r.status_code in [429, 503]:
+                        print(f"AI BUILDER: {model} is busy ({r.status_code}), waiting 1s...")
+                        time.sleep(1)
+                        continue
+                    else:
+                        last_error = f"{model} -> {r.status_code}: {r.text}"
+                        break # Try next model
 
-            if not r or r.status_code != 200:
+            if not success:
                 return Response({
                     'success': False, 
-                    'error': f"ИИ недоступен (429/404). Ошибка: {last_error}"
+                    'error': f"ИИ перегружен. Попробуйте еще раз через 10 секунд. ({last_error})"
                 }, status=status.HTTP_400_BAD_REQUEST)
 
             r_data = r.json()
@@ -481,7 +491,7 @@ Return ONLY a raw JSON object where keys are category slugs and values are produ
                 if match:
                     chosen_ids = json.loads(match.group())
                 else:
-                    return Response({'success': False, 'error': f"Ошибка формата: {raw_text[:50]}"}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({'success': False, 'error': f"Ошибка формата ИИ. Попробуйте еще раз."}, status=status.HTTP_400_BAD_REQUEST)
 
             # Match products
             result_map = {}
