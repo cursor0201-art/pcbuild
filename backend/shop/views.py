@@ -416,44 +416,49 @@ Example output:
                 'Content-Type': 'application/json',
                 'X-goog-api-key': gemini_key
             }
+            # Restoring the full prompt with inventory so AI knows what to pick
+            full_prompt = f"""You are an expert PC builder. Inventory:
+{products_text}
+
+User Request: {prompt_text}
+
+Task: Choose EXACTLY 1 component for each category (cpu, gpu, motherboard, ram, storage, power-supply, case, cooling).
+Return ONLY a raw JSON object where keys are category slugs and values are product IDs from the list above. No markdown!"""
+
             payload = {
-                "contents": [{
-                    "parts": [{
-                        "text": f"User request: {prompt_text}\n\nReturn JSON only with component IDs for this PC build based on stock."
-                    }]
-                }]
+                "contents": [{"parts": [{"text": full_prompt}]}]
             }
             return requests.post(url, headers=headers, json=payload, timeout=60)
 
         try:
-            # Using confirmed models and adding 'lite' for better rate limits
-            models_to_try = [
-                ('gemini-2.0-flash-lite', 'v1beta'),
-                ('gemini-flash-latest', 'v1beta'),
-                ('gemini-2.0-flash', 'v1beta'),
-            ]
+            # Using the confirmed working model
+            model = 'gemini-flash-latest'
+            version = 'v1beta'
             
-            last_error = None
+            import time
             r = None
+            last_error = ""
             
-            for model, version in models_to_try:
-                try:
-                    print(f"AI BUILDER: Trying {model} on {version}...")
-                    r = call_gemini(model, version)
-                    if r.status_code == 200:
-                        break 
-                    else:
-                        last_error = f"{model} ({version}) -> {r.status_code}"
-                except Exception as e:
-                    last_error = str(e)
+            # Smart retry for 429
+            for attempt in range(2):
+                print(f"AI BUILDER: Attempt {attempt+1} for {model}...")
+                r = call_gemini(model, version)
+                if r.status_code == 200:
+                    break
+                elif r.status_code == 429:
+                    print("AI BUILDER: Rate limited (429), waiting 2s...")
+                    time.sleep(2)
                     continue
+                else:
+                    last_error = f"{r.status_code}: {r.text}"
+                    break
 
             if not r or r.status_code != 200:
                 return Response({
                     'success': False, 
-                    'error': f"ИИ недоступен. Ошибка: {last_error}"
+                    'error': f"ИИ недоступен (429/404). Ошибка: {last_error}"
                 }, status=status.HTTP_400_BAD_REQUEST)
-            
+
             r_data = r.json()
             
             if 'error' in r_data:
@@ -461,52 +466,40 @@ Example output:
             
             # Check if we have candidates
             if not r_data.get('candidates') or not r_data['candidates'][0].get('content'):
-                reason = r_data.get('promptFeedback', {}).get('blockReason', 'Safety filters or empty response')
-                return Response({'success': False, 'error': f"ИИ не смог сгенерировать ответ. Причина: {reason}"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'success': False, 'error': "ИИ не смог сгенерировать ответ. Попробуйте другой запрос."}, status=status.HTTP_400_BAD_REQUEST)
 
             raw_text = r_data['candidates'][0]['content']['parts'][0]['text']
-            
-            # Clean possible markdown format
+            # Clean markdown
             raw_text = raw_text.replace("```json", "").replace("```", "").strip()
             
             try:
+                import json
                 chosen_ids = json.loads(raw_text)
-            except json.JSONDecodeError:
+            except Exception:
                 import re
-                json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
-                if json_match:
-                    chosen_ids = json.loads(json_match.group())
+                match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                if match:
+                    chosen_ids = json.loads(match.group())
                 else:
-                    return Response({'success': False, 'error': f"ИИ вернул неверный формат данных: {raw_text[:100]}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            
-            # Retrieve components
+                    return Response({'success': False, 'error': f"Ошибка формата: {raw_text[:50]}"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Match products
             result_map = {}
             for cat_slug, p_id in chosen_ids.items():
                 try:
-                    if not p_id or len(str(p_id)) < 30:
-                        continue
-                        
                     product = Product.objects.get(id=p_id)
                     serializer = ProductSerializer(product, context={'request': request})
                     data = serializer.data
-                    
-                    # Force HTTPS for images
                     if data.get('image') and 'localhost' not in data['image']:
                         data['image'] = data['image'].replace('http://', 'https://')
-                        
-                    data['performance'] = 85 + (hash(str(p_id)) % 15)
                     result_map[cat_slug] = data
-                except (Product.DoesNotExist, ValueError, Exception):
-                    continue
+                except: continue
 
             if not result_map:
-                return Response({'success': False, 'error': "ИИ не подобрал ни одной детали или вернул неверные ID."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'success': False, 'error': "ИИ не нашел подходящих деталей на складе."}, status=status.HTTP_400_BAD_REQUEST)
 
             return Response({'success': True, 'data': result_map})
 
-        except requests.exceptions.Timeout:
-            return Response({'success': False, 'error': "Нейросеть долго не отвечала (Тайм-аут). Попробуйте еще раз через минуту."}, status=status.HTTP_504_GATEWAY_TIMEOUT)
-        except requests.exceptions.RequestException as e:
             return Response({'success': False, 'error': f"Ошибка запроса к ИИ: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             import traceback
