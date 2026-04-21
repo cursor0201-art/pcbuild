@@ -417,7 +417,7 @@ Example output:
             payload = {
                 "contents": [{
                     "parts": [{
-                        "text": f"User request: {prompt}\n\nReturn JSON only with component IDs for this PC build based on stock."
+                        "text": f"User request: {user_prompt}\n\nReturn JSON only with component IDs for this PC build based on stock."
                     }]
                 }]
             }
