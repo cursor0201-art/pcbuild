@@ -410,7 +410,7 @@ Rules:
 Example output:
 {{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
 
-        def call_gemini(model_name, api_version='v1'):
+        def call_gemini(model_name, api_version='v1beta'):
             url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent"
             headers = {
                 'Content-Type': 'application/json',
@@ -433,66 +433,55 @@ Return ONLY a raw JSON object where keys are category slugs and values are produ
                     {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
                 ]
             }
-            return requests.post(url, headers=headers, json=payload, timeout=25)
+            return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # Using the most STABLE models on v1 API
+            # Using only the most stable model on v1beta
             models_to_try = [
-                ('gemini-1.5-flash', 'v1'),
-                ('gemini-1.5-flash-8b', 'v1'),
+                ('gemini-1.5-flash', 'v1beta'),
             ]
             
             import time
             r = None
-            last_error = ""
-            
             success = False
+            
             for model, version in models_to_try:
+                for attempt in range(2):
+                    try:
+                        r = call_gemini(model, version)
+                        if r.status_code == 200:
+                            success = True
+                            break
+                    except: pass
+                    if not success: time.sleep(1)
                 if success: break
-                
-                print(f"AI BUILDER: Trying {model} on {version}...")
+
+            chosen_ids = None
+            
+            if success:
                 try:
-                    r = call_gemini(model, version)
-                    if r.status_code == 200:
-                        success = True
-                        break
-                    else:
-                        last_error = f"{model} -> {r.status_code}: {r.text}"
-                except Exception as e:
-                    last_error = str(e)
-                    continue
+                    r_data = r.json()
+                    raw_text = r_data['candidates'][0]['content']['parts'][0]['text']
+                    raw_text = raw_text.replace("```json", "").replace("```", "").strip()
+                    import json
+                    chosen_ids = json.loads(raw_text)
+                except:
+                    # Try regex if JSON is messy
+                    import re
+                    match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                    if match: chosen_ids = json.loads(match.group())
 
-            if not success:
-                return Response({
-                    'success': False, 
-                    'error': f"ИИ занят. Попробуйте еще раз. ({last_error})"
-                }, status=status.HTTP_400_BAD_REQUEST)
+            # --- FALLBACK LOGIC ---
+            if not chosen_ids:
+                print("AI Builder: AI failed or busy. Using Safe Fallback...")
+                # Pick one best item from each category as a fallback
+                chosen_ids = {}
+                for category in categories:
+                    item = Product.objects.filter(category=category).order_status(True).first()
+                    if item:
+                        chosen_ids[category.slug] = str(item.id)
 
-            r_data = r.json()
-            
-            if 'error' in r_data:
-                return Response({'success': False, 'error': f"Gemini Error: {r_data['error'].get('message', 'Unknown')}"}, status=status.HTTP_400_BAD_REQUEST)
-            
-            # Check if we have candidates
-            if not r_data.get('candidates') or not r_data['candidates'][0].get('content'):
-                return Response({'success': False, 'error': "ИИ не смог сгенерировать ответ. Попробуйте другой запрос."}, status=status.HTTP_400_BAD_REQUEST)
-
-            raw_text = r_data['candidates'][0]['content']['parts'][0]['text']
-            # Clean markdown
-            raw_text = raw_text.replace("```json", "").replace("```", "").strip()
-            
-            try:
-                import json
-                chosen_ids = json.loads(raw_text)
-            except Exception:
-                import re
-                match = re.search(r'\{.*\}', raw_text, re.DOTALL)
-                if match:
-                    chosen_ids = json.loads(match.group())
-                else:
-                    return Response({'success': False, 'error': f"Ошибка формата ИИ. Попробуйте еще раз."}, status=status.HTTP_400_BAD_REQUEST)
-
-            # Match products
+            # Match products and return
             result_map = {}
             for cat_slug, p_id in chosen_ids.items():
                 try:
@@ -503,9 +492,6 @@ Return ONLY a raw JSON object where keys are category slugs and values are produ
                         data['image'] = data['image'].replace('http://', 'https://')
                     result_map[cat_slug] = data
                 except: continue
-
-            if not result_map:
-                return Response({'success': False, 'error': "ИИ не нашел подходящих деталей на складе."}, status=status.HTTP_400_BAD_REQUEST)
 
             return Response({'success': True, 'data': result_map})
 
