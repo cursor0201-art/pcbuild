@@ -484,17 +484,26 @@ Return ONLY a raw JSON object where keys are category slugs and values are produ
 
             # Match products and return
             result_map = {}
+            total_price = 0
             for cat_slug, p_id in chosen_ids.items():
                 try:
                     product = Product.objects.get(id=p_id)
                     serializer = ProductSerializer(product, context={'request': request})
                     data = serializer.data
+                    
+                    price = float(product.price)
+                    total_price += price
+                    
                     if data.get('image') and 'localhost' not in data['image']:
                         data['image'] = data['image'].replace('http://', 'https://')
                     result_map[cat_slug] = data
                 except: continue
 
-            return Response({'success': True, 'data': result_map})
+            return Response({
+                'success': True, 
+                'data': result_map,
+                'total_price': total_price
+            })
 
             return Response({'success': False, 'error': f"Ошибка запроса к ИИ: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
