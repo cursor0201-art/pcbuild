@@ -421,13 +421,13 @@ Example output:
                     }]
                 }]
             }
-            return requests.post(url, headers=headers, json=payload, timeout=20)
+            # Increased timeout to 60s for stability
+            return requests.post(url, headers=headers, json=payload, timeout=60)
 
         try:
-            # Using the absolute best candidates from your diagnostic list
+            # Focusing on the most likely working model
             models_to_try = [
                 ('gemini-2.0-flash', 'v1beta'),
-                ('gemini-flash-latest', 'v1beta'),
             ]
             
             last_error = None
