@@ -207,5 +207,5 @@ CORS_ALLOWED_ORIGINS = [
     "https://pcbuild-e14.pages.dev",
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = False  # Set to True in development if needed
