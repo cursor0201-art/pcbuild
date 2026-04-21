@@ -417,15 +417,14 @@ Example output:
                 "contents": [{"parts": [{"text": system_instruction}]}],
                 "generationConfig": {"temperature": 0.2}
             }
-            return requests.post(url, headers=headers, json=payload, timeout=15)
+            # Faster timeout to avoid total request timeout
+            return requests.post(url, headers=headers, json=payload, timeout=8)
 
         try:
-            # The most comprehensive fallback list possible
+            # Optimized list for speed and reliability
             models_to_try = [
                 ('gemini-1.5-flash', 'v1'),
                 ('gemini-1.5-flash', 'v1beta'),
-                ('gemini-1.5-pro', 'v1'),
-                ('gemini-1.0-pro', 'v1'),
                 ('gemini-pro', 'v1beta'),
             ]
             
