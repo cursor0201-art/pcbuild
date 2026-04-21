@@ -410,30 +410,36 @@ Rules:
 Example output:
 {{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
 
-        def call_gemini(model_name):
-            url = f"https://generativelanguage.googleapis.com/v1/models/{model_name}:generateContent?key={gemini_key}"
+        def call_gemini(model_name, api_version='v1'):
+            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
             headers = {'Content-Type': 'application/json'}
             payload = {
                 "contents": [{"parts": [{"text": system_instruction}]}],
                 "generationConfig": {"temperature": 0.2}
             }
-            return requests.post(url, headers=headers, json=payload, timeout=25)
+            return requests.post(url, headers=headers, json=payload, timeout=15)
 
         try:
-            # Using the most standard stable model and endpoint
-            models_to_try = ['gemini-1.5-flash', 'gemini-pro']
+            # The most comprehensive fallback list possible
+            models_to_try = [
+                ('gemini-1.5-flash', 'v1'),
+                ('gemini-1.5-flash', 'v1beta'),
+                ('gemini-1.5-pro', 'v1'),
+                ('gemini-1.0-pro', 'v1'),
+                ('gemini-pro', 'v1beta'),
+            ]
             
             last_error = None
             r = None
             
-            for model in models_to_try:
+            for model, version in models_to_try:
                 try:
-                    print(f"AI BUILDER: Trying {model} on v1...")
-                    r = call_gemini(model)
+                    print(f"AI BUILDER: Trying {model} on {version}...")
+                    r = call_gemini(model, version)
                     if r.status_code == 200:
                         break 
                     else:
-                        last_error = f"{model} (v1) -> {r.status_code}: {r.text}"
+                        last_error = f"{model} ({version}) -> {r.status_code}: {r.text}"
                 except Exception as e:
                     last_error = str(e)
                     continue
