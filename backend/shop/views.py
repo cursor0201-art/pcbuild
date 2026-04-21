@@ -411,9 +411,11 @@ Example output:
 {{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
 
         def call_gemini(model_name, api_version='v1beta'):
-            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
-            headers = {'Content-Type': 'application/json'}
-            # Extremely simple payload to test connectivity
+            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent"
+            headers = {
+                'Content-Type': 'application/json',
+                'X-goog-api-key': gemini_key
+            }
             payload = {
                 "contents": [{
                     "parts": [{
@@ -421,12 +423,12 @@ Example output:
                     }]
                 }]
             }
-            # Increased timeout to 60s for stability
             return requests.post(url, headers=headers, json=payload, timeout=60)
 
         try:
-            # Focusing on the most likely working model
+            # Using the confirmed working model from cURL
             models_to_try = [
+                ('gemini-flash-latest', 'v1beta'),
                 ('gemini-2.0-flash', 'v1beta'),
             ]
             
