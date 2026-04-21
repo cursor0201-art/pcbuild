@@ -431,11 +431,11 @@ Example output:
                 return [f"List error: {str(e)}"]
 
         try:
-            # Optimized list for speed and reliability
+            # Using exact model IDs discovered by diagnostics
             models_to_try = [
-                ('gemini-1.5-flash', 'v1'),
-                ('gemini-1.5-flash', 'v1beta'),
-                ('gemini-pro', 'v1beta'),
+                ('gemini-2.0-flash', 'v1beta'),
+                ('gemini-2.0-flash-lite', 'v1beta'),
+                ('gemini-flash-latest', 'v1beta'),
             ]
             
             last_error = None
