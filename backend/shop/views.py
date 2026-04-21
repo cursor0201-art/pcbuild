@@ -417,8 +417,18 @@ Example output:
                 "contents": [{"parts": [{"text": system_instruction}]}],
                 "generationConfig": {"temperature": 0.2}
             }
-            # Faster timeout to avoid total request timeout
             return requests.post(url, headers=headers, json=payload, timeout=8)
+
+        def list_available_models():
+            try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models?key={gemini_key}"
+                r = requests.get(url, timeout=5)
+                if r.status_code == 200:
+                    models = r.json().get('models', [])
+                    return [m.get('name') for m in models]
+                return [f"Error listing: {r.status_code}"]
+            except Exception as e:
+                return [f"List error: {str(e)}"]
 
         try:
             # Optimized list for speed and reliability
@@ -438,15 +448,16 @@ Example output:
                     if r.status_code == 200:
                         break 
                     else:
-                        last_error = f"{model} ({version}) -> {r.status_code}: {r.text}"
+                        last_error = f"{model} ({version}) -> {r.status_code}"
                 except Exception as e:
                     last_error = str(e)
                     continue
 
             if not r or r.status_code != 200:
+                available = list_available_models()
                 return Response({
                     'success': False, 
-                    'error': f"ИИ недоступен. {last_error}"
+                    'error': f"ИИ недоступен. Доступные модели: {available}. Ошибка: {last_error}"
                 }, status=status.HTTP_400_BAD_REQUEST)
             
             r_data = r.json()
