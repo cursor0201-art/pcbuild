@@ -410,31 +410,23 @@ Rules:
 Example output:
 {{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
 
-        def call_gemini(model_name, api_version='v1'):
+        def call_gemini(model_name, api_version='v1beta'):
             url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
             headers = {'Content-Type': 'application/json'}
+            # Extremely simple payload to test connectivity
             payload = {
-                "contents": [{"parts": [{"text": system_instruction}]}],
-                "generationConfig": {"temperature": 0.2}
+                "contents": [{
+                    "parts": [{
+                        "text": f"User request: {prompt}\n\nReturn JSON only with component IDs for this PC build based on stock."
+                    }]
+                }]
             }
-            return requests.post(url, headers=headers, json=payload, timeout=8)
-
-        def list_available_models():
-            try:
-                url = f"https://generativelanguage.googleapis.com/v1beta/models?key={gemini_key}"
-                r = requests.get(url, timeout=5)
-                if r.status_code == 200:
-                    models = r.json().get('models', [])
-                    return [m.get('name') for m in models]
-                return [f"Error listing: {r.status_code}"]
-            except Exception as e:
-                return [f"List error: {str(e)}"]
+            return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # Using exact model IDs discovered by diagnostics
+            # Using the absolute best candidates from your diagnostic list
             models_to_try = [
                 ('gemini-2.0-flash', 'v1beta'),
-                ('gemini-2.0-flash-lite', 'v1beta'),
                 ('gemini-flash-latest', 'v1beta'),
             ]
             
