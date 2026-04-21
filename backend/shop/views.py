@@ -446,10 +446,9 @@ Example output:
                     continue
 
             if not r or r.status_code != 200:
-                available = list_available_models()
                 return Response({
                     'success': False, 
-                    'error': f"ИИ недоступен. Доступные модели: {available}. Ошибка: {last_error}"
+                    'error': f"ИИ недоступен. Ошибка: {last_error}"
                 }, status=status.HTTP_400_BAD_REQUEST)
             
             r_data = r.json()
