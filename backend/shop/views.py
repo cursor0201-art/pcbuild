@@ -410,13 +410,12 @@ Rules:
 Example output:
 {{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
 
-        def call_gemini(model_name, api_version='v1beta'):
+        def call_gemini(model_name, api_version='v1'):
             url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent"
             headers = {
                 'Content-Type': 'application/json',
                 'X-goog-api-key': gemini_key
             }
-            # Restoring the full prompt with inventory so AI knows what to pick
             full_prompt = f"""You are an expert PC builder. Inventory:
 {products_text}
 
@@ -426,42 +425,47 @@ Task: Choose EXACTLY 1 component for each category (cpu, gpu, motherboard, ram, 
 Return ONLY a raw JSON object where keys are category slugs and values are product IDs from the list above. No markdown!"""
 
             payload = {
-                "contents": [{"parts": [{"text": full_prompt}]}]
+                "contents": [{"parts": [{"text": full_prompt}]}],
+                "safetySettings": [
+                    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+                    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+                    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+                    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
+                ]
             }
-            # Reduced timeout to 25s to avoid Gunicorn timeouts
             return requests.post(url, headers=headers, json=payload, timeout=25)
 
         try:
-            # Optimized list of models
+            # Using the most STABLE models on v1 API
             models_to_try = [
-                ('gemini-2.0-flash-lite', 'v1beta'),
-                ('gemini-flash-latest', 'v1beta'),
+                ('gemini-1.5-flash', 'v1'),
+                ('gemini-1.5-flash-8b', 'v1'),
             ]
             
             import time
             r = None
             last_error = ""
             
-            # Limited retries to stay under 30s total
             success = False
             for model, version in models_to_try:
                 if success: break
                 
-                print(f"AI BUILDER: Trying {model}...")
+                print(f"AI BUILDER: Trying {model} on {version}...")
                 try:
                     r = call_gemini(model, version)
                     if r.status_code == 200:
                         success = True
                         break
                     else:
-                        last_error = f"{model} -> {r.status_code}"
-                except:
+                        last_error = f"{model} -> {r.status_code}: {r.text}"
+                except Exception as e:
+                    last_error = str(e)
                     continue
 
             if not success:
                 return Response({
                     'success': False, 
-                    'error': f"ИИ перегружен. Попробуйте еще раз. ({last_error})"
+                    'error': f"ИИ занят. Попробуйте еще раз. ({last_error})"
                 }, status=status.HTTP_400_BAD_REQUEST)
 
             r_data = r.json()
