@@ -410,50 +410,40 @@ Rules:
 Example output:
 {{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
 
-        def call_gemini(model_name, api_version='v1beta'):
-            # The most basic and reliable URL format
-            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
+        def call_gemini(model_name):
+            url = f"https://generativelanguage.googleapis.com/v1/models/{model_name}:generateContent?key={gemini_key}"
             headers = {'Content-Type': 'application/json'}
             payload = {
                 "contents": [{"parts": [{"text": system_instruction}]}],
                 "generationConfig": {"temperature": 0.2}
             }
-            return requests.post(url, headers=headers, json=payload, timeout=20)
+            return requests.post(url, headers=headers, json=payload, timeout=25)
 
         try:
-            # Trying all possible variations of model IDs
-            models_to_try = [
-                ('gemini-1.5-flash-8b', 'v1beta'),
-                ('gemini-1.5-flash', 'v1beta'),
-                ('gemini-flash-latest', 'v1beta'),
-                ('gemini-pro', 'v1beta'),
-            ]
+            # Using the most standard stable model and endpoint
+            models_to_try = ['gemini-1.5-flash', 'gemini-pro']
             
             last_error = None
             r = None
             
-            for model, version in models_to_try:
+            for model in models_to_try:
                 try:
-                    print(f"AI BUILDER: Trying model {model}...")
-                    r = call_gemini(model, version)
+                    print(f"AI BUILDER: Trying {model} on v1...")
+                    r = call_gemini(model)
                     if r.status_code == 200:
-                        print(f"AI BUILDER: SUCCESS with {model}")
                         break 
                     else:
-                        last_error = f"{model} ({version}) returned {r.status_code}: {r.text}"
-                        print(f"AI BUILDER: FAILED {model} -> {r.status_code}")
+                        last_error = f"{model} (v1) -> {r.status_code}: {r.text}"
                 except Exception as e:
                     last_error = str(e)
-                    print(f"AI BUILDER: EXCEPTION with {model} -> {last_error}")
                     continue
 
             if not r or r.status_code != 200:
-                # If all failed, return a 400 instead of 500 to be cleaner
                 return Response({
                     'success': False, 
                     'error': f"ИИ недоступен. {last_error}"
                 }, status=status.HTTP_400_BAD_REQUEST)
-
+            
             r_data = r.json()
             
             if 'error' in r_data:
