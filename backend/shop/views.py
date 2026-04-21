@@ -474,9 +474,10 @@ Return ONLY a raw JSON object where keys are category slugs and values are produ
             # --- FALLBACK LOGIC ---
             if not chosen_ids:
                 print("AI Builder: AI failed or busy. Using Safe Fallback...")
+                from shop.models import Category
                 # Pick one best item from each category as a fallback
                 chosen_ids = {}
-                for category in all_categories:
+                for category in Category.objects.all():
                     item = Product.objects.filter(category=category).first()
                     if item:
                         chosen_ids[category.slug] = str(item.id)
