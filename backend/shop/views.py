@@ -426,8 +426,9 @@ Example output:
             return requests.post(url, headers=headers, json=payload, timeout=60)
 
         try:
-            # Using the confirmed working model from cURL
+            # Using confirmed models and adding 'lite' for better rate limits
             models_to_try = [
+                ('gemini-2.0-flash-lite', 'v1beta'),
                 ('gemini-flash-latest', 'v1beta'),
                 ('gemini-2.0-flash', 'v1beta'),
             ]
@@ -488,6 +489,11 @@ Example output:
                     product = Product.objects.get(id=p_id)
                     serializer = ProductSerializer(product, context={'request': request})
                     data = serializer.data
+                    
+                    # Force HTTPS for images
+                    if data.get('image') and 'localhost' not in data['image']:
+                        data['image'] = data['image'].replace('http://', 'https://')
+                        
                     data['performance'] = 85 + (hash(str(p_id)) % 15)
                     result_map[cat_slug] = data
                 except (Product.DoesNotExist, ValueError, Exception):
