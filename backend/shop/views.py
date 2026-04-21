@@ -428,45 +428,40 @@ Return ONLY a raw JSON object where keys are category slugs and values are produ
             payload = {
                 "contents": [{"parts": [{"text": full_prompt}]}]
             }
-            return requests.post(url, headers=headers, json=payload, timeout=60)
+            # Reduced timeout to 25s to avoid Gunicorn timeouts
+            return requests.post(url, headers=headers, json=payload, timeout=25)
 
         try:
-            # Exhaustive list of models from your diagnostic list
+            # Optimized list of models
             models_to_try = [
                 ('gemini-2.0-flash-lite', 'v1beta'),
                 ('gemini-flash-latest', 'v1beta'),
-                ('gemini-2.0-flash', 'v1beta'),
-                ('gemini-pro-latest', 'v1beta'),
             ]
             
             import time
             r = None
             last_error = ""
             
-            # Trying different models and retrying on 429/503
+            # Limited retries to stay under 30s total
             success = False
             for model, version in models_to_try:
                 if success: break
                 
-                for attempt in range(2):
-                    print(f"AI BUILDER: Trying {model} (Attempt {attempt+1})...")
+                print(f"AI BUILDER: Trying {model}...")
+                try:
                     r = call_gemini(model, version)
-                    
                     if r.status_code == 200:
                         success = True
                         break
-                    elif r.status_code in [429, 503]:
-                        print(f"AI BUILDER: {model} is busy ({r.status_code}), waiting 1s...")
-                        time.sleep(1)
-                        continue
                     else:
-                        last_error = f"{model} -> {r.status_code}: {r.text}"
-                        break # Try next model
+                        last_error = f"{model} -> {r.status_code}"
+                except:
+                    continue
 
             if not success:
                 return Response({
                     'success': False, 
-                    'error': f"ИИ перегружен. Попробуйте еще раз через 10 секунд. ({last_error})"
+                    'error': f"ИИ перегружен. Попробуйте еще раз. ({last_error})"
                 }, status=status.HTTP_400_BAD_REQUEST)
 
             r_data = r.json()
