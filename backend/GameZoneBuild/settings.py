@@ -88,31 +88,15 @@ WSGI_APPLICATION = 'GameZoneBuild.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# Check if PostgreSQL is configured
-db_name = os.getenv('DB_NAME')
-db_user = os.getenv('DB_USER')
-db_password = os.getenv('DB_PASSWORD')
+import dj_database_url
 
-if db_name and db_user and db_password:
-    # Use PostgreSQL if configured
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': db_name,
-            'USER': db_user,
-            'PASSWORD': db_password,
-            'HOST': os.getenv('DB_HOST', 'localhost'),
-            'PORT': os.getenv('DB_PORT', '5432'),
-        }
-    }
-else:
-    # Use SQLite for development
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+}
 
 
 # Password validation
