@@ -32,20 +32,15 @@ class CustomResponseMixin:
     """Mixin to provide custom response format"""
     
     def custom_response(self, data=None, error=None, status_code=status.HTTP_200_OK):
-        if error:
-            return Response({
-                'success': False,
-                'data': None,
-                'error': error
-            }, status=status_code)
         return Response({
-            'success': True,
+            'success': error is None,
             'data': data,
-            'error': None
+            'error': error
         }, status=status_code)
 
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
+        # If response is already paginated, response.data will have 'results'
         return self.custom_response(data=response.data)
 
     def retrieve(self, request, *args, **kwargs):

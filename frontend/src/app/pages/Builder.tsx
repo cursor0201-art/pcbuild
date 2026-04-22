@@ -59,16 +59,21 @@ export function Builder() {
         // Try apiService
         try {
           const response = await apiService.getCategories();
-          console.log('API Service Response:', response);
+          console.log('DEBUG: Full Category Response:', response);
           console.log('API Service data type:', typeof response.data);
           
           if (response.success && response.data) {
-            // Handle paginated response: {success: true, data: {count: 2, results: [...]}}
-            const responseData = response.data as any;
-            if (responseData.results && Array.isArray(responseData.results)) {
-              categoriesArray = responseData.results;
-            } else if (Array.isArray(response.data)) {
+            // Check for paginated structure: data.results
+            if (response.data.results && Array.isArray(response.data.results)) {
+              categoriesArray = response.data.results;
+            } 
+            // Check for direct array structure: data
+            else if (Array.isArray(response.data)) {
               categoriesArray = response.data;
+            }
+            // Check if response itself is the array (fallback)
+            else if (Array.isArray(response)) {
+              categoriesArray = response;
             }
           }
         } catch (apiError) {
