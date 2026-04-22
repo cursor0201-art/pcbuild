@@ -438,13 +438,23 @@ Example output:
                 'Content-Type': 'application/json',
                 'X-goog-api-key': gemini_key
             }
-            full_prompt = f"""You are an expert PC builder. Inventory:
-{products_text}
+            # Get current categories to inform AI
+            from shop.models import Category
+            categories = Category.objects.all()
+            category_list = ", ".join([f"{c.name} (slug: {c.slug})" for c in categories])
 
-User Request: {prompt_text}
-
-Task: Choose EXACTLY 1 component for each category (cpu, gpu, motherboard, ram, storage, power-supply, case, cooling).
-Return ONLY a raw JSON object where keys are category slugs and values are product IDs from the list above. No markdown!"""
+            full_prompt = f"""
+            You are a PC building expert. Your task is to recommend a build based on the user's request: "{prompt_text}"
+            
+            Available categories in our store: {category_list}
+            
+            Rules:
+            1. Pick exactly ONE product for each relevant category.
+            2. Use the EXACT slug provided for each category as the key in your JSON response.
+            3. For each product, provide: id, name, brand, price (as a number), specs (as a list), image_url, category_slug, and category_name.
+            4. If a category is missing products, pick a generic high-quality one but keep the format.
+            5. Return ONLY a valid JSON object where keys are category slugs.
+            """
 
             payload = {
                 "contents": [{"parts": [{"text": full_prompt}]}],
