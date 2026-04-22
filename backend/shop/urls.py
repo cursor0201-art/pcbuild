@@ -1,6 +1,4 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import CategoryViewSet, ProductViewSet, OrderViewSet, AIBuilderView
+from .views import CategoryViewSet, ProductViewSet, OrderViewSet, AIBuilderView, ping_view
 
 # Create a router and register our viewsets with it
 router = DefaultRouter()
@@ -12,4 +10,5 @@ router.register(r'orders', OrderViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('ai-build/', AIBuilderView.as_view(), name='ai-build'),
+    path('ping/', ping_view, name='ping'),
 ]

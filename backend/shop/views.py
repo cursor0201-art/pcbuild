@@ -4,10 +4,21 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from django.conf import settings
 
 from .models import Category, Product, Order
+
+@csrf_exempt
+def ping_view(request):
+    response = JsonResponse({"status": "ok", "message": "Backend is alive!"})
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    response["Access-Control-Allow-Headers"] = "*"
+    return response
+
 from .serializers import (
     CategorySerializer, CategoryCreateUpdateSerializer,
     ProductSerializer, ProductCreateUpdateSerializer,
