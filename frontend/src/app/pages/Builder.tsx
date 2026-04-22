@@ -388,22 +388,44 @@ export function Builder() {
         isOpen={showAIModal}
         onClose={() => setShowAIModal(false)}
         onBuildGenerated={(components) => {
-          // Convert dynamic components to the expected format
+          console.log('AI Builder: Received components:', components);
+          
           const convertedComponents: Record<string, DynamicComponent> = {};
-          Object.values(components).forEach((comp: any) => {
-            convertedComponents[comp.category_slug] = comp;
+          
+          Object.entries(components).forEach(([slug, comp]: [string, any]) => {
+            // Ensure data follows DynamicComponent interface
+            const dynamicComp: DynamicComponent = {
+              id: comp.id,
+              name: comp.name,
+              brand: comp.brand,
+              // Specs can be string or array from backend, ensure array of strings
+              specs: Array.isArray(comp.specs) 
+                ? comp.specs.map((s: any) => String(s))
+                : typeof comp.specs === 'object' 
+                  ? Object.values(comp.specs).map((s: any) => String(s))
+                  : [String(comp.specs)],
+              price: typeof comp.price === 'string' ? parseFloat(comp.price) : comp.price,
+              // Backend sends image_url, Builder expects image
+              image: comp.image_url || comp.image || 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400&h=300&fit=crop',
+              category_slug: comp.category_slug || slug,
+              category_name: comp.category_name || slug,
+              performance: comp.performance || (85 + Math.random() * 15),
+              formatted_price: comp.formatted_price
+            };
+            convertedComponents[dynamicComp.category_slug] = dynamicComp;
           });
+          
+          console.log('AI Builder: Converted selection:', convertedComponents);
           
           // Save to localStorage for cart
           const cartItems = Object.values(convertedComponents);
           localStorage.setItem('pcbuilder-cart', JSON.stringify(cartItems));
           
-          // Debug: Check if items are saved
-          console.log('AI Builder: Saved to localStorage:', cartItems);
-          console.log('AI Builder: localStorage now contains:', localStorage.getItem('pcbuilder-cart'));
-          
           setSelectedComponents(convertedComponents);
           setShowAIModal(false);
+          
+          // Optionally notify user
+          console.log('AI Builder: Selection applied and saved to cart');
         }}
       />
 
