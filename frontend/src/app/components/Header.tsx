@@ -16,13 +16,22 @@ export function Header() {
       className="fixed top-0 left-0 right-0 z-50 border-b border-[#00d4ff]/20 bg-[#0a0a0f]/95 backdrop-blur-xl"
     >
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-4 lg:px-12">
-        <Link to="/" className="group flex items-center shrink-0">
-          <div className="relative h-16 w-32 overflow-hidden transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(255,0,0,0.5)]">
+        <Link to="/" className="group flex items-center gap-3 shrink-0">
+          <div className="relative h-14 w-14 overflow-hidden rounded-xl border border-[#00d4ff]/20 bg-black/40 p-1 transition-all duration-300 group-hover:border-[#00d4ff] group-hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]">
             <img 
-              src="/favicon.png" 
+              src="/favicon.png?v=2" 
               alt="GameZoneBuild" 
-              className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105" 
+              className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-110" 
             />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#00d4ff]/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+          </div>
+          <div className="hidden sm:block">
+            <div className="font-black text-2xl uppercase tracking-tighter text-white leading-none">
+              GameZone
+            </div>
+            <div className="font-black text-xs uppercase tracking-widest text-[#00d4ff]">
+              Build
+            </div>
           </div>
         </Link>
 
