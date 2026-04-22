@@ -444,21 +444,36 @@ Example output:
                 'Content-Type': 'application/json',
                 'X-goog-api-key': gemini_key
             }
-            # Get current categories to inform AI
-            from shop.models import Category
+            # Get current categories and a sample of products to inform AI
+            from shop.models import Category, Product
+            import random
+            
             categories = Category.objects.all()
+            inventory_samples = []
+            for cat in categories:
+                # Get up to 5 random products for each category to provide variety
+                products = list(Product.objects.filter(category=cat, is_active=True, stock__gt=0))
+                if products:
+                    sample = random.sample(products, min(len(products), 5))
+                    for p in sample:
+                        inventory_samples.append(f"- {p.name} (ID: {p.id}, Price: {p.price}, Category: {cat.slug})")
+            
+            inventory_text = "\n".join(inventory_samples)
             category_list = ", ".join([f"{c.name} (slug: {c.slug})" for c in categories])
 
             full_prompt = f"""
             You are a PC building expert. Your task is to recommend a build based on the user's request: "{prompt_text}"
             
-            Available categories in our store: {category_list}
+            REAL INVENTORY IN OUR STORE:
+            {inventory_text}
+            
+            Available categories: {category_list}
             
             Rules:
-            1. Pick exactly ONE product for each relevant category.
-            2. Use the EXACT slug provided for each category as the key in your JSON response.
-            3. For each product, provide: id, name, brand, price (as a number), specs (as a list), image_url, category_slug, and category_name.
-            4. If a category is missing products, pick a generic high-quality one but keep the format.
+            1. Pick exactly ONE product for each relevant category from the REAL INVENTORY list above.
+            2. If you find multiple suitable parts, pick them randomly to ensure variety across different requests.
+            3. Use the EXACT slug provided for each category as the key in your JSON response.
+            4. For each product, provide: id, name, brand, price (as a number), specs (as a list), image_url, category_slug, and category_name.
             5. Return ONLY a valid JSON object where keys are category slugs.
             """
 
