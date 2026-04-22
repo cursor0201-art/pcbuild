@@ -85,13 +85,19 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
     loadData();
   }, []);
 
+  const [backendTotal, setBackendTotal] = useState<number | null>(null);
+
   const handleGenerate = async () => {
     setIsGenerating(true);
+    setBackendTotal(null);
 
     try {
       const response = await apiService.generateAIBuild(promptText);
       if (response.success && response.data) {
         setGeneratedBuild(response.data);
+        if (response.total_price) {
+          setBackendTotal(response.total_price);
+        }
       } else {
         alert("Ошибка ИИ: " + (response.error || "Не удалось подобрать сборку"));
       }
@@ -111,9 +117,13 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
     onClose();
   };
 
-  const total = generatedBuild
-    ? Object.values(generatedBuild).reduce((sum, comp) => sum + comp.price, 0)
-    : 0;
+  // Robust total calculation
+  const total = backendTotal || (generatedBuild
+    ? Object.values(generatedBuild).reduce((sum, comp) => {
+        const p = typeof comp.price === 'string' ? parseFloat(comp.price) : comp.price;
+        return sum + (p || 0);
+      }, 0)
+    : 0);
 
   return (
     <AnimatePresence>

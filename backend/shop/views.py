@@ -493,6 +493,7 @@ Return ONLY a raw JSON object where keys are category slugs and values are produ
                     
                     price = float(product.price)
                     total_price += price
+                    data['price'] = price
                     
                     if data.get('image') and 'localhost' not in data['image']:
                         data['image'] = data['image'].replace('http://', 'https://')
