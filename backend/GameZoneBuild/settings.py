@@ -28,10 +28,15 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'test123')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '.koyeb.app,localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = ['*']
 
 # CSRF Trusted Origins for production
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://*.koyeb.app,http://localhost:3000,http://127.0.0.1:3000').split(',')
+CSRF_TRUSTED_ORIGINS = [
+    "https://pcbuild-e14.pages.dev",
+    "https://*.koyeb.app",
+    "http://localhost:3000",
+    "http://localhost:5173",
+]
 
 
 # Application definition
