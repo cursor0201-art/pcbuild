@@ -392,8 +392,27 @@ export function Builder() {
           
           const convertedComponents: Record<string, DynamicComponent> = {};
           
+          // Helper to find the best matching category slug from our current categories state
+          const findBestCategorySlug = (aiSlug: string, comp: any) => {
+             // 1. Try direct match with AI slug
+             if (categories.some(c => c.slug === aiSlug)) return aiSlug;
+             // 2. Try match with component's own category_slug
+             if (comp.category_slug && categories.some(c => c.slug === comp.category_slug)) return comp.category_slug;
+             // 3. Try to find by name similarity (e.g. "Processor" in "CPU")
+             const aiName = (comp.category_name || aiSlug).toLowerCase();
+             const match = categories.find(c => 
+               c.name.toLowerCase().includes(aiName) || 
+               aiName.includes(c.name.toLowerCase()) ||
+               c.slug.includes(aiSlug) ||
+               aiSlug.includes(c.slug)
+             );
+             return match ? match.slug : aiSlug;
+          };
+
           Object.entries(components).forEach(([slug, comp]: [string, any]) => {
-            // Ensure data follows DynamicComponent interface
+            const targetSlug = findBestCategorySlug(slug, comp);
+            console.log(`Matching AI component for "${slug}" to actual category "${targetSlug}"`);
+
             const dynamicComp: DynamicComponent = {
               id: String(comp.id || Math.random().toString(36).substr(2, 9)),
               name: comp.name || 'Unknown Component',
@@ -405,25 +424,25 @@ export function Builder() {
                   : [String(comp.specs || '')],
               price: typeof comp.price === 'string' ? parseFloat(comp.price) : (Number(comp.price) || 0),
               image: comp.image_url || comp.image || 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400&h=300&fit=crop',
-              category_slug: comp.category_slug || slug,
-              category_name: comp.category_name || slug,
+              category_slug: targetSlug,
+              category_name: categories.find(c => c.slug === targetSlug)?.name || comp.category_name || slug,
               performance: comp.performance || (85 + Math.random() * 15),
               formatted_price: comp.formatted_price
             };
-            convertedComponents[dynamicComp.category_slug] = dynamicComp;
+            convertedComponents[targetSlug] = dynamicComp;
           });
           
           const cartItems = Object.values(convertedComponents);
-          console.log('📦 AI Builder: Converted items to be saved:', cartItems);
+          console.log('📦 AI Builder: Final mapped items:', cartItems);
           
-          // Clear current selection and replace with AI build
           localStorage.setItem('pcbuilder-cart', JSON.stringify(cartItems));
           setSelectedComponents(convertedComponents);
           
-          console.log('✅ AI Builder: Saved to localStorage. Storage now contains:', localStorage.getItem('pcbuilder-cart'));
-          
           setShowAIModal(false);
-          alert("Сборка успешно добавлена в корзину!");
+          // Small delay to ensure state is updated before showing success
+          setTimeout(() => {
+            alert("Сборка готова! Теперь вы можете оформить заказ.");
+          }, 100);
         }}
       />
 
