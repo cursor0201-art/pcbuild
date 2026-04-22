@@ -58,24 +58,26 @@ export function Builder() {
         
         // Try apiService
         try {
-          const response = await apiService.getCategories();
+          const response = await apiService.getCategories() as any;
           console.log('DEBUG: Full Category Response:', response);
-          console.log('API Service data type:', typeof response.data);
           
+          let rawData = response.data;
+          // If response.data is the wrapper, look inside
           if (response.success && response.data) {
-            // Check for paginated structure: data.results
-            if (response.data.results && Array.isArray(response.data.results)) {
-              categoriesArray = response.data.results;
-            } 
-            // Check for direct array structure: data
-            else if (Array.isArray(response.data)) {
-              categoriesArray = response.data;
-            }
-            // Check if response itself is the array (fallback)
-            else if (Array.isArray(response)) {
-              categoriesArray = response;
+             rawData = response.data;
+          } else if (response.results) {
+             rawData = response;
+          }
+
+          if (rawData) {
+            if (Array.isArray(rawData.results)) {
+              categoriesArray = rawData.results;
+            } else if (Array.isArray(rawData)) {
+              categoriesArray = rawData;
             }
           }
+          
+          console.log('DEBUG: Extracted categoriesArray:', categoriesArray);
         } catch (apiError) {
           console.warn('API Service failed, using direct call:', apiError);
           
