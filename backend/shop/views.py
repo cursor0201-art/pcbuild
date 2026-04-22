@@ -39,22 +39,27 @@ class CustomResponseMixin:
         }, status=status_code)
 
     def list(self, request, *args, **kwargs):
-        # Auto-seed if empty (helps with ephemeral databases on Koyeb)
-        if Category.objects.count() == 0:
-            initial_categories = [
-                {'name': 'Процессор', 'slug': 'processor'},
-                {'name': 'Видеокарта', 'slug': 'videokarta'},
-                {'name': 'Материнская плата', 'slug': 'materinskaya-plata'},
-                {'name': 'Оперативная память', 'slug': 'operativnaya-pamyat'},
-                {'name': 'Блок питания', 'slug': 'blok-pitaniya'},
-                {'name': 'Корпус', 'slug': 'korpus'},
-                {'name': 'SSD', 'slug': 'ssd'},
-                {'name': 'Твердотельный накопитель', 'slug': 'tverdotelnyj-nakopitel'},
-                {'name': 'Система охлаждения', 'slug': 'sistema-ohlazhdeniya'},
-            ]
-            for cat_data in initial_categories:
-                Category.objects.get_or_create(slug=cat_data['slug'], defaults={'name': cat_data['name']})
-            print("SEEDING: Created/Verified initial categories.")
+        # Proactive seeding: Ensure all required categories exist
+        required_categories = [
+            {'name': 'Процессор', 'slug': 'processor'},
+            {'name': 'Видеокарта', 'slug': 'videokarta'},
+            {'name': 'Материнская плата', 'slug': 'materinskaya-plata'},
+            {'name': 'Оперативная память', 'slug': 'operativnaya-pamyat'},
+            {'name': 'Блок питания', 'slug': 'blok-pitaniya'},
+            {'name': 'Корпус', 'slug': 'korpus'},
+            {'name': 'SSD', 'slug': 'ssd'},
+            {'name': 'Твердотельный накопитель', 'slug': 'tverdotelnyj-nakopitel'},
+            {'name': 'Система охлаждения', 'slug': 'sistema-ohlazhdeniya'},
+        ]
+        
+        needs_seeding = False
+        for cat_data in required_categories:
+            obj, created = Category.objects.get_or_create(slug=cat_data['slug'], defaults={'name': cat_data['name']})
+            if created:
+                needs_seeding = True
+        
+        if needs_seeding:
+            print("SEEDING: Added missing categories to the database.")
 
         response = super().list(request, *args, **kwargs)
         # If response is already paginated, response.data will have 'results'
