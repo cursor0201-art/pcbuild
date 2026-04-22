@@ -1,3 +1,5 @@
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from .views import CategoryViewSet, ProductViewSet, OrderViewSet, AIBuilderView, ping_view
 
 # Create a router and register our viewsets with it
