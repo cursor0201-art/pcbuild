@@ -401,15 +401,38 @@ export function Builder() {
           
           // Helper to find the best matching category slug from our current categories state
           const findBestCategorySlug = (aiSlug: string, comp: any) => {
-             // 1. Try direct match with AI slug
+             const lowerAISlug = aiSlug.toLowerCase();
+             const lowerAIName = (comp.category_name || '').toLowerCase();
+             
+             // Dictionary of common mappings
+             const mapping: Record<string, string[]> = {
+               'processor': ['cpu', 'processor', 'процессор', 'проц'],
+               'videokarta': ['gpu', 'video', 'graphics', 'видеокарта', 'видюха', 'vga'],
+               'materinskaya-plata': ['motherboard', 'mainboard', 'plate', 'материнка', 'плата', 'm/b'],
+               'operativnaya-pamyat': ['ram', 'memory', 'память', 'оперативка', 'dram'],
+               'blok-pitaniya': ['psu', 'power', 'block', 'блок питания', 'бп'],
+               'korpus': ['case', 'chassis', 'корпус'],
+               'ssd': ['ssd', 'solid', 'ссд'],
+               'tverdotelnyj-nakopitel': ['storage', 'drive', 'disk', 'накопитель', 'диск', 'hdd'],
+               'sistema-ohlazhdeniya': ['cooling', 'fan', 'cooler', 'охлаждение', 'кулер']
+             };
+
+             // 1. Try dictionary match
+             for (const [realSlug, aliases] of Object.entries(mapping)) {
+               if (aliases.some(alias => lowerAISlug.includes(alias) || lowerAIName.includes(alias))) {
+                 if (categories.some(c => c.slug === realSlug)) return realSlug;
+               }
+             }
+
+             // 2. Try direct match with AI slug
              if (categories.some(c => c.slug === aiSlug)) return aiSlug;
-             // 2. Try match with component's own category_slug
+             // 3. Try match with component's own category_slug
              if (comp.category_slug && categories.some(c => c.slug === comp.category_slug)) return comp.category_slug;
-             // 3. Try to find by name similarity (e.g. "Processor" in "CPU")
-             const aiName = (comp.category_name || aiSlug).toLowerCase();
+             
+             // 4. Fallback to name similarity
              const match = categories.find(c => 
-               c.name.toLowerCase().includes(aiName) || 
-               aiName.includes(c.name.toLowerCase()) ||
+               c.name.toLowerCase().includes(lowerAISlug) || 
+               lowerAISlug.includes(c.name.toLowerCase()) ||
                c.slug.includes(aiSlug) ||
                aiSlug.includes(c.slug)
              );
@@ -418,7 +441,7 @@ export function Builder() {
 
           Object.entries(components).forEach(([slug, comp]: [string, any]) => {
             const targetSlug = findBestCategorySlug(slug, comp);
-            console.log(`Matching AI component for "${slug}" to actual category "${targetSlug}"`);
+            console.log(`🔍 AI Mapping: "${slug}" -> "${targetSlug}"`);
 
             const dynamicComp: DynamicComponent = {
               id: String(comp.id || Math.random().toString(36).substr(2, 9)),
