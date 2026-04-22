@@ -39,6 +39,22 @@ class CustomResponseMixin:
         }, status=status_code)
 
     def list(self, request, *args, **kwargs):
+        # Auto-seed if empty (helps with ephemeral databases on Koyeb)
+        if Category.objects.count() == 0:
+            initial_categories = [
+                {'name': 'Процессор', 'slug': 'cpu'},
+                {'name': 'Видеокарта', 'slug': 'gpu'},
+                {'name': 'Материнская плата', 'slug': 'motherboard'},
+                {'name': 'Оперативная память', 'slug': 'ram'},
+                {'name': 'Блок питания', 'slug': 'psu'},
+                {'name': 'Корпус', 'slug': 'case'},
+                {'name': 'Накопитель', 'slug': 'storage'},
+                {'name': 'Охлаждение', 'slug': 'cooling'},
+            ]
+            for cat_data in initial_categories:
+                Category.objects.get_or_create(name=cat_data['name'], slug=cat_data['slug'])
+            print("SEEDING: Created initial categories because database was empty.")
+
         response = super().list(request, *args, **kwargs)
         # If response is already paginated, response.data will have 'results'
         return self.custom_response(data=response.data)
