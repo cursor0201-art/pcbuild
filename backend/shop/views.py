@@ -39,7 +39,6 @@ class CustomResponseMixin:
         }, status=status_code)
 
     def list(self, request, *args, **kwargs):
-    def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
         # If response is already paginated, response.data will have 'results'
         return self.custom_response(data=response.data)
