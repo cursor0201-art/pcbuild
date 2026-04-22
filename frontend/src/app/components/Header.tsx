@@ -19,7 +19,7 @@ export function Header() {
         <Link to="/" className="group flex items-center gap-3 shrink-0">
           <div className="relative h-14 w-14 overflow-hidden rounded-xl border border-[#00d4ff]/20 bg-black/40 p-1 transition-all duration-300 group-hover:border-[#00d4ff] group-hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]">
             <img 
-              src="/favicon.png?v=2" 
+              src="/favicon.png?v=3" 
               alt="GameZoneBuild" 
               className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-110" 
             />
