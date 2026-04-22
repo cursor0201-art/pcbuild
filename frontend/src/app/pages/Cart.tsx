@@ -85,7 +85,9 @@ export function Cart() {
                       <h3 className="mb-2 font-black text-2xl uppercase text-white">
                         {item.name}
                       </h3>
-                      <p className="text-white/60 text-sm">{item.specs}</p>
+                      <p className="text-white/60 text-sm">
+                        {Array.isArray(item.specs) ? item.specs.join(', ') : String(item.specs)}
+                      </p>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="font-black text-2xl text-white">
