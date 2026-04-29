@@ -57,6 +57,16 @@ export function Header() {
             {t('nav.builder')}
           </Link>
           <Link
+            to="/about"
+            className={`font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
+              isActive('/about')
+                ? 'text-[#00d4ff]'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            {t('nav.about')}
+          </Link>
+          <Link
             to="/cart"
             className={`flex items-center gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
               isActive('/cart')

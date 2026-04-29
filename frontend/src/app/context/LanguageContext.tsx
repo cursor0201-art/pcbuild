@@ -15,9 +15,10 @@ const translations = {
     'nav.builder': 'Конструктор',
     'nav.catalog': 'Каталог',
     'nav.cart': 'Корзина',
+    'nav.about': 'О нас',
 
     // Landing
-    'hero.title': 'СБОРКА ИГРОВЫХ ПК',
+    'hero.title': 'GameZoneBuild — СБОРКА ИГРОВЫХ ПК',
     'hero.subtitle': 'ПОД ВАШ БЮДЖЕТ',
     'hero.tagline': 'От киберспорта до 3D-графики. Подбор комплектующих с гарантией совместимости.',
     'hero.cta': 'Начать сборку',
@@ -104,9 +105,10 @@ const translations = {
     'nav.builder': 'Konstruktor',
     'nav.catalog': 'Katalog',
     'nav.cart': 'Savat',
+    'nav.about': 'Biz haqimizda',
 
     // Landing
-    'hero.title': "O'YIN KOMPYUTERLARINI YIG'ISH",
+    'hero.title': "GameZoneBuild — O'YIN KOMPYUTERLARINI YIG'ISH",
     'hero.subtitle': "BYUDJETINGIZGA MOS",
     'hero.tagline': "Kibersportdan 3D-grafikagacha. Moslik kafolati bilan komponentlarni tanlash.",
     'hero.cta': 'Yig\'ishni boshlash',
