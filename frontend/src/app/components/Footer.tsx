@@ -35,7 +35,7 @@ export function Footer() {
                 {language === 'ru' ? 'Контакты' : 'Aloqa'}
               </h4>
               <ul className="space-y-2 text-white/60 text-sm">
-                <li>+998 90 123 45 67</li>
+                <li>+998 99 999 19 94</li>
                 <li>info@gamezonebuild.uz</li>
                 <li>{language === 'ru' ? 'Ташкент, Узбекистан' : 'Toshkent, O\'zbekiston'}</li>
               </ul>
