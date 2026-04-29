@@ -163,7 +163,7 @@ export function Checkout() {
   return (
     <div className="min-h-screen bg-[#0a0a0f] pt-20">
       <div className="mx-auto max-w-[1200px] p-6 lg:p-12">
-        <h1 className="mb-12 font-black text-6xl uppercase tracking-tighter text-white">
+        <h1 className="mb-8 sm:mb-12 font-black text-4xl md:text-6xl uppercase tracking-tighter text-white">
           {t('checkout.title')}
         </h1>
 

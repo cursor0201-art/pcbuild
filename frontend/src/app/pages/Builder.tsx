@@ -186,8 +186,8 @@ export function Builder() {
   return (
     <div className="min-h-screen bg-[#0a0a0f] pt-20">
       <div className="mx-auto max-w-[1800px] p-6 lg:p-12">
-        <div className="mb-8 flex items-center justify-between">
-          <h1 className="font-black text-4xl md:text-5xl uppercase tracking-tighter text-white lg:text-6xl">
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <h1 className="font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter text-white lg:text-6xl">
             {t('builder.title')}
           </h1>
           <button
@@ -202,33 +202,35 @@ export function Builder() {
         <div className="grid gap-8 lg:grid-cols-[300px,1fr,400px]">
           {/* Categories Sidebar */}
           <div className="space-y-2">
-            <div className="mb-4 font-bold text-[#00d4ff] text-sm uppercase tracking-wider">
+            <div className="mb-2 sm:mb-4 font-bold text-[#00d4ff] text-sm uppercase tracking-wider">
               {t('builder.select')}
             </div>
-            {categories.map((category) => (
-              <button
-                key={category.slug}
-                onClick={() => setActiveCategory(category.slug)}
-                className={`w-full border px-6 py-4 text-left font-bold text-sm uppercase tracking-wider transition-all ${
-                  activeCategory === category.slug
-                    ? 'border-[#00d4ff] bg-[#00d4ff]/10 text-[#00d4ff]'
-                    : 'border-white/10 bg-[#12121a] text-white/60 hover:border-[#00d4ff]/50 hover:text-white'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  {category.name}
-                  {selectedComponents[category.slug] && (
-                    <Check className="h-4 w-4 text-[#00ff88]" />
-                  )}
-                </div>
-              </button>
-            ))}
+            <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 no-scrollbar snap-x">
+              {categories.map((category) => (
+                <button
+                  key={category.slug}
+                  onClick={() => setActiveCategory(category.slug)}
+                  className={`shrink-0 w-[180px] lg:w-full border px-4 py-3 sm:px-6 sm:py-4 text-left font-bold text-xs sm:text-sm uppercase tracking-wider transition-all snap-start ${
+                    activeCategory === category.slug
+                      ? 'border-[#00d4ff] bg-[#00d4ff]/10 text-[#00d4ff]'
+                      : 'border-white/10 bg-[#12121a] text-white/60 hover:border-[#00d4ff]/50 hover:text-white'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="truncate mr-2">{category.name}</span>
+                    {selectedComponents[category.slug] && (
+                      <Check className="h-4 w-4 shrink-0 text-[#00ff88]" />
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Component Selection */}
           <div className="space-y-4">
-            <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
-              <h2 className="font-black text-xl md:text-3xl uppercase text-white">
+            <div className="mb-4 sm:mb-6 flex items-center justify-between border-b border-white/10 pb-4">
+              <h2 className="font-black text-lg sm:text-xl md:text-3xl uppercase text-white truncate mr-2">
                 {categories.find(c => c.slug === activeCategory)?.name || 'Components'}
               </h2>
               {selectedInCategory && (
