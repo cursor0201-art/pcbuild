@@ -35,7 +35,7 @@ export function Header() {
           </div>
         </Link>
 
-        <nav className="flex items-center gap-3 sm:gap-8 overflow-x-auto no-scrollbar ml-2">
+        <nav className="flex flex-1 justify-end items-center gap-2 sm:gap-8 overflow-x-auto no-scrollbar ml-2">
           <Link
             to="/"
             className={`font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
@@ -78,10 +78,10 @@ export function Header() {
             {t('nav.cart')}
           </Link>
 
-          <div className="ml-2 sm:ml-4 flex gap-1 sm:gap-2 shrink-0">
+          <div className="ml-1 sm:ml-4 flex gap-1 sm:gap-2 shrink-0">
             <button
               onClick={() => setLanguage('ru')}
-              className={`px-2 sm:px-4 py-1 sm:py-2 font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all ${
+              className={`px-1.5 sm:px-4 py-1 sm:py-2 font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all ${
                 language === 'ru'
                   ? 'bg-[#00d4ff] text-black'
                   : 'border border-[#00d4ff]/30 text-white/60 hover:border-[#00d4ff] hover:text-white'
@@ -91,7 +91,7 @@ export function Header() {
             </button>
             <button
               onClick={() => setLanguage('uz')}
-              className={`px-2 sm:px-4 py-1 sm:py-2 font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all ${
+              className={`px-1.5 sm:px-4 py-1 sm:py-2 font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all ${
                 language === 'uz'
                   ? 'bg-[#00d4ff] text-black'
                   : 'border border-[#00d4ff]/30 text-white/60 hover:border-[#00d4ff] hover:text-white'

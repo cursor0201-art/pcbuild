@@ -24,30 +24,30 @@ export function Landing() {
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-3xl"
+            className="max-w-3xl w-full"
           >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="mb-6 inline-block border border-[#00d4ff]/30 bg-[#00d4ff]/10 px-6 py-2 font-black text-[#00d4ff] text-xs uppercase tracking-widest"
+              className="mb-6 inline-block w-fit max-w-full border border-[#00d4ff]/30 bg-[#00d4ff]/10 px-4 py-2 sm:px-6 sm:py-2 font-black text-[#00d4ff] text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest"
             >
-              {t('hero.tagline')}
+              <span className="block w-full whitespace-normal leading-relaxed">{t('hero.tagline')}</span>
             </motion.div>
 
-            <h1 className="mb-4 font-black text-6xl md:text-8xl uppercase leading-none tracking-tighter text-white lg:text-9xl">
+            <h1 className="mb-2 sm:mb-4 font-black text-4xl sm:text-6xl md:text-8xl uppercase leading-[1.1] tracking-tighter text-white lg:text-9xl break-words">
               {t('hero.title')}
             </h1>
-            <h1 className="mb-12 bg-gradient-to-r from-[#00d4ff] via-[#ff0080] to-[#00ff88] bg-clip-text font-black text-6xl md:text-8xl uppercase leading-none tracking-tighter text-transparent lg:text-9xl">
+            <h1 className="mb-8 sm:mb-12 bg-gradient-to-r from-[#00d4ff] via-[#ff0080] to-[#00ff88] bg-clip-text font-black text-4xl sm:text-6xl md:text-8xl uppercase leading-[1.1] tracking-tighter text-transparent lg:text-9xl break-words">
               {t('hero.subtitle')}
             </h1>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 w-full">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate('/builder')}
-                className="group flex items-center gap-3 bg-[#00d4ff] px-10 py-5 font-black text-black text-lg uppercase tracking-wider transition-all hover:bg-[#00ff88] hover:shadow-[0_0_30px_rgba(0,255,136,0.5)]"
+                className="group flex w-full sm:w-auto items-center justify-center gap-3 bg-[#00d4ff] px-6 sm:px-10 py-4 sm:py-5 font-black text-black text-base sm:text-lg uppercase tracking-wider transition-all hover:bg-[#00ff88] hover:shadow-[0_0_30px_rgba(0,255,136,0.5)]"
               >
                 {t('hero.cta')}
                 <ArrowRight className="transition-transform group-hover:translate-x-2" />
@@ -57,7 +57,7 @@ export function Landing() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowAI(true)}
-                className="flex items-center gap-3 border-2 border-[#ff0080] bg-transparent px-10 py-5 font-black text-lg uppercase tracking-wider text-[#ff0080] transition-all hover:bg-[#ff0080] hover:text-white hover:shadow-[0_0_30px_rgba(255,0,128,0.5)]"
+                className="flex w-full sm:w-auto items-center justify-center gap-3 border-2 border-[#ff0080] bg-[#ff0080]/10 sm:bg-transparent px-6 sm:px-10 py-4 sm:py-5 font-black text-base sm:text-lg uppercase tracking-wider text-[#ff0080] transition-all hover:bg-[#ff0080] hover:text-white hover:shadow-[0_0_30px_rgba(255,0,128,0.5)]"
               >
                 <Sparkles className="h-5 w-5" />
                 {t('hero.ai')}
