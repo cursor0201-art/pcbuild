@@ -17,9 +17,9 @@ const translations = {
     'nav.cart': 'Корзина',
 
     // Landing
-    'hero.title': 'СОБЕРИ СВОЕГО',
-    'hero.subtitle': 'ЗВЕРЯ',
-    'hero.tagline': 'Кастомные игровые ПК на заказ',
+    'hero.title': 'СБОРКА ИГРОВЫХ ПК',
+    'hero.subtitle': 'ПОД ВАШ БЮДЖЕТ',
+    'hero.tagline': 'От киберспорта до 3D-графики. Подбор комплектующих с гарантией совместимости.',
     'hero.cta': 'Начать сборку',
     'hero.ai': 'ИИ подберет мне ПК',
 
@@ -87,6 +87,13 @@ const translations = {
     'checkout.city': 'Город',
     'checkout.submit': 'Подтвердить заказ',
 
+    // SEO Content
+    'seo.title': 'Профессиональная сборка ПК на заказ',
+    'seo.p1': 'GameZoneBuild специализируется на индивидуальной сборке игровых и рабочих компьютеров. Мы подбираем оптимальные конфигурации, от бюджетных машин для киберспортивных дисциплин до сверхмощных рабочих станций для 3D-моделирования, видеомонтажа и стриминга.',
+    'seo.p2': 'Почему выбирают нас? Мы предлагаем прозрачные цены, гарантию на все комплектующие и профессиональный кабель-менеджмент. Наша цель — собрать ПК, который будет идеально решать ваши задачи без переплат за ненужные функции.',
+    'seo.p3': 'Ищете компьютер для новинок на максималках? Наш умный конфигуратор поможет собрать сбалансированную систему, проверив совместимость видеокарты, процессора, материнской платы и других деталей. Забудьте о "узких горлышках" и перегреве.',
+    'seo.p4': 'Как заказать: просто соберите желаемый ПК в нашем конфигураторе, добавьте в корзину и оформите заказ. Наши специалисты свяжутся с вами для уточнения деталей, после чего мы соберем, протестируем и доставим ваш идеальный компьютер.',
+
     // Common
     'currency': 'UZS',
     'close': 'Закрыть',
@@ -99,9 +106,9 @@ const translations = {
     'nav.cart': 'Savat',
 
     // Landing
-    'hero.title': "O'Z YIRTQICHINGNI",
-    'hero.subtitle': 'YARAT',
-    'hero.tagline': "Buyurtmaga maxsus o'yin kompyuterlari",
+    'hero.title': "O'YIN KOMPYUTERLARINI YIG'ISH",
+    'hero.subtitle': "BYUDJETINGIZGA MOS",
+    'hero.tagline': "Kibersportdan 3D-grafikagacha. Moslik kafolati bilan komponentlarni tanlash.",
     'hero.cta': 'Yig\'ishni boshlash',
     'hero.ai': 'AI menga kompyuter tanlaydi',
 
@@ -168,6 +175,13 @@ const translations = {
     'checkout.address': 'Manzil',
     'checkout.city': 'Shahar',
     'checkout.submit': 'Buyurtmani tasdiqlash',
+
+    // SEO Content
+    'seo.title': 'Professional kompyuter yig\'ish xizmati',
+    'seo.p1': 'GameZoneBuild o\'yin va ish uchun kompyuterlarni individual yig\'ishga ixtisoslashgan. Biz kibersport uchun byudjet variantlardan tortib, 3D modellashtirish va video montaj uchun super kuchli ish stansiyalarigacha eng maqbul konfiguratsiyalarni tanlaymiz.',
+    'seo.p2': 'Nega aynan biz? Biz shaffof narxlar, barcha komponentlarga kafolat va professional kabel menejmentini taklif etamiz. Maqsadimiz - ortiqcha xarajatlarsiz sizning vazifalaringizni mukammal hal qiladigan kompyuter yig\'ishdir.',
+    'seo.p3': 'Yangi o\'yinlarni maksimal grafikada o\'ynash uchun kompyuter qidiryapsizmi? Bizning aqlli konstruktorimiz videokarta, protsessor va boshqa qismlarning mosligini tekshirib, muvozanatli tizim yig\'ishga yordam beradi.',
+    'seo.p4': 'Qanday buyurtma berish mumkin: bizning konstruktorda kerakli kompyuterni yig\'ing, savatga qo\'shing va buyurtmani rasmiylashtiring. Mutaxassislarimiz tafsilotlarni aniqlashtirish uchun siz bilan bog\'lanadi, shundan so\'ng biz ideal kompyuteringizni yig\'ib, sinovdan o\'tkazib yetkazib beramiz.',
 
     // Common
     'currency': 'UZS',

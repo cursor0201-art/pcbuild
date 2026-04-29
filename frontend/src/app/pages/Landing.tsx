@@ -148,6 +148,19 @@ export function Landing() {
         </div>
       </section>
 
+      {/* SEO Text Section */}
+      <section className="bg-[#0a0a0f] py-24 border-t border-[#00d4ff]/10">
+        <div className="mx-auto max-w-[1000px] px-6 lg:px-12 text-white/80 space-y-6">
+          <h2 className="mb-8 font-black text-3xl md:text-4xl uppercase tracking-tighter text-white">
+            {t('seo.title')}
+          </h2>
+          <p className="text-lg leading-relaxed">{t('seo.p1')}</p>
+          <p className="text-lg leading-relaxed">{t('seo.p2')}</p>
+          <p className="text-lg leading-relaxed">{t('seo.p3')}</p>
+          <p className="text-lg leading-relaxed">{t('seo.p4')}</p>
+        </div>
+      </section>
+
       <AIBuilderModal
         isOpen={showAI}
         onClose={() => setShowAI(false)}
