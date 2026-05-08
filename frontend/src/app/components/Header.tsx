@@ -13,24 +13,19 @@ export function Header() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 border-b border-[#00d4ff]/20 bg-[#0a0a0f]/95 backdrop-blur-xl"
+      className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5"
     >
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-4 lg:px-12">
         <Link to="/" className="group flex items-center gap-3 shrink-0">
-          <div className="relative h-14 w-14 overflow-hidden rounded-xl border border-[#00d4ff]/20 bg-black/40 p-1 transition-all duration-300 group-hover:border-[#00d4ff] group-hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]">
-            <img 
-              src="/favicon.png?v=3" 
-              alt="GameZoneBuild" 
-              className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-110" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#00d4ff]/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+          <div className="relative h-10 w-10">
+            <div className="absolute inset-0 bg-blue-500 blur-md opacity-50 group-hover:opacity-80 transition-opacity" />
+            <svg viewBox="0 0 24 24" className="relative h-full w-full text-blue-500 fill-current">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg>
           </div>
           <div className="hidden sm:block">
-            <div className="font-black text-2xl uppercase tracking-tighter text-white leading-none">
-              GameZone
-            </div>
-            <div className="font-black text-xs uppercase tracking-widest text-[#00d4ff]">
-              Build
+            <div className="font-bold text-xl uppercase tracking-tighter text-white leading-none">
+              Neon <span className="text-blue-500">Tech</span>
             </div>
           </div>
         </Link>
@@ -40,7 +35,7 @@ export function Header() {
             to="/"
             className={`font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
               isActive('/')
-                ? 'text-[#00d4ff]'
+                ? 'text-blue-500'
                 : 'text-white/60 hover:text-white'
             }`}
           >
@@ -50,7 +45,7 @@ export function Header() {
             to="/builder"
             className={`font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
               isActive('/builder')
-                ? 'text-[#00d4ff]'
+                ? 'text-blue-500'
                 : 'text-white/60 hover:text-white'
             }`}
           >
@@ -60,7 +55,7 @@ export function Header() {
             to="/about"
             className={`font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
               isActive('/about')
-                ? 'text-[#00d4ff]'
+                ? 'text-blue-500'
                 : 'text-white/60 hover:text-white'
             }`}
           >
@@ -70,7 +65,7 @@ export function Header() {
             to="/cart"
             className={`flex items-center gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
               isActive('/cart')
-                ? 'text-[#00d4ff]'
+                ? 'text-blue-500'
                 : 'text-white/60 hover:text-white'
             }`}
           >
@@ -78,23 +73,23 @@ export function Header() {
             {t('nav.cart')}
           </Link>
 
-          <div className="ml-1 sm:ml-4 flex gap-1 sm:gap-2 shrink-0">
+          <div className="ml-1 sm:ml-4 flex gap-1 sm:gap-2 shrink-0 bg-white/5 p-1 rounded-lg border border-white/10">
             <button
               onClick={() => setLanguage('ru')}
-              className={`px-1.5 sm:px-4 py-1 sm:py-2 font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all ${
+              className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all ${
                 language === 'ru'
-                  ? 'bg-[#00d4ff] text-black'
-                  : 'border border-[#00d4ff]/30 text-white/60 hover:border-[#00d4ff] hover:text-white'
+                  ? 'bg-blue-600 text-white'
+                  : 'text-slate-500 hover:text-slate-300'
               }`}
             >
               RU
             </button>
             <button
               onClick={() => setLanguage('uz')}
-              className={`px-1.5 sm:px-4 py-1 sm:py-2 font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all ${
+              className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all ${
                 language === 'uz'
-                  ? 'bg-[#00d4ff] text-black'
-                  : 'border border-[#00d4ff]/30 text-white/60 hover:border-[#00d4ff] hover:text-white'
+                  ? 'bg-blue-600 text-white'
+                  : 'text-slate-500 hover:text-slate-300'
               }`}
             >
               UZ

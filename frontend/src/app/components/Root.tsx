@@ -7,7 +7,7 @@ import { LanguageProvider } from '../context/LanguageContext';
 export function Root() {
   return (
     <LanguageProvider>
-      <div className="relative min-h-screen bg-[#0a0a0f]">
+      <div className="relative min-h-screen bg-[#020617]">
         <BackgroundGrid />
         <div className="relative z-10">
           <Header />

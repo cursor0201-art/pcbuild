@@ -184,7 +184,7 @@ export function Builder() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-20">
+    <div className="min-h-screen bg-[#020617] pt-20">
       <div className="mx-auto max-w-[1800px] p-6 lg:p-12">
         <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <h1 className="font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter text-white lg:text-6xl">
@@ -192,7 +192,7 @@ export function Builder() {
           </h1>
           <button
             onClick={() => setShowAIModal(true)}
-            className="flex items-center gap-2 border border-[#ff0080] bg-transparent px-6 py-3 font-bold text-sm uppercase text-[#ff0080] transition-all hover:bg-[#ff0080] hover:text-white"
+            className="flex items-center gap-2 border border-blue-500 bg-transparent px-6 py-3 font-bold text-sm uppercase text-blue-500 transition-all hover:bg-blue-500 hover:text-white rounded-xl"
           >
             <Sparkles className="h-4 w-4" />
             {t('builder.ai.button')}
@@ -210,10 +210,10 @@ export function Builder() {
                 <button
                   key={category.slug}
                   onClick={() => setActiveCategory(category.slug)}
-                  className={`shrink-0 w-[180px] lg:w-full border px-4 py-3 sm:px-6 sm:py-4 text-left font-bold text-xs sm:text-sm uppercase tracking-wider transition-all snap-start ${
+                  className={`shrink-0 w-[180px] lg:w-full border px-4 py-3 sm:px-6 sm:py-4 text-left font-bold text-xs sm:text-sm uppercase tracking-wider transition-all snap-start rounded-xl ${
                     activeCategory === category.slug
-                      ? 'border-[#00d4ff] bg-[#00d4ff]/10 text-[#00d4ff]'
-                      : 'border-white/10 bg-[#12121a] text-white/60 hover:border-[#00d4ff]/50 hover:text-white'
+                      ? 'border-blue-500 bg-blue-500/10 text-blue-500'
+                      : 'border-white/10 bg-white/5 text-white/60 hover:border-blue-500/50 hover:text-white'
                   }`}
                 >
                   <div className="flex items-center justify-between">

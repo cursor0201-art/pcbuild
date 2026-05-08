@@ -11,10 +11,11 @@ export function Landing() {
   const [showAI, setShowAI] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-20">
+    <div className="min-h-screen bg-[#020617] pt-20 text-white">
       {/* Hero Section */}
       <section className="relative h-[calc(100vh-5rem)] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#00d4ff]/10 via-transparent to-[#ff0080]/10" />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,212,255,0.02)_25%,rgba(0,212,255,0.02)_50%,transparent_50%,transparent_75%,rgba(0,212,255,0.02)_75%,rgba(0,212,255,0.02))] bg-[length:60px_60px] opacity-30" />
         </div>
@@ -71,13 +72,15 @@ export function Landing() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="absolute right-0 top-1/2 hidden -translate-y-1/2 lg:block"
           >
-            <div className="relative h-[600px] w-[600px]">
-              <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#00d4ff]/20 to-[#ff0080]/20 blur-3xl" />
+            <div className="relative h-[600px] w-[600px] flex items-center justify-center">
+              <div className="absolute inset-0 bg-blue-500/10 blur-[100px] rounded-full" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-[450px] h-[450px] rounded-full border border-blue-500/20" />
+              </div>
               <img
-                src="https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=600&h=600&fit=crop"
-                alt="Gaming PC"
-                className="relative h-full w-full object-cover opacity-80"
-                style={{ clipPath: 'polygon(20% 0%, 100% 0%, 100% 80%, 80% 100%, 0% 100%, 0% 20%)' }}
+                src="/hero_pc_hardware.png"
+                alt="Gaming Hardware"
+                className="relative z-10 w-full max-w-[700px] object-contain animate-float drop-shadow-[0_0_50px_rgba(59,130,246,0.3)]"
               />
             </div>
           </motion.div>
@@ -124,7 +127,7 @@ export function Landing() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.2 }}
                 whileHover={{ y: -10 }}
-                className="group relative overflow-hidden border border-white/10 bg-[#12121a] p-8 transition-all hover:border-[#00d4ff]/50"
+                className="group relative overflow-hidden glass-card p-8 rounded-[2rem] transition-all"
               >
                 <div
                   className="absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100"
@@ -142,6 +145,62 @@ export function Landing() {
                 <p className="font-medium text-base text-white/70 leading-relaxed">
                   {feature.desc}
                 </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Category Section */}
+      <section className="py-24 relative border-t border-white/5">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
+          <div className="flex flex-col items-center mb-16 space-y-4">
+             <div className="h-px w-32 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+             <h2 className="text-3xl font-black uppercase tracking-[0.2em]">{t('builder.select')} <span className="text-blue-500">{t('nav.builder')}</span></h2>
+             <div className="h-px w-32 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: 'Gaming PCs', sub: 'Pre-built. Tested. Game Ready.', price: '$899', img: '/gaming_pc.png' },
+              { title: 'Graphics Cards', sub: 'Ultimate graphics performance.', price: '$499', img: '/gpu.png' },
+              { title: 'Processors', sub: 'Raw power for limitless gaming.', price: '$249', img: '/cpu.png' },
+              { title: 'Peripherals', sub: 'Gear up. Play at your best.', price: '$29', img: '/peripherals.png' },
+            ].map((cat, idx) => (
+              <motion.div
+                key={idx}
+                whileHover={{ y: -8 }}
+                onClick={() => navigate('/builder')}
+                className="glass-card p-6 rounded-[2rem] space-y-6 group cursor-pointer"
+              >
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-bold uppercase tracking-tight group-hover:text-blue-400 transition-colors">{cat.title}</h3>
+                    <div className="h-8 w-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
+                      <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-white" />
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-500 font-medium">{cat.sub}</p>
+                </div>
+
+                <div className="relative h-48 flex items-center justify-center overflow-hidden">
+                   <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full scale-50 opacity-0 group-hover:opacity-100 transition-opacity" />
+                   <img 
+                    src={cat.img} 
+                    alt={cat.title} 
+                    className="max-h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-500" 
+                  />
+                </div>
+
+                <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Starting From</div>
+                    <div className="text-xl font-black text-blue-500">{cat.price}</div>
+                  </div>
+                  <div className="h-10 w-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <span className="text-slate-300 font-bold">+</span>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
