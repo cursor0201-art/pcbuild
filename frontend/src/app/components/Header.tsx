@@ -25,7 +25,7 @@ export function Header() {
           </div>
           <div className="hidden sm:block">
             <div className="font-bold text-xl uppercase tracking-tighter text-white leading-none">
-              Neon <span className="text-blue-500">Tech</span>
+              GameZone<span className="text-blue-500">Build</span>
             </div>
           </div>
         </Link>

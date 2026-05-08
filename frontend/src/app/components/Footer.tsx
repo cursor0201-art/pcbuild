@@ -17,7 +17,7 @@ export function Footer() {
                 </svg>
               </div>
               <span className="text-lg font-bold tracking-tighter text-white uppercase">
-                Neon <span className="text-blue-500">Tech</span>
+                GameZone<span className="text-blue-500">Build</span>
               </span>
             </Link>
             <p className="text-slate-500 text-sm max-w-xs">
@@ -53,7 +53,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 border-t border-white/5 pt-8 text-center text-slate-600 text-xs">
-          © 2026 Neon Tech. {language === 'ru' ? 'Все права защищены' : 'Barcha huquqlar himoyalangan'}.
+          © 2026 GameZoneBuild. {language === 'ru' ? 'Все права защищены' : 'Barcha huquqlar himoyalangan'}.
         </div>
       </div>
     </footer>
