@@ -1,56 +1,106 @@
-import { Link } from 'react-router';
-import { ShoppingCart, Search, User } from 'lucide-react';
+import { Link, useLocation } from 'react-router';
+import { ShoppingCart, Cpu } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'motion/react';
 
 export function Header() {
+  const { language, setLanguage, t } = useLanguage();
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
+
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5 px-6 lg:px-12"
+      className="fixed top-0 left-0 right-0 z-50 border-b border-[#00d4ff]/20 bg-[#0a0a0f]/95 backdrop-blur-xl"
     >
-      <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="relative h-8 w-8">
-            <div className="absolute inset-0 bg-blue-500 blur-md opacity-50" />
-            <svg viewBox="0 0 24 24" className="relative h-full w-full text-blue-500 fill-current">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
+      <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-4 lg:px-12">
+        <Link to="/" className="group flex items-center gap-3 shrink-0">
+          <div className="relative h-14 w-14 overflow-hidden rounded-xl border border-[#00d4ff]/20 bg-black/40 p-1 transition-all duration-300 group-hover:border-[#00d4ff] group-hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]">
+            <img 
+              src="/favicon.png?v=3" 
+              alt="GameZoneBuild" 
+              className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-110" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#00d4ff]/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
           </div>
-          <span className="text-xl font-bold tracking-tighter text-white uppercase">
-            Neon <span className="text-blue-500">Tech</span>
-          </span>
+          <div className="hidden sm:block">
+            <div className="font-black text-2xl uppercase tracking-tighter text-white leading-none">
+              GameZone
+            </div>
+            <div className="font-black text-xs uppercase tracking-widest text-[#00d4ff]">
+              Build
+            </div>
+          </div>
         </Link>
 
-        {/* Navigation */}
-        <nav className="hidden lg:flex items-center gap-8">
-          {['Products', 'Gaming PCs', 'Components', 'Peripherals', 'Deals'].map((item) => (
-            <Link
-              key={item}
-              to="#"
-              className="text-sm font-medium text-slate-300 hover:text-white transition-colors"
-            >
-              {item}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Actions */}
-        <div className="flex items-center gap-6">
-          <button className="text-slate-300 hover:text-white transition-colors">
-            <Search className="h-5 w-5" />
-          </button>
-          <button className="relative text-slate-300 hover:text-white transition-colors">
+        <nav className="flex flex-1 justify-end items-center gap-2 sm:gap-8 overflow-x-auto no-scrollbar ml-2">
+          <Link
+            to="/"
+            className={`font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
+              isActive('/')
+                ? 'text-[#00d4ff]'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            {t('nav.home')}
+          </Link>
+          <Link
+            to="/builder"
+            className={`font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
+              isActive('/builder')
+                ? 'text-[#00d4ff]'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            {t('nav.builder')}
+          </Link>
+          <Link
+            to="/about"
+            className={`font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
+              isActive('/about')
+                ? 'text-[#00d4ff]'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            {t('nav.about')}
+          </Link>
+          <Link
+            to="/cart"
+            className={`flex items-center gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm uppercase tracking-wider whitespace-nowrap transition-colors ${
+              isActive('/cart')
+                ? 'text-[#00d4ff]'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
             <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-blue-500 text-[10px] font-bold text-white flex items-center justify-center">
-              2
-            </span>
-          </button>
-          <button className="hidden sm:flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2 text-sm font-medium text-white hover:bg-white/10 transition-all">
-            Sign In
-          </button>
-        </div>
+            {t('nav.cart')}
+          </Link>
+
+          <div className="ml-1 sm:ml-4 flex gap-1 sm:gap-2 shrink-0">
+            <button
+              onClick={() => setLanguage('ru')}
+              className={`px-1.5 sm:px-4 py-1 sm:py-2 font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all ${
+                language === 'ru'
+                  ? 'bg-[#00d4ff] text-black'
+                  : 'border border-[#00d4ff]/30 text-white/60 hover:border-[#00d4ff] hover:text-white'
+              }`}
+            >
+              RU
+            </button>
+            <button
+              onClick={() => setLanguage('uz')}
+              className={`px-1.5 sm:px-4 py-1 sm:py-2 font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all ${
+                language === 'uz'
+                  ? 'bg-[#00d4ff] text-black'
+                  : 'border border-[#00d4ff]/30 text-white/60 hover:border-[#00d4ff] hover:text-white'
+              }`}
+            >
+              UZ
+            </button>
+          </div>
+        </nav>
       </div>
     </motion.header>
   );

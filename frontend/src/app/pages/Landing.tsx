@@ -1,229 +1,174 @@
 import { useNavigate } from 'react-router';
+import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'motion/react';
-import { ArrowRight, Truck, ShieldCheck, Headphones, Search, Plus } from 'lucide-react';
+import { Sparkles, Zap, DollarSign, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { AIBuilderModal } from '../components/AIBuilderModal';
 
 export function Landing() {
+  const { t } = useLanguage();
   const navigate = useNavigate();
+  const [showAI, setShowAI] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#020617] text-white selection:bg-blue-500/30">
+    <div className="min-h-screen bg-[#0a0a0f] pt-20">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        {/* Background Ambient Glows */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-600/10 blur-[100px] rounded-full pointer-events-none" />
-        
-        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            
-            {/* Left Content */}
-            <div className="flex-1 space-y-8 z-10">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold uppercase tracking-widest text-blue-400"
-              >
-                <div className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />
-                Next Gen Performance
-              </motion.div>
+      <section className="relative h-[calc(100vh-5rem)] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#00d4ff]/10 via-transparent to-[#ff0080]/10" />
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,212,255,0.02)_25%,rgba(0,212,255,0.02)_50%,transparent_50%,transparent_75%,rgba(0,212,255,0.02)_75%,rgba(0,212,255,0.02))] bg-[length:60px_60px] opacity-30" />
+        </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="space-y-4"
-              >
-                <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9]">
-                  Power Your <br />
-                  <span className="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">Play</span>
-                </h1>
-                <p className="max-w-md text-slate-400 text-lg font-medium leading-relaxed">
-                  Discover the ultimate collection of high-performance PC components, custom builds, and gaming gear. 
-                  <span className="text-blue-400"> Built for gamers. Designed to win.</span>
-                </p>
-              </motion.div>
+        <div className="relative mx-auto flex h-full max-w-[1600px] items-center px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl w-full"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="mb-6 inline-block w-fit max-w-full border border-[#00d4ff]/30 bg-[#00d4ff]/10 px-4 py-2 sm:px-6 sm:py-2 font-black text-[#00d4ff] text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest"
+            >
+              <span className="block w-full whitespace-normal leading-relaxed">{t('hero.tagline')}</span>
+            </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex flex-wrap gap-4"
-              >
-                <button 
-                  onClick={() => navigate('/builder')}
-                  className="group relative flex items-center gap-3 bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-xl font-bold uppercase tracking-wider transition-all hover:shadow-[0_0_30px_rgba(59,130,246,0.4)]"
-                >
-                  Shop Now
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </button>
-                <button 
-                  onClick={() => navigate('/builder')}
-                  className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 px-8 py-4 rounded-xl font-bold uppercase tracking-wider transition-all"
-                >
-                  <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
-                  Build Your PC
-                </button>
-              </motion.div>
+            <h1 className="mb-2 sm:mb-4 font-black text-4xl sm:text-6xl md:text-8xl uppercase leading-[1.1] tracking-tighter text-white lg:text-9xl break-words">
+              {t('hero.title')}
+            </h1>
+            <h1 className="mb-8 sm:mb-12 bg-gradient-to-r from-[#00d4ff] via-[#ff0080] to-[#00ff88] bg-clip-text font-black text-4xl sm:text-6xl md:text-8xl uppercase leading-[1.1] tracking-tighter text-transparent lg:text-9xl break-words">
+              {t('hero.subtitle')}
+            </h1>
 
-              {/* Trust Badges */}
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="flex flex-wrap items-center gap-8 pt-8 border-t border-white/5"
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 w-full">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate('/builder')}
+                className="group flex w-full sm:w-auto items-center justify-center gap-3 bg-[#00d4ff] px-6 sm:px-10 py-4 sm:py-5 font-black text-black text-base sm:text-lg uppercase tracking-wider transition-all hover:bg-[#00ff88] hover:shadow-[0_0_30px_rgba(0,255,136,0.5)]"
               >
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
-                    <Truck className="h-5 w-5 text-blue-400" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-white">Free Shipping</div>
-                    <div className="text-[9px] text-slate-500 uppercase">On all orders over $99</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
-                    <ShieldCheck className="h-5 w-5 text-blue-400" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-white">2 Years Warranty</div>
-                    <div className="text-[9px] text-slate-500 uppercase">Premium quality assured</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
-                    <Headphones className="h-5 w-5 text-blue-400" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-white">24/7 Support</div>
-                    <div className="text-[9px] text-slate-500 uppercase">Always here to help</div>
-                  </div>
-                </div>
-              </motion.div>
+                {t('hero.cta')}
+                <ArrowRight className="transition-transform group-hover:translate-x-2" />
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowAI(true)}
+                className="flex w-full sm:w-auto items-center justify-center gap-3 border-2 border-[#ff0080] bg-[#ff0080]/10 sm:bg-transparent px-6 sm:px-10 py-4 sm:py-5 font-black text-base sm:text-lg uppercase tracking-wider text-[#ff0080] transition-all hover:bg-[#ff0080] hover:text-white hover:shadow-[0_0_30px_rgba(255,0,128,0.5)]"
+              >
+                <Sparkles className="h-5 w-5" />
+                {t('hero.ai')}
+              </motion.button>
             </div>
+          </motion.div>
 
-            {/* Right Hardware Visuals */}
-            <div className="relative flex-1 flex items-center justify-center">
-              {/* Central Circle Glow */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-[400px] h-[400px] rounded-full border border-blue-500/30 flex items-center justify-center">
-                  <div className="w-[300px] h-[300px] rounded-full border border-blue-500/20" />
-                </div>
-              </div>
-
-              {/* Hardware Image */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1 }}
-                className="relative z-10"
-              >
-                <img 
-                  src="/hero_pc_hardware_1778257683839.png" 
-                  alt="PC Hardware" 
-                  className="max-w-[120%] lg:max-w-none w-[600px] lg:w-[800px] drop-shadow-[0_0_50px_rgba(59,130,246,0.2)] animate-float"
-                />
-              </motion.div>
-
-              {/* Floating Cards */}
-              <div className="absolute right-0 top-1/4 space-y-4 z-20 hidden xl:block">
-                <motion.div 
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="glass-card p-4 rounded-2xl w-56 flex items-center gap-4"
-                >
-                  <div className="h-12 w-12 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
-                    <Search className="h-6 w-6 text-blue-400" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-white">RTX 5090</div>
-                    <div className="text-[10px] text-slate-500">Performance Beast</div>
-                    <div className="text-[10px] text-slate-500">24GB GDDR7</div>
-                  </div>
-                  <div className="ml-auto h-6 w-6 rounded-full border border-white/10 flex items-center justify-center text-slate-500">
-                    <ArrowRight className="h-3 w-3" />
-                  </div>
-                </motion.div>
-                <motion.div 
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.7 }}
-                  className="glass-card p-4 rounded-2xl w-56 flex items-center gap-4"
-                >
-                  <div className="h-12 w-12 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
-                    <svg viewBox="0 0 24 24" className="h-6 w-6 text-blue-400 fill-current"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-white">RYZEN 9800X3D</div>
-                    <div className="text-[10px] text-slate-500">Ultimate Gaming CPU</div>
-                    <div className="text-[10px] text-slate-500">5.2GHz Boost</div>
-                  </div>
-                  <div className="ml-auto h-6 w-6 rounded-full border border-white/10 flex items-center justify-center text-slate-500">
-                    <ArrowRight className="h-3 w-3" />
-                  </div>
-                </motion.div>
-              </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="absolute right-0 top-1/2 hidden -translate-y-1/2 lg:block"
+          >
+            <div className="relative h-[600px] w-[600px]">
+              <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#00d4ff]/20 to-[#ff0080]/20 blur-3xl" />
+              <img
+                src="https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=600&h=600&fit=crop"
+                alt="Gaming PC"
+                className="relative h-full w-full object-cover opacity-80"
+                style={{ clipPath: 'polygon(20% 0%, 100% 0%, 100% 80%, 80% 100%, 0% 100%, 0% 20%)' }}
+              />
             </div>
-
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Category Section */}
-      <section className="py-24 relative">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <div className="flex flex-col items-center mb-16 space-y-4">
-             <div className="h-px w-32 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
-             <h2 className="text-3xl font-black uppercase tracking-[0.2em]">Shop By <span className="text-blue-500">Category</span></h2>
-             <div className="h-px w-32 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
-          </div>
+      {/* Features Section */}
+      <section className="border-t border-[#00d4ff]/20 bg-[#0d0d12] py-24">
+        <div className="mx-auto max-w-[1600px] px-6 lg:px-12">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16 font-black text-4xl md:text-6xl uppercase tracking-tighter text-white"
+          >
+            {t('features.title')}
+          </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid gap-8 lg:grid-cols-3">
             {[
-              { title: 'Gaming PCs', sub: 'Pre-built. Tested. Game Ready.', price: '$899', img: '/gaming_pc_category_1778257729660.png' },
-              { title: 'Graphics Cards', sub: 'Ultimate graphics performance.', price: '$499', img: '/gpu_category_v2_1778258218763.png' },
-              { title: 'Processors', sub: 'Raw power for limitless gaming.', price: '$249', img: '/cpu_category_v2_1778258386738.png' },
-              { title: 'Peripherals', sub: 'Gear up. Play at your best.', price: '$29', img: '/peripherals_category_v2_1778258472287.png' },
-            ].map((cat, idx) => (
+              {
+                icon: Sparkles,
+                title: t('features.ai.title'),
+                desc: t('features.ai.desc'),
+                color: '#ff0080',
+              },
+              {
+                icon: Zap,
+                title: t('features.compatibility.title'),
+                desc: t('features.compatibility.desc'),
+                color: '#00d4ff',
+              },
+              {
+                icon: DollarSign,
+                title: t('features.price.title'),
+                desc: t('features.price.desc'),
+                color: '#00ff88',
+              },
+            ].map((feature, idx) => (
               <motion.div
                 key={idx}
-                whileHover={{ y: -8 }}
-                className="glass-card p-6 rounded-[2rem] space-y-6 group cursor-pointer"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2 }}
+                whileHover={{ y: -10 }}
+                className="group relative overflow-hidden border border-white/10 bg-[#12121a] p-8 transition-all hover:border-[#00d4ff]/50"
               >
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-bold uppercase tracking-tight group-hover:text-blue-400 transition-colors">{cat.title}</h3>
-                    <div className="h-8 w-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
-                      <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-white" />
-                    </div>
-                  </div>
-                  <p className="text-xs text-slate-500 font-medium">{cat.sub}</p>
-                </div>
-
-                <div className="relative h-48 flex items-center justify-center overflow-hidden">
-                   <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full scale-50 opacity-0 group-hover:opacity-100 transition-opacity" />
-                   <img 
-                    src={cat.img} 
-                    alt={cat.title} 
-                    className="max-h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-500" 
-                  />
-                </div>
-
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Starting From</div>
-                    <div className="text-xl font-black text-blue-500">{cat.price}</div>
-                  </div>
-                  <button className="h-10 w-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
-                    <Plus className="h-5 w-5 text-slate-300" />
-                  </button>
-                </div>
+                <div
+                  className="absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100"
+                  style={{
+                    background: `linear-gradient(135deg, ${feature.color}10, transparent)`,
+                  }}
+                />
+                <feature.icon
+                  className="mb-6 h-12 w-12 transition-all group-hover:scale-110"
+                  style={{ color: feature.color }}
+                />
+                <h3 className="mb-4 font-black text-2xl uppercase tracking-tight text-white">
+                  {feature.title}
+                </h3>
+                <p className="font-medium text-base text-white/70 leading-relaxed">
+                  {feature.desc}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* SEO Text Section */}
+      <section className="bg-[#0a0a0f] py-24 border-t border-[#00d4ff]/10">
+        <div className="mx-auto max-w-[1000px] px-6 lg:px-12 text-white/80 space-y-6">
+          <h2 className="mb-8 font-black text-3xl md:text-4xl uppercase tracking-tighter text-white">
+            {t('seo.title')}
+          </h2>
+          <p className="text-lg leading-relaxed">{t('seo.p1')}</p>
+          <p className="text-lg leading-relaxed">{t('seo.p2')}</p>
+          <p className="text-lg leading-relaxed">{t('seo.p3')}</p>
+          <p className="text-lg leading-relaxed">{t('seo.p4')}</p>
+        </div>
+      </section>
+
+      <AIBuilderModal
+        isOpen={showAI}
+        onClose={() => setShowAI(false)}
+        onBuildGenerated={() => {
+          setShowAI(false);
+          navigate('/builder');
+        }}
+      />
     </div>
   );
 }
