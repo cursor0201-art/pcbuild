@@ -44,7 +44,7 @@ export function Cart() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-20">
+    <div className="min-h-screen bg-[#020617] pt-20">
       <div className="mx-auto max-w-[1400px] p-6 lg:p-12">
         <h1 className="mb-8 sm:mb-12 font-black text-4xl md:text-6xl uppercase tracking-tighter text-white">
           {t('cart.title')}
@@ -56,7 +56,7 @@ export function Cart() {
             <p className="mb-8 text-2xl text-white/40">{t('cart.empty')}</p>
             <button
               onClick={() => navigate('/builder')}
-              className="bg-[#00d4ff] px-12 py-4 font-black uppercase text-black transition-colors hover:bg-[#00ff88]"
+              className="bg-blue-600 px-12 py-4 font-black uppercase text-white transition-colors hover:bg-blue-500 rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.3)]"
             >
               {t('hero.cta')}
             </button>
@@ -70,7 +70,7 @@ export function Cart() {
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.1 }}
-                  className="flex flex-col sm:flex-row gap-6 border border-white/10 bg-[#12121a] p-4 sm:p-6 transition-all hover:border-[#00d4ff]/50"
+                  className="flex flex-col sm:flex-row gap-6 border border-white/10 bg-white/5 p-4 sm:p-6 transition-all hover:border-blue-500/50 rounded-[2rem] glass-card"
                 >
                   <img
                     src={item.image}
@@ -79,7 +79,7 @@ export function Cart() {
                   />
                   <div className="flex flex-1 flex-col justify-between">
                     <div>
-                      <div className="mb-2 font-bold text-[#00d4ff] text-xs uppercase tracking-wider">
+                      <div className="mb-2 font-bold text-blue-500 text-xs uppercase tracking-wider">
                         {item.category_name}
                       </div>
                       <h3 className="mb-2 font-black text-xl sm:text-2xl uppercase text-white">
@@ -92,7 +92,7 @@ export function Cart() {
                     <div className="flex items-center justify-between">
                       <div className="font-black text-2xl text-white">
                         {formatPrice(item.price)}{' '}
-                        <span className="text-[#00d4ff] text-sm">{t('currency')}</span>
+                        <span className="text-blue-500 text-sm">{t('currency')}</span>
                       </div>
                       <button 
                         onClick={() => removeFromCart(item.id)}
@@ -107,8 +107,8 @@ export function Cart() {
             </div>
 
             <div className="lg:sticky lg:top-32 lg:h-fit">
-              <div className="border border-[#00d4ff]/30 bg-[#12121a] p-8">
-                <h3 className="mb-6 font-black text-2xl uppercase text-[#00d4ff]">
+              <div className="border border-blue-500/30 bg-white/5 p-8 rounded-[2rem] glass-card">
+                <h3 className="mb-6 font-black text-2xl uppercase text-blue-500">
                   {t('cart.total')}
                 </h3>
 
@@ -126,19 +126,19 @@ export function Cart() {
                   ))}
                 </div>
 
-                <div className="mb-8 border-t border-[#00d4ff]/30 pt-6">
+                <div className="mb-8 border-t border-white/10 pt-6">
                   <div className="flex items-center justify-between">
                     <span className="font-black text-white text-xl uppercase">Total</span>
-                    <span className="font-black text-3xl text-white">
+                    <span className="font-black text-2xl sm:text-3xl text-white">
                       {formatPrice(total)}{' '}
-                      <span className="text-[#00d4ff] text-lg">{t('currency')}</span>
+                      <span className="text-blue-500 text-lg">{t('currency')}</span>
                     </span>
                   </div>
                 </div>
 
                 <button
                   onClick={() => navigate('/checkout')}
-                  className="w-full bg-[#00d4ff] px-8 py-5 font-black text-lg uppercase text-black transition-all hover:bg-[#00ff88] hover:shadow-[0_0_30px_rgba(0,255,136,0.3)]"
+                  className="w-full bg-blue-600 px-8 py-5 font-black text-lg uppercase text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] rounded-xl"
                 >
                   {t('cart.checkout')}
                 </button>

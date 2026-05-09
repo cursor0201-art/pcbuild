@@ -111,11 +111,11 @@ export function Checkout() {
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="max-w-2xl border border-[#00ff88]/30 bg-[#12121a] p-16 text-center"
+          className="max-w-2xl border border-blue-500/30 bg-white/5 p-16 text-center rounded-[2rem] glass-card mx-6"
         >
           <div className="mb-8 flex justify-center">
-            <div className="flex h-24 w-24 items-center justify-center border-4 border-[#00ff88] bg-[#00ff88]/10">
-              <Check className="h-12 w-12 text-[#00ff88]" />
+            <div className="flex h-24 w-24 items-center justify-center border-4 border-blue-500 bg-blue-500/10 rounded-full">
+              <Check className="h-12 w-12 text-blue-500" />
             </div>
           </div>
           <h2 className="mb-4 font-black text-5xl uppercase text-white">
@@ -126,7 +126,7 @@ export function Checkout() {
           </p>
           <div className="font-black text-3xl text-white">
             {formatPrice(finalTotal || total)}{' '}
-            <span className="text-[#00d4ff] text-xl">{t('currency')}</span>
+            <span className="text-blue-500 text-xl">{t('currency')}</span>
           </div>
         </motion.div>
       </div>
@@ -136,11 +136,11 @@ export function Checkout() {
   // Check if cart is empty and show empty cart message
   if (cartItems.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0a0a0f] pt-20">
+      <div className="flex min-h-screen items-center justify-center bg-[#020617] pt-20">
         <div className="text-center">
           <div className="mb-8 flex justify-center">
-            <div className="flex h-24 w-24 items-center justify-center border-4 border-[#ff0080] bg-[#ff0080]/10">
-              <X className="h-12 w-12 text-[#ff0080]" />
+            <div className="flex h-24 w-24 items-center justify-center border-4 border-red-500 bg-red-500/10 rounded-full">
+              <X className="h-12 w-12 text-red-500" />
             </div>
           </div>
           <h2 className="mb-4 font-black text-5xl uppercase text-white">
@@ -151,7 +151,7 @@ export function Checkout() {
           </p>
           <button
             onClick={() => navigate('/builder')}
-            className="bg-[#00d4ff] px-8 py-4 font-black text-lg uppercase text-black transition-all hover:bg-[#00ff88] hover:shadow-[0_0_30px_rgba(0,255,136,0.3)]"
+            className="bg-blue-600 px-8 py-4 font-black text-lg uppercase text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] rounded-xl"
           >
             GO TO BUILDER
           </button>
@@ -161,7 +161,7 @@ export function Checkout() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] pt-20">
+    <div className="min-h-screen bg-[#020617] pt-20">
       <div className="mx-auto max-w-[1200px] p-6 lg:p-12">
         <h1 className="mb-8 sm:mb-12 font-black text-4xl md:text-6xl uppercase tracking-tighter text-white">
           {t('checkout.title')}
@@ -170,7 +170,7 @@ export function Checkout() {
         <div className="grid gap-8 lg:grid-cols-[1fr,400px]">
           <form onSubmit={handleSubmit} className="space-y-8">
             <div>
-              <h2 className="mb-6 font-black text-2xl uppercase text-[#00d4ff]">
+              <h2 className="mb-6 font-black text-2xl uppercase text-blue-500">
                 {t('checkout.contact')}
               </h2>
               <div className="space-y-4">
@@ -184,7 +184,7 @@ export function Checkout() {
                     value={formData.customer_name}
                     onChange={handleInputChange}
                     required
-                    className="w-full border border-white/20 bg-[#12121a] px-6 py-4 text-white outline-none transition-all focus:border-[#00d4ff]"
+                    className="w-full border border-white/10 bg-white/5 px-6 py-4 text-white outline-none transition-all focus:border-blue-500 rounded-xl"
                     placeholder="Иван Иванов"
                   />
                 </div>
@@ -198,7 +198,7 @@ export function Checkout() {
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
-                    className="w-full border border-white/20 bg-[#12121a] px-6 py-4 text-white outline-none transition-all focus:border-[#00d4ff]"
+                    className="w-full border border-white/10 bg-white/5 px-6 py-4 text-white outline-none transition-all focus:border-blue-500 rounded-xl"
                     placeholder="+998 90 123 45 67"
                   />
                 </div>
@@ -212,7 +212,7 @@ export function Checkout() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full border border-white/20 bg-[#12121a] px-6 py-4 text-white outline-none transition-all focus:border-[#00d4ff]"
+                    className="w-full border border-white/10 bg-white/5 px-6 py-4 text-white outline-none transition-all focus:border-blue-500 rounded-xl"
                     placeholder="example@mail.com"
                   />
                 </div>
@@ -231,7 +231,7 @@ export function Checkout() {
                   <input
                     type="text"
                     required
-                    className="w-full border border-white/20 bg-[#12121a] px-6 py-4 text-white outline-none transition-all focus:border-[#00d4ff]"
+                    className="w-full border border-white/10 bg-white/5 px-6 py-4 text-white outline-none transition-all focus:border-blue-500 rounded-xl"
                     placeholder="Ташкент"
                   />
                 </div>
@@ -242,7 +242,7 @@ export function Checkout() {
                   <textarea
                     required
                     rows={3}
-                    className="w-full border border-white/20 bg-[#12121a] px-6 py-4 text-white outline-none transition-all focus:border-[#00d4ff]"
+                    className="w-full border border-white/10 bg-white/5 px-6 py-4 text-white outline-none transition-all focus:border-blue-500 rounded-xl"
                     placeholder="ул. Амира Темура, д. 123, кв. 45"
                   />
                 </div>
@@ -259,7 +259,7 @@ export function Checkout() {
                   value={formData.comment}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full border border-white/20 bg-[#12121a] px-6 py-4 text-white outline-none transition-all focus:border-[#00d4ff]"
+                  className="w-full border border-white/10 bg-white/5 px-6 py-4 text-white outline-none transition-all focus:border-blue-500 rounded-xl"
                   placeholder="Additional comments..."
                 />
               </div>
@@ -267,15 +267,15 @@ export function Checkout() {
 
             <button
               type="submit"
-              className="w-full bg-[#00d4ff] px-8 py-5 font-black text-lg uppercase text-black transition-all hover:bg-[#00ff88] hover:shadow-[0_0_30px_rgba(0,255,136,0.3)]"
+              className="w-full bg-blue-600 px-8 py-5 font-black text-lg uppercase text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] rounded-xl"
             >
               {t('checkout.submit')}
             </button>
           </form>
 
           <div className="lg:sticky lg:top-32 lg:h-fit">
-            <div className="border border-[#00d4ff]/30 bg-[#12121a] p-8">
-              <h3 className="mb-6 font-black text-2xl uppercase text-[#00d4ff]">
+            <div className="border border-blue-500/30 bg-white/5 p-8 rounded-[2rem] glass-card">
+              <h3 className="mb-6 font-black text-2xl uppercase text-blue-500">
                 {t('cart.total')}
               </h3>
 
@@ -299,7 +299,7 @@ export function Checkout() {
                   <span className="font-black text-white text-xl uppercase">Total</span>
                   <span className="font-black text-3xl text-white">
                     {formatPrice(total)}{' '}
-                    <span className="text-[#00d4ff] text-lg">{t('currency')}</span>
+                    <span className="text-blue-500 text-lg">{t('currency')}</span>
                   </span>
                 </div>
               </div>

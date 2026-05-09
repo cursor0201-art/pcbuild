@@ -36,10 +36,10 @@ export function Landing() {
               <span className="block w-full whitespace-normal leading-relaxed">{t('hero.tagline')}</span>
             </motion.div>
 
-            <h1 className="mb-2 sm:mb-4 font-black text-4xl sm:text-6xl md:text-8xl uppercase leading-[1.1] tracking-tighter text-white lg:text-9xl break-words">
+            <h1 className="mb-2 sm:mb-4 font-black text-3xl sm:text-6xl md:text-8xl uppercase leading-[1.1] tracking-tighter text-white lg:text-9xl break-words">
               {t('hero.title')}
             </h1>
-            <h1 className="mb-8 sm:mb-12 bg-gradient-to-r from-[#00d4ff] via-[#ff0080] to-[#00ff88] bg-clip-text font-black text-4xl sm:text-6xl md:text-8xl uppercase leading-[1.1] tracking-tighter text-transparent lg:text-9xl break-words">
+            <h1 className="mb-8 sm:mb-12 bg-gradient-to-r from-[#00d4ff] via-[#ff0080] to-[#00ff88] bg-clip-text font-black text-3xl sm:text-6xl md:text-8xl uppercase leading-[1.1] tracking-tighter text-transparent lg:text-9xl break-words">
               {t('hero.subtitle')}
             </h1>
 
@@ -156,7 +156,7 @@ export function Landing() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <div className="flex flex-col items-center mb-16 space-y-4">
              <div className="h-px w-32 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
-             <h2 className="text-3xl font-black uppercase tracking-[0.2em]">{t('builder.select')} <span className="text-blue-500">{t('nav.builder')}</span></h2>
+             <h2 className="text-xl sm:text-3xl font-black uppercase tracking-[0.2em]">{t('builder.select')} <span className="text-blue-500">{t('nav.builder')}</span></h2>
              <div className="h-px w-32 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
           </div>
 

@@ -230,7 +230,7 @@ export function Builder() {
           {/* Component Selection */}
           <div className="space-y-4">
             <div className="mb-4 sm:mb-6 flex items-center justify-between border-b border-white/10 pb-4">
-              <h2 className="font-black text-lg sm:text-xl md:text-3xl uppercase text-white truncate mr-2">
+            <h2 className="font-black text-lg sm:text-xl md:text-3xl uppercase text-white truncate mr-2">
                 {categories.find(c => c.slug === activeCategory)?.name || 'Components'}
               </h2>
               {selectedInCategory && (
@@ -256,10 +256,10 @@ export function Builder() {
                     <motion.div
                       key={component.id}
                       whileHover={{ y: -4 }}
-                      className={`group relative cursor-pointer overflow-hidden border bg-[#12121a] transition-all ${
+                      className={`group relative cursor-pointer overflow-hidden border bg-white/5 transition-all rounded-[1.5rem] ${
                         isSelected
-                          ? 'border-[#00d4ff] shadow-[0_0_20px_rgba(0,212,255,0.3)]'
-                          : 'border-white/10 hover:border-[#00d4ff]/50'
+                          ? 'border-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.3)]'
+                          : 'border-white/10 hover:border-blue-500/50'
                       }`}
                     >
                       <div
@@ -277,13 +277,13 @@ export function Builder() {
                             setSelectedProduct(component);
                             setShowProductModal(true);
                           }}
-                          className="absolute left-4 top-4 flex h-8 w-8 items-center justify-center border border-white/30 bg-black/50 backdrop-blur-sm transition-all hover:border-[#00d4ff] hover:bg-[#00d4ff]"
+                          className="absolute left-4 top-4 flex h-8 w-8 items-center justify-center border border-white/30 bg-black/50 backdrop-blur-sm transition-all hover:border-blue-500 hover:bg-blue-500 rounded-lg"
                         >
                           <Info className="h-4 w-4 text-white" />
                         </button>
                         {isSelected && (
-                          <div className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center bg-[#00d4ff]">
-                            <Check className="h-5 w-5 text-black" />
+                          <div className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center bg-blue-500 rounded-lg">
+                            <Check className="h-5 w-5 text-white" />
                           </div>
                         )}
                       </div>
@@ -305,7 +305,7 @@ export function Builder() {
                         <div className="flex items-center justify-between">
                           <div className="font-black text-2xl text-white">
                             {formatPrice(component.price)}{' '}
-                            <span className="text-[#00d4ff] text-sm">
+                            <span className="text-blue-500 text-sm">
                               {t('currency')}
                             </span>
                           </div>
@@ -325,8 +325,8 @@ export function Builder() {
 
           {/* Summary Sidebar */}
           <div className="space-y-6 lg:sticky lg:top-32 lg:h-fit">
-            <div className="border border-[#00d4ff]/30 bg-[#12121a] p-6">
-              <h3 className="mb-4 font-black text-2xl uppercase text-[#00d4ff]">
+            <div className="border border-blue-500/30 bg-white/5 p-6 rounded-[2rem] glass-card">
+              <h3 className="mb-4 font-black text-2xl uppercase text-blue-500">
                 {t('builder.total')}
               </h3>
 
@@ -353,12 +353,12 @@ export function Builder() {
                 })}
               </div>
 
-              <div className="mb-6 border-t border-[#00d4ff]/30 pt-4">
+              <div className="mb-6 border-t border-white/10 pt-4">
                 <div className="flex items-center justify-between">
                   <span className="font-black text-white text-xl uppercase">Total</span>
-                  <span className="font-black text-3xl text-white">
+                  <span className="font-black text-2xl sm:text-3xl text-white">
                     {formatPrice(totalPrice)}{' '}
-                    <span className="text-[#00d4ff] text-lg">{t('currency')}</span>
+                    <span className="text-blue-500 text-lg">{t('currency')}</span>
                   </span>
                 </div>
               </div>
@@ -384,7 +384,7 @@ export function Builder() {
               <button
                 onClick={() => navigate('/cart')}
                 disabled={Object.keys(selectedComponents).length === 0}
-                className="w-full bg-[#00d4ff] px-8 py-4 font-black uppercase text-black transition-all hover:bg-[#00ff88] disabled:cursor-not-allowed disabled:opacity-30"
+                className="w-full bg-blue-600 px-8 py-4 font-black uppercase text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] disabled:cursor-not-allowed disabled:opacity-30 rounded-xl"
               >
                 {t('builder.checkout')}
               </button>
