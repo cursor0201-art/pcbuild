@@ -26,14 +26,14 @@ export function Header() {
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-4 lg:px-12">
         {/* Logo */}
         <Link to="/" className="group flex items-center gap-3 shrink-0 z-50">
-          <div className="relative h-8 w-8 sm:h-10 sm:w-10">
-            <div className="absolute inset-0 bg-blue-500 blur-md opacity-50 group-hover:opacity-80 transition-opacity" />
-            <svg viewBox="0 0 24 24" className="relative h-full w-full text-blue-500 fill-current">
+          <div className="relative h-10 w-10">
+            <div className="absolute inset-0 bg-blue-500 blur-md opacity-40 group-hover:opacity-60 transition-opacity" />
+            <svg viewBox="0 0 24 24" className="relative h-full w-full text-blue-500 fill-current drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
-          <div className="font-bold text-lg sm:text-xl uppercase tracking-tighter text-white leading-none">
-            GameZone<span className="text-blue-500">Build</span>
+          <div className="font-black text-2xl uppercase tracking-tighter text-white leading-none">
+            <span className="text-blue-500">G</span>AMEZONE
           </div>
         </Link>
 

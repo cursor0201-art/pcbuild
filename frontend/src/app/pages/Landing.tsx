@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'motion/react';
-import { Sparkles, Zap, DollarSign, ArrowRight } from 'lucide-react';
+import { Sparkles, Zap, DollarSign, ArrowRight, Shield, Headset, Cpu } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { AIBuilderModal } from '../components/AIBuilderModal';
 import { apiService, Category } from '../services/api';
@@ -57,69 +57,118 @@ export function Landing() {
         </div>
 
         <div className="relative mx-auto flex h-full max-w-[1600px] items-center px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-3xl w-full"
-          >
+          <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="mb-6 inline-block w-fit max-w-full border border-[#00d4ff]/30 bg-[#00d4ff]/10 px-4 py-2 sm:px-6 sm:py-2 font-black text-[#00d4ff] text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="z-10"
             >
-              <span className="block w-full whitespace-normal leading-relaxed">{t('hero.tagline')}</span>
+              <div className="mb-6 flex items-center gap-2 w-fit border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 rounded-full">
+                <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+                <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400">Next Gen Performance</span>
+              </div>
+
+              <h1 className="mb-4 font-black text-6xl sm:text-7xl lg:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
+                Power Your<br />
+                <span className="text-blue-500">Play</span>
+              </h1>
+              
+              <p className="mb-10 text-lg text-slate-400 max-w-xl leading-relaxed">
+                Discover the ultimate collection of high-performance PC components, custom builds, and gaming gear. 
+                <span className="block mt-2 text-blue-400/80 font-bold">Built for gamers. Designed to win.</span>
+              </p>
+
+              <div className="flex flex-wrap gap-4 mb-12">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => navigate('/builder')}
+                  className="group flex items-center gap-3 bg-blue-600 px-8 py-4 font-black text-white rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                >
+                  SHOP NOW
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowAI(true)}
+                  className="flex items-center gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-8 py-4 font-black text-white rounded-xl transition-all hover:bg-white/10"
+                >
+                  <Sparkles className="h-5 w-5 text-blue-400" />
+                  BUILD YOUR PC
+                </motion.button>
+              </div>
+
+              {/* Stats Row */}
+              <div className="flex flex-wrap gap-8 py-6 border-t border-white/5">
+                {[
+                  { icon: Zap, label: 'Free Shipping', sub: 'On all orders over $99' },
+                  { icon: Shield, label: '2 Years Warranty', sub: 'Premium quality assured' },
+                  { icon: Headset, label: '24/7 Support', sub: 'Always here to help' }
+                ].map((stat, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                      <stat.icon className="h-5 w-5 text-blue-500" />
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-bold text-white uppercase tracking-wider">{stat.label}</div>
+                      <div className="text-[9px] text-slate-500 font-medium">{stat.sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
-            <h1 className="mb-2 sm:mb-4 font-black text-4xl sm:text-5xl md:text-7xl uppercase leading-[1.1] tracking-tighter text-white lg:text-8xl break-words">
-              {t('hero.title')}
-            </h1>
-            <h1 className="mb-8 sm:mb-12 bg-gradient-to-r from-[#00d4ff] via-[#ff0080] to-[#00ff88] bg-clip-text font-black text-3xl sm:text-4xl md:text-5xl uppercase leading-[1.1] tracking-tighter text-transparent lg:text-6xl break-words">
-              {t('hero.subtitle')}
-            </h1>
+            {/* Hardware Visuals */}
+            <div className="relative hidden lg:flex items-center justify-center h-full">
+              <div className="relative z-10 w-full h-full flex items-center justify-center">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-blue-500/20 rounded-full animate-spin-slow" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-blue-500/10 rounded-full" />
+                
+                <img 
+                  src="/hero_pc_hardware.png" 
+                  className="w-full max-w-2xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
+                  alt="Premium Hardware" 
+                />
 
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4 w-full">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate('/builder')}
-                className="group flex w-full sm:w-auto items-center justify-center gap-3 bg-[#00d4ff] px-6 sm:px-10 py-4 sm:py-5 font-black text-black text-base sm:text-lg uppercase tracking-wider transition-all hover:bg-[#00ff88] hover:shadow-[0_0_30px_rgba(0,255,136,0.5)]"
-              >
-                {t('hero.cta')}
-                <ArrowRight className="transition-transform group-hover:translate-x-2" />
-              </motion.button>
+                {/* Floating Tech Cards */}
+                <motion.div 
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1 }}
+                  className="absolute right-0 top-1/4 space-y-4"
+                >
+                  <div className="glass-card p-4 rounded-2xl border border-blue-500/30 w-48 group cursor-pointer hover:border-blue-500 transition-all">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="h-10 w-10 bg-blue-500/10 rounded-lg flex items-center justify-center border border-blue-500/20">
+                        <Zap className="h-5 w-5 text-blue-500" />
+                      </div>
+                      <div className="h-6 w-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                        <ArrowRight className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <div className="text-xs font-black text-white uppercase tracking-tight">RTX 5090</div>
+                    <div className="text-[9px] text-slate-400 uppercase font-medium">Performance Beast</div>
+                  </div>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setShowAI(true)}
-                className="flex w-full sm:w-auto items-center justify-center gap-3 border-2 border-[#ff0080] bg-[#ff0080]/10 sm:bg-transparent px-6 sm:px-10 py-4 sm:py-5 font-black text-base sm:text-lg uppercase tracking-wider text-[#ff0080] transition-all hover:bg-[#ff0080] hover:text-white hover:shadow-[0_0_30px_rgba(255,0,128,0.5)]"
-              >
-                <Sparkles className="h-5 w-5" />
-                {t('hero.ai')}
-              </motion.button>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="absolute right-0 top-1/2 hidden -translate-y-1/2 lg:block"
-          >
-            <div className="relative h-[600px] w-[600px] flex items-center justify-center">
-              <div className="absolute inset-0 bg-blue-500/10 blur-[100px] rounded-full" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-[450px] h-[450px] rounded-full border border-blue-500/20" />
+                  <div className="glass-card p-4 rounded-2xl border border-white/10 w-48 group cursor-pointer hover:border-blue-500 transition-all">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="h-10 w-10 bg-white/5 rounded-lg flex items-center justify-center border border-white/10">
+                        <Cpu className="h-5 w-5 text-slate-400 group-hover:text-blue-500" />
+                      </div>
+                      <div className="h-6 w-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                        <ArrowRight className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <div className="text-xs font-black text-white uppercase tracking-tight">RYZEN 9800X3D</div>
+                    <div className="text-[9px] text-slate-400 uppercase font-medium">Ultimate Gaming CPU</div>
+                  </div>
+                </motion.div>
               </div>
-              <img
-                src="/hero_pc_hardware.png"
-                alt="Gaming Hardware"
-                className="relative z-10 w-full max-w-[700px] object-contain animate-float drop-shadow-[0_0_50px_rgba(59,130,246,0.3)]"
-              />
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -191,15 +240,17 @@ export function Landing() {
       <section className="py-24 relative border-t border-white/5">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <div className="flex flex-col items-center mb-16 space-y-4">
-             <div className="h-px w-32 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
-             <h2 className="text-xl sm:text-3xl font-black uppercase tracking-[0.2em]">{t('builder.select')} <span className="text-blue-500">{t('nav.builder')}</span></h2>
-             <div className="h-px w-32 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+             <div className="flex items-center gap-4">
+               <div className="h-px w-12 bg-gradient-to-r from-transparent to-blue-500" />
+               <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight">SHOP BY <span className="text-blue-500 text-glow">CATEGORY</span></h2>
+               <div className="h-px w-12 bg-gradient-to-l from-transparent to-blue-500" />
+             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {loading ? (
               [...Array(4)].map((_, i) => (
-                <div key={i} className="h-80 glass-card animate-pulse rounded-[2rem]" />
+                <div key={i} className="h-80 glass-card animate-pulse rounded-3xl" />
               ))
             ) : categories.length > 0 ? (
               categories.slice(0, 4).map((category, idx) => {
@@ -209,34 +260,34 @@ export function Landing() {
                     key={category.id}
                     whileHover={{ y: -8 }}
                     onClick={() => navigate('/builder')}
-                    className="glass-card p-6 rounded-[2rem] space-y-6 group cursor-pointer"
+                    className="glass-card-dark p-6 rounded-[2rem] space-y-6 group cursor-pointer border border-white/5 hover:border-blue-500/50 transition-all duration-500"
                   >
                     <div className="space-y-1">
                       <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-bold uppercase tracking-tight group-hover:text-blue-400 transition-colors">{category.name}</h3>
-                        <div className="h-8 w-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
+                        <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-blue-400 transition-colors">{category.name}</h3>
+                        <div className="h-8 w-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
                           <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-white" />
                         </div>
                       </div>
-                      <p className="text-xs text-slate-500 font-medium">{info.sub}</p>
+                      <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{info.sub}</p>
                     </div>
 
-                    <div className="relative h-48 flex items-center justify-center overflow-hidden">
+                    <div className="relative h-48 flex items-center justify-center">
                        <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full scale-50 opacity-0 group-hover:opacity-100 transition-opacity" />
                        <img 
                         src={info.img} 
                         alt={category.name} 
-                        className="max-h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-500" 
+                        className="max-h-full w-auto object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-700" 
                       />
                     </div>
 
-                    <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                      <div className="space-y-0.5">
-                        <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Starting From</div>
-                        <div className="text-xl font-black text-blue-500">{info.price}</div>
+                    <div className="pt-4 border-t border-white/5 flex items-center justify-between items-end">
+                      <div className="space-y-1">
+                        <div className="text-[9px] text-slate-500 uppercase font-black tracking-[0.2em]">Starting From</div>
+                        <div className="text-2xl font-black text-blue-500">${info.price.replace('$', '')}</div>
                       </div>
-                      <div className="h-10 w-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
-                        <span className="text-slate-300 font-bold">+</span>
+                      <div className="h-10 w-10 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
+                        <span className="text-white font-bold text-lg">+</span>
                       </div>
                     </div>
                   </motion.div>
