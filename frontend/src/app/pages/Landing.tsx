@@ -122,8 +122,8 @@ export function Landing() {
             </motion.div>
 
             {/* Hardware Visuals */}
-            <div className="relative hidden lg:flex items-center justify-center h-full">
-              <div className="relative z-10 w-full h-full flex items-center justify-center">
+            <div className="relative hidden md:flex items-center justify-center h-full mt-12 lg:mt-0">
+              <div className="relative z-10 w-full h-full flex items-center justify-center scale-75 lg:scale-100">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-blue-500/20 rounded-full animate-spin-slow" />
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-blue-500/10 rounded-full" />
                 
