@@ -122,8 +122,8 @@ export function Landing() {
             </motion.div>
 
             {/* Hardware Visuals */}
-            <div className="relative hidden md:flex items-center justify-center h-full mt-12 lg:mt-0 lg:ml-12">
-              <div className="relative z-10 w-full flex items-center justify-center scale-95 lg:scale-110">
+            <div className="relative hidden md:flex items-center justify-start h-full mt-12 lg:mt-0">
+              <div className="relative z-10 w-full flex items-center justify-start scale-110 lg:scale-125 -translate-x-24 lg:-translate-x-48">
                 <img 
                   src="/hero_composite.png" 
                   className="w-full max-w-4xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
@@ -135,7 +135,7 @@ export function Landing() {
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8, duration: 1 }}
-                  className="absolute -right-12 top-1/2 -translate-y-1/2 space-y-12 z-30"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 space-y-12 z-30 translate-x-24"
                 >
                   <motion.div 
                     whileHover={{ scale: 1.1 }}
