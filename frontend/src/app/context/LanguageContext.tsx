@@ -18,11 +18,23 @@ const translations = {
     'nav.about': 'О нас',
 
     // Landing
-    'hero.title': 'GameZone',
-    'hero.subtitle': 'СБОРКА ИГРОВЫХ ПК',
-    'hero.tagline': 'От киберспорта до 3D-графики. Подбор комплектующих с гарантией совместимости.',
-    'hero.cta': 'Начать сборку',
-    'hero.ai': 'ИИ подберет мне ПК',
+    'hero.title_part1': 'ЗАРЯДИ СВОЮ',
+    'hero.title_part2': 'ИГРУ',
+    'hero.description': 'Открой для себя ультимативную коллекцию высокопроизводительных комплектующих, кастомных сборок и игрового снаряжения.',
+    'hero.tagline_extra': 'Создано для геймеров. Спроектировано для побед.',
+    'hero.cta_primary': 'В МАГАЗИН',
+    'hero.cta_secondary': 'СОБРАТЬ ПК',
+    'hero.next_gen': 'ПРОИЗВОДИТЕЛЬНОСТЬ СЛЕДУЮЩЕГО ПОКОЛЕНИЯ',
+
+    'stats.shipping.label': 'БЕСПЛАТНАЯ ДОСТАВКА',
+    'stats.shipping.sub': 'На все заказы свыше 1 000 000 UZS',
+    'stats.warranty.label': '2 ГОДА ГАРАНТИИ',
+    'stats.warranty.sub': 'Премиальное качество гарантировано',
+    'stats.support.label': '24/7 ПОДДЕРЖКА',
+    'stats.support.sub': 'Всегда готовы помочь',
+
+    'category.title': 'КАТЕГОРИИ',
+    'category.starting': 'ОТ',
 
     'features.title': 'ПОЧЕМУ МЫ',
     'features.ai.title': 'ИИ-ПОМОЩНИК',
@@ -108,11 +120,23 @@ const translations = {
     'nav.about': 'Biz haqimizda',
 
     // Landing
-    'hero.title': "GameZone",
-    'hero.subtitle': "O'YIN KOMPYUTERLARINI YIG'ISH",
-    'hero.tagline': "Kibersportdan 3D-grafikagacha. Moslik kafolati bilan komponentlarni tanlash.",
-    'hero.cta': 'Yig\'ishni boshlash',
-    'hero.ai': 'AI menga kompyuter tanlaydi',
+    'hero.title_part1': "O'YININGIZNI",
+    'hero.title_part2': "ZARYADLANG",
+    'hero.description': "Yuqori unumdorlikka ega butlovchi qismlar, maxsus yig'malar va o'yin jihozlarining ajoyib to'plamini kashf eting.",
+    'hero.tagline_extra': "Geymerlar uchun yaratilgan. G'alaba uchun mo'ljallangan.",
+    'hero.cta_primary': "DO'KONGA",
+    'hero.cta_secondary': "PK YIG'ISH",
+    'hero.next_gen': 'YANGI AVLOD UNUMDORLIGI',
+
+    'stats.shipping.label': 'BEPUL YETKAZIB BERISH',
+    'stats.shipping.sub': "1 000 000 UZS dan yuqori barcha buyurtmalar uchun",
+    'stats.warranty.label': '2 YILLIK KAFOLAT',
+    'stats.warranty.sub': 'Yuqori sifat kafolatlangan',
+    'stats.support.label': '24/7 QO\'LLAB-QUVVATLASH',
+    'stats.support.sub': 'Har doim yordamga tayyormiz',
+
+    'category.title': 'KATEGORIYALAR',
+    'category.starting': 'DAN',
 
     'features.title': 'NIMA UCHUN BIZ',
     'features.ai.title': 'AI-YORDAMCHI',

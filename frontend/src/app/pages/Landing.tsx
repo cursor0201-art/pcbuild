@@ -66,17 +66,17 @@ export function Landing() {
             >
               <div className="mb-6 flex items-center gap-2 w-fit border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 rounded-full">
                 <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-                <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400">Next Gen Performance</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
               </div>
 
               <h1 className="mb-4 font-black text-6xl sm:text-7xl lg:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
-                Power Your<br />
-                <span className="text-blue-500">Play</span>
+                {t('hero.title_part1')}<br />
+                <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
               
               <p className="mb-10 text-lg text-slate-400 max-w-xl leading-relaxed">
-                Discover the ultimate collection of high-performance PC components, custom builds, and gaming gear. 
-                <span className="block mt-2 text-blue-400/80 font-bold">Built for gamers. Designed to win.</span>
+                {t('hero.description')}
+                <span className="block mt-2 text-blue-400/80 font-bold">{t('hero.tagline_extra')}</span>
               </p>
 
               <div className="flex flex-wrap gap-4 mb-12">
@@ -86,7 +86,7 @@ export function Landing() {
                   onClick={() => navigate('/builder')}
                   className="group flex items-center gap-3 bg-blue-600 px-8 py-4 font-black text-white rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
                 >
-                  SHOP NOW
+                  {t('hero.cta_primary')}
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </motion.button>
 
@@ -97,16 +97,16 @@ export function Landing() {
                   className="flex items-center gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-8 py-4 font-black text-white rounded-xl transition-all hover:bg-white/10"
                 >
                   <Sparkles className="h-5 w-5 text-blue-400" />
-                  BUILD YOUR PC
+                  {t('hero.cta_secondary')}
                 </motion.button>
               </div>
 
               {/* Stats Row */}
               <div className="flex flex-wrap gap-8 py-6 border-t border-white/5">
                 {[
-                  { icon: Zap, label: 'Free Shipping', sub: 'On all orders over $99' },
-                  { icon: Shield, label: '2 Years Warranty', sub: 'Premium quality assured' },
-                  { icon: Headset, label: '24/7 Support', sub: 'Always here to help' }
+                  { icon: Zap, label: t('stats.shipping.label'), sub: t('stats.shipping.sub') },
+                  { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
+                  { icon: Headset, label: t('stats.support.label'), sub: t('stats.support.sub') }
                 ].map((stat, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
@@ -242,7 +242,7 @@ export function Landing() {
           <div className="flex flex-col items-center mb-16 space-y-4">
              <div className="flex items-center gap-4">
                <div className="h-px w-12 bg-gradient-to-r from-transparent to-blue-500" />
-               <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight">SHOP BY <span className="text-blue-500 text-glow">CATEGORY</span></h2>
+               <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight">{t('category.title')}</h2>
                <div className="h-px w-12 bg-gradient-to-l from-transparent to-blue-500" />
              </div>
           </div>
@@ -283,7 +283,7 @@ export function Landing() {
 
                     <div className="pt-4 border-t border-white/5 flex items-center justify-between items-end">
                       <div className="space-y-1">
-                        <div className="text-[9px] text-slate-500 uppercase font-black tracking-[0.2em]">Starting From</div>
+                        <div className="text-[9px] text-slate-500 uppercase font-black tracking-[0.2em]">{t('category.starting')}</div>
                         <div className="text-2xl font-black text-blue-500">${info.price.replace('$', '')}</div>
                       </div>
                       <div className="h-10 w-10 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
