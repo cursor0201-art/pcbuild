@@ -45,7 +45,7 @@ export function Footer() {
               </h4>
               <ul className="space-y-3 text-slate-500 text-sm">
                 <li>+998 99 999 19 94</li>
-                <li>support@neontech.uz</li>
+                <li>support@gamezonebuild.uz</li>
                 <li>{language === 'ru' ? 'Ташкент, Узбекистан' : 'Toshkent, O\'zbekiston'}</li>
               </ul>
             </div>
