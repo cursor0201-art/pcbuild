@@ -142,11 +142,14 @@ export function Landing() {
                     className="relative"
                   >
                     <div className="absolute -left-12 top-1/2 w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-6 rounded-[2rem] border border-blue-500/30 w-80 shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-4">
-                      <img src="/rtx5090.png" className="h-16 w-auto object-contain drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" alt="RTX 5090" />
-                      <div>
-                        <div className="text-2xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
-                        <div className="text-[10px] text-blue-400 font-black uppercase tracking-[0.2em]">{t('hero.next_gen')}</div>
+                    <div className="glass-card-dark p-6 rounded-[2rem] border border-blue-500/30 w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-6 overflow-hidden">
+                      <div className="relative h-24 w-32 flex-shrink-0">
+                        <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full scale-50" />
+                        <img src="/rtx5090.png" className="relative h-full w-full object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]" alt="RTX 5090" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-3xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
+                        <div className="text-xs text-blue-400 font-black uppercase tracking-[0.2em]">{t('hero.next_gen')}</div>
                       </div>
                     </div>
                   </motion.div>
@@ -156,11 +159,14 @@ export function Landing() {
                     className="relative"
                   >
                     <div className="absolute -left-12 top-1/2 w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-6 rounded-[2rem] border border-white/10 w-80 shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-4">
-                      <img src="/9800x3d.png" className="h-16 w-auto object-contain drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" alt="Ryzen 9800X3D" />
-                      <div>
-                        <div className="text-2xl font-black text-white uppercase tracking-tight mb-1">RYZEN 9800X3D</div>
-                        <div className="text-[10px] text-blue-400 font-black uppercase tracking-[0.2em]">Ultimate Gaming CPU</div>
+                    <div className="glass-card-dark p-6 rounded-[2rem] border border-white/10 w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-6 overflow-hidden">
+                      <div className="relative h-24 w-32 flex-shrink-0">
+                        <div className="absolute inset-0 bg-blue-500/10 blur-2xl rounded-full scale-50" />
+                        <img src="/9800x3d.png" className="relative h-full w-full object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]" alt="Ryzen 9800X3D" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-3xl font-black text-white uppercase tracking-tight mb-1">RYZEN 9800X3D</div>
+                        <div className="text-xs text-blue-400 font-black uppercase tracking-[0.2em]">Ultimate Gaming CPU</div>
                       </div>
                     </div>
                   </motion.div>
