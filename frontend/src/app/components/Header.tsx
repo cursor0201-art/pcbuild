@@ -118,13 +118,13 @@ export function Header() {
                 </button>
               </div>
 
-              <nav className="flex flex-col p-8 gap-8">
+              <nav className="flex flex-col p-8 gap-6">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
                     to={link.path}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`text-4xl font-black uppercase tracking-tighter ${
+                    className={`text-2xl font-bold uppercase tracking-tight ${
                       isActive(link.path) ? 'text-blue-500' : 'text-white'
                     }`}
                   >
@@ -132,9 +132,9 @@ export function Header() {
                   </Link>
                 ))}
                 
-                <div className="mt-12 pt-12 border-t border-white/5 space-y-6">
-                  <div className="text-slate-500 text-xs uppercase tracking-[0.2em] font-bold">Select Language</div>
-                  <div className="flex flex-col gap-4">
+                <div className="mt-8 pt-8 border-t border-white/5 space-y-4">
+                  <div className="text-slate-500 text-[10px] uppercase tracking-[0.2em] font-bold">Select Language</div>
+                  <div className="flex gap-3">
                     {['ru', 'uz'].map((lang) => (
                       <button
                         key={lang}
@@ -142,7 +142,7 @@ export function Header() {
                           setLanguage(lang as 'ru' | 'uz');
                           setIsMenuOpen(false);
                         }}
-                        className={`w-full py-5 font-black text-lg uppercase rounded-2xl border transition-all ${
+                        className={`flex-1 py-3 font-bold text-xs uppercase rounded-xl border transition-all ${
                           language === lang 
                             ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]' 
                             : 'bg-white/5 border-white/10 text-white/60'
