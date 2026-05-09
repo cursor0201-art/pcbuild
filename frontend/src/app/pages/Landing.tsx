@@ -2,13 +2,49 @@ import { useNavigate } from 'react-router';
 import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'motion/react';
 import { Sparkles, Zap, DollarSign, ArrowRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AIBuilderModal } from '../components/AIBuilderModal';
+import { apiService, Category } from '../services/api';
 
 export function Landing() {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const [showAI, setShowAI] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await apiService.getCategories();
+        if (response.success && response.data) {
+          // If response.data is the paginated object, extract results
+          const rawData = response.data as any;
+          if (rawData.results) {
+            setCategories(rawData.results);
+          } else if (Array.isArray(response.data)) {
+            setCategories(response.data);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // Helper to get category image and info
+  const getCategoryInfo = (slug: string) => {
+    const info: Record<string, { img: string; sub: string; price: string }> = {
+      'videokarty': { img: '/gpu.png', sub: 'Ultimate graphics performance.', price: '$499' },
+      'protsessory': { img: '/cpu.png', sub: 'Raw power for limitless gaming.', price: '$249' },
+      'korpusa': { img: '/gaming_pc.png', sub: 'Pre-built. Tested. Game Ready.', price: '$899' },
+      'periferiya': { img: '/peripherals.png', sub: 'Gear up. Play at your best.', price: '$29' },
+    };
+    return info[slug] || { img: '/gaming_pc.png', sub: 'High-quality components.', price: '---' };
+  };
 
   return (
     <div className="min-h-screen bg-[#020617] pt-20 text-white">
@@ -161,48 +197,56 @@ export function Landing() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'Gaming PCs', sub: 'Pre-built. Tested. Game Ready.', price: '$899', img: '/gaming_pc.png' },
-              { title: 'Graphics Cards', sub: 'Ultimate graphics performance.', price: '$499', img: '/gpu.png' },
-              { title: 'Processors', sub: 'Raw power for limitless gaming.', price: '$249', img: '/cpu.png' },
-              { title: 'Peripherals', sub: 'Gear up. Play at your best.', price: '$29', img: '/peripherals.png' },
-            ].map((cat, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -8 }}
-                onClick={() => navigate('/builder')}
-                className="glass-card p-6 rounded-[2rem] space-y-6 group cursor-pointer"
-              >
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-bold uppercase tracking-tight group-hover:text-blue-400 transition-colors">{cat.title}</h3>
-                    <div className="h-8 w-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
-                      <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-white" />
+            {loading ? (
+              [...Array(4)].map((_, i) => (
+                <div key={i} className="h-80 glass-card animate-pulse rounded-[2rem]" />
+              ))
+            ) : categories.length > 0 ? (
+              categories.slice(0, 4).map((category, idx) => {
+                const info = getCategoryInfo(category.slug);
+                return (
+                  <motion.div
+                    key={category.id}
+                    whileHover={{ y: -8 }}
+                    onClick={() => navigate('/builder')}
+                    className="glass-card p-6 rounded-[2rem] space-y-6 group cursor-pointer"
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-bold uppercase tracking-tight group-hover:text-blue-400 transition-colors">{category.name}</h3>
+                        <div className="h-8 w-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
+                          <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-white" />
+                        </div>
+                      </div>
+                      <p className="text-xs text-slate-500 font-medium">{info.sub}</p>
                     </div>
-                  </div>
-                  <p className="text-xs text-slate-500 font-medium">{cat.sub}</p>
-                </div>
 
-                <div className="relative h-48 flex items-center justify-center overflow-hidden">
-                   <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full scale-50 opacity-0 group-hover:opacity-100 transition-opacity" />
-                   <img 
-                    src={cat.img} 
-                    alt={cat.title} 
-                    className="max-h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-500" 
-                  />
-                </div>
+                    <div className="relative h-48 flex items-center justify-center overflow-hidden">
+                       <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full scale-50 opacity-0 group-hover:opacity-100 transition-opacity" />
+                       <img 
+                        src={info.img} 
+                        alt={category.name} 
+                        className="max-h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-500" 
+                      />
+                    </div>
 
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Starting From</div>
-                    <div className="text-xl font-black text-blue-500">{cat.price}</div>
-                  </div>
-                  <div className="h-10 w-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
-                    <span className="text-slate-300 font-bold">+</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                    <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Starting From</div>
+                        <div className="text-xl font-black text-blue-500">{info.price}</div>
+                      </div>
+                      <div className="h-10 w-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
+                        <span className="text-slate-300 font-bold">+</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })
+            ) : (
+              <div className="col-span-full text-center py-12 text-slate-500">
+                No categories found.
+              </div>
+            )}
           </div>
         </div>
       </section>
