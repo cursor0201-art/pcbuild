@@ -122,20 +122,20 @@ export function Landing() {
             </motion.div>
 
             {/* Hardware Visuals */}
-            <div className="relative hidden md:flex items-center justify-end h-full mt-12 lg:mt-0">
-              <div className="relative z-10 w-full flex items-center justify-end scale-90 lg:scale-100 pr-32">
+            <div className="relative hidden md:flex items-center justify-center h-full mt-12 lg:mt-0 lg:ml-12">
+              <div className="relative z-10 w-full flex items-center justify-center scale-95 lg:scale-110">
                 <img 
                   src="/hero_composite.png" 
-                  className="w-full max-w-3xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
+                  className="w-full max-w-4xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
                   alt="Premium Hardware" 
                 />
 
-                {/* Floating Tech Cards - Moved further right and styled as callouts */}
+                {/* Floating Tech Cards - Styled as clean callouts */}
                 <motion.div 
-                  initial={{ opacity: 0, x: 100 }}
+                  initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8, duration: 1 }}
-                  className="absolute -right-16 top-1/2 -translate-y-1/2 space-y-12 z-30"
+                  className="absolute -right-12 top-1/2 -translate-y-1/2 space-y-12 z-30"
                 >
                   <motion.div 
                     whileHover={{ scale: 1.1 }}
@@ -144,7 +144,7 @@ export function Landing() {
                     <div className="absolute -left-12 top-1/2 w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
                     <div className="glass-card-dark p-6 rounded-[2rem] border border-blue-500/30 w-72 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
                       <div className="text-2xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
-                      <div className="text-[10px] text-blue-400 font-black uppercase tracking-[0.2em]">The Performance King</div>
+                      <div className="text-[10px] text-blue-400 font-black uppercase tracking-[0.2em]">{t('hero.next_gen')}</div>
                     </div>
                   </motion.div>
 
