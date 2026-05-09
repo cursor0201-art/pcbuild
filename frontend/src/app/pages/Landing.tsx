@@ -132,32 +132,48 @@ export function Landing() {
 
                 {/* Floating Tech Cards */}
                 <motion.div 
-                  initial={{ opacity: 0, x: 50 }}
+                  initial={{ opacity: 0, x: 100 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1 }}
-                  className="absolute -right-12 top-1/4 space-y-6 z-20"
+                  transition={{ delay: 0.8, duration: 1 }}
+                  className="absolute -right-32 top-1/4 space-y-8 z-30"
                 >
-                  <div className="glass-card p-5 rounded-[2rem] border border-blue-500/30 w-64 group cursor-pointer hover:border-blue-500 transition-all shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+                  <motion.div 
+                    whileHover={{ scale: 1.05, rotateY: -10 }}
+                    className="glass-card-dark p-6 rounded-[2.5rem] border border-blue-500/30 w-72 group cursor-pointer hover:border-blue-500 transition-all shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+                  >
                     <div className="flex items-center justify-between mb-4">
-                       <img src="/rtx5090.png" className="h-20 w-auto object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.5)] group-hover:scale-110 transition-transform duration-500" alt="RTX 5090" />
-                       <div className="h-8 w-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                        <ArrowRight className="h-4 w-4 text-white" />
+                       <div className="relative h-20 w-auto">
+                         <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full scale-50" />
+                         <img src="/rtx5090.png" className="relative h-20 w-auto object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.4)] group-hover:scale-110 transition-transform duration-500" alt="RTX 5090" />
+                       </div>
+                       <div className="h-10 w-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-blue-600 transition-all">
+                        <ArrowRight className="h-5 w-5 text-white" />
                       </div>
                     </div>
-                    <div className="text-lg font-black text-white uppercase tracking-tight">RTX 5090</div>
-                    <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Performance Beast</div>
-                  </div>
+                    <div className="space-y-1">
+                      <div className="text-xl font-black text-white uppercase tracking-tight">RTX 5090</div>
+                      <div className="text-xs text-blue-400 uppercase font-black tracking-widest opacity-80">Performance Beast</div>
+                    </div>
+                  </motion.div>
 
-                  <div className="glass-card p-5 rounded-[2rem] border border-white/10 w-64 group cursor-pointer hover:border-blue-500 transition-all shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+                  <motion.div 
+                    whileHover={{ scale: 1.05, rotateY: -10 }}
+                    className="glass-card-dark p-6 rounded-[2.5rem] border border-white/10 w-72 group cursor-pointer hover:border-blue-500 transition-all shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+                  >
                     <div className="flex items-center justify-between mb-4">
-                       <img src="/9800x3d.png" className="h-20 w-auto object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.5)] group-hover:scale-110 transition-transform duration-500" alt="Ryzen 9800X3D" />
-                       <div className="h-8 w-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                        <ArrowRight className="h-4 w-4 text-white" />
+                       <div className="relative h-20 w-auto">
+                         <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-full scale-50" />
+                         <img src="/9800x3d.png" className="relative h-20 w-auto object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-500" alt="Ryzen 9800X3D" />
+                       </div>
+                       <div className="h-10 w-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-blue-600 transition-all">
+                        <ArrowRight className="h-5 w-5 text-white" />
                       </div>
                     </div>
-                    <div className="text-lg font-black text-white uppercase tracking-tight">RYZEN 9800X3D</div>
-                    <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Ultimate Gaming CPU</div>
-                  </div>
+                    <div className="space-y-1">
+                      <div className="text-xl font-black text-white uppercase tracking-tight">RYZEN 9800X3D</div>
+                      <div className="text-xs text-blue-400 uppercase font-black tracking-widest opacity-80">Ultimate Gaming CPU</div>
+                    </div>
+                  </motion.div>
                 </motion.div>
               </div>
             </div>
