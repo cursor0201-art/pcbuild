@@ -128,7 +128,7 @@ export function Landing() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-blue-500/10 rounded-full" />
                 
                 <img 
-                  src="/hero_pc_hardware.png" 
+                  src="/hero_pc.png" 
                   className="w-full max-w-2xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
                   alt="Premium Hardware" 
                 />
@@ -140,30 +140,26 @@ export function Landing() {
                   transition={{ delay: 1 }}
                   className="absolute right-0 top-1/4 space-y-4"
                 >
-                  <div className="glass-card p-4 rounded-2xl border border-blue-500/30 w-48 group cursor-pointer hover:border-blue-500 transition-all">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="h-10 w-10 bg-blue-500/10 rounded-lg flex items-center justify-center border border-blue-500/20">
-                        <Zap className="h-5 w-5 text-blue-500" />
-                      </div>
-                      <div className="h-6 w-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                  <div className="glass-card p-4 rounded-2xl border border-blue-500/30 w-52 group cursor-pointer hover:border-blue-500 transition-all">
+                    <div className="flex items-center justify-between mb-3">
+                       <img src="/rtx5090.png" className="h-14 w-auto object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] group-hover:scale-110 transition-transform" alt="RTX 5090" />
+                       <div className="h-6 w-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
                         <ArrowRight className="h-3 w-3 text-white" />
                       </div>
                     </div>
-                    <div className="text-xs font-black text-white uppercase tracking-tight">RTX 5090</div>
-                    <div className="text-[9px] text-slate-400 uppercase font-medium">Performance Beast</div>
+                    <div className="text-sm font-black text-white uppercase tracking-tight">RTX 5090</div>
+                    <div className="text-[10px] text-slate-400 uppercase font-medium">Performance Beast</div>
                   </div>
 
-                  <div className="glass-card p-4 rounded-2xl border border-white/10 w-48 group cursor-pointer hover:border-blue-500 transition-all">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="h-10 w-10 bg-white/5 rounded-lg flex items-center justify-center border border-white/10">
-                        <Cpu className="h-5 w-5 text-slate-400 group-hover:text-blue-500" />
-                      </div>
-                      <div className="h-6 w-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                  <div className="glass-card p-4 rounded-2xl border border-white/10 w-52 group cursor-pointer hover:border-blue-500 transition-all">
+                    <div className="flex items-center justify-between mb-3">
+                       <img src="/9800x3d.png" className="h-14 w-auto object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] group-hover:scale-110 transition-transform" alt="Ryzen 9800X3D" />
+                       <div className="h-6 w-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
                         <ArrowRight className="h-3 w-3 text-white" />
                       </div>
                     </div>
-                    <div className="text-xs font-black text-white uppercase tracking-tight">RYZEN 9800X3D</div>
-                    <div className="text-[9px] text-slate-400 uppercase font-medium">Ultimate Gaming CPU</div>
+                    <div className="text-sm font-black text-white uppercase tracking-tight">RYZEN 9800X3D</div>
+                    <div className="text-[10px] text-slate-400 uppercase font-medium">Ultimate Gaming CPU</div>
                   </div>
                 </motion.div>
               </div>
