@@ -123,12 +123,42 @@ export function Landing() {
 
             {/* Hardware Visuals */}
             <div className="relative hidden md:flex items-center justify-center h-full mt-12 lg:mt-0">
-              <div className="relative z-10 w-full h-full flex items-center justify-center scale-100 lg:scale-125 translate-x-12">
+              <div className="relative z-10 w-full h-full flex items-center justify-center scale-100 lg:scale-110">
                 <img 
                   src="/hero_composite.png" 
                   className="w-full max-w-4xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
                   alt="Premium Hardware" 
                 />
+
+                {/* Floating Tech Cards */}
+                <motion.div 
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1 }}
+                  className="absolute -right-12 top-1/4 space-y-6 z-20"
+                >
+                  <div className="glass-card p-5 rounded-[2rem] border border-blue-500/30 w-64 group cursor-pointer hover:border-blue-500 transition-all shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+                    <div className="flex items-center justify-between mb-4">
+                       <img src="/rtx5090.png" className="h-20 w-auto object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.5)] group-hover:scale-110 transition-transform duration-500" alt="RTX 5090" />
+                       <div className="h-8 w-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                        <ArrowRight className="h-4 w-4 text-white" />
+                      </div>
+                    </div>
+                    <div className="text-lg font-black text-white uppercase tracking-tight">RTX 5090</div>
+                    <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Performance Beast</div>
+                  </div>
+
+                  <div className="glass-card p-5 rounded-[2rem] border border-white/10 w-64 group cursor-pointer hover:border-blue-500 transition-all shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+                    <div className="flex items-center justify-between mb-4">
+                       <img src="/9800x3d.png" className="h-20 w-auto object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.5)] group-hover:scale-110 transition-transform duration-500" alt="Ryzen 9800X3D" />
+                       <div className="h-8 w-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                        <ArrowRight className="h-4 w-4 text-white" />
+                      </div>
+                    </div>
+                    <div className="text-lg font-black text-white uppercase tracking-tight">RYZEN 9800X3D</div>
+                    <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Ultimate Gaming CPU</div>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>
