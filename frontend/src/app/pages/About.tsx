@@ -2,7 +2,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'motion/react';
 
 export function About() {
-  const { language } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-[#020617] pt-32 pb-24 text-white">
@@ -12,7 +12,7 @@ export function About() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-12 font-black text-3xl sm:text-5xl md:text-7xl uppercase tracking-tighter text-white"
         >
-          {language === 'ru' ? 'О сервисе' : 'Servis haqida'} <span className="text-blue-500">GameZoneBuild</span>
+          {t('about.title')} <span className="text-blue-500">GameZoneBuild</span>
         </motion.h1>
 
         <motion.div 
@@ -22,17 +22,13 @@ export function About() {
           className="space-y-6 text-lg leading-relaxed border-l-4 border-blue-500 pl-6 bg-white/5 p-8 rounded-r-3xl glass-card"
         >
           <p>
-            <strong className="text-white">GameZoneBuild</strong> — это премиальный сервис сборки игровых ПК и рабочих станций в Узбекистане. 
-            Мы не просто продаем компьютеры, мы создаем индивидуальные решения под конкретные задачи и бюджет каждого клиента.
+            <strong className="text-white">GameZoneBuild</strong> — {t('about.p1')}
           </p>
           <p>
-            В GameZoneBuild вы можете быть уверены в качестве каждой детали. Наши специалисты вручную подбирают комплектующие, 
-            гарантируя их идеальную совместимость. От мощных киберспортивных машин до тихих систем для 3D-моделирования — 
-            GameZoneBuild предлагает лучшие решения на рынке.
+            {t('about.p2')}
           </p>
           <p>
-            Почему выбирают GameZoneBuild? Прозрачное ценообразование, профессиональный кабель-менеджмент, стресс-тестирование 
-            каждой системы перед выдачей и полноценная гарантия. Доверьте сборку профессионалам GameZoneBuild.
+            {t('about.p3')}
           </p>
         </motion.div>
       </div>

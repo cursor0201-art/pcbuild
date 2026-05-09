@@ -83,6 +83,12 @@ const translations = {
     'ai.generate': 'Сгенерировать сборку',
     'ai.use': 'Использовать эту сборку',
 
+    // About
+    'about.title': 'О сервисе',
+    'about.p1': 'GameZoneBuild — это премиальный сервис сборки игровых ПК и рабочих станций в Узбекистане. Мы не просто продаем компьютеры, мы создаем индивидуальные решения под конкретные задачи и бюджет каждого клиента.',
+    'about.p2': 'В GameZoneBuild вы можете быть уверены в качестве каждой детали. Наши специалисты вручную подбирают комплектующие, гарантируя их идеальную совместимость. От мощных киберспортивных машин до тихих систем для 3D-моделирования — GameZoneBuild предлагает лучшие решения на рынке.',
+    'about.p3': 'Почему выбирают GameZoneBuild? Прозрачное ценообразование, профессиональный кабель-менеджмент, стресс-тестирование каждой системы перед выдачей и полноценная гарантия. Доверьте сборку профессионалам GameZoneBuild.',
+
     // Cart
     'cart.title': 'КОРЗИНА',
     'cart.empty': 'Корзина пуста',
@@ -202,12 +208,11 @@ const translations = {
     'checkout.city': 'Shahar',
     'checkout.submit': 'Buyurtmani tasdiqlash',
 
-    // SEO Content
-    'seo.title': 'Professional kompyuter yig\'ish xizmati',
-    'seo.p1': 'GameZoneBuild o\'yin va ish uchun kompyuterlarni individual yig\'ishga ixtisoslashgan. Biz kibersport uchun byudjet variantlardan tortib, 3D modellashtirish va video montaj uchun super kuchli ish stansiyalarigacha eng maqbul konfiguratsiyalarni tanlaymiz.',
-    'seo.p2': 'Nega aynan biz? Biz shaffof narxlar, barcha komponentlarga kafolat va professional kabel menejmentini taklif etamiz. Maqsadimiz - ortiqcha xarajatlarsiz sizning vazifalaringizni mukammal hal qiladigan kompyuter yig\'ishdir.',
-    'seo.p3': 'Yangi o\'yinlarni maksimal grafikada o\'ynash uchun kompyuter qidiryapsizmi? Bizning aqlli konstruktorimiz videokarta, protsessor va boshqa qismlarning mosligini tekshirib, muvozanatli tizim yig\'ishga yordam beradi.',
-    'seo.p4': 'Qanday buyurtma berish mumkin: bizning konstruktorda kerakli kompyuterni yig\'ing, savatga qo\'shing va buyurtmani rasmiylashtiring. Mutaxassislarimiz tafsilotlarni aniqlashtirish uchun siz bilan bog\'lanadi, shundan so\'ng biz ideal kompyuteringizni yig\'ib, sinovdan o\'tkazib yetkazib beramiz.',
+    // About
+    'about.title': 'Servis haqida',
+    'about.p1': "GameZoneBuild — O'zbekistonda o'yin PKlari va ish stansiyalarini yig'ish bo'yicha premium servisdir. Biz shunchaki kompyuter sotmaymiz, biz har bir mijozning aniq vazifalari va byudjeti uchun individual yechimlar yaratamiz.",
+    'about.p2': "GameZoneBuild'da siz har bir detalning sifatiga amin bo'lishingiz mumkin. Mutaxassislarimiz butlovchi qismlarni qo'lda tanlab, ularning mukammal mosligini kafolatlaydi. Kuchli kibersport mashinalaridan tortib, 3D modellashtirish uchun jim tizimlargacha — GameZoneBuild bozordagi eng yaxshi yechimlarni taklif etadi.",
+    'about.p3': "Nima uchun GameZoneBuild tanlanadi? Shaffof narxlar, professional kabel menejmenti, har bir tizimni topshirishdan oldin stress-testdan o'tkazish va to'liq kafolat. Yig'ishni GameZoneBuild professionallariga ishoning.",
 
     // Common
     'currency': 'UZS',
