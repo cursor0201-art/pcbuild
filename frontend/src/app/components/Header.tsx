@@ -97,44 +97,64 @@ export function Header() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 top-20 bg-[#020617] lg:hidden z-40 border-t border-white/5"
+            className="fixed inset-0 top-0 h-screen w-screen bg-[#020617] lg:hidden z-[100] overflow-y-auto"
           >
-            <nav className="flex flex-col p-8 gap-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`text-2xl font-bold uppercase tracking-widest ${
-                    isActive(link.path) ? 'text-blue-500' : 'text-white'
-                  }`}
-                >
-                  {link.name}
+            <div className="flex flex-col h-full">
+              {/* Menu Header (Logo + Close) */}
+              <div className="flex h-20 items-center justify-between px-4 border-b border-white/5">
+                <Link to="/" onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-3">
+                  <div className="relative h-8 w-8">
+                    <div className="absolute inset-0 bg-blue-500 blur-md opacity-50" />
+                    <svg viewBox="0 0 24 24" className="relative h-full w-full text-blue-500 fill-current">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                  </div>
+                  <div className="font-bold text-lg uppercase tracking-tighter text-white leading-none">
+                    GameZone<span className="text-blue-500">Build</span>
+                  </div>
                 </Link>
-              ))}
-              
-              <div className="mt-8 pt-8 border-t border-white/5 space-y-4">
-                <div className="text-slate-500 text-xs uppercase tracking-widest font-bold">Language</div>
-                <div className="flex gap-4">
-                  {['ru', 'uz'].map((lang) => (
-                    <button
-                      key={lang}
-                      onClick={() => {
-                        setLanguage(lang as 'ru' | 'uz');
-                        setIsMenuOpen(false);
-                      }}
-                      className={`flex-1 py-3 font-bold rounded-xl border transition-all ${
-                        language === lang 
-                          ? 'bg-blue-600 border-blue-500 text-white' 
-                          : 'bg-white/5 border-white/10 text-white/60'
-                      }`}
-                    >
-                      {lang === 'ru' ? 'Русский' : "O'zbekcha"}
-                    </button>
-                  ))}
-                </div>
+                <button onClick={() => setIsMenuOpen(false)} className="p-2 text-white/60 hover:text-white">
+                  <X className="h-8 w-8" />
+                </button>
               </div>
-            </nav>
+
+              <nav className="flex flex-col p-8 gap-8">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`text-4xl font-black uppercase tracking-tighter ${
+                      isActive(link.path) ? 'text-blue-500' : 'text-white'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+                
+                <div className="mt-12 pt-12 border-t border-white/5 space-y-6">
+                  <div className="text-slate-500 text-xs uppercase tracking-[0.2em] font-bold">Select Language</div>
+                  <div className="flex flex-col gap-4">
+                    {['ru', 'uz'].map((lang) => (
+                      <button
+                        key={lang}
+                        onClick={() => {
+                          setLanguage(lang as 'ru' | 'uz');
+                          setIsMenuOpen(false);
+                        }}
+                        className={`w-full py-5 font-black text-lg uppercase rounded-2xl border transition-all ${
+                          language === lang 
+                            ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]' 
+                            : 'bg-white/5 border-white/10 text-white/60'
+                        }`}
+                      >
+                        {lang === 'ru' ? 'Русский' : "O'zbekcha"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
