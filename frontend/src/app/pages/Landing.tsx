@@ -72,10 +72,10 @@ export function Landing() {
               <span className="block w-full whitespace-normal leading-relaxed">{t('hero.tagline')}</span>
             </motion.div>
 
-            <h1 className="mb-2 sm:mb-4 font-black text-3xl sm:text-6xl md:text-8xl uppercase leading-[1.1] tracking-tighter text-white lg:text-9xl break-words">
+            <h1 className="mb-2 sm:mb-4 font-black text-4xl sm:text-5xl md:text-7xl uppercase leading-[1.1] tracking-tighter text-white lg:text-8xl break-words">
               {t('hero.title')}
             </h1>
-            <h1 className="mb-8 sm:mb-12 bg-gradient-to-r from-[#00d4ff] via-[#ff0080] to-[#00ff88] bg-clip-text font-black text-3xl sm:text-6xl md:text-8xl uppercase leading-[1.1] tracking-tighter text-transparent lg:text-9xl break-words">
+            <h1 className="mb-8 sm:mb-12 bg-gradient-to-r from-[#00d4ff] via-[#ff0080] to-[#00ff88] bg-clip-text font-black text-3xl sm:text-4xl md:text-5xl uppercase leading-[1.1] tracking-tighter text-transparent lg:text-6xl break-words">
               {t('hero.subtitle')}
             </h1>
 

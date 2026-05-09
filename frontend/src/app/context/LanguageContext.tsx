@@ -18,8 +18,8 @@ const translations = {
     'nav.about': 'О нас',
 
     // Landing
-    'hero.title': 'GameZoneBuild — СБОРКА ИГРОВЫХ ПК',
-    'hero.subtitle': 'ПОД ВАШ БЮДЖЕТ',
+    'hero.title': 'GameZone',
+    'hero.subtitle': 'СБОРКА ИГРОВЫХ ПК',
     'hero.tagline': 'От киберспорта до 3D-графики. Подбор комплектующих с гарантией совместимости.',
     'hero.cta': 'Начать сборку',
     'hero.ai': 'ИИ подберет мне ПК',
@@ -108,8 +108,8 @@ const translations = {
     'nav.about': 'Biz haqimizda',
 
     // Landing
-    'hero.title': "GameZoneBuild — O'YIN KOMPYUTERLARINI YIG'ISH",
-    'hero.subtitle': "BYUDJETINGIZGA MOS",
+    'hero.title': "GameZone",
+    'hero.subtitle': "O'YIN KOMPYUTERLARINI YIG'ISH",
     'hero.tagline': "Kibersportdan 3D-grafikagacha. Moslik kafolati bilan komponentlarni tanlash.",
     'hero.cta': 'Yig\'ishni boshlash',
     'hero.ai': 'AI menga kompyuter tanlaydi',
