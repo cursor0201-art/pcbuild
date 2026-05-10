@@ -13,7 +13,11 @@ from .models import Category, Product, Order
 
 @csrf_exempt
 def ping_view(request):
-    response = JsonResponse({"status": "ok", "message": "Backend is alive!"})
+    response = JsonResponse({
+        "status": "ok", 
+        "message": "Backend is alive!",
+        "version": "v4-multi-model"
+    })
     response["Access-Control-Allow-Origin"] = "*"
     response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
     response["Access-Control-Allow-Headers"] = "*"
