@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Sparkles, Cpu, Send, ShoppingCart, CheckCircle2, User, Bot, RefreshCcw } from 'lucide-react';
 import { apiService, Product, Category } from '../services/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 interface PCComponent {
   id: string;
