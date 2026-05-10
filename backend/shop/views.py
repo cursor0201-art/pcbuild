@@ -443,66 +443,47 @@ class AIBuilderView(APIView):
         }}
         """
 
-        def call_gemini(model_name, api_version='v1'):
-            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent"
+        def call_gemini(model_name, api_version='v1beta'):
+            # Use API key in query params as it's the most common way
+            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
             headers = {
                 'Content-Type': 'application/json',
-                'X-goog-api-key': gemini_key
             }
             
             # Prepare contents with strictly alternating roles starting with 'user'
             contents = []
             
-            # System prompt as a context for the first user message
-            initial_user_text = f"SYSTEM INSTRUCTIONS:\n{full_prompt}\n\nUSER REQUEST:\n"
+            # System prompt as context
+            system_context = f"SYSTEM INSTRUCTIONS:\n{full_prompt}\n\n"
             
-            # If we have history, we need to carefully alternate roles
             if history:
-                # Start with the first user message (or system context if first is assistant)
-                for i, h in enumerate(history):
-                    role = "user" if h['role'] == 'user' else 'model'
-                    text = h['content']
-                    
-                    if i == 0 and role == 'model':
-                        # If first message is from assistant, prepend system context to it in a user message
-                        contents.append({"role": "user", "parts": [{"text": "Hello, I need help with building a PC."}]})
-                    
-                    # Ensure alternating roles
-                    if contents and contents[-1]['role'] == role:
-                        # Merge content if same role appears twice (should not happen with correct history)
-                        contents[-1]['parts'][0]['text'] += f"\n{text}"
-                    else:
-                        contents.append({"role": role, "parts": [{"text": text}]})
+                # Filter out any invalid history items
+                valid_history = [h for h in history if h.get('role') and h.get('content')]
                 
-                # Finally add current prompt
+                # If first is assistant, we MUST prepend a user message
+                if valid_history and valid_history[0]['role'] != 'user':
+                    contents.append({"role": "user", "parts": [{"text": "Hello, I have a question about PC parts."}]})
+                
+                for h in valid_history:
+                    role = "user" if h['role'] == 'user' else 'model'
+                    contents.append({"role": role, "parts": [{"text": h['content']}]})
+                
+                # Ensure last message is from user
                 if contents[-1]['role'] == 'user':
-                    contents[-1]['parts'][0]['text'] += f"\n\nFOLLOW-UP: {prompt_text}"
+                    contents[-1]['parts'][0]['text'] = f"{system_context}FOLLOW-UP: {prompt_text}"
                 else:
-                    contents.append({"role": "user", "parts": [{"text": prompt_text}]})
+                    contents.append({"role": "user", "parts": [{"text": f"{system_context}REQUEST: {prompt_text}"}]})
             else:
-                # No history, just system + prompt
-                contents.append({"role": "user", "parts": [{"text": f"{initial_user_text}{prompt_text}"}]})
+                # No history
+                contents.append({"role": "user", "parts": [{"text": f"{system_context}REQUEST: {prompt_text}"}]})
 
-            payload = {
-                "contents": contents,
-                "safetySettings": [
-                    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
-                    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
-                    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
-                    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
-                ]
-            }
+            payload = {"contents": contents}
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # Try gemini-1.5-flash on v1 first
-            r = call_gemini('gemini-1.5-flash', 'v1')
+            # Using v1beta as it's very reliable for flash
+            r = call_gemini('gemini-1.5-flash')
             
-            # Fallback to v1beta if v1 fails with 404
-            if r.status_code == 404:
-                print("Gemini v1 failed with 404, trying v1beta...")
-                r = call_gemini('gemini-1.5-flash', 'v1beta')
-
             ai_response = None
             if r.status_code == 200:
                 try:
@@ -518,16 +499,17 @@ class AIBuilderView(APIView):
                         ai_response = {"message": raw_text, "build": None}
                 except Exception as e:
                     print(f"AI Parse Error: {e}")
-                    ai_response = {"message": "Sorry, I had trouble thinking. Try again?", "build": None}
+                    ai_response = {"message": f"AI Parse Error: {str(e)}. Raw: {raw_text[:100]}", "build": None}
             else:
-                print(f"Gemini API Error: {r.status_code} - {r.text}")
+                # Return the actual error message from Google for debugging
+                error_detail = r.text[:500]
+                print(f"Gemini API Error: {r.status_code} - {error_detail}")
                 return Response({
                     'success': False, 
-                    'error': f"AI Service Error: {r.status_code}",
-                    'details': r.text[:200]
-                }, status=status.HTTP_200_OK) # Return 200 with error data to avoid browser 404 logs
+                    'error': f"Gemini Error {r.status_code}: {error_detail}",
+                }, status=status.HTTP_200_OK)
 
-            # If build is present, resolve products
+            # Resolve products
             result_build = None
             total_price = 0
             if ai_response.get('build'):
@@ -552,5 +534,6 @@ class AIBuilderView(APIView):
 
         except Exception as e:
             import traceback
-            print(traceback.format_exc())
-            return Response({'success': False, 'error': str(e)}, status=status.HTTP_200_OK)
+            error_trace = traceback.format_exc()
+            print(error_trace)
+            return Response({'success': False, 'error': f"Internal Error: {str(e)}"}, status=status.HTTP_200_OK)
