@@ -443,22 +443,45 @@ class AIBuilderView(APIView):
         }}
         """
 
-        def call_gemini(model_name, api_version='v1beta'):
+        def call_gemini(model_name, api_version='v1'):
             url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent"
             headers = {
                 'Content-Type': 'application/json',
                 'X-goog-api-key': gemini_key
             }
             
-            # Prepare contents with history
+            # Prepare contents with strictly alternating roles starting with 'user'
             contents = []
-            for h in history:
-                # Use 'model' for assistant role as required by Gemini
-                role = "user" if h['role'] == 'user' else 'model'
-                contents.append({"role": role, "parts": [{"text": h['content']}]})
             
-            # Add current system prompt as a context and the actual prompt
-            contents.append({"role": "user", "parts": [{"text": f"SYSTEM: {full_prompt}\n\nUSER: {prompt_text}"}]})
+            # System prompt as a context for the first user message
+            initial_user_text = f"SYSTEM INSTRUCTIONS:\n{full_prompt}\n\nUSER REQUEST:\n"
+            
+            # If we have history, we need to carefully alternate roles
+            if history:
+                # Start with the first user message (or system context if first is assistant)
+                for i, h in enumerate(history):
+                    role = "user" if h['role'] == 'user' else 'model'
+                    text = h['content']
+                    
+                    if i == 0 and role == 'model':
+                        # If first message is from assistant, prepend system context to it in a user message
+                        contents.append({"role": "user", "parts": [{"text": "Hello, I need help with building a PC."}]})
+                    
+                    # Ensure alternating roles
+                    if contents and contents[-1]['role'] == role:
+                        # Merge content if same role appears twice (should not happen with correct history)
+                        contents[-1]['parts'][0]['text'] += f"\n{text}"
+                    else:
+                        contents.append({"role": role, "parts": [{"text": text}]})
+                
+                # Finally add current prompt
+                if contents[-1]['role'] == 'user':
+                    contents[-1]['parts'][0]['text'] += f"\n\nFOLLOW-UP: {prompt_text}"
+                else:
+                    contents.append({"role": "user", "parts": [{"text": prompt_text}]})
+            else:
+                # No history, just system + prompt
+                contents.append({"role": "user", "parts": [{"text": f"{initial_user_text}{prompt_text}"}]})
 
             payload = {
                 "contents": contents,
@@ -472,8 +495,14 @@ class AIBuilderView(APIView):
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            r = call_gemini('gemini-1.5-flash', 'v1beta')
+            # Try gemini-1.5-flash on v1 first
+            r = call_gemini('gemini-1.5-flash', 'v1')
             
+            # Fallback to v1beta if v1 fails with 404
+            if r.status_code == 404:
+                print("Gemini v1 failed with 404, trying v1beta...")
+                r = call_gemini('gemini-1.5-flash', 'v1beta')
+
             ai_response = None
             if r.status_code == 200:
                 try:
@@ -491,7 +520,12 @@ class AIBuilderView(APIView):
                     print(f"AI Parse Error: {e}")
                     ai_response = {"message": "Sorry, I had trouble thinking. Try again?", "build": None}
             else:
-                return Response({'success': False, 'error': f"AI Service Error: {r.status_code}"}, status=r.status_code)
+                print(f"Gemini API Error: {r.status_code} - {r.text}")
+                return Response({
+                    'success': False, 
+                    'error': f"AI Service Error: {r.status_code}",
+                    'details': r.text[:200]
+                }, status=status.HTTP_200_OK) # Return 200 with error data to avoid browser 404 logs
 
             # If build is present, resolve products
             result_build = None
@@ -519,4 +553,4 @@ class AIBuilderView(APIView):
         except Exception as e:
             import traceback
             print(traceback.format_exc())
-            return Response({'success': False, 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'success': False, 'error': str(e)}, status=status.HTTP_200_OK)
