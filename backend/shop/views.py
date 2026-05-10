@@ -494,14 +494,24 @@ class AIBuilderView(APIView):
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # Using gemini-2.0-flash as confirmed by diagnostic
-            r = call_gemini('gemini-2.0-flash')
+            # We saw these in the diagnostic list
+            models_to_try = [
+                ('gemini-2.0-flash', 'v1beta'),
+                ('gemini-2.0-flash', 'v1'),
+                ('gemini-1.5-flash', 'v1beta'),
+                ('gemini-1.5-flash', 'v1'),
+            ]
             
-            # Fallback to gemini-1.5-flash if needed
-            if r.status_code != 200:
-                r = call_gemini('gemini-1.5-flash')
-
-            ai_response = None
+            last_r = None
+            for model, version in models_to_try:
+                try:
+                    last_r = call_gemini(model, version)
+                    if last_r.status_code == 200:
+                        break
+                    print(f"Failed {model} on {version}: {last_r.status_code}")
+                except: continue
+            
+            r = last_r
             if r.status_code == 200:
                 try:
                     r_data = r.json()
@@ -519,7 +529,7 @@ class AIBuilderView(APIView):
                 error_detail = r.text[:500]
                 return Response({
                     'success': False, 
-                    'error': f"Gemini Error {r.status_code}: {error_detail}",
+                    'error': f"Gemini Error {r.status_code}: {error_detail}. Models tried: {str(models_to_try)}",
                 }, status=status.HTTP_200_OK)
 
             # Resolve products
