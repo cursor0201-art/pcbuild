@@ -443,24 +443,15 @@ class AIBuilderView(APIView):
         }}
         """
 
-        def call_gemini(model_name, api_version='v1beta'):
-            # Use API key in query params as it's the most common way
+        def call_gemini(model_name, api_version='v1'):
             url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
-            headers = {
-                'Content-Type': 'application/json',
-            }
+            headers = {'Content-Type': 'application/json'}
             
-            # Prepare contents with strictly alternating roles starting with 'user'
             contents = []
-            
-            # System prompt as context
             system_context = f"SYSTEM INSTRUCTIONS:\n{full_prompt}\n\n"
             
             if history:
-                # Filter out any invalid history items
                 valid_history = [h for h in history if h.get('role') and h.get('content')]
-                
-                # If first is assistant, we MUST prepend a user message
                 if valid_history and valid_history[0]['role'] != 'user':
                     contents.append({"role": "user", "parts": [{"text": "Hello, I have a question about PC parts."}]})
                 
@@ -468,28 +459,30 @@ class AIBuilderView(APIView):
                     role = "user" if h['role'] == 'user' else 'model'
                     contents.append({"role": role, "parts": [{"text": h['content']}]})
                 
-                # Ensure last message is from user
                 if contents[-1]['role'] == 'user':
                     contents[-1]['parts'][0]['text'] = f"{system_context}FOLLOW-UP: {prompt_text}"
                 else:
                     contents.append({"role": "user", "parts": [{"text": f"{system_context}REQUEST: {prompt_text}"}]})
             else:
-                # No history
                 contents.append({"role": "user", "parts": [{"text": f"{system_context}REQUEST: {prompt_text}"}]})
 
             payload = {"contents": contents}
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # Using v1beta as it's very reliable for flash
-            r = call_gemini('gemini-1.5-flash')
+            # Try gemini-1.5-flash on v1 (more stable for non-beta features)
+            r = call_gemini('gemini-1.5-flash', 'v1')
             
+            # If v1 fails, try v1beta with -latest suffix
+            if r.status_code != 200:
+                print(f"Gemini v1 failed ({r.status_code}), trying v1beta with -latest...")
+                r = call_gemini('gemini-1.5-flash-latest', 'v1beta')
+
             ai_response = None
             if r.status_code == 200:
                 try:
                     r_data = r.json()
                     raw_text = r_data['candidates'][0]['content']['parts'][0]['text']
-                    # Extract JSON from raw text
                     import re
                     import json
                     json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
@@ -498,12 +491,9 @@ class AIBuilderView(APIView):
                     else:
                         ai_response = {"message": raw_text, "build": None}
                 except Exception as e:
-                    print(f"AI Parse Error: {e}")
-                    ai_response = {"message": f"AI Parse Error: {str(e)}. Raw: {raw_text[:100]}", "build": None}
+                    ai_response = {"message": f"AI Parse Error: {str(e)}", "build": None}
             else:
-                # Return the actual error message from Google for debugging
                 error_detail = r.text[:500]
-                print(f"Gemini API Error: {r.status_code} - {error_detail}")
                 return Response({
                     'success': False, 
                     'error': f"Gemini Error {r.status_code}: {error_detail}",
@@ -533,7 +523,4 @@ class AIBuilderView(APIView):
             })
 
         except Exception as e:
-            import traceback
-            error_trace = traceback.format_exc()
-            print(error_trace)
             return Response({'success': False, 'error': f"Internal Error: {str(e)}"}, status=status.HTTP_200_OK)
