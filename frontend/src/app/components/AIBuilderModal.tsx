@@ -99,12 +99,12 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
           setBackendTotal(response.total_price);
         }
       } else {
-        alert("Ошибка ИИ: " + (response.error || "Не удалось подобрать сборку"));
+        alert(`${t('ai.error.title')}: ` + (response.error || t('ai.error.fallback')));
       }
     } catch (error: any) {
       console.error(error);
-      const errorMessage = error.message || "Не удалось связаться с сервером. Проверьте интернет или консоль.";
-      alert("Ошибка: " + errorMessage);
+      const errorMessage = error.message || "Network error. Check console.";
+      alert(`${t('ai.error.title')}: ` + errorMessage);
     } finally {
       setIsGenerating(false);
     }
@@ -159,22 +159,22 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
                 <div className="space-y-8">
                   <div className="mb-6 border border-[#00d4ff]/30 bg-[#00d4ff]/5 p-6">
                     <h3 className="mb-2 font-black text-xl uppercase text-[#00d4ff]">
-                      Нейросеть GameZone
+                      {t('ai.neural_network')}
                     </h3>
                     <p className="text-white/70">
-                      Опишите, какой компьютер вам нужен. Чем подробнее, тем лучше ИИ подберет детали со склада!
+                      {t('ai.description')}
                     </p>
                   </div>
 
                   <div>
                     <label className="mb-3 block font-bold text-sm uppercase tracking-wider text-white">
-                      Ваш запрос к ИИ
+                      {t('ai.label')}
                     </label>
                     <textarea
                       value={promptText}
                       onChange={(e) => setPromptText(e.target.value)}
                       className="w-full min-h-[150px] border border-white/20 bg-[#12121a] p-6 text-xl text-white outline-none transition-all placeholder:text-white/20 focus:border-[#00d4ff]"
-                      placeholder="Например: Собери комп для CS2, чтобы было стабильно 200+ ФПС, и уложиться надо примерно в 15 миллионов..."
+                      placeholder={t('ai.placeholder')}
                     />
                   </div>
 
@@ -186,7 +186,7 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
                     {isGenerating ? (
                       <span className="flex items-center justify-center gap-3">
                         <Cpu className="h-5 w-5 animate-spin" />
-                        ИИ ДУМАЕТ...
+                        {t('ai.thinking')}
                       </span>
                     ) : (
                       t('ai.generate')
@@ -197,10 +197,10 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
                 <div className="space-y-6">
                   <div className="mb-6 border border-[#00ff88]/30 bg-[#00ff88]/5 p-6">
                     <h3 className="mb-2 font-black text-xl uppercase text-[#00ff88]">
-                      СБОРКА ГОТОВА!
+                      {t('ai.success.title')}
                     </h3>
                     <p className="text-white/70">
-                      ИИ подобрал оптимальную конфигурацию под ваши требования
+                      {t('ai.success.desc')}
                     </p>
                   </div>
 
@@ -233,7 +233,7 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
 
                   <div className="border-t border-[#00d4ff]/30 pt-6">
                     <div className="mb-6 flex items-center justify-between">
-                      <span className="font-black text-xl uppercase text-white">ИТОГО</span>
+                      <span className="font-black text-xl uppercase text-white">{t('ai.total')}</span>
                       <span className="font-black text-3xl text-white">
                         {(total / 1000000).toFixed(1)}M{' '}
                         <span className="text-[#00d4ff] text-lg">{t('currency')}</span>
@@ -245,7 +245,7 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
                         onClick={() => setGeneratedBuild(null)}
                         className="flex-1 border border-white/20 bg-transparent px-8 py-4 font-bold uppercase text-white transition-all hover:border-[#00d4ff] hover:text-[#00d4ff]"
                       >
-                        ПЕРЕГЕНЕРИРОВАТЬ
+                        {t('ai.regenerate')}
                       </button>
                       <button
                         onClick={handleUseBuild}
