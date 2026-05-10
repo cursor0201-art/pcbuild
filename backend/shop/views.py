@@ -482,19 +482,25 @@ class AIBuilderView(APIView):
             ]
             
             last_r = None
+            last_error = "No models attempted"
             for model, version in models_to_try:
                 try:
                     last_r = call_gemini(model, version)
                     if last_r.status_code == 200:
                         break
-                    print(f"Failed {model} on {version}: {last_r.status_code}")
+                    last_error = f"Failed {model} on {version}: {last_r.status_code} - {last_r.text[:100]}"
+                    print(last_error)
                 except Exception as e:
-                    print(f"Error calling {model} on {version}: {e}")
+                    last_error = f"Error calling {model} on {version}: {str(e)}"
+                    print(last_error)
                     continue
             
             r = last_r
-            if not r:
-                return Response({'success': False, 'error': 'Failed to reach AI service'}, status=status.HTTP_200_OK)
+            if not r or r.status_code != 200:
+                return Response({
+                    'success': False, 
+                    'error': f"Failed to reach AI service. Last error: {last_error}"
+                }, status=status.HTTP_200_OK)
 
             ai_response = None
             if r.status_code == 200:
