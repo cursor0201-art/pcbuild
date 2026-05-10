@@ -443,22 +443,19 @@ class AIBuilderView(APIView):
         }}
         """
 
-        def call_gemini(model_name, api_version='v1'):
+        def call_gemini(model_name, api_version='v1beta'):
             url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
             headers = {'Content-Type': 'application/json'}
-            
             contents = []
             system_context = f"SYSTEM INSTRUCTIONS:\n{full_prompt}\n\n"
             
             if history:
                 valid_history = [h for h in history if h.get('role') and h.get('content')]
                 if valid_history and valid_history[0]['role'] != 'user':
-                    contents.append({"role": "user", "parts": [{"text": "Hello, I have a question about PC parts."}]})
-                
+                    contents.append({"role": "user", "parts": [{"text": "Hello"}]})
                 for h in valid_history:
                     role = "user" if h['role'] == 'user' else 'model'
                     contents.append({"role": role, "parts": [{"text": h['content']}]})
-                
                 if contents[-1]['role'] == 'user':
                     contents[-1]['parts'][0]['text'] = f"{system_context}FOLLOW-UP: {prompt_text}"
                 else:
@@ -470,13 +467,30 @@ class AIBuilderView(APIView):
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # Try gemini-1.5-flash on v1 (more stable for non-beta features)
-            r = call_gemini('gemini-1.5-flash', 'v1')
+            # List of models to try in order of preference
+            models_to_try = [
+                ('gemini-1.5-flash', 'v1'),
+                ('gemini-1.5-flash', 'v1beta'),
+                ('gemini-1.5-pro', 'v1'),
+                ('gemini-1.5-pro', 'v1beta'),
+                ('gemini-pro', 'v1'),
+                ('gemini-pro', 'v1beta'),
+            ]
             
-            # If v1 fails, try v1beta with -latest suffix
-            if r.status_code != 200:
-                print(f"Gemini v1 failed ({r.status_code}), trying v1beta with -latest...")
-                r = call_gemini('gemini-1.5-flash-latest', 'v1beta')
+            last_r = None
+            for model, version in models_to_try:
+                try:
+                    last_r = call_gemini(model, version)
+                    if last_r.status_code == 200:
+                        break
+                    print(f"Failed {model} on {version}: {last_r.status_code}")
+                except Exception as e:
+                    print(f"Error calling {model} on {version}: {e}")
+                    continue
+            
+            r = last_r
+            if not r:
+                return Response({'success': False, 'error': 'Failed to reach AI service'}, status=status.HTTP_200_OK)
 
             ai_response = None
             if r.status_code == 200:
@@ -497,6 +511,7 @@ class AIBuilderView(APIView):
                 return Response({
                     'success': False, 
                     'error': f"Gemini Error {r.status_code}: {error_detail}",
+                    'tried': str(models_to_try)
                 }, status=status.HTTP_200_OK)
 
             # Resolve products
