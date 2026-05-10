@@ -471,57 +471,21 @@ class AIBuilderView(APIView):
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # List of models to try in order of preference
-            models_to_try = [
-                ('gemini-1.5-flash', 'v1'),
-                ('gemini-1.5-flash', 'v1beta'),
-                ('gemini-1.5-pro', 'v1'),
-                ('gemini-1.5-pro', 'v1beta'),
-                ('gemini-pro', 'v1'),
-                ('gemini-pro', 'v1beta'),
-            ]
+            # Diagnostic: List available models to see what this key can access
+            list_url = f"https://generativelanguage.googleapis.com/v1beta/models?key={gemini_key}"
+            r = requests.get(list_url, timeout=20)
             
-            last_r = None
-            last_error = "No models attempted"
-            for model, version in models_to_try:
-                try:
-                    last_r = call_gemini(model, version)
-                    if last_r.status_code == 200:
-                        break
-                    last_error = f"Failed {model} on {version}: {last_r.status_code} - {last_r.text[:100]}"
-                    print(last_error)
-                except Exception as e:
-                    last_error = f"Error calling {model} on {version}: {str(e)}"
-                    print(last_error)
-                    continue
-            
-            r = last_r
-            if not r or r.status_code != 200:
-                return Response({
-                    'success': False, 
-                    'error': f"Failed to reach AI service. Last error: {last_error}"
-                }, status=status.HTTP_200_OK)
-
-            ai_response = None
             if r.status_code == 200:
-                try:
-                    r_data = r.json()
-                    raw_text = r_data['candidates'][0]['content']['parts'][0]['text']
-                    import re
-                    import json
-                    json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
-                    if json_match:
-                        ai_response = json.loads(json_match.group())
-                    else:
-                        ai_response = {"message": raw_text, "build": None}
-                except Exception as e:
-                    ai_response = {"message": f"AI Parse Error: {str(e)}", "build": None}
-            else:
-                error_detail = r.text[:500]
+                models_data = r.json()
+                model_names = [m.get('name') for m in models_data.get('models', [])]
                 return Response({
                     'success': False, 
-                    'error': f"Gemini Error {r.status_code}: {error_detail}",
-                    'tried': str(models_to_try)
+                    'error': f"DIAGNOSTIC: Available models for your key: {', '.join(model_names[:15])}..."
+                }, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    'success': False, 
+                    'error': f"DIAGNOSTIC FAILED: {r.status_code} - {r.text[:200]}"
                 }, status=status.HTTP_200_OK)
 
             # Resolve products
