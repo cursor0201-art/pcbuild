@@ -470,23 +470,80 @@ class AIBuilderView(APIView):
             payload = {"contents": contents}
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
-        try:
-            # Diagnostic: List available models to see what this key can access
-            list_url = f"https://generativelanguage.googleapis.com/v1beta/models?key={gemini_key}"
-            r = requests.get(list_url, timeout=20)
+        def call_gemini(model_name, api_version='v1beta'):
+            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
+            headers = {'Content-Type': 'application/json'}
+            contents = []
+            system_context = f"SYSTEM INSTRUCTIONS:\n{full_prompt}\n\n"
             
-            if r.status_code == 200:
-                models_data = r.json()
-                model_names = [m.get('name') for m in models_data.get('models', [])]
-                return Response({
-                    'success': False, 
-                    'error': f"DIAGNOSTIC: Available models for your key: {', '.join(model_names[:15])}..."
-                }, status=status.HTTP_200_OK)
+            if history:
+                valid_history = [h for h in history if h.get('role') and h.get('content')]
+                if valid_history and valid_history[0]['role'] != 'user':
+                    contents.append({"role": "user", "parts": [{"text": "Hello"}]})
+                for h in valid_history:
+                    role = "user" if h['role'] == 'user' else 'model'
+                    contents.append({"role": role, "parts": [{"text": h['content']}]})
+                if contents[-1]['role'] == 'user':
+                    contents[-1]['parts'][0]['text'] = f"{system_context}FOLLOW-UP: {prompt_text}"
+                else:
+                    contents.append({"role": "user", "parts": [{"text": f"{system_context}REQUEST: {prompt_text}"}]})
             else:
+                contents.append({"role": "user", "parts": [{"text": f"{system_context}REQUEST: {prompt_text}"}]})
+
+            payload = {"contents": contents}
+            return requests.post(url, headers=headers, json=payload, timeout=20)
+
+        try:
+            # Using gemini-2.0-flash as confirmed by diagnostic
+            r = call_gemini('gemini-2.0-flash')
+            
+            # Fallback to gemini-1.5-flash if needed
+            if r.status_code != 200:
+                r = call_gemini('gemini-1.5-flash')
+
+            ai_response = None
+            if r.status_code == 200:
+                try:
+                    r_data = r.json()
+                    raw_text = r_data['candidates'][0]['content']['parts'][0]['text']
+                    import re
+                    import json
+                    json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                    if json_match:
+                        ai_response = json.loads(json_match.group())
+                    else:
+                        ai_response = {"message": raw_text, "build": None}
+                except Exception as e:
+                    ai_response = {"message": f"AI Parse Error: {str(e)}", "build": None}
+            else:
+                error_detail = r.text[:500]
                 return Response({
                     'success': False, 
-                    'error': f"DIAGNOSTIC FAILED: {r.status_code} - {r.text[:200]}"
+                    'error': f"Gemini Error {r.status_code}: {error_detail}",
                 }, status=status.HTTP_200_OK)
+
+            # Resolve products
+            result_build = None
+            total_price = 0
+            if ai_response.get('build'):
+                result_build = {}
+                for cat_slug, p_id in ai_response['build'].items():
+                    try:
+                        product = Product.objects.get(id=p_id)
+                        serializer = ProductSerializer(product, context={'request': request})
+                        data = serializer.data
+                        price = float(product.price)
+                        total_price += price
+                        data['price'] = price
+                        result_build[cat_slug] = data
+                    except: continue
+
+            return Response({
+                'success': True,
+                'message': ai_response.get('message', ''),
+                'build': result_build,
+                'total_price': total_price
+            })
 
             # Resolve products
             result_build = None
