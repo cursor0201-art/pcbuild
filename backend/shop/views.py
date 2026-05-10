@@ -388,6 +388,8 @@ class AIBuilderView(APIView):
 
     def post(self, request):
         prompt_text = request.data.get('prompt', '')
+        history = request.data.get('history', []) # List of {role: 'user'|'assistant', content: '...'}
+        
         if not prompt_text:
             return Response({'success': False, 'error': 'Prompt is required'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -396,25 +398,50 @@ class AIBuilderView(APIView):
             return Response({'success': False, 'error': 'API key not configured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         # 1. Gather all active products to present to the AI
-        products = Product.objects.filter(is_active=True, stock__gt=0)
-        product_list = []
-        for p in products:
-            product_list.append(f"ID: {p.id} | CAT: {p.category.slug} | Name: {p.name} | Price: {p.price} UZS | Specs: {p.specs}")
-
-        products_text = "\n".join(product_list)
+        from shop.models import Category, Product
+        import random
+        
+        categories = Category.objects.all()
+        inventory_samples = []
+        for cat in categories:
+            # Get up to 8 random products for each category to provide variety
+            products = list(Product.objects.filter(category=cat, is_active=True, stock__gt=0))
+            if products:
+                sample = random.sample(products, min(len(products), 8))
+                for p in sample:
+                    inventory_samples.append(f"- {p.name} (ID: {p.id}, Price: {p.price}, Category: {cat.slug})")
+        
+        inventory_text = "\n".join(inventory_samples)
+        category_list = ", ".join([f"{c.name} (slug: {c.slug})" for c in categories])
 
         # 2. Build the exact system instructions
-        system_instruction = f"""You are an expert PC builder. The user wants a custom PC build based on this prompt: "{prompt_text}"
-
-Here is the current inventory in the shop:
-{products_text}
-
-Task: Choose EXACTLY 1 component for each major category (cpu, gpu, motherboard, ram, storage, power-supply, case, cooling) to build a compatible and optimal PC fitting the user's prompt. Try to balance the budget gracefully. 
-Rules:
-1. ONLY USE IDs from the inventory list provided.
-2. Return ONLY a valid JSON object map where keys are the category_slug and values are the chosen product ID string. No markdown formatting, no explanations, JUST raw JSON.
-Example output:
-{{"cpu": "uuid-here", "gpu": "uuid-here", "motherboard": "uuid-here"}}"""
+        full_prompt = f"""
+        You are "GameZone AI Assistant", a friendly and expert PC building advisor. 
+        Your goal is to help users choose parts or build a complete PC.
+        
+        REAL INVENTORY IN OUR STORE:
+        {inventory_text}
+        
+        Available categories: {category_list}
+        
+        GUIDELINES:
+        1. Be conversational and helpful. If the user asks a general question, answer it expert-like.
+        2. If the user asks for a build or describes their needs (gaming, work, budget), recommend a FULL BUILD.
+        3. If you recommend a build, you MUST provide a JSON object in your response.
+        4. If you suggest a build, pick EXACTLY ONE product for each category from the REAL INVENTORY list above.
+        5. Respond in the same language as the user (Russian or Uzbek).
+        
+        RESPONSE FORMAT:
+        You must return a JSON with two fields:
+        - "message": Your text response (advice, explanation, or asking if they like the build).
+        - "build": (Optional) A map where keys are category slugs and values are the product IDs you picked.
+        
+        Example JSON:
+        {{
+          "message": "Для гейминга в 2К я рекомендую эту сбалансированную сборку...",
+          "build": {{"cpu": "id-1", "gpu": "id-2", ...}}
+        }}
+        """
 
         def call_gemini(model_name, api_version='v1beta'):
             url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent"
@@ -422,41 +449,19 @@ Example output:
                 'Content-Type': 'application/json',
                 'X-goog-api-key': gemini_key
             }
-            # Get current categories and a sample of products to inform AI
-            from shop.models import Category, Product
-            import random
             
-            categories = Category.objects.all()
-            inventory_samples = []
-            for cat in categories:
-                # Get up to 5 random products for each category to provide variety
-                products = list(Product.objects.filter(category=cat, is_active=True, stock__gt=0))
-                if products:
-                    sample = random.sample(products, min(len(products), 5))
-                    for p in sample:
-                        inventory_samples.append(f"- {p.name} (ID: {p.id}, Price: {p.price}, Category: {cat.slug})")
+            # Prepare contents with history
+            contents = []
+            for h in history:
+                # Use 'model' for assistant role as required by Gemini
+                role = "user" if h['role'] == 'user' else 'model'
+                contents.append({"role": role, "parts": [{"text": h['content']}]})
             
-            inventory_text = "\n".join(inventory_samples)
-            category_list = ", ".join([f"{c.name} (slug: {c.slug})" for c in categories])
-
-            full_prompt = f"""
-            You are a PC building expert. Your task is to recommend a build based on the user's request: "{prompt_text}"
-            
-            REAL INVENTORY IN OUR STORE:
-            {inventory_text}
-            
-            Available categories: {category_list}
-            
-            Rules:
-            1. Pick exactly ONE product for each relevant category from the REAL INVENTORY list above.
-            2. If you find multiple suitable parts, pick them randomly to ensure variety across different requests.
-            3. Use the EXACT slug provided for each category as the key in your JSON response.
-            4. For each product, provide: id, name, brand, price (as a number), specs (as a list), image_url, category_slug, and category_name.
-            5. Return ONLY a valid JSON object where keys are category slugs.
-            """
+            # Add current system prompt as a context and the actual prompt
+            contents.append({"role": "user", "parts": [{"text": f"SYSTEM: {full_prompt}\n\nUSER: {prompt_text}"}]})
 
             payload = {
-                "contents": [{"parts": [{"text": full_prompt}]}],
+                "contents": contents,
                 "safetySettings": [
                     {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
                     {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
@@ -467,79 +472,51 @@ Example output:
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # Using only the most stable model on v1beta
-            models_to_try = [
-                ('gemini-1.5-flash', 'v1beta'),
-            ]
+            r = call_gemini('gemini-1.5-flash', 'v1beta')
             
-            import time
-            r = None
-            success = False
-            
-            for model, version in models_to_try:
-                for attempt in range(2):
-                    try:
-                        r = call_gemini(model, version)
-                        if r.status_code == 200:
-                            success = True
-                            break
-                    except: pass
-                    if not success: time.sleep(1)
-                if success: break
-
-            chosen_ids = None
-            
-            if success:
+            ai_response = None
+            if r.status_code == 200:
                 try:
                     r_data = r.json()
                     raw_text = r_data['candidates'][0]['content']['parts'][0]['text']
-                    raw_text = raw_text.replace("```json", "").replace("```", "").strip()
-                    import json
-                    chosen_ids = json.loads(raw_text)
-                except:
-                    # Try regex if JSON is messy
+                    # Extract JSON from raw text
                     import re
-                    match = re.search(r'\{.*\}', raw_text, re.DOTALL)
-                    if match: chosen_ids = json.loads(match.group())
+                    import json
+                    json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                    if json_match:
+                        ai_response = json.loads(json_match.group())
+                    else:
+                        ai_response = {"message": raw_text, "build": None}
+                except Exception as e:
+                    print(f"AI Parse Error: {e}")
+                    ai_response = {"message": "Sorry, I had trouble thinking. Try again?", "build": None}
+            else:
+                return Response({'success': False, 'error': f"AI Service Error: {r.status_code}"}, status=r.status_code)
 
-            # --- FALLBACK LOGIC ---
-            if not chosen_ids:
-                print("AI Builder: AI failed or busy. Using Safe Fallback...")
-                from shop.models import Category
-                # Pick one best item from each category as a fallback
-                chosen_ids = {}
-                for category in Category.objects.all():
-                    item = Product.objects.filter(category=category).first()
-                    if item:
-                        chosen_ids[category.slug] = str(item.id)
-
-            # Match products and return
-            result_map = {}
+            # If build is present, resolve products
+            result_build = None
             total_price = 0
-            for cat_slug, p_id in chosen_ids.items():
-                try:
-                    product = Product.objects.get(id=p_id)
-                    serializer = ProductSerializer(product, context={'request': request})
-                    data = serializer.data
-                    
-                    price = float(product.price)
-                    total_price += price
-                    data['price'] = price
-                    
-                    if data.get('image') and 'localhost' not in data['image']:
-                        data['image'] = data['image'].replace('http://', 'https://')
-                    result_map[cat_slug] = data
-                except: continue
+            if ai_response.get('build'):
+                result_build = {}
+                for cat_slug, p_id in ai_response['build'].items():
+                    try:
+                        product = Product.objects.get(id=p_id)
+                        serializer = ProductSerializer(product, context={'request': request})
+                        data = serializer.data
+                        price = float(product.price)
+                        total_price += price
+                        data['price'] = price
+                        result_build[cat_slug] = data
+                    except: continue
 
             return Response({
-                'success': True, 
-                'data': result_map,
+                'success': True,
+                'message': ai_response.get('message', ''),
+                'build': result_build,
                 'total_price': total_price
             })
 
-            return Response({'success': False, 'error': f"Ошибка запроса к ИИ: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             import traceback
-            print(f"AI Builder ERROR: {str(e)}")
             print(traceback.format_exc())
-            return Response({'success': False, 'error': f"Ошибка сервера: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'success': False, 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

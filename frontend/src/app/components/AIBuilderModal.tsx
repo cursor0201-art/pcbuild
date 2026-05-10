@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Sparkles, Cpu } from 'lucide-react';
+import { X, Sparkles, Cpu, Send, ShoppingCart, CheckCircle2, User, Bot, RefreshCcw } from 'lucide-react';
 import { apiService, Product, Category } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 interface PCComponent {
   id: string;
@@ -17,6 +18,13 @@ interface PCComponent {
   category_name: string;
 }
 
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+  build?: Record<string, PCComponent> | null;
+  total_price?: number;
+}
+
 interface AIBuilderModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -25,238 +33,243 @@ interface AIBuilderModalProps {
 
 export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderModalProps) {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [promptText, setPromptText] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedBuild, setGeneratedBuild] = useState<Record<string, PCComponent> | null>(null);
-  const [allComponents, setAllComponents] = useState<PCComponent[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const categoriesResponse = await apiService.getCategories();
-        
-        let categoriesArray: Category[] = [];
-        const responseData = categoriesResponse.data as any;
-        if (responseData.results && Array.isArray(responseData.results)) {
-          categoriesArray = responseData.results;
-        } else if (Array.isArray(categoriesResponse.data)) {
-          categoriesArray = categoriesResponse.data;
-        }
-        const categorySlugs = categoriesArray.map((cat: Category) => cat.slug);
-        setCategories(categorySlugs);
+    if (isOpen && messages.length === 0) {
+      setMessages([{
+        role: 'assistant',
+        content: t('ai.welcome')
+      }]);
+    }
+  }, [isOpen]);
 
-        // Fetch first page of products for all categories in parallel
-        const productPromises = categorySlugs.map(slug => 
-          apiService.getProducts({ category_slug: slug })
-            .catch(() => ({ success: false, data: { results: [] } }))
-        );
-        const productsResponses = await Promise.all(productPromises);
-        
-        let allProds: Product[] = [];
-        productsResponses.forEach(res => {
-          if (res && res.success && res.data && res.data.results) {
-             allProds = [...allProds, ...res.data.results];
-          }
-        });
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
 
-        // Convert products to PCComponent format
-        const components = allProds.map((product: Product) => ({
-          id: product.id,
-          name: product.name,
-          brand: product.brand,
-          specs: Object.entries(product.specs).map(([key, value]) => `${value}`),
-          price: typeof product.price === 'string' ? parseFloat(product.price) : typeof product.price === 'number' ? product.price : 0,
-          formatted_price: product.formatted_price,
-          image: product.image_url || 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400&h=300&fit=crop',
-          category_slug: product.category_slug,
-          category_name: product.category_name,
-          performance: 85 + Math.random() * 15,
-        }));
-        
-        setAllComponents(components);
-        
-      } catch (error) {
-        console.error('Failed to load data for AI builder:', error);
-        // Fallback to defaults
-        setCategories(['cpu', 'gpu', 'motherboard', 'ram', 'storage', 'psu', 'case', 'cooling']);
-      }
-    };
-    loadData();
-  }, []);
+  const handleSend = async () => {
+    if (!promptText.trim() || isGenerating) return;
 
-  const [backendTotal, setBackendTotal] = useState<number | null>(null);
-
-  const handleGenerate = async () => {
+    const userMessage: Message = { role: 'user', content: promptText };
+    setMessages(prev => [...prev, userMessage]);
+    setPromptText('');
     setIsGenerating(true);
-    setBackendTotal(null);
+    setIsAddedToCart(false);
 
     try {
-      const response = await apiService.generateAIBuild(promptText);
-      if (response.success && response.data) {
-        setGeneratedBuild(response.data);
-        if (response.total_price) {
-          setBackendTotal(response.total_price);
-        }
+      // Pass history to backend (excluding build data to keep payload small)
+      const history = messages.map(m => ({ role: m.role, content: m.content }));
+      const response = await apiService.generateAIBuild(userMessage.content, history);
+      
+      if (response.success) {
+        const assistantMessage: Message = {
+          role: 'assistant',
+          content: response.message || '',
+          build: response.build || null,
+          total_price: response.total_price
+        };
+        setMessages(prev => [...prev, assistantMessage]);
       } else {
-        alert(`${t('ai.error.title')}: ` + (response.error || t('ai.error.fallback')));
+        setMessages(prev => [...prev, { 
+          role: 'assistant', 
+          content: `${t('ai.error.title')}: ${response.error || t('ai.error.fallback')}` 
+        }]);
       }
     } catch (error: any) {
       console.error(error);
-      const errorMessage = error.message || "Network error. Check console.";
-      alert(`${t('ai.error.title')}: ` + errorMessage);
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: `Error: ${error.message || "Network error"}` 
+      }]);
     } finally {
       setIsGenerating(false);
     }
   };
 
-  const handleUseBuild = () => {
-    if (generatedBuild && onBuildGenerated) {
-      onBuildGenerated(generatedBuild);
-    }
-    onClose();
+  const handleAddToCart = (build: Record<string, PCComponent>) => {
+    const components = Object.values(build);
+    localStorage.setItem('pcbuilder-cart', JSON.stringify(components));
+    setIsAddedToCart(true);
+    
+    // Optional: Sync with other pages if they use a custom event
+    window.dispatchEvent(new Event('cart-updated'));
   };
-
-  // Robust total calculation
-  const total = backendTotal || (generatedBuild
-    ? Object.values(generatedBuild).reduce((sum, comp) => {
-        const p = typeof comp.price === 'string' ? parseFloat(comp.price) : comp.price;
-        return sum + (p || 0);
-      }, 0)
-    : 0);
 
   return (
     <AnimatePresence>
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-6"
           onClick={onClose}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto border border-[#00d4ff]/30 bg-[#0d0d12]"
+            className="relative w-full max-w-5xl h-[85vh] flex flex-col border border-[#00d4ff]/20 bg-[#0a0a0f] shadow-[0_0_100px_rgba(0,212,255,0.1)] rounded-[2.5rem] overflow-hidden"
           >
-            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#00d4ff]/30 bg-[#0d0d12] p-6">
-              <div className="flex items-center gap-3">
-                <Sparkles className="h-8 w-8 text-[#ff0080]" />
-                <h2 className="font-black text-3xl uppercase text-[#00d4ff]">
-                  {t('ai.title')}
-                </h2>
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-white/5 bg-[#0d0d12]/50 p-6 backdrop-blur-xl">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-[#ff0080]/20 blur-xl rounded-full" />
+                  <Sparkles className="relative h-8 w-8 text-[#ff0080] animate-pulse" />
+                </div>
+                <div>
+                  <h2 className="font-black text-2xl uppercase tracking-tighter text-white">
+                    {t('ai.title')}
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-[10px] text-white/40 uppercase font-black tracking-widest">AI Online</span>
+                  </div>
+                </div>
               </div>
               <button
                 onClick={onClose}
-                className="text-white/60 transition-colors hover:text-white"
+                className="group relative h-10 w-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-all"
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5 text-white/60 group-hover:text-white" />
               </button>
             </div>
 
-            <div className="p-8">
-              {!generatedBuild ? (
-                <div className="space-y-8">
-                  <div className="mb-6 border border-[#00d4ff]/30 bg-[#00d4ff]/5 p-6">
-                    <h3 className="mb-2 font-black text-xl uppercase text-[#00d4ff]">
-                      {t('ai.neural_network')}
-                    </h3>
-                    <p className="text-white/70">
-                      {t('ai.description')}
-                    </p>
+            {/* Chat Area */}
+            <div 
+              ref={scrollRef}
+              className="flex-1 overflow-y-auto p-6 space-y-8 scrollbar-thin scrollbar-thumb-white/10"
+            >
+              {messages.map((msg, idx) => (
+                <div 
+                  key={idx}
+                  className={`flex gap-4 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
+                >
+                  <div className={`h-10 w-10 rounded-2xl flex items-center justify-center flex-shrink-0 ${
+                    msg.role === 'user' ? 'bg-blue-600' : 'bg-gradient-to-br from-[#ff0080] to-[#7000ff]'
+                  }`}>
+                    {msg.role === 'user' ? <User className="h-5 w-5 text-white" /> : <Bot className="h-5 w-5 text-white" />}
                   </div>
+                  
+                  <div className={`max-w-[85%] space-y-4 ${msg.role === 'user' ? 'items-end' : ''}`}>
+                    <div className={`p-6 rounded-[2rem] text-lg leading-relaxed shadow-xl ${
+                      msg.role === 'user' 
+                        ? 'bg-blue-600 text-white rounded-tr-none' 
+                        : 'bg-white/5 text-white/90 border border-white/10 rounded-tl-none'
+                    }`}>
+                      {msg.content}
+                    </div>
 
-                  <div>
-                    <label className="mb-3 block font-bold text-sm uppercase tracking-wider text-white">
-                      {t('ai.label')}
-                    </label>
-                    <textarea
-                      value={promptText}
-                      onChange={(e) => setPromptText(e.target.value)}
-                      className="w-full min-h-[150px] border border-white/20 bg-[#12121a] p-6 text-xl text-white outline-none transition-all placeholder:text-white/20 focus:border-[#00d4ff]"
-                      placeholder={t('ai.placeholder')}
-                    />
-                  </div>
-
-                  <button
-                    onClick={handleGenerate}
-                    disabled={isGenerating || promptText.trim().length < 5}
-                    className="w-full bg-gradient-to-r from-[#00d4ff] to-[#ff0080] px-8 py-5 font-black text-lg uppercase text-white transition-all hover:shadow-[0_0_30px_rgba(0,212,255,0.5)] disabled:opacity-50"
-                  >
-                    {isGenerating ? (
-                      <span className="flex items-center justify-center gap-3">
-                        <Cpu className="h-5 w-5 animate-spin" />
-                        {t('ai.thinking')}
-                      </span>
-                    ) : (
-                      t('ai.generate')
-                    )}
-                  </button>
-                </div>
-              ) : (
-                <div className="space-y-6">
-                  <div className="mb-6 border border-[#00ff88]/30 bg-[#00ff88]/5 p-6">
-                    <h3 className="mb-2 font-black text-xl uppercase text-[#00ff88]">
-                      {t('ai.success.title')}
-                    </h3>
-                    <p className="text-white/70">
-                      {t('ai.success.desc')}
-                    </p>
-                  </div>
-
-                  <div className="space-y-3">
-                    {Object.entries(generatedBuild).map(([category, component]) => (
-                      <div
-                        key={category}
-                        className="flex items-center gap-4 border border-white/10 bg-[#12121a] p-4"
-                      >
-                        <div className="h-16 w-20 overflow-hidden bg-black/50">
-                          <img
-                            src={component.image}
-                            alt={component.name}
-                            className="h-full w-full object-cover"
-                          />
-                        </div>
-                        <div className="flex-1">
-                          <div className="mb-1 font-bold text-[#00d4ff] text-xs uppercase">
-                            {t(`component.${category}`)}
+                    {msg.build && (
+                      <div className="mt-4 border border-[#00d4ff]/30 bg-[#00d4ff]/5 p-6 rounded-[2.5rem] overflow-hidden">
+                        <div className="flex items-center justify-between mb-6">
+                          <h4 className="font-black text-xl text-[#00d4ff] uppercase tracking-tighter">
+                            {t('ai.success.title')}
+                          </h4>
+                          <div className="text-right">
+                            <div className="text-[10px] text-white/40 uppercase font-black">{t('ai.total')}</div>
+                            <div className="text-2xl font-black text-white">
+                              {((msg.total_price || 0) / 1000000).toFixed(1)}M <span className="text-[#00d4ff] text-sm uppercase">{t('currency')}</span>
+                            </div>
                           </div>
-                          <div className="font-bold text-white">{component.name}</div>
                         </div>
-                        <div className="font-bold text-right text-white">
-                          {(component.price / 1000000).toFixed(1)}M{' '}
-                          <span className="text-[#00d4ff] text-xs">{t('currency')}</span>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                          {Object.entries(msg.build).map(([category, component]) => (
+                            <div key={category} className="flex items-center gap-3 bg-white/5 p-3 rounded-2xl border border-white/5">
+                              <img src={component.image} className="h-12 w-12 object-contain bg-black/40 rounded-lg p-1" />
+                              <div className="min-w-0">
+                                <div className="text-[9px] text-blue-400 font-bold uppercase truncate">{t(`component.${category}`)}</div>
+                                <div className="text-xs font-bold text-white truncate">{component.name}</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex flex-col gap-3">
+                          <p className="text-center text-sm font-bold text-[#00ff88] uppercase tracking-wider mb-2">
+                            {t('ai.ask_satisfaction')}
+                          </p>
+                          <div className="flex gap-3">
+                            {!isAddedToCart ? (
+                              <button
+                                onClick={() => handleAddToCart(msg.build!)}
+                                className="flex-1 bg-gradient-to-r from-[#00d4ff] to-[#0088ff] px-6 py-4 rounded-2xl font-black text-xs uppercase text-white shadow-[0_0_30px_rgba(0,212,255,0.3)] hover:scale-105 transition-all flex items-center justify-center gap-2"
+                              >
+                                <ShoppingCart className="h-4 w-4" />
+                                {t('ai.add_to_cart')}
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => navigate('/checkout')}
+                                className="flex-1 bg-gradient-to-r from-[#00ff88] to-[#00aa55] px-6 py-4 rounded-2xl font-black text-xs uppercase text-black shadow-[0_0_30px_rgba(0,255,136,0.3)] hover:scale-105 transition-all flex items-center justify-center gap-2"
+                              >
+                                <CheckCircle2 className="h-4 w-4" />
+                                {t('ai.checkout_now')}
+                              </button>
+                            )}
+                            <button
+                              onClick={() => setMessages(prev => [...prev, { role: 'user', content: t('ai.regenerate') }])}
+                              className="px-6 py-4 rounded-2xl border border-white/10 bg-white/5 font-black text-xs uppercase text-white hover:bg-white/10 transition-all flex items-center gap-2"
+                            >
+                              <RefreshCcw className="h-4 w-4" />
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    ))}
+                    )}
                   </div>
-
-                  <div className="border-t border-[#00d4ff]/30 pt-6">
-                    <div className="mb-6 flex items-center justify-between">
-                      <span className="font-black text-xl uppercase text-white">{t('ai.total')}</span>
-                      <span className="font-black text-3xl text-white">
-                        {(total / 1000000).toFixed(1)}M{' '}
-                        <span className="text-[#00d4ff] text-lg">{t('currency')}</span>
-                      </span>
-                    </div>
-
-                    <div className="flex gap-4">
-                      <button
-                        onClick={() => setGeneratedBuild(null)}
-                        className="flex-1 border border-white/20 bg-transparent px-8 py-4 font-bold uppercase text-white transition-all hover:border-[#00d4ff] hover:text-[#00d4ff]"
-                      >
-                        {t('ai.regenerate')}
-                      </button>
-                      <button
-                        onClick={handleUseBuild}
-                        className="flex-1 bg-[#00d4ff] px-8 py-4 font-bold uppercase text-black transition-all hover:bg-[#00ff88]"
-                      >
-                        {t('ai.use')}
-                      </button>
-                    </div>
+                </div>
+              ))}
+              
+              {isGenerating && (
+                <div className="flex gap-4">
+                  <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-[#ff0080] to-[#7000ff] flex items-center justify-center">
+                    <Bot className="h-5 w-5 text-white" />
+                  </div>
+                  <div className="bg-white/5 p-6 rounded-[2rem] rounded-tl-none border border-white/10 flex items-center gap-3">
+                    <Cpu className="h-5 w-5 text-[#ff0080] animate-spin" />
+                    <span className="font-black text-sm uppercase tracking-widest text-[#ff0080]">
+                      {t('ai.thinking')}
+                    </span>
                   </div>
                 </div>
               )}
+            </div>
+
+            {/* Input Area */}
+            <div className="p-6 bg-[#0d0d12]/50 border-t border-white/5">
+              <div className="relative flex items-end gap-4 max-w-4xl mx-auto">
+                <div className="relative flex-1 group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-[#00d4ff] to-[#ff0080] rounded-[2rem] opacity-20 blur group-focus-within:opacity-40 transition-all" />
+                  <textarea
+                    value={promptText}
+                    onChange={(e) => setPromptText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSend();
+                      }
+                    }}
+                    placeholder={t('ai.placeholder')}
+                    className="relative w-full min-h-[60px] max-h-[150px] bg-[#12121a] border border-white/10 rounded-[1.5rem] p-4 pr-12 text-white outline-none focus:border-[#00d4ff]/50 transition-all resize-none overflow-hidden"
+                  />
+                  <button
+                    onClick={handleSend}
+                    disabled={isGenerating || !promptText.trim()}
+                    className="absolute right-3 bottom-3 h-10 w-10 flex items-center justify-center rounded-xl bg-[#00d4ff] text-black hover:bg-[#00ff88] disabled:opacity-50 disabled:hover:bg-[#00d4ff] transition-all shadow-lg"
+                  >
+                    <Send className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

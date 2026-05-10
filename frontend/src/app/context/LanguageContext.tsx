@@ -93,6 +93,10 @@ const translations = {
     'ai.regenerate': 'ПЕРЕГЕНЕРИРОВАТЬ',
     'ai.error.title': 'Ошибка ИИ',
     'ai.error.fallback': 'Не удалось подобрать сборку',
+    'ai.ask_satisfaction': 'Вам понравилась эта сборка?',
+    'ai.add_to_cart': 'В КОРЗИНУ',
+    'ai.checkout_now': 'ОФОРМИТЬ ЗАКАЗ',
+    'ai.welcome': 'Привет! Я ваш ИИ-помощник GameZone. Чем могу помочь? Собрать мощный ПК или ответить на вопросы по железу?',
 
     // About
     'about.title': 'О сервисе',
@@ -212,6 +216,10 @@ const translations = {
     'ai.regenerate': 'QAYTA YARATISH',
     'ai.error.title': 'AI Xatosi',
     'ai.error.fallback': 'Yig\'indini tanlab bo\'lmadi',
+    'ai.ask_satisfaction': 'Ushbu yig\'indi sizga yoqdimi?',
+    'ai.add_to_cart': 'SAVATGA QO\'SHISH',
+    'ai.checkout_now': 'BUYURTMA BERISH',
+    'ai.welcome': 'Salom! Men GameZone AI yordamchisiman. Sizga qanday yordam bera olaman? Kuchli PK yig\'ish yoki hardware bo\'yicha savollarga javob berish kerakmi?',
 
     // Cart
     'cart.title': 'SAVAT',

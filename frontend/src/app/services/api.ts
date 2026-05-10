@@ -132,10 +132,10 @@ class ApiService {
   }
 
   // AI Build
-  async generateAIBuild(prompt: string): Promise<ApiResponse<any>> {
+  async generateAIBuild(prompt: string, history: any[] = []): Promise<ApiResponse<any>> {
     return this.request<any>('/ai-build/', {
       method: 'POST',
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ prompt, history }),
     });
   }
 
