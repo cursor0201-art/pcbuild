@@ -460,30 +460,9 @@ class AIBuilderView(APIView):
                 for h in valid_history:
                     role = "user" if h['role'] == 'user' else 'model'
                     contents.append({"role": role, "parts": [{"text": h['content']}]})
-                if contents[-1]['role'] == 'user':
-                    contents[-1]['parts'][0]['text'] = f"{system_context}FOLLOW-UP: {prompt_text}"
-                else:
-                    contents.append({"role": "user", "parts": [{"text": f"{system_context}REQUEST: {prompt_text}"}]})
-            else:
-                contents.append({"role": "user", "parts": [{"text": f"{system_context}REQUEST: {prompt_text}"}]})
-
-            payload = {"contents": contents}
-            return requests.post(url, headers=headers, json=payload, timeout=20)
-
-        def call_gemini(model_name, api_version='v1beta'):
-            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={gemini_key}"
-            headers = {'Content-Type': 'application/json'}
-            contents = []
-            system_context = f"SYSTEM INSTRUCTIONS:\n{full_prompt}\n\n"
-            
-            if history:
-                valid_history = [h for h in history if h.get('role') and h.get('content')]
-                if valid_history and valid_history[0]['role'] != 'user':
-                    contents.append({"role": "user", "parts": [{"text": "Hello"}]})
-                for h in valid_history:
-                    role = "user" if h['role'] == 'user' else 'model'
-                    contents.append({"role": role, "parts": [{"text": h['content']}]})
-                if contents[-1]['role'] == 'user':
+                
+                # Update the last user message or add a new one with the current request
+                if contents and contents[-1]['role'] == 'user':
                     contents[-1]['parts'][0]['text'] = f"{system_context}FOLLOW-UP: {prompt_text}"
                 else:
                     contents.append({"role": "user", "parts": [{"text": f"{system_context}REQUEST: {prompt_text}"}]})
@@ -494,10 +473,10 @@ class AIBuilderView(APIView):
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
-            # We saw these in the diagnostic list
             models_to_try = [
-                ('gemini-2.0-flash', 'v1beta'),
                 ('gemini-2.0-flash', 'v1'),
+                ('gemini-2.5-flash', 'v1'),
+                ('gemini-flash-latest', 'v1beta'),
                 ('gemini-1.5-flash', 'v1beta'),
                 ('gemini-1.5-flash', 'v1'),
             ]
@@ -531,29 +510,6 @@ class AIBuilderView(APIView):
                     'success': False, 
                     'error': f"Gemini Error {r.status_code}: {error_detail}. Models tried: {str(models_to_try)}",
                 }, status=status.HTTP_200_OK)
-
-            # Resolve products
-            result_build = None
-            total_price = 0
-            if ai_response.get('build'):
-                result_build = {}
-                for cat_slug, p_id in ai_response['build'].items():
-                    try:
-                        product = Product.objects.get(id=p_id)
-                        serializer = ProductSerializer(product, context={'request': request})
-                        data = serializer.data
-                        price = float(product.price)
-                        total_price += price
-                        data['price'] = price
-                        result_build[cat_slug] = data
-                    except: continue
-
-            return Response({
-                'success': True,
-                'message': ai_response.get('message', ''),
-                'build': result_build,
-                'total_price': total_price
-            })
 
             # Resolve products
             result_build = None
