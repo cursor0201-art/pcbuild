@@ -429,21 +429,15 @@ class AIBuilderView(APIView):
         Available categories: {category_list}
         
         GUIDELINES:
-        1. Be conversational and helpful. If the user asks a general question, answer it expert-like.
-        2. If the user asks for a build or describes their needs (gaming, work, budget), recommend a FULL BUILD.
-        3. If you recommend a build, you MUST provide a JSON object in your response.
-        4. If you suggest a build, pick EXACTLY ONE product for each category from the REAL INVENTORY list above.
-        5. Respond in the same language as the user (Russian or Uzbek).
+        1. Be conversational and helpful.
+        2. If the user asks for a build or describes needs (gaming, budget), recommend a build using REAL INVENTORY products.
+        3. ALWAYS respond in valid JSON format.
+        4. Respond in the same language as the user (Russian or Uzbek).
         
-        RESPONSE FORMAT:
-        You must return a JSON with two fields:
-        - "message": Your text response (advice, explanation, or asking if they like the build).
-        - "build": (Optional) A map where keys are category slugs and values are the product IDs you picked.
-        
-        Example JSON:
+        STRICT RESPONSE FORMAT:
         {{
-          "message": "Для гейминга в 2К я рекомендую эту сбалансированную сборку...",
-          "build": {{"cpu": "id-1", "gpu": "id-2", ...}}
+          "message": "Your text response here...",
+          "build": {{"category_slug": "product_id", ...}} (Optional, only if recommending a build)
         }}
         """
 
@@ -469,7 +463,12 @@ class AIBuilderView(APIView):
             else:
                 contents.append({"role": "user", "parts": [{"text": f"{system_context}REQUEST: {prompt_text}"}]})
 
-            payload = {"contents": contents}
+            payload = {
+                "contents": contents,
+                "generationConfig": {
+                    "responseMimeType": "application/json"
+                }
+            }
             return requests.post(url, headers=headers, json=payload, timeout=20)
 
         try:
@@ -495,13 +494,24 @@ class AIBuilderView(APIView):
                 try:
                     r_data = r.json()
                     raw_text = r_data['candidates'][0]['content']['parts'][0]['text']
-                    import re
+                    
+                    # Gemini with responseMimeType should return clean JSON, 
+                    # but we'll still do a basic check/cleanup just in case
                     import json
-                    json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
-                    if json_match:
-                        ai_response = json.loads(json_match.group())
-                    else:
-                        ai_response = {"message": raw_text, "build": None}
+                    import re
+                    
+                    # Remove markdown code blocks if they exist
+                    clean_text = re.sub(r'```json\s*|\s*```', '', raw_text).strip()
+                    
+                    try:
+                        ai_response = json.loads(clean_text)
+                    except json.JSONDecodeError:
+                        # Fallback: try to find anything that looks like JSON
+                        json_match = re.search(r'\{.*\}', clean_text, re.DOTALL)
+                        if json_match:
+                            ai_response = json.loads(json_match.group())
+                        else:
+                            ai_response = {"message": raw_text, "build": None}
                 except Exception as e:
                     ai_response = {"message": f"AI Parse Error: {str(e)}", "build": None}
             else:
