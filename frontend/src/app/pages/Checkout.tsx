@@ -119,10 +119,10 @@ export function Checkout() {
             </div>
           </div>
           <h2 className="mb-4 font-black text-5xl uppercase text-white">
-            ЗАКАЗ ПРИНЯТ
+            {t('checkout.success.title')}
           </h2>
           <p className="mb-8 text-white/70 text-xl">
-            Мы свяжемся с вами в ближайшее время для подтверждения заказа.
+            {t('checkout.success.message')}
           </p>
           <div className="font-black text-3xl text-white">
             {formatPrice(finalTotal || total)}{' '}
@@ -144,16 +144,16 @@ export function Checkout() {
             </div>
           </div>
           <h2 className="mb-4 font-black text-5xl uppercase text-white">
-            CART IS EMPTY
+            {t('checkout.empty.title')}
           </h2>
           <p className="mb-8 text-white/70 text-xl">
-            Please add items to your cart before checkout.
+            {t('checkout.empty.message')}
           </p>
           <button
             onClick={() => navigate('/builder')}
             className="bg-blue-600 px-8 py-4 font-black text-lg uppercase text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] rounded-xl"
           >
-            GO TO BUILDER
+            {t('checkout.empty.button')}
           </button>
         </div>
       </div>

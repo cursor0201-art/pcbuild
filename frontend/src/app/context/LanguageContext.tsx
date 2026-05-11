@@ -120,6 +120,11 @@ const translations = {
     'checkout.address': 'Адрес',
     'checkout.city': 'Город',
     'checkout.submit': 'Подтвердить заказ',
+    'checkout.success.title': 'ЗАКАЗ ПРИНЯТ',
+    'checkout.success.message': 'Мы свяжемся с вами в ближайшее время для подтверждения заказа.',
+    'checkout.empty.title': 'КОРЗИНА ПУСТА',
+    'checkout.empty.message': 'Пожалуйста, добавьте комплектующие в корзину перед оформлением заказа.',
+    'checkout.empty.button': 'В КОНСТРУКТОР',
 
     // SEO Content
     'seo.title': 'Профессиональная сборка ПК на заказ',
@@ -237,6 +242,11 @@ const translations = {
     'checkout.address': 'Manzil',
     'checkout.city': 'Shahar',
     'checkout.submit': 'Buyurtmani tasdiqlash',
+    'checkout.success.title': 'BUYURTMA QABUL QILINDI',
+    'checkout.success.message': 'Buyurtmani tasdiqlash uchun tez orada siz bilan bog\'lanamiz.',
+    'checkout.empty.title': 'SAVAT BO\'SH',
+    'checkout.empty.message': 'Iltimos, buyurtma berishdan oldin savatga butlovchi qismlarni qo\'shing.',
+    'checkout.empty.button': 'KONSTRUKTORGA O\'TISH',
 
     // About
     'about.title': 'Servis haqida',
