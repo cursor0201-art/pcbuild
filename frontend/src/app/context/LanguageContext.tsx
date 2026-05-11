@@ -247,6 +247,13 @@ const translations = {
     'checkout.empty.title': 'SAVAT BO\'SH',
     'checkout.empty.message': 'Iltimos, buyurtma berishdan oldin savatga butlovchi qismlarni qo\'shing.',
     'checkout.empty.button': 'KONSTRUKTORGA O\'TISH',
+    
+    // SEO Content
+    'seo.title': 'Buyurtma asosida professional PK yig\'ish',
+    'seo.p1': 'GameZoneBuild o\'yin va ishchi kompyuterlarini individual yig\'ishga ixtisoslashgan. Biz kibersport yo\'nalishidagi byudjetli mashinalardan tortib, 3D modellashtirish, videomontaj va striming uchun o\'ta kuchli ish stansiyalarigacha bo\'lgan optimal konfiguratsiyalarni tanlaymiz.',
+    'seo.p2': 'Nima uchun bizni tanlashadi? Biz shaffof narxlar, barcha butlovchi qismlarga kafolat va professional kabel menejmentini taklif etamiz. Bizning maqsadimiz — ortiqcha funktsiyalar uchun pul to\'lamasdan, sizning vazifalaringizni mukammal darajada hal qiladigan PK yig\'ishdir.',
+    'seo.p3': 'Maksimal sozlamalarda yangi o\'yinlar uchun kompyuter qidiryapsizmi? Bizning aqlli konfiguratorimiz videokarta, protsessor, anakart va boshqa detallarning mosligini tekshirib, muvozanatli tizimni yig\'ishga yordam beradi. "Tor joylar" va qizib ketish haqida unuting.',
+    'seo.p4': 'Qanday buyurtma berish mumkin: shunchaki bizning konfiguratorimizda o\'zingiz xohlagan PKni yig\'ing, savatga qo\'shing va buyurtma bering. Mutaxassislarimiz tafsilotlarni aniqlashtirish uchun siz bilan bog\'lanishadi, shundan so\'ng biz sizning ideal kompyuteringizni yig\'amiz, sinovdan o\'tkazamiz va yetkazib beramiz.',
 
     // About
     'about.title': 'Servis haqida',
