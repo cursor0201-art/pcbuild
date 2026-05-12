@@ -33,7 +33,7 @@ class CategorySerializer(serializers.ModelSerializer):
             request = self.context.get('request')
             if request:
                 return request.build_absolute_uri(obj.image.url)
-            return f"{settings.MEDIA_URL}{obj.image}"
+            return obj.image.url
         return None
 
     def get_min_price(self, obj):
@@ -92,7 +92,7 @@ class ProductSerializer(serializers.ModelSerializer):
             request = self.context.get('request')
             if request:
                 return request.build_absolute_uri(obj.image.url)
-            return f"{settings.MEDIA_URL}{obj.image}"
+            return obj.image.url
         return None
 
     def get_formatted_price(self, obj):

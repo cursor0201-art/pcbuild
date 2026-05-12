@@ -229,4 +229,6 @@ CORS_ALLOW_METHODS = [
 ]
 # Security Settings for Production
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
 SECURE_SSL_REDIRECT = False # Let Koyeb/Cloudflare handle redirect
