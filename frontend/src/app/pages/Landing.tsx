@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { Sparkles, Zap, DollarSign, ArrowRight, Shield, Headset, Cpu } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { AIBuilderModal } from '../components/AIBuilderModal';
-import { apiService, Category } from '../services/api';
+import { apiService, Category, formatPrice } from '../services/api';
 
 export function Landing() {
   const { t } = useLanguage();
@@ -35,15 +35,15 @@ export function Landing() {
     fetchCategories();
   }, []);
 
-  // Helper to get category image and info
-  const getCategoryInfo = (slug: string) => {
-    const info: Record<string, { img: string; sub: string; price: string }> = {
-      'videokarty': { img: '/gpu.png', sub: 'Ultimate graphics performance.', price: '$499' },
-      'protsessory': { img: '/cpu.png', sub: 'Raw power for limitless gaming.', price: '$249' },
-      'korpusa': { img: '/gaming_pc.png', sub: 'Pre-built. Tested. Game Ready.', price: '$899' },
-      'periferiya': { img: '/peripherals.png', sub: 'Gear up. Play at your best.', price: '$29' },
+  // Helper to get category fallback info
+  const getCategoryFallback = (slug: string) => {
+    const fallbacks: Record<string, { img: string; sub: string }> = {
+      'videokarty': { img: '/gpu.png', sub: 'Ultimate graphics performance.' },
+      'protsessory': { img: '/cpu.png', sub: 'Raw power for limitless gaming.' },
+      'korpusa': { img: '/gaming_pc.png', sub: 'Pre-built. Tested. Game Ready.' },
+      'periferiya': { img: '/peripherals.png', sub: 'Gear up. Play at your best.' },
     };
-    return info[slug] || { img: '/gaming_pc.png', sub: 'High-quality components.', price: '---' };
+    return fallbacks[slug] || { img: '/gaming_pc.png', sub: 'High-quality components.' };
   };
 
   return (
@@ -259,7 +259,10 @@ export function Landing() {
               ))
             ) : categories.length > 0 ? (
               categories.slice(0, 4).map((category, idx) => {
-                const info = getCategoryInfo(category.slug);
+                const fallback = getCategoryFallback(category.slug);
+                const categoryImg = category.image_url || fallback.img;
+                const minPrice = category.min_price;
+                
                 return (
                   <motion.div
                     key={category.id}
@@ -274,13 +277,13 @@ export function Landing() {
                           <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-white" />
                         </div>
                       </div>
-                      <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{info.sub}</p>
+                      <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{fallback.sub}</p>
                     </div>
 
                     <div className="relative h-48 flex items-center justify-center">
                        <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full scale-50 opacity-0 group-hover:opacity-100 transition-opacity" />
                        <img 
-                        src={info.img} 
+                        src={categoryImg} 
                         alt={category.name} 
                         className="max-h-full w-auto object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-700" 
                       />
@@ -289,7 +292,13 @@ export function Landing() {
                     <div className="pt-4 border-t border-white/5 flex items-center justify-between items-end">
                       <div className="space-y-1">
                         <div className="text-[9px] text-slate-500 uppercase font-black tracking-[0.2em]">{t('category.starting')}</div>
-                        <div className="text-2xl font-black text-blue-500">${info.price.replace('$', '')}</div>
+                        <div className="text-2xl font-black text-blue-500">
+                          {minPrice ? (
+                            <>{formatPrice(minPrice)} <span className="text-xs">{t('currency')}</span></>
+                          ) : (
+                            '---'
+                          )}
+                        </div>
                       </div>
                       <div className="h-10 w-10 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
                         <span className="text-white font-bold text-lg">+</span>

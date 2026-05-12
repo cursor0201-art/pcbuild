@@ -15,6 +15,12 @@ class Category(models.Model):
         related_name='children',
         verbose_name="Categoría padre"
     )
+    image = models.ImageField(
+        upload_to='categories/', 
+        blank=True, 
+        null=True,
+        verbose_name="Imagen de la categoría"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

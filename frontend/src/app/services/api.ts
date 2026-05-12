@@ -28,6 +28,8 @@ export interface Category {
   name: string;
   slug: string;
   parent: number | null;
+  image_url: string | null;
+  min_price: number | null;
   children: Category[];
   level: number;
   product_count: number;

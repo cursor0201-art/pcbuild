@@ -7,11 +7,13 @@ class CategorySerializer(serializers.ModelSerializer):
     children = serializers.SerializerMethodField()
     level = serializers.SerializerMethodField()
     product_count = serializers.SerializerMethodField()
+    image_url = serializers.SerializerMethodField()
+    min_price = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
         fields = [
-            'id', 'name', 'slug', 'parent', 'children', 
+            'id', 'name', 'slug', 'parent', 'image', 'image_url', 'min_price', 'children', 
             'level', 'product_count', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']
@@ -25,6 +27,22 @@ class CategorySerializer(serializers.ModelSerializer):
 
     def get_product_count(self, obj):
         return obj.products.filter(is_active=True).count()
+
+    def get_image_url(self, obj):
+        if obj.image:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.image.url)
+            return f"{settings.MEDIA_URL}{obj.image}"
+        return None
+
+    def get_min_price(self, obj):
+        # Get minimum price of active products in this category or subcategories
+        products = Product.objects.filter(category=obj, is_active=True)
+        if not products.exists():
+            return None
+        min_p = products.order_by('price').first().price
+        return float(min_p)
 
 
 class CategoryCreateUpdateSerializer(serializers.ModelSerializer):
