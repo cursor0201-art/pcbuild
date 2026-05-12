@@ -28,7 +28,7 @@ const translations = {
 
     'stats.shipping.label': 'БЕСПЛАТНАЯ ДОСТАВКА',
     'stats.shipping.sub': 'На все заказы свыше 1 000 000 UZS',
-    'stats.warranty.label': '2 ГОДА ГАРАНТИИ',
+    'stats.warranty.label': '1 ГОД ГАРАНТИИ',
     'stats.warranty.sub': 'Премиальное качество гарантировано',
     'stats.support.label': '24/7 ПОДДЕРЖКА',
     'stats.support.sub': 'Всегда готовы помочь',
@@ -149,8 +149,8 @@ const translations = {
     'nav.about': 'Biz haqimizda',
 
     // Landing
-    'hero.title_part1': "O'YININGIZNI",
-    'hero.title_part2': "ZARYADLANG",
+    'hero.title_part1': 'Kompyuteringizni',
+    'hero.title_part2': 'yangi darajaga ko\'taring',
     'hero.description': "Yuqori unumdorlikka ega butlovchi qismlar, maxsus yig'malar va o'yin jihozlarining ajoyib to'plamini kashf eting.",
     'hero.tagline_extra': "Geymerlar uchun yaratilgan. G'alaba uchun mo'ljallangan.",
     'hero.cta_primary': "DO'KONGA",
@@ -159,7 +159,7 @@ const translations = {
 
     'stats.shipping.label': 'BEPUL YETKAZIB BERISH',
     'stats.shipping.sub': "1 000 000 UZS dan yuqori barcha buyurtmalar uchun",
-    'stats.warranty.label': '2 YILLIK KAFOLAT',
+    'stats.warranty.label': '1 YILLIK KAFOLAT',
     'stats.warranty.sub': 'Yuqori sifat kafolatlangan',
     'stats.support.label': '24/7 QO\'LLAB-QUVVATLASH',
     'stats.support.sub': 'Har doim yordamga tayyormiz',
