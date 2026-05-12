@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'framer-motion';
-import { Check, X, Sparkles, Info } from 'lucide-react';
+import { Check, X, Sparkles, Info, Cpu } from 'lucide-react';
 import { apiService, Product, Category } from '../services/api';
 import { AIBuilderModal } from '../components/AIBuilderModal';
 import { ProductModal } from '../components/ProductModal';
