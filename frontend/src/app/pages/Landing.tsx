@@ -49,7 +49,7 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617] pt-20 text-white">
       {/* Hero Section */}
-      <section className="relative h-[calc(100vh-5rem)] overflow-hidden">
+      <section className="relative min-h-[calc(100vh-5rem)] flex items-center py-12 sm:py-20 lg:py-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
         <div className="absolute inset-0">
@@ -178,8 +178,9 @@ export function Landing() {
       </section>
 
       {/* Features Section */}
-      <section className="border-t border-[#00d4ff]/20 bg-[#0d0d12] py-24">
-        <div className="mx-auto max-w-[1600px] px-6 lg:px-12">
+      <section className="border-t border-white/5 bg-[#0a0a0f] py-32 sm:py-48 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05)_0%,transparent_70%)]" />
+        <div className="relative mx-auto max-w-[1600px] px-6 lg:px-12">
           <motion.h2
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
