@@ -122,11 +122,11 @@ export function Landing() {
             </motion.div>
 
             {/* Hardware Visuals */}
-            <div className="relative hidden md:flex items-center justify-start h-full mt-12 lg:mt-0">
-              <div className="relative z-10 w-full flex items-center justify-start scale-110 lg:scale-125 -translate-x-24 lg:-translate-x-48">
+            <div className="relative flex items-center justify-center lg:justify-start h-full mt-12 lg:mt-0">
+              <div className="relative z-10 w-full flex items-center justify-center lg:justify-start scale-100 sm:scale-110 lg:scale-125 lg:-translate-x-24 xl:-translate-x-48">
                 <img 
                   src="/hero_composite.png" 
-                  className="w-full max-w-4xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
+                  className="w-full max-w-[300px] sm:max-w-xl lg:max-w-4xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
                   alt="Premium Hardware" 
                 />
 
@@ -135,21 +135,21 @@ export function Landing() {
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8, duration: 1 }}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 space-y-12 z-30 translate-x-24"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 space-y-4 lg:space-y-12 z-30 translate-x-12 lg:translate-x-24 hidden sm:block"
                 >
                   <motion.div 
                     whileHover={{ scale: 1.1 }}
                     className="relative"
                   >
-                    <div className="absolute -left-12 top-1/2 w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-6 rounded-[2rem] border border-blue-500/30 w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-6 overflow-hidden">
-                      <div className="relative h-24 w-32 flex-shrink-0">
+                    <div className="absolute -left-8 lg:-left-12 top-1/2 w-8 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
+                    <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-blue-500/30 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
+                      <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
                         <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full scale-50" />
                         <img src="/rtx5090.png" className="relative h-full w-full object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]" alt="RTX 5090" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-3xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
-                        <div className="text-xs text-blue-400 font-black uppercase tracking-[0.2em]">{t('hero.next_gen')}</div>
+                        <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
+                        <div className="text-[8px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">{t('hero.next_gen')}</div>
                       </div>
                     </div>
                   </motion.div>
@@ -158,15 +158,15 @@ export function Landing() {
                     whileHover={{ scale: 1.1 }}
                     className="relative"
                   >
-                    <div className="absolute -left-12 top-1/2 w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-6 rounded-[2rem] border border-white/10 w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-6 overflow-hidden">
-                      <div className="relative h-24 w-32 flex-shrink-0">
+                    <div className="absolute -left-8 lg:-left-12 top-1/2 w-8 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
+                    <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-white/10 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
+                      <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
                         <div className="absolute inset-0 bg-blue-500/10 blur-2xl rounded-full scale-50" />
                         <img src="/9800x3d.png" className="relative h-full w-full object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]" alt="Ryzen 9800X3D" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-3xl font-black text-white uppercase tracking-tight mb-1">RYZEN 9800X3D</div>
-                        <div className="text-xs text-blue-400 font-black uppercase tracking-[0.2em]">Ultimate Gaming CPU</div>
+                        <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RYZEN 9800X3D</div>
+                        <div className="text-[8px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">Ultimate Gaming CPU</div>
                       </div>
                     </div>
                   </motion.div>

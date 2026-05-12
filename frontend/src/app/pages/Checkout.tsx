@@ -114,19 +114,21 @@ export function Checkout() {
           className="max-w-2xl border border-blue-500/30 bg-white/5 p-16 text-center rounded-[2rem] glass-card mx-6"
         >
           <div className="mb-8 flex justify-center">
-            <div className="flex h-24 w-24 items-center justify-center border-4 border-blue-500 bg-blue-500/10 rounded-full">
-              <Check className="h-12 w-12 text-blue-500" />
-            </div>
+            <img 
+              src="/hero_pc.png" 
+              className="h-48 sm:h-64 object-contain drop-shadow-[0_0_50px_rgba(59,130,246,0.3)]" 
+              alt="Order Success" 
+            />
           </div>
-          <h2 className="mb-4 font-black text-5xl uppercase text-white">
+          <h2 className="mb-4 font-black text-4xl sm:text-5xl uppercase text-white">
             {t('checkout.success.title')}
           </h2>
-          <p className="mb-8 text-white/70 text-xl">
+          <p className="mb-8 text-white/70 text-lg sm:text-xl">
             {t('checkout.success.message')}
           </p>
-          <div className="font-black text-3xl text-white">
+          <div className="font-black text-2xl sm:text-3xl text-white">
             {formatPrice(finalTotal || total)}{' '}
-            <span className="text-blue-500 text-xl">{t('currency')}</span>
+            <span className="text-blue-500 text-lg sm:text-xl">{t('currency')}</span>
           </div>
         </motion.div>
       </div>
@@ -279,19 +281,15 @@ export function Checkout() {
                 {t('cart.total')}
               </h3>
 
-              <div className="mb-8 space-y-3">
-                <div className="flex justify-between border-b border-white/5 pb-3">
-                  <span className="text-white/60 text-sm">AMD Ryzen 9 7950X</span>
-                  <span className="font-bold text-white text-sm">
-                    {formatPrice(12500000)}
-                  </span>
-                </div>
-                <div className="flex justify-between border-b border-white/5 pb-3">
-                  <span className="text-white/60 text-sm">NVIDIA RTX 4090</span>
-                  <span className="font-bold text-white text-sm">
-                    {formatPrice(42000000)}
-                  </span>
-                </div>
+              <div className="mb-8 space-y-3 max-h-[300px] overflow-y-auto pr-2 no-scrollbar">
+                {cartItems.map((item) => (
+                  <div key={item.id} className="flex justify-between border-b border-white/5 pb-3">
+                    <span className="text-white/60 text-xs truncate mr-4">{item.name}</span>
+                    <span className="font-bold text-white text-xs whitespace-nowrap">
+                      {formatPrice(item.price)}
+                    </span>
+                  </div>
+                ))}
               </div>
 
               <div className="border-t border-[#00d4ff]/30 pt-6">

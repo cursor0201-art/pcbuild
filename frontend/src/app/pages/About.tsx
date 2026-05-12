@@ -16,9 +16,23 @@ export function About() {
         </motion.h1>
 
         <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+          className="relative h-64 sm:h-96 w-full rounded-[2.5rem] overflow-hidden border border-white/10"
+        >
+          <div className="absolute inset-0 bg-blue-600/10 z-10" />
+          <img 
+            src="/hero_pc_hardware.png" 
+            className="w-full h-full object-cover"
+            alt="Gaming PC Hardware" 
+          />
+        </motion.div>
+
+        <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.3 }}
           className="space-y-6 text-lg leading-relaxed border-l-4 border-blue-500 pl-6 bg-white/5 p-8 rounded-r-3xl glass-card"
         >
           <p>
