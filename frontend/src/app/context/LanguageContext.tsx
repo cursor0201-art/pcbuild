@@ -35,6 +35,9 @@ const translations = {
 
     'category.title': 'КАТЕГОРИИ',
     'category.starting': 'ОТ',
+    'category.specs': 'Характеристики',
+    'category.performance': 'Производительность',
+    'category.price': 'Цена',
 
     'features.title': 'ПОЧЕМУ МЫ',
     'features.ai.title': 'ИИ-ПОМОЩНИК',
@@ -163,6 +166,9 @@ const translations = {
 
     'category.title': 'KATEGORIYALAR',
     'category.starting': 'DAN',
+    'category.specs': 'Xususiyatlari',
+    'category.performance': 'Unumdorligi',
+    'category.price': 'Narxi',
 
     'features.title': 'NIMA UCHUN BIZ',
     'features.ai.title': 'AI-YORDAMCHI',

@@ -43,42 +43,42 @@ export function ProductModal({
               <X className="h-6 w-6" />
             </button>
 
-            <div className="grid md:grid-cols-2">
-              <div className="relative h-64 sm:h-96 md:h-auto overflow-hidden bg-white/5 flex items-center justify-center p-8 sm:p-12">
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="relative h-[300px] sm:h-[450px] md:h-auto overflow-hidden bg-white/[0.02] flex items-center justify-center">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_70%)]" />
                 <img
                   src={component.image}
                   alt={component.name}
-                  className="relative z-10 h-full w-full object-contain drop-shadow-[0_0_50px_rgba(59,130,246,0.2)]"
+                  className="relative z-10 h-full w-full object-contain p-4 sm:p-8 drop-shadow-[0_0_50px_rgba(59,130,246,0.3)]"
                 />
                 {isSelected && (
-                  <div className="absolute left-6 top-6 z-10 flex h-12 w-12 items-center justify-center bg-[#00ff88] rounded-2xl shadow-[0_0_20px_rgba(0,255,136,0.3)]">
+                  <div className="absolute left-6 top-6 z-10 flex h-12 w-12 items-center justify-center bg-[#00ff88] rounded-2xl shadow-[0_0_20px_rgba(0,255,136,0.4)]">
                     <Check className="h-6 w-6 text-black" />
                   </div>
                 )}
               </div>
 
-              <div className="flex flex-col p-6 sm:p-10 lg:p-12">
+              <div className="flex flex-col p-6 sm:p-10 lg:p-12 overflow-y-auto max-h-[60vh] md:max-h-none">
                 <div className="mb-2 font-bold text-blue-400 text-xs uppercase tracking-[0.2em]">
                   {component.brand}
                 </div>
-                <h2 className="mb-8 font-black text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight text-white tracking-tighter">
+                <h2 className="mb-6 font-black text-2xl sm:text-4xl lg:text-5xl uppercase leading-tight text-white tracking-tighter">
                   {component.name}
                 </h2>
 
-                <div className="mb-10 space-y-8">
+                <div className="mb-8 space-y-6">
                   <div>
                     <h3 className="mb-4 font-black text-white/40 text-[10px] uppercase tracking-[0.2em]">
-                      {t('category.specs') || 'Характеристики'}
+                      {t('category.specs')}
                     </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {component.specs.map((spec, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center gap-3 bg-white/5 border border-white/5 p-3 rounded-2xl"
+                          className="flex items-center gap-3 bg-white/5 border border-white/5 p-4 rounded-2xl"
                         >
                           <Zap className="h-4 w-4 text-blue-400" />
-                          <span className="text-white/90 text-sm font-medium truncate">{spec}</span>
+                          <span className="text-white/90 text-sm font-medium">{spec}</span>
                         </div>
                       ))}
                     </div>
@@ -87,9 +87,9 @@ export function ProductModal({
                   {component.performance && (
                     <div>
                       <h3 className="mb-4 font-black text-white/40 text-[10px] uppercase tracking-[0.2em]">
-                        {t('category.performance') || 'Производительность'}
+                        {t('category.performance')}
                       </h3>
-                      <div className="flex items-center gap-6 bg-white/5 p-4 rounded-3xl border border-white/5">
+                      <div className="flex items-center gap-6 bg-white/5 p-5 rounded-3xl border border-white/5">
                         <div className="flex-1 h-3 overflow-hidden bg-white/10 rounded-full">
                           <motion.div
                             initial={{ width: 0 }}
@@ -106,12 +106,12 @@ export function ProductModal({
                   )}
                 </div>
 
-                <div className="mt-auto space-y-6">
-                  <div className="flex items-center justify-between border-t border-white/10 pt-8">
-                    <span className="font-black text-white/30 text-[10px] uppercase tracking-[0.2em]">{t('category.price') || 'Цена'}</span>
-                    <div className="font-black text-4xl sm:text-5xl text-white">
+                <div className="mt-auto pt-6 border-t border-white/10 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <span className="font-black text-white/30 text-[10px] uppercase tracking-[0.2em]">{t('category.price')}</span>
+                    <div className="font-black text-4xl sm:text-5xl text-white text-right">
                       {formatPrice(component.price)}{' '}
-                      <span className="text-blue-500 text-xl sm:text-2xl">{t('currency')}</span>
+                      <div className="text-blue-500 text-lg">{t('currency')}</div>
                     </div>
                   </div>
 
