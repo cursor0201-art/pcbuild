@@ -56,9 +56,9 @@ export function Cart() {
             <p className="mb-8 text-2xl text-white/40">{t('cart.empty')}</p>
             <button
               onClick={() => navigate('/builder')}
-              className="bg-blue-600 px-12 py-4 font-black uppercase text-white transition-colors hover:bg-blue-500 rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.3)]"
+              className="bg-blue-600 px-12 py-5 font-black uppercase tracking-widest text-white transition-all hover:bg-blue-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.3)] rounded-2xl active:scale-95"
             >
-              {t('hero.cta')}
+              {t('checkout.empty.button')}
             </button>
           </div>
         ) : (
