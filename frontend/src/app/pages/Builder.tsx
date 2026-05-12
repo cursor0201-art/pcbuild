@@ -240,14 +240,18 @@ export function Builder() {
               )}
             </div>
 
-            <div className="grid gap-4 lg:grid-cols-2">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-2">
               {loading ? (
-                <div className="col-span-2 text-center py-12">
-                  <div className="text-white/60">Loading components...</div>
+                <div className="col-span-full text-center py-24">
+                   <div className="relative inline-block">
+                    <div className="absolute inset-0 bg-blue-500 blur-2xl opacity-20 animate-pulse" />
+                    <Cpu className="h-16 w-16 text-blue-500 animate-spin mb-4 mx-auto" />
+                  </div>
+                  <div className="text-white/40 font-black uppercase tracking-widest">{t('builder.loading') || 'Загрузка...'}</div>
                 </div>
               ) : components.length === 0 ? (
-                <div className="col-span-2 text-center py-12">
-                  <div className="text-white/60">No components found in this category</div>
+                <div className="col-span-full text-center py-24">
+                  <div className="text-white/20 font-black uppercase tracking-widest">{t('builder.empty') || 'Нет компонентов в этой категории'}</div>
                 </div>
               ) : (
                 components.map((component) => {
@@ -255,21 +259,23 @@ export function Builder() {
                   return (
                     <motion.div
                       key={component.id}
-                      whileHover={{ y: -4 }}
-                      className={`group relative cursor-pointer overflow-hidden border bg-white/5 transition-all rounded-[1.5rem] ${
+                      whileHover={{ y: -6, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`group relative cursor-pointer overflow-hidden border bg-[#0a0a0f]/40 backdrop-blur-xl transition-all duration-300 rounded-[2.5rem] flex flex-col ${
                         isSelected
-                          ? 'border-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.3)]'
-                          : 'border-white/10 hover:border-blue-500/50'
+                          ? 'border-blue-500 shadow-[0_0_50px_rgba(59,130,246,0.2)]'
+                          : 'border-white/5 hover:border-blue-500/30'
                       }`}
                     >
                       <div
-                        className="relative h-48 overflow-hidden bg-black/50"
+                        className="relative h-64 overflow-hidden bg-white/5 flex items-center justify-center p-8"
                         onClick={() => toggleComponent(component)}
                       >
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_70%)]" />
                         <img
                           src={component.image}
                           alt={component.name}
-                          className="h-full w-full object-cover transition-transform group-hover:scale-110"
+                          className="relative z-10 h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-[0_0_30px_rgba(59,130,246,0.2)]"
                         />
                         <button
                           onClick={(e) => {
@@ -277,18 +283,24 @@ export function Builder() {
                             setSelectedProduct(component);
                             setShowProductModal(true);
                           }}
-                          className="absolute left-4 top-4 flex h-8 w-8 items-center justify-center border border-white/30 bg-black/50 backdrop-blur-sm transition-all hover:border-blue-500 hover:bg-blue-500 rounded-lg"
+                          className="absolute left-6 top-6 z-20 flex h-10 w-10 items-center justify-center border border-white/10 bg-black/50 backdrop-blur-md transition-all hover:border-blue-500 hover:bg-blue-500 rounded-xl"
                         >
-                          <Info className="h-4 w-4 text-white" />
+                          <Info className="h-5 w-5 text-white" />
                         </button>
                         {isSelected && (
-                          <div className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center bg-blue-500 rounded-lg">
+                          <div className="absolute right-6 top-6 z-20 flex h-10 w-10 items-center justify-center bg-blue-600 rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)]">
                             <Check className="h-5 w-5 text-white" />
+                          </div>
+                        )}
+
+                        {component.performance && (
+                          <div className="absolute bottom-6 right-6 z-20 px-3 py-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg">
+                            <span className="text-[10px] font-black text-blue-400">{Math.round(component.performance)}%</span>
                           </div>
                         )}
                       </div>
 
-                      <div className="p-6" onClick={() => toggleComponent(component)}>
+                      <div className="p-8 flex-1 flex flex-col" onClick={() => toggleComponent(component)}>
                         <div className="mb-2 font-bold text-[#00d4ff] text-xs uppercase tracking-wider">
                           {component.brand}
                         </div>
@@ -353,40 +365,65 @@ export function Builder() {
                 })}
               </div>
 
-              <div className="mb-6 border-t border-white/10 pt-4">
-                <div className="flex items-center justify-between">
-                  <span className="font-black text-white text-xl uppercase">Total</span>
-                  <span className="font-black text-2xl sm:text-3xl text-white">
-                    {formatPrice(totalPrice)}{' '}
+              <div className="mb-8 border-t border-white/10 pt-6">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-black text-white/40 text-[10px] uppercase tracking-[0.2em]">{t('builder.total') || 'Итого'}</span>
+                  <span className="font-black text-3xl sm:text-4xl text-white">
+                    {formatPrice(Object.values(selectedComponents).reduce((sum, item) => sum + item.price, 0))}{' '}
                     <span className="text-blue-500 text-lg">{t('currency')}</span>
                   </span>
                 </div>
+
+                {Object.keys(selectedComponents).length > 0 && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-black text-white/40 text-[10px] uppercase tracking-[0.2em]">{t('category.performance') || 'Мощность сборки'}</span>
+                      <span className="font-black text-xl text-[#00ff88]">
+                        {Math.round(Object.values(selectedComponents).reduce((acc, curr) => acc + (curr.performance || 0), 0) / Object.keys(selectedComponents).length)}%
+                      </span>
+                    </div>
+                    <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${Math.round(Object.values(selectedComponents).reduce((acc, curr) => acc + (curr.performance || 0), 0) / Object.keys(selectedComponents).length)}%` }}
+                        className="h-full bg-gradient-to-r from-blue-600 to-[#00ff88] shadow-[0_0_15px_rgba(0,255,136,0.2)]"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
-              <div className="mb-6 flex items-center gap-2">
+              <div className="mb-8 flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/5">
                 {isCompatible ? (
                   <>
-                    <Check className="h-5 w-5 text-[#00ff88]" />
-                    <span className="font-bold text-[#00ff88] text-sm">
+                    <div className="h-8 w-8 flex items-center justify-center bg-[#00ff88]/20 rounded-lg">
+                      <Check className="h-5 w-5 text-[#00ff88]" />
+                    </div>
+                    <span className="font-bold text-[#00ff88] text-xs uppercase tracking-wider">
                       {t('builder.compatibility.ok')}
                     </span>
                   </>
                 ) : (
                   <>
-                    <X className="h-5 w-5 text-white/30" />
-                    <span className="text-white/30 text-sm">
-                      Select at least 3 components
+                    <div className="h-8 w-8 flex items-center justify-center bg-white/10 rounded-lg">
+                      <X className="h-5 w-5 text-white/30" />
+                    </div>
+                    <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest">
+                      {t('builder.compatibility.min') || 'Выберите минимум 3 компонента'}
                     </span>
                   </>
                 )}
               </div>
 
               <button
-                onClick={() => navigate('/cart')}
+                onClick={() => navigate('/checkout')}
                 disabled={Object.keys(selectedComponents).length === 0}
-                className="w-full bg-blue-600 px-8 py-4 font-black uppercase text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] disabled:cursor-not-allowed disabled:opacity-30 rounded-xl"
+                className="group relative w-full overflow-hidden rounded-2xl bg-blue-600 px-8 py-5 font-black uppercase tracking-widest text-white transition-all hover:bg-blue-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.4)] disabled:cursor-not-allowed disabled:opacity-30 active:scale-[0.98]"
               >
-                {t('builder.checkout')}
+                <div className="relative z-10 flex items-center justify-center gap-3">
+                  {t('builder.checkout')}
+                  <Sparkles className="h-5 w-5 group-hover:animate-pulse" />
+                </div>
               </button>
             </div>
           </div>

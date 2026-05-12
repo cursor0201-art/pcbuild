@@ -2,14 +2,33 @@ import { Link, useLocation } from 'react-router';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export function Header() {
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   const isActive = (path: string) => location.pathname === path;
+
+  // Sync cart count
+  const updateCartCount = () => {
+    const cartData = localStorage.getItem('pcbuilder-cart');
+    const items = cartData ? JSON.parse(cartData) : [];
+    setCartCount(items.length);
+  };
+
+  useEffect(() => {
+    updateCartCount();
+    const handleCartUpdate = () => updateCartCount();
+    window.addEventListener('cart-updated', handleCartUpdate);
+    window.addEventListener('storage', handleCartUpdate);
+    return () => {
+      window.removeEventListener('cart-updated', handleCartUpdate);
+      window.removeEventListener('storage', handleCartUpdate);
+    };
+  }, []);
 
   const navLinks = [
     { name: t('nav.home'), path: '/' },
@@ -76,7 +95,15 @@ export function Header() {
             }`}
           >
             <ShoppingCart className="h-5 w-5" />
-            <span className="absolute top-0 right-0 h-4 w-4 bg-blue-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+            {cartCount > 0 && (
+              <motion.span 
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="absolute top-0 right-0 h-4 w-4 bg-blue-500 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+              >
+                {cartCount}
+              </motion.span>
+            )}
           </Link>
 
           {/* Mobile Menu Toggle */}
