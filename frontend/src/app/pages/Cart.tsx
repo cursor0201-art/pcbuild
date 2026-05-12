@@ -41,6 +41,8 @@ export function Cart() {
     const newCartItems = cartItems.filter(item => item.id !== itemId);
     setCartItems(newCartItems);
     localStorage.setItem('pcbuilder-cart', JSON.stringify(newCartItems));
+    // Dispatch event to update header
+    window.dispatchEvent(new Event('cart-updated'));
   };
 
   return (

@@ -166,6 +166,9 @@ export function Builder() {
       console.log('💾 Saved to localStorage:', cartItems);
       console.log('📦 localStorage now contains:', localStorage.getItem('pcbuilder-cart'));
       
+      // Dispatch event to update header
+      window.dispatchEvent(new Event('cart-updated'));
+      
       return newSelection;
     });
   };

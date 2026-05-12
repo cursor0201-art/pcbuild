@@ -14,9 +14,15 @@ export function Header() {
 
   // Sync cart count
   const updateCartCount = () => {
-    const cartData = localStorage.getItem('pcbuilder-cart');
-    const items = cartData ? JSON.parse(cartData) : [];
-    setCartCount(items.length);
+    try {
+      const cartData = localStorage.getItem('pcbuilder-cart');
+      const items = cartData ? JSON.parse(cartData) : [];
+      // Filter out invalid items
+      const validItems = Array.isArray(items) ? items.filter(item => item && item.id) : [];
+      setCartCount(validItems.length);
+    } catch (e) {
+      setCartCount(0);
+    }
   };
 
   useEffect(() => {
