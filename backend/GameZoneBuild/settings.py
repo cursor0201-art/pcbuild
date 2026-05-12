@@ -150,7 +150,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
 MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
-MEDIA_ROOT = BASE_DIR / os.getenv('MEDIA_ROOT', 'media')
+# Use /app/media for persistent storage on Koyeb volumes
+MEDIA_ROOT = '/app/media'
 
 # REST Framework
 REST_FRAMEWORK = {
