@@ -102,7 +102,7 @@ export function Landing() {
               </div>
 
               {/* Stats Row */}
-              <div className="flex flex-wrap gap-8 py-6 border-t border-white/5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-6 border-t border-white/5">
                 {[
                   { icon: Zap, label: t('stats.shipping.label'), sub: t('stats.shipping.sub') },
                   { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
