@@ -34,8 +34,6 @@ export function Header() {
       window.removeEventListener('cart-updated', handleCartUpdate);
       window.removeEventListener('storage', handleCartUpdate);
     };
-  }, []);
-
   const navLinks = [
     { name: t('nav.home'), path: '/' },
     { name: t('nav.builder'), path: '/builder' },
@@ -46,29 +44,29 @@ export function Header() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5 safe-area-inset-top"
+      className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5"
     >
-      <div className="mx-auto flex h-16 sm:h-20 max-w-[1600px] items-center justify-between px-3 sm:px-6 lg:px-12">
+      <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-4 lg:px-12">
         {/* Logo */}
-        <Link to="/" className="group flex items-center gap-2 sm:gap-3 shrink-0 z-50 touch-target">
-          <div className="relative h-8 sm:h-10 w-8 sm:w-10">
+        <Link to="/" className="group flex items-center gap-3 shrink-0 z-50">
+          <div className="relative h-10 w-10">
             <div className="absolute inset-0 bg-blue-500 blur-md opacity-40 group-hover:opacity-60 transition-opacity" />
             <svg viewBox="0 0 24 24" className="relative h-full w-full text-blue-500 fill-current drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
-          <div className="font-black text-lg sm:text-2xl uppercase tracking-tighter text-white leading-none">
-            <span className="text-blue-500">G</span><span className="hidden sm:inline">AMEZONE</span>
+          <div className="font-black text-2xl uppercase tracking-tighter text-white leading-none">
+            <span className="text-blue-500">G</span>AMEZONE
           </div>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`font-bold text-xs xl:text-sm uppercase tracking-wider transition-colors ${
+              className={`font-bold text-sm uppercase tracking-wider transition-colors ${
                 isActive(link.path) ? 'text-blue-500' : 'text-white/60 hover:text-white'
               }`}
             >
@@ -78,7 +76,7 @@ export function Header() {
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-1 sm:gap-2 md:gap-4 z-50">
+        <div className="flex items-center gap-2 sm:gap-6 z-50">
           {/* Language Switcher (Desktop) */}
           <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-lg border border-white/10">
             {['ru', 'uz'].map((lang) => (

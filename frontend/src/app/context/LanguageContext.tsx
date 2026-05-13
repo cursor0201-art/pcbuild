@@ -18,12 +18,12 @@ const translations = {
     'nav.about': 'О нас',
 
     // Landing
-    'hero.title_part1': 'Поднимите свой',
-    'hero.title_part2': 'компьютер на новый уровень',
+    'hero.title_part1': 'ЗАРЯДИТЕ СВОЮ',
+    'hero.title_part2': 'ИГРУ',
     'hero.description': 'Открой для себя ультимативную коллекцию высокопроизводительных комплектующих, кастомных сборок и игрового снаряжения.',
-    'hero.tagline_extra': 'Создано для геймеров. Спроектировано для побед.',
-    'hero.cta_primary': 'В МАГАЗИН',
-    'hero.cta_secondary': 'СОБРАТЬ ПК',
+    'hero.tagline_extra': 'Геймерлар учун yaratilgan. G\'alaba uchun mo\'ljallangan.',
+    'hero.cta_primary': 'DO\'KONGA',
+    'hero.cta_secondary': 'PK YIG\'ISH',
     'hero.next_gen': 'ПРОИЗВОДИТЕЛЬНОСТЬ СЛЕДУЮЩЕГО ПОКОЛЕНИЯ',
 
     'stats.shipping.label': 'БЕСПЛАТНАЯ ДОСТАВКА',
@@ -149,8 +149,8 @@ const translations = {
     'nav.about': 'Biz haqimizda',
 
     // Landing
-    'hero.title_part1': 'Kompyuteringizni',
-    'hero.title_part2': 'yangi darajaga ko\'taring',
+    'hero.title_part1': "O'YININGIZNI",
+    'hero.title_part2': 'ZARYADLANG',
     'hero.description': "Yuqori unumdorlikka ega butlovchi qismlar, maxsus yig'malar va o'yin jihozlarining ajoyib to'plamini kashf eting.",
     'hero.tagline_extra': "Geymerlar uchun yaratilgan. G'alaba uchun mo'ljallangan.",
     'hero.cta_primary': "DO'KONGA",

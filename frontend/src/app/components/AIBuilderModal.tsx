@@ -2,19 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Sparkles, Cpu, Send, ShoppingCart, CheckCircle2, User, Bot, RefreshCcw } from 'lucide-react';
-import { apiService, Product, Category } from '../services/api';
+import { apiService } from '../services/api';
 import { useNavigate } from 'react-router';
 
 interface PCComponent {
   id: string;
   name: string;
-  brand: string;
-  specs: string[];
-  price: number;
   image: string;
-  performance?: number;
-  formatted_price?: string;
-  category_slug: string;
+  price: number;
   category_name: string;
 }
 
@@ -28,7 +23,7 @@ interface Message {
 interface AIBuilderModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onBuildGenerated?: (components: Record<string, PCComponent>) => void;
+  onBuildGenerated?: (build: Record<string, any>) => void;
 }
 
 export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderModalProps) {
@@ -65,7 +60,6 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
     setIsAddedToCart(false);
 
     try {
-      // Pass history to backend (excluding build data to keep payload small)
       const history = messages.map(m => ({ role: m.role, content: m.content }));
       const response = await apiService.generateAIBuild(userMessage.content, history);
       
@@ -98,9 +92,10 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
     const components = Object.values(build);
     localStorage.setItem('pcbuilder-cart', JSON.stringify(components));
     setIsAddedToCart(true);
-    
-    // Optional: Sync with other pages if they use a custom event
     window.dispatchEvent(new Event('cart-updated'));
+    if (onBuildGenerated) {
+      onBuildGenerated(build);
+    }
   };
 
   return (

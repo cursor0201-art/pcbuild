@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'motion/react';
-import { Sparkles, Zap, DollarSign, ArrowRight, Shield, Headset, Cpu } from 'lucide-react';
+import { Sparkles, Zap, ArrowRight, Shield, Headset, Cpu } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { AIBuilderModal } from '../components/AIBuilderModal';
 import { apiService, Category, formatPrice } from '../services/api';
@@ -18,7 +18,6 @@ export function Landing() {
       try {
         const response = await apiService.getCategories();
         if (response.success && response.data) {
-          // If response.data is the paginated object, extract results
           const rawData = response.data as any;
           if (rawData.results) {
             setCategories(rawData.results);
@@ -35,7 +34,6 @@ export function Landing() {
     fetchCategories();
   }, []);
 
-  // Helper to get category fallback info
   const getCategoryFallback = (slug: string) => {
     const fallbacks: Record<string, { img: string; sub: string }> = {
       'videokarty': { img: '/gpu.png', sub: 'Ultimate graphics performance.' },
@@ -52,10 +50,7 @@ export function Landing() {
       <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center py-8 sm:py-12 md:py-20 lg:py-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-blue-600/10 blur-[80px] sm:blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,212,255,0.02)_25%,rgba(0,212,255,0.02)_50%,transparent_50%,transparent_75%,rgba(0,212,255,0.02)_75%,rgba(0,212,255,0.02))] bg-[length:60px_60px] opacity-30" />
-        </div>
-
+        
         <div className="relative mx-auto flex h-full max-w-[1600px] items-center px-3 sm:px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center w-full">
             <motion.div
@@ -64,51 +59,45 @@ export function Landing() {
               transition={{ duration: 0.8 }}
               className="z-10 order-2 lg:order-1"
             >
-              <div className="mb-4 sm:mb-6 flex items-center gap-2 w-fit border border-blue-500/30 bg-blue-500/10 px-3 sm:px-4 py-1.5 rounded-full touch-target">
+              <div className="mb-6 flex items-center gap-2 w-fit border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 rounded-full">
                 <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-3 sm:mb-4 font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
+              <h1 className="mb-6 font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase leading-[0.85] tracking-tighter text-white">
                 {t('hero.title_part1')}<br />
-                <span className="text-blue-500 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">{t('hero.title_part2')}</span>
+                <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
               
-              <p className="mb-6 sm:mb-10 text-sm sm:text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
+              <p className="mb-10 text-base md:text-lg text-slate-400 max-w-xl leading-relaxed font-medium">
                 {t('hero.description')}
-                <span className="block mt-2 text-blue-400/80 font-bold text-xs sm:text-sm">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-12">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+              <div className="flex flex-wrap gap-4 mb-12">
+                <button
                   onClick={() => navigate('/builder')}
-                  className="group flex items-center gap-2 sm:gap-3 bg-blue-600 px-4 sm:px-8 py-3 sm:py-4 font-black text-xs sm:text-sm lg:text-base text-white rounded-lg sm:rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] active:scale-95 touch-target"
+                  className="group flex items-center gap-3 bg-blue-600 px-10 py-4 font-black text-sm text-white rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
                 >
                   {t('hero.cta_primary')}
-                  <ArrowRight className="h-4 sm:h-5 w-4 sm:w-5 transition-transform group-hover:translate-x-1" />
-                </motion.button>
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </button>
 
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                <button
                   onClick={() => setShowAI(true)}
-                  className="flex items-center gap-2 sm:gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-4 sm:px-8 py-3 sm:py-4 font-black text-xs sm:text-sm lg:text-base text-white rounded-lg sm:rounded-xl transition-all hover:bg-white/10 active:scale-95 touch-target"
+                  className="flex items-center gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-10 py-4 font-black text-sm text-white rounded-xl transition-all hover:bg-white/10"
                 >
-                  <Sparkles className="h-4 sm:h-5 w-4 sm:w-5 text-blue-400" />
+                  <Cpu className="h-5 w-5 text-blue-400" />
                   {t('hero.cta_secondary')}
-                </motion.button>
+                </button>
               </div>
 
-              {/* Stats Row */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-6 border-t border-white/5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 py-8 border-t border-white/5">
                 {[
                   { icon: Zap, label: t('stats.shipping.label'), sub: t('stats.shipping.sub') },
                   { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
                   { icon: Headset, label: t('stats.support.label'), sub: t('stats.support.sub') }
                 ].map((stat, i) => (
-                  <div key={i} className="flex items-center gap-3">
+                  <div key={i} className="flex items-center gap-4">
                     <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
                       <stat.icon className="h-5 w-5 text-blue-500" />
                     </div>
@@ -121,123 +110,9 @@ export function Landing() {
               </div>
             </motion.div>
 
-            {/* Hardware Visuals */}
-            <div className="relative flex items-center justify-center lg:justify-start h-full mt-12 lg:mt-0">
-              <div className="relative z-10 w-full flex items-center justify-center lg:justify-start scale-100 sm:scale-110 lg:scale-125 lg:-translate-x-24 xl:-translate-x-48">
-                <img 
-                  src="/hero_composite.png" 
-                  className="w-full max-w-[300px] sm:max-w-xl lg:max-w-4xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
-                  alt="Premium Hardware" 
-                />
-
-                {/* Floating Tech Cards - Reverting to original callout style */}
-                <motion.div 
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.8, duration: 1 }}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 space-y-4 lg:space-y-12 z-30 translate-x-12 lg:translate-x-24 hidden sm:block"
-                >
-                  <motion.div 
-                    whileHover={{ scale: 1.1 }}
-                    className="relative"
-                  >
-                    <div className="absolute -left-8 lg:-left-12 top-1/2 w-8 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-blue-500/30 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
-                      <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
-                        <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-full scale-[1.5]" />
-                        <img src="/rtx5090_new.png" className="relative h-full w-full object-contain mix-blend-screen" style={{ filter: 'contrast(1.5) brightness(0.8)' }} alt="RTX 5090" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
-                        <div className="text-[8px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">{t('hero.next_gen')}</div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div 
-                    whileHover={{ scale: 1.1 }}
-                    className="relative"
-                  >
-                    <div className="absolute -left-8 lg:-left-12 top-1/2 w-8 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-white/10 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
-                      <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
-                        <div className="absolute inset-0 bg-orange-500/20 blur-2xl rounded-full scale-[1.5]" />
-                        <img src="/ryzen9000_new.png" className="relative h-full w-full object-contain mix-blend-screen" style={{ filter: 'contrast(1.5) brightness(0.8)' }} alt="Ryzen 9000 Series" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RYZEN 9000 SERIES</div>
-                        <div className="text-[8px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">Ultimate Gaming CPU</div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              </div>
+            <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-end">
+              <img src="/hero_pc.png" className="w-full max-w-[450px] lg:max-w-3xl object-contain" alt="Premium Gaming PC" />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="border-t border-white/5 bg-[#0a0a0f] py-32 sm:py-48 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.05)_0%,transparent_70%)]" />
-        <div className="relative mx-auto max-w-[1600px] px-6 lg:px-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-16 font-black text-4xl md:text-6xl uppercase tracking-tighter text-white"
-          >
-            {t('features.title')}
-          </motion.h2>
-
-          <div className="grid gap-8 lg:grid-cols-3">
-            {[
-              {
-                icon: Sparkles,
-                title: t('features.ai.title'),
-                desc: t('features.ai.desc'),
-                color: '#ff0080',
-              },
-              {
-                icon: Zap,
-                title: t('features.compatibility.title'),
-                desc: t('features.compatibility.desc'),
-                color: '#00d4ff',
-              },
-              {
-                icon: DollarSign,
-                title: t('features.price.title'),
-                desc: t('features.price.desc'),
-                color: '#00ff88',
-              },
-            ].map((feature, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.2 }}
-                whileHover={{ y: -10 }}
-                className="group relative overflow-hidden glass-card p-8 rounded-[2rem] transition-all"
-              >
-                <div
-                  className="absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100"
-                  style={{
-                    background: `linear-gradient(135deg, ${feature.color}10, transparent)`,
-                  }}
-                />
-                <feature.icon
-                  className="mb-6 h-12 w-12 transition-all group-hover:scale-110"
-                  style={{ color: feature.color }}
-                />
-                <h3 className="mb-4 font-black text-2xl uppercase tracking-tight text-white">
-                  {feature.title}
-                </h3>
-                <p className="font-medium text-base text-white/70 leading-relaxed">
-                  {feature.desc}
-                </p>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
@@ -259,7 +134,7 @@ export function Landing() {
                 <div key={i} className="h-80 glass-card animate-pulse rounded-3xl" />
               ))
             ) : categories.length > 0 ? (
-              categories.slice(0, 4).map((category, idx) => {
+              categories.slice(0, 4).map((category) => {
                 const fallback = getCategoryFallback(category.slug);
                 const categoryImg = category.image_url || fallback.img;
                 const minPrice = category.min_price;
@@ -282,37 +157,21 @@ export function Landing() {
                     </div>
 
                     <div className="relative h-48 flex items-center justify-center">
-                       <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full scale-50 opacity-0 group-hover:opacity-100 transition-opacity" />
-                       <img 
-                        src={categoryImg} 
-                        alt={category.name} 
-                        className="max-h-full w-auto object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-700" 
-                      />
+                       <img src={categoryImg} alt={category.name} className="max-h-full w-auto object-contain group-hover:scale-110 transition-transform duration-700" />
                     </div>
 
-                    <div className="pt-4 border-t border-white/5 flex items-center justify-between items-end">
+                    <div className="pt-4 border-t border-white/5 flex items-center justify-between">
                       <div className="space-y-1">
                         <div className="text-[9px] text-slate-500 uppercase font-black tracking-[0.2em]">{t('category.starting')}</div>
                         <div className="text-2xl font-black text-blue-500">
-                          {minPrice ? (
-                            <>{formatPrice(minPrice)} <span className="text-xs">{t('currency')}</span></>
-                          ) : (
-                            '---'
-                          )}
+                          {minPrice ? <>{formatPrice(minPrice)} <span className="text-xs">{t('currency')}</span></> : '---'}
                         </div>
-                      </div>
-                      <div className="h-10 w-10 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
-                        <span className="text-white font-bold text-lg">+</span>
                       </div>
                     </div>
                   </motion.div>
                 );
               })
-            ) : (
-              <div className="col-span-full text-center py-12 text-slate-500">
-                No categories found.
-              </div>
-            )}
+            ) : null}
           </div>
         </div>
       </section>
