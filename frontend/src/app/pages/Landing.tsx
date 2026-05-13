@@ -69,14 +69,14 @@ export function Landing() {
                 <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-4 sm:mb-6 font-black text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase leading-[0.85] tracking-tighter text-white">
+              <h1 className="mb-4 sm:mb-6 font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase leading-[0.95] tracking-tighter text-white">
                 {t('hero.title_part1')}<br />
-                <span className="text-blue-500 text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl">{t('hero.title_part2')}</span>
+                <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
               
-              <p className="mb-8 sm:mb-10 text-sm sm:text-base md:text-lg lg:text-xl text-slate-400 max-w-xl leading-relaxed">
+              <p className="mb-8 sm:mb-10 text-sm sm:text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
                 {t('hero.description')}
-                <span className="block mt-4 text-blue-400 font-black text-[10px] sm:text-xs uppercase tracking-widest">{t('hero.tagline_extra')}</span>
+                <span className="block mt-4 text-blue-400 font-bold text-[10px] sm:text-xs uppercase tracking-widest">{t('hero.tagline_extra')}</span>
               </p>
 
               <div className="flex flex-col xs:flex-row gap-4 mb-10 sm:mb-16">
@@ -122,11 +122,11 @@ export function Landing() {
             </motion.div>
 
             {/* Hardware Visuals */}
-            <div className="relative flex items-center justify-center lg:justify-start h-full mt-12 lg:mt-0 px-4 sm:px-0">
-              <div className="relative z-10 w-full flex items-center justify-center lg:justify-start scale-90 xs:scale-100 sm:scale-110 lg:scale-125 lg:-translate-x-24 xl:-translate-x-48">
+            <div className="relative flex items-center justify-center lg:justify-start h-full mt-12 lg:mt-0">
+              <div className="relative z-10 w-full flex items-center justify-center lg:justify-start scale-90 sm:scale-100 lg:scale-110 lg:-translate-x-12 xl:-translate-x-24">
                 <img 
                    src="/hero_composite.png" 
-                   className="w-full max-w-[280px] xs:max-w-[320px] sm:max-w-xl lg:max-w-4xl object-contain drop-shadow-[0_0_80px_rgba(59,130,246,0.3)] animate-float"
+                   className="w-full max-w-[300px] sm:max-w-xl lg:max-w-4xl object-contain drop-shadow-[0_0_80px_rgba(59,130,246,0.3)] animate-float"
                    alt="Premium Hardware" 
                  />
 
