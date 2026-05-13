@@ -18,12 +18,12 @@ const translations = {
     'nav.about': 'О нас',
 
     // Landing
-    'hero.title_part1': 'ЗАРЯДИТЕ СВОЮ',
-    'hero.title_part2': 'ИГРУ',
-    'hero.description': 'Открой для себя ультимативную коллекцию высокопроизводительных комплектующих, кастомных сборок и игрового снаряжения.',
-    'hero.tagline_extra': 'Геймерлар учун yaratilgan. G\'alaba uchun mo\'ljallangan.',
-    'hero.cta_primary': 'DO\'KONGA',
-    'hero.cta_secondary': 'PK YIG\'ISH',
+    'hero.title_part1': 'Поднимите свой',
+    'hero.title_part2': 'компьютер на новый уровень',
+    'hero.description': 'Откройте для себя ультимативную коллекцию высокопроизводительных комплектующих, кастомных сборок и игрового снаряжения.',
+    'hero.tagline_extra': 'Создано для геймеров. Спроектировано для побед.',
+    'hero.cta_primary': 'В МАГАЗИН',
+    'hero.cta_secondary': 'СОБРАТЬ ПК',
     'hero.next_gen': 'ПРОИЗВОДИТЕЛЬНОСТЬ СЛЕДУЮЩЕГО ПОКОЛЕНИЯ',
 
     'stats.shipping.label': 'БЕСПЛАТНАЯ ДОСТАВКА',

@@ -47,75 +47,78 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617] pt-16 sm:pt-20 text-white">
       {/* Hero Section */}
-      <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center py-8 sm:py-12 md:py-20 lg:py-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-blue-600/10 blur-[80px] sm:blur-[120px] rounded-full pointer-events-none" />
+      <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center py-8 sm:py-16 lg:py-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-blue-600/10 blur-[80px] sm:blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
-        
-        <div className="relative mx-auto flex h-full max-w-[1600px] items-center px-3 sm:px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center w-full">
+
+        <div className="relative mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
+            {/* Left: Text */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="z-10 order-2 lg:order-1"
             >
-              <div className="mb-6 flex items-center gap-2 w-fit border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 rounded-full">
+              <div className="mb-5 flex items-center gap-2 w-fit border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 rounded-full">
                 <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-                <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
+                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-6 font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase leading-[0.85] tracking-tighter text-white">
+              <h1 className="mb-5 font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.88] tracking-tighter text-white">
                 {t('hero.title_part1')}<br />
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
-              
-              <p className="mb-10 text-base md:text-lg text-slate-400 max-w-xl leading-relaxed font-medium">
+
+              <p className="mb-8 text-sm sm:text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
                 {t('hero.description')}
+                <span className="block mt-2 text-blue-400/80 font-bold">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-wrap gap-4 mb-12">
+              <div className="flex flex-wrap gap-3 sm:gap-4 mb-10">
                 <button
                   onClick={() => navigate('/builder')}
-                  className="group flex items-center gap-3 bg-blue-600 px-10 py-4 font-black text-sm text-white rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                  className="group flex items-center gap-2 sm:gap-3 bg-blue-600 px-6 sm:px-8 py-3 sm:py-4 font-black text-sm text-white rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
                 >
                   {t('hero.cta_primary')}
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
                 </button>
 
                 <button
                   onClick={() => setShowAI(true)}
-                  className="flex items-center gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-10 py-4 font-black text-sm text-white rounded-xl transition-all hover:bg-white/10"
+                  className="flex items-center gap-2 sm:gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 font-black text-sm text-white rounded-xl transition-all hover:bg-white/10"
                 >
-                  <Cpu className="h-5 w-5 text-blue-400" />
+                  <Cpu className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
                   {t('hero.cta_secondary')}
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 py-8 border-t border-white/5">
+              {/* Stats Row */}
+              <div className="grid grid-cols-3 gap-3 sm:gap-6 py-6 border-t border-white/5">
                 {[
                   { icon: Zap, label: t('stats.shipping.label'), sub: t('stats.shipping.sub') },
                   { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
                   { icon: Headset, label: t('stats.support.label'), sub: t('stats.support.sub') }
                 ].map((stat, i) => (
-                  <div key={i} className="flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                      <stat.icon className="h-5 w-5 text-blue-500" />
+                  <div key={i} className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
+                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
+                      <stat.icon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500" />
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold text-white uppercase tracking-wider">{stat.label}</div>
-                      <div className="text-[9px] text-slate-500 font-medium">{stat.sub}</div>
+                      <div className="text-[8px] sm:text-[10px] font-bold text-white uppercase tracking-wider leading-tight">{stat.label}</div>
+                      <div className="text-[7px] sm:text-[9px] text-slate-500 font-medium leading-tight">{stat.sub}</div>
                     </div>
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* Hardware Visuals */}
-            <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-start h-full mt-8 lg:mt-0">
-              <div className="relative z-10 w-full flex items-center justify-center lg:justify-start scale-100 sm:scale-110 lg:scale-125 lg:-translate-x-24 xl:-translate-x-48">
+            {/* Right: Hardware Visuals */}
+            <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-start h-full mt-4 lg:mt-0">
+              <div className="relative z-10 w-full flex items-center justify-center lg:justify-start scale-90 sm:scale-100 lg:scale-110 xl:scale-125 lg:-translate-x-16 xl:-translate-x-32">
                 <img
                   src="/hero_composite.png"
-                  className="w-full max-w-[300px] sm:max-w-xl lg:max-w-4xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
+                  className="w-full max-w-[280px] sm:max-w-md lg:max-w-2xl xl:max-w-4xl object-contain drop-shadow-[0_0_80px_rgba(59,130,246,0.2)] animate-float"
                   alt="Premium Hardware"
                 />
 
@@ -124,32 +127,30 @@ export function Landing() {
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8, duration: 1 }}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 space-y-4 lg:space-y-12 z-30 translate-x-12 lg:translate-x-24 hidden sm:block"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 space-y-3 lg:space-y-8 z-30 translate-x-8 sm:translate-x-12 lg:translate-x-20 hidden sm:block"
                 >
-                  <motion.div whileHover={{ scale: 1.1 }} className="relative">
-                    <div className="absolute -left-8 lg:-left-12 top-1/2 w-8 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-blue-500/30 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
-                      <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
-                        <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full scale-50" />
-                        <img src="/rtx5090_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]" alt="RTX 5090" />
+                  <motion.div whileHover={{ scale: 1.05 }} className="relative">
+                    <div className="absolute -left-6 lg:-left-10 top-1/2 w-6 lg:w-10 h-px bg-gradient-to-r from-transparent to-blue-500" />
+                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-blue-500/30 w-[10rem] sm:w-[14rem] lg:w-[22rem] shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex items-center gap-2 sm:gap-4 lg:gap-6 overflow-hidden">
+                      <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-28 flex-shrink-0">
+                        <img src="/rtx5090_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]" alt="RTX 5090" />
                       </div>
-                      <div className="flex-1">
-                        <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
-                        <div className="text-[8px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">{t('hero.next_gen')}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm sm:text-xl lg:text-2xl font-black text-white uppercase tracking-tight mb-0.5">RTX 5090</div>
+                        <div className="text-[7px] sm:text-[9px] lg:text-[10px] text-blue-400 font-black uppercase tracking-[0.15em] leading-tight">{t('hero.next_gen')}</div>
                       </div>
                     </div>
                   </motion.div>
 
-                  <motion.div whileHover={{ scale: 1.1 }} className="relative">
-                    <div className="absolute -left-8 lg:-left-12 top-1/2 w-8 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-white/10 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
-                      <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
-                        <div className="absolute inset-0 bg-blue-500/10 blur-2xl rounded-full scale-50" />
-                        <img src="/ryzen9000_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]" alt="Ryzen 9800X3D" />
+                  <motion.div whileHover={{ scale: 1.05 }} className="relative">
+                    <div className="absolute -left-6 lg:-left-10 top-1/2 w-6 lg:w-10 h-px bg-gradient-to-r from-transparent to-blue-500" />
+                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-white/10 w-[10rem] sm:w-[14rem] lg:w-[22rem] shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex items-center gap-2 sm:gap-4 lg:gap-6 overflow-hidden">
+                      <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-28 flex-shrink-0">
+                        <img src="/ryzen9000_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(200,100,0,0.4)]" alt="Ryzen 9800X3D" />
                       </div>
-                      <div className="flex-1">
-                        <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RYZEN 9800X3D</div>
-                        <div className="text-[8px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">Ultimate Gaming CPU</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm sm:text-xl lg:text-2xl font-black text-white uppercase tracking-tight mb-0.5">RYZEN 9800X3D</div>
+                        <div className="text-[7px] sm:text-[9px] lg:text-[10px] text-blue-400 font-black uppercase tracking-[0.15em] leading-tight">Ultimate Gaming CPU</div>
                       </div>
                     </div>
                   </motion.div>
