@@ -34,6 +34,8 @@ export function Header() {
       window.removeEventListener('cart-updated', handleCartUpdate);
       window.removeEventListener('storage', handleCartUpdate);
     };
+  }, []);
+
   const navLinks = [
     { name: t('nav.home'), path: '/' },
     { name: t('nav.builder'), path: '/builder' },
