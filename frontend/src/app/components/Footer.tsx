@@ -16,8 +16,8 @@ export function Footer() {
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                 </svg>
               </div>
-              <span className="text-sm sm:text-base lg:text-lg font-bold tracking-tighter text-white uppercase">
-                GameZone<span className="text-blue-500">Build</span>
+              <span className="text-sm sm:text-base lg:text-lg font-black tracking-tighter text-white uppercase">
+                GAME<span className="text-blue-500">ZONE</span>
               </span>
             </Link>
             <p className="text-slate-500 text-xs sm:text-sm max-w-xs">

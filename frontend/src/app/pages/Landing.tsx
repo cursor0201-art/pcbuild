@@ -65,7 +65,7 @@ export function Landing() {
                 <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-5 font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.88] tracking-tighter text-white">
+              <h1 className="mb-5 font-black text-4xl sm:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
                 {t('hero.title_part1')}<br />
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
@@ -88,7 +88,7 @@ export function Landing() {
                   onClick={() => setShowAI(true)}
                   className="flex items-center gap-2 sm:gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-8 sm:px-10 py-4 sm:py-5 font-black text-sm sm:text-base text-white rounded-xl transition-all hover:bg-white/10"
                 >
-                  <Cpu className="h-5 w-5 text-blue-400" />
+                  <Sparkles className="h-5 w-5 text-blue-400" />
                   {t('hero.cta_secondary')}
                 </button>
               </div>
@@ -113,9 +113,8 @@ export function Landing() {
               </div>
             </motion.div>
 
-            {/* Right: Hardware Visuals */}
-            <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-start h-full mt-4 lg:mt-0">
-              <div className="relative z-10 w-full flex items-center justify-center lg:justify-start scale-90 sm:scale-100 lg:scale-110 xl:scale-125 lg:-translate-x-16 xl:-translate-x-32">
+            <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-end h-full mt-4 lg:mt-0">
+              <div className="relative z-10 w-full flex items-center justify-center lg:justify-end scale-90 sm:scale-100 lg:scale-110 xl:scale-115">
                 <img
                   src="/hero_composite.png"
                   className="w-full max-w-[280px] sm:max-w-md lg:max-w-2xl xl:max-w-4xl object-contain drop-shadow-[0_0_80px_rgba(59,130,246,0.2)] animate-float"
@@ -129,28 +128,26 @@ export function Landing() {
                   transition={{ delay: 0.8, duration: 1 }}
                   className="absolute right-0 top-1/2 -translate-y-1/2 space-y-3 lg:space-y-8 z-30 translate-x-8 sm:translate-x-12 lg:translate-x-20 hidden sm:block"
                 >
-                  <motion.div whileHover={{ scale: 1.05 }} className="relative">
-                    <div className="absolute -left-6 lg:-left-10 top-1/2 w-6 lg:w-10 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-blue-500/30 w-[10rem] sm:w-[14rem] lg:w-[22rem] shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex items-center gap-2 sm:gap-4 lg:gap-6 overflow-hidden">
-                      <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-28 flex-shrink-0">
-                        <img src="/rtx5090_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.6)] mix-blend-screen" alt="RTX 5090" />
+                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-blue-500/20 w-[10rem] sm:w-[14rem] lg:w-[20rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-2 sm:gap-4 lg:gap-5 overflow-hidden bg-black/60 backdrop-blur-xl">
+                      <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-24 flex-shrink-0">
+                        <img src="/rtx5090_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.6)] mix-blend-lighten" alt="RTX 5090" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm sm:text-xl lg:text-2xl font-black text-white uppercase tracking-tight mb-0.5">RTX 5090</div>
-                        <div className="text-[7px] sm:text-[9px] lg:text-[10px] text-blue-400 font-black uppercase tracking-[0.15em] leading-tight">{t('hero.next_gen')}</div>
+                        <div className="text-sm sm:text-lg lg:text-xl font-black text-white uppercase tracking-tight mb-0.5">RTX 5090</div>
+                        <div className="text-[7px] sm:text-[9px] lg:text-[10px] text-blue-400 font-bold uppercase tracking-[0.1em] leading-tight">{t('hero.next_gen')}</div>
                       </div>
                     </div>
                   </motion.div>
 
                   <motion.div whileHover={{ scale: 1.05 }} className="relative">
                     <div className="absolute -left-6 lg:-left-10 top-1/2 w-6 lg:w-10 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-white/10 w-[10rem] sm:w-[14rem] lg:w-[22rem] shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex items-center gap-2 sm:gap-4 lg:gap-6 overflow-hidden">
-                      <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-28 flex-shrink-0">
-                        <img src="/ryzen9000_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(200,100,0,0.4)] mix-blend-screen" alt="Ryzen 9800X3D" />
+                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-white/10 w-[10rem] sm:w-[14rem] lg:w-[20rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-2 sm:gap-4 lg:gap-5 overflow-hidden bg-black/60 backdrop-blur-xl">
+                      <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-24 flex-shrink-0">
+                        <img src="/ryzen9000_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(200,100,0,0.4)] mix-blend-lighten" alt="Ryzen 9800X3D" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm sm:text-xl lg:text-2xl font-black text-white uppercase tracking-tight mb-0.5">RYZEN 9800X3D</div>
-                        <div className="text-[7px] sm:text-[9px] lg:text-[10px] text-blue-400 font-black uppercase tracking-[0.15em] leading-tight">Ultimate Gaming CPU</div>
+                        <div className="text-sm sm:text-lg lg:text-xl font-black text-white uppercase tracking-tight mb-0.5">RYZEN 9800X3D</div>
+                        <div className="text-[7px] sm:text-[9px] lg:text-[10px] text-blue-400 font-bold uppercase tracking-[0.1em] leading-tight">Ultimate Gaming CPU</div>
                       </div>
                     </div>
                   </motion.div>
