@@ -43,8 +43,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @apply font-semibold tracking-tight;
-  font-family: 'Outfit', system-ui, sans-serif;
+  @apply font-black tracking-tighter;
+  font-family: 'Orbitron', sans-serif;
 }
 
 /* Cyberpunk Effects */
