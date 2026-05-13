@@ -58,7 +58,7 @@ export function Cart() {
             <p className="mb-8 text-lg sm:text-xl md:text-2xl text-white/40">{t('cart.empty')}</p>
             <button
               onClick={() => navigate('/builder')}
-              className="bg-blue-600 px-6 sm:px-12 py-3 sm:py-5 font-black uppercase tracking-widest text-white text-sm sm:text-base transition-all hover:bg-blue-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.3)] rounded-lg sm:rounded-2xl active:scale-95 touch-target"
+              className="bg-blue-600 px-8 sm:px-12 py-4 sm:py-5 font-black uppercase tracking-widest text-white text-sm sm:text-base transition-all hover:bg-blue-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.3)] rounded-2xl active:scale-95 touch-target"
             >
               {t('checkout.empty.button')}
             </button>
@@ -157,7 +157,7 @@ export function Cart() {
 
               <button
                 onClick={() => navigate('/builder')}
-                className="w-full mt-3 border border-white/20 bg-white/5 hover:bg-white/10 px-4 sm:px-6 py-3 sm:py-4 font-bold uppercase tracking-widest text-white text-xs sm:text-sm transition-all rounded-lg sm:rounded-xl touch-target"
+                className="w-full mt-3 border border-white/20 bg-white/5 hover:bg-white/10 px-6 sm:px-6 py-4 sm:py-4 font-black uppercase tracking-widest text-white text-[10px] sm:text-xs transition-all rounded-2xl touch-target"
               >
                 {t('checkout.continue')}
               </button>

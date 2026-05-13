@@ -205,10 +205,10 @@ export function Builder() {
         <div className="grid gap-4 sm:gap-6 lg:gap-8 grid-cols-1 lg:grid-cols-[280px,1fr,380px]">
           {/* Categories Sidebar */}
           <div className="space-y-2 order-1 lg:order-1">
-            <div className="mb-2 sm:mb-4 font-bold text-[#00d4ff] text-xs sm:text-sm uppercase tracking-wider">
+            <div className="mb-2 sm:mb-4 font-black text-blue-500 text-[10px] sm:text-xs uppercase tracking-[0.2em]">
               {t('builder.select')}
             </div>
-            <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 no-scrollbar snap-x">
+            <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 no-scrollbar snap-x touch-pan-x">
               {categories.map((category) => (
                 <button
                   key={category.slug}
@@ -232,18 +232,21 @@ export function Builder() {
 
           {/* Component Selection */}
           <div className="space-y-4 order-2 lg:order-2">
-            <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-white/10 pb-3 sm:pb-4">
-              <h2 className="font-black text-lg sm:text-xl md:text-2xl lg:text-3xl uppercase text-white truncate">
+            <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-white/10 pb-4 sm:pb-6">
+              <h2 className="font-black text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-white truncate">
                 {categories.find(c => c.slug === activeCategory)?.name || 'Components'}
               </h2>
               {selectedInCategory && (
-                <span className="font-bold text-[#00ff88] text-xs sm:text-sm uppercase tracking-wider">
-                  ✓ {t('component.selected')}
-                </span>
+                <div className="flex items-center gap-2 px-3 py-1 bg-[#00ff88]/10 border border-[#00ff88]/20 rounded-full">
+                  <Check className="h-3 w-3 text-[#00ff88]" />
+                  <span className="font-black text-[#00ff88] text-[10px] uppercase tracking-widest">
+                    {t('component.selected')}
+                  </span>
+                </div>
               )}
             </div>
 
-            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            <div className="grid gap-4 sm:gap-6 grid-cols-1 xs:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
               {loading ? (
                 <div className="col-span-full text-center py-16 sm:py-24">
                   <div className="relative inline-block">
@@ -370,12 +373,14 @@ export function Builder() {
               </div>
 
               <div className="mb-6 sm:mb-8 border-t border-white/10 pt-4 sm:pt-6">
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                  <span className="font-black text-white/40 text-[9px] sm:text-[10px] uppercase tracking-[0.2em]">{t('builder.total') || 'Итого'}</span>
-                  <span className="font-black text-xl sm:text-2xl lg:text-3xl text-white">
-                    {formatPrice(Object.values(selectedComponents).reduce((sum, item) => sum + item.price, 0))}{' '}
-                    <span className="text-blue-500 text-xs sm:text-sm lg:text-base">{t('currency')}</span>
-                  </span>
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <span className="font-black text-white/40 text-[10px] uppercase tracking-[0.2em]">{t('builder.total') || 'Итого'}</span>
+                  <div className="text-right">
+                    <div className="font-black text-2xl sm:text-3xl text-white leading-none">
+                      {formatPrice(Object.values(selectedComponents).reduce((sum, item) => sum + item.price, 0))}
+                    </div>
+                    <div className="text-blue-500 font-black text-xs uppercase tracking-widest mt-1">{t('currency')}</div>
+                  </div>
                 </div>
 
                 {Object.keys(selectedComponents).length > 0 && (
