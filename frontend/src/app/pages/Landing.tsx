@@ -145,7 +145,7 @@ export function Landing() {
                     <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-blue-500/30 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
                       <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
                         <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full scale-50" />
-                        <img src="/rtx5090_new.png" className="relative h-full w-full object-contain mix-blend-screen drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]" alt="RTX 5090" />
+                        <img src="/rtx5090_clean.png" className="relative h-full w-full object-contain mix-blend-screen drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]" alt="RTX 5090" />
                       </div>
                       <div className="flex-1">
                         <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
@@ -162,7 +162,7 @@ export function Landing() {
                     <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-white/10 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
                       <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
                         <div className="absolute inset-0 bg-blue-500/10 blur-2xl rounded-full scale-50" />
-                        <img src="/ryzen9000_new.png" className="relative h-full w-full object-contain mix-blend-screen drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]" alt="Ryzen 9000 Series" />
+                        <img src="/ryzen9000_clean.png" className="relative h-full w-full object-contain mix-blend-screen drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]" alt="Ryzen 9000 Series" />
                       </div>
                       <div className="flex-1">
                         <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RYZEN 9000 SERIES</div>
