@@ -54,11 +54,12 @@ export function Header() {
           <div className="relative h-10 w-10">
             <div className="absolute inset-0 bg-blue-500 blur-md opacity-40 group-hover:opacity-60 transition-opacity" />
             <svg viewBox="0 0 24 24" className="relative h-full w-full text-blue-500 fill-current drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <text x="12" y="16" textAnchor="middle" fontSize="12" fontWeight="900" fill="currentColor">N</text>
             </svg>
           </div>
           <div className="font-black text-2xl uppercase tracking-tighter text-white leading-none">
-            <span className="text-blue-500">G</span>AMEZONE
+            <span className="text-blue-500">N</span>EON TECH
           </div>
         </Link>
 
@@ -145,8 +146,8 @@ export function Header() {
                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                     </svg>
                   </div>
-                  <div className="font-bold text-sm uppercase tracking-tighter text-white leading-none">
-                    GameZone<span className="text-blue-500">Build</span>
+                  <div className="font-black text-sm uppercase tracking-tighter text-white leading-none">
+                    GAME<span className="text-blue-500">ZONE</span>
                   </div>
                 </Link>
                 <button 

@@ -112,6 +112,27 @@ export function Landing() {
 
             <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-end">
               <img src="/hero_pc.png" className="w-full max-w-[450px] lg:max-w-3xl object-contain" alt="Premium Gaming PC" />
+              
+              {/* Floating Cards */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="absolute top-10 right-0 lg:right-10 glass-card-dark p-4 rounded-2xl border border-white/10 max-w-[200px]"
+              >
+                <div className="text-[10px] font-bold text-blue-400 uppercase tracking-wider mb-1">RTX 5090</div>
+                <div className="text-xs font-black text-white uppercase leading-tight">PERFORMANCE BEAST</div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="absolute bottom-20 right-0 lg:right-20 glass-card-dark p-4 rounded-2xl border border-white/10 max-w-[200px]"
+              >
+                <div className="text-[10px] font-bold text-blue-400 uppercase tracking-wider mb-1">RYZEN 9800X3D</div>
+                <div className="text-xs font-black text-white uppercase leading-tight">ULTIMATE GAMING CPU</div>
+              </motion.div>
             </div>
           </div>
         </div>
