@@ -65,7 +65,7 @@ export function Landing() {
                 <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-5 font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.88] tracking-tighter text-white">
+              <h1 className="mb-5 font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.88] tracking-tighter text-white">
                 {t('hero.title_part1')}<br />
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
@@ -78,17 +78,17 @@ export function Landing() {
               <div className="flex flex-wrap gap-3 sm:gap-4 mb-10">
                 <button
                   onClick={() => navigate('/builder')}
-                  className="group flex items-center gap-2 sm:gap-3 bg-blue-600 px-6 sm:px-8 py-3 sm:py-4 font-black text-sm text-white rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                  className="group flex items-center gap-2 sm:gap-3 bg-blue-600 px-8 sm:px-10 py-4 sm:py-5 font-black text-sm sm:text-base text-white rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
                 >
                   {t('hero.cta_primary')}
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </button>
 
                 <button
                   onClick={() => setShowAI(true)}
-                  className="flex items-center gap-2 sm:gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 font-black text-sm text-white rounded-xl transition-all hover:bg-white/10"
+                  className="flex items-center gap-2 sm:gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-8 sm:px-10 py-4 sm:py-5 font-black text-sm sm:text-base text-white rounded-xl transition-all hover:bg-white/10"
                 >
-                  <Cpu className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
+                  <Cpu className="h-5 w-5 text-blue-400" />
                   {t('hero.cta_secondary')}
                 </button>
               </div>
@@ -131,9 +131,9 @@ export function Landing() {
                 >
                   <motion.div whileHover={{ scale: 1.05 }} className="relative">
                     <div className="absolute -left-6 lg:-left-10 top-1/2 w-6 lg:w-10 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-blue-500/30 w-[10rem] sm:w-[14rem] lg:w-[22rem] shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex items-center gap-2 sm:gap-4 lg:gap-6 overflow-hidden">
+                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-blue-500/30 w-[10rem] sm:w-[14rem] lg:w-[22rem] shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex items-center gap-2 sm:gap-4 lg:gap-6 overflow-hidden bg-black/90">
                       <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-28 flex-shrink-0">
-                        <img src="/rtx5090_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]" alt="RTX 5090" />
+                        <img src="/rtx5090_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.6)] mix-blend-lighten" alt="RTX 5090" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm sm:text-xl lg:text-2xl font-black text-white uppercase tracking-tight mb-0.5">RTX 5090</div>
@@ -144,9 +144,9 @@ export function Landing() {
 
                   <motion.div whileHover={{ scale: 1.05 }} className="relative">
                     <div className="absolute -left-6 lg:-left-10 top-1/2 w-6 lg:w-10 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-white/10 w-[10rem] sm:w-[14rem] lg:w-[22rem] shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex items-center gap-2 sm:gap-4 lg:gap-6 overflow-hidden">
+                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-white/10 w-[10rem] sm:w-[14rem] lg:w-[22rem] shadow-[0_20px_50px_rgba(0,0,0,0.9)] flex items-center gap-2 sm:gap-4 lg:gap-6 overflow-hidden bg-black/90">
                       <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-28 flex-shrink-0">
-                        <img src="/ryzen9000_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(200,100,0,0.4)]" alt="Ryzen 9800X3D" />
+                        <img src="/ryzen9000_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(200,100,0,0.4)] mix-blend-lighten" alt="Ryzen 9800X3D" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm sm:text-xl lg:text-2xl font-black text-white uppercase tracking-tight mb-0.5">RYZEN 9800X3D</div>
