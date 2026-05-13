@@ -205,18 +205,7 @@ img {
   }
 }
 
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(59, 130, 246, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-}
-
-.glass-card:hover {
-  border-color: rgba(59, 130, 246, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.1);
-  transform: translateY(-4px);
-  transition: all 0.3s ease;
-}
-
+/* Additional utility classes */
 .glow-blue {
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 }
@@ -234,20 +223,6 @@ img {
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
-
-.glass-card-dark {
-  background: rgba(2, 6, 23, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-}
-
-.glass-card-blue {
-  background: rgba(59, 130, 246, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(59, 130, 246, 0.2);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
