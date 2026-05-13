@@ -128,6 +128,7 @@ export function Landing() {
                   transition={{ delay: 0.8, duration: 1 }}
                   className="absolute right-0 top-1/2 -translate-y-1/2 space-y-3 lg:space-y-8 z-30 translate-x-8 sm:translate-x-12 lg:translate-x-20 hidden sm:block"
                 >
+                  <motion.div whileHover={{ scale: 1.05 }} className="relative">
                     <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-blue-500/20 w-[10rem] sm:w-[14rem] lg:w-[20rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-2 sm:gap-4 lg:gap-5 overflow-hidden bg-black/60 backdrop-blur-xl">
                       <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-24 flex-shrink-0">
                         <img src="/rtx5090_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.6)] mix-blend-lighten" alt="RTX 5090" />
