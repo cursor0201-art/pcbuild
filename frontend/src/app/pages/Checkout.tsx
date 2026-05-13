@@ -187,7 +187,7 @@ export function Checkout() {
                     value={formData.customer_name}
                     onChange={handleInputChange}
                     required
-                    className="w-full border border-white/10 bg-white/5 px-4 sm:px-6 py-4 sm:py-5 text-white outline-none transition-all focus:border-blue-500 focus:bg-white/10 rounded-2xl text-sm sm:text-base font-medium"
+                    className="w-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2.5 sm:py-3 text-white outline-none transition-all focus:border-blue-500 focus:bg-white/10 rounded-lg sm:rounded-xl text-sm sm:text-base"
                     placeholder="Иван Иванов"
                   />
                 </div>
@@ -201,7 +201,7 @@ export function Checkout() {
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
-                    className="w-full border border-white/10 bg-white/5 px-4 sm:px-6 py-4 sm:py-5 text-white outline-none transition-all focus:border-blue-500 focus:bg-white/10 rounded-2xl text-sm sm:text-base font-medium"
+                    className="w-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2.5 sm:py-3 text-white outline-none transition-all focus:border-blue-500 focus:bg-white/10 rounded-lg sm:rounded-xl text-sm sm:text-base"
                     placeholder="+998 90 123 45 67"
                   />
                 </div>
@@ -215,7 +215,7 @@ export function Checkout() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full border border-white/10 bg-white/5 px-4 sm:px-6 py-4 sm:py-5 text-white outline-none transition-all focus:border-blue-500 focus:bg-white/10 rounded-2xl text-sm sm:text-base font-medium"
+                    className="w-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2.5 sm:py-3 text-white outline-none transition-all focus:border-blue-500 focus:bg-white/10 rounded-lg sm:rounded-xl text-sm sm:text-base"
                     placeholder="example@mail.com"
                   />
                 </div>

@@ -1,5 +1,4 @@
 :root {
-  /* Fluid Typography - More conservative values */
   --font-size: 16px;
   --background: #020617;
   --foreground: #f8fafc;
@@ -29,16 +28,6 @@
   --glass-bg: rgba(15, 23, 42, 0.6);
   --glass-border: rgba(59, 130, 246, 0.2);
   --glass-blur: blur(12px);
-  
-  /* Text Sizes - Remove clamp to avoid conflicts with Tailwind utilities */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
   
   --chart-1: #3b82f6;
   --chart-2: #60a5fa;
@@ -150,28 +139,45 @@
     font-size: var(--font-size);
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-weight: 900;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
   }
 
   label {
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   button {
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
-  input, textarea, select {
-    font-size: 1rem;
-    font-weight: 400;
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
     line-height: 1.5;
   }
 }

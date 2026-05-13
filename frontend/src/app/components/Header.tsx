@@ -57,10 +57,8 @@ export function Header() {
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
-          <div className="font-black text-xl sm:text-2xl uppercase tracking-tighter text-white leading-none">
-            <span className="text-blue-500">G</span>
-            <span className="hidden xs:inline sm:hidden">Z</span>
-            <span className="hidden sm:inline">AMEZONE</span>
+          <div className="font-black text-lg sm:text-2xl uppercase tracking-tighter text-white leading-none">
+            <span className="text-blue-500">G</span><span className="hidden sm:inline">AMEZONE</span>
           </div>
         </Link>
 
@@ -160,25 +158,25 @@ export function Header() {
                 </button>
               </div>
 
-              <nav className="flex flex-col p-4 sm:p-6 gap-2 flex-1">
+              <nav className="flex flex-col p-4 gap-2 flex-1">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
                     to={link.path}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`text-xl sm:text-2xl font-black uppercase tracking-tight p-4 sm:p-5 rounded-2xl transition-all ${
+                    className={`text-xl font-bold uppercase tracking-tight p-4 rounded-xl transition-colors ${
                       isActive(link.path) 
-                        ? 'text-blue-500 bg-blue-500/10 border border-blue-500/30 shadow-[0_0_20px_rgba(59,130,246,0.1)]' 
-                        : 'text-white/80 hover:text-white hover:bg-white/5'
+                        ? 'text-blue-500 bg-blue-500/10 border border-blue-500/30' 
+                        : 'text-white hover:bg-white/5'
                     }`}
                   >
                     {link.name}
                   </Link>
                 ))}
                 
-                <div className="mt-auto pt-6 border-t border-white/5 space-y-4 pb-safe">
-                  <div className="text-slate-500 text-[10px] uppercase tracking-[0.3em] font-black px-4">Language / Язык</div>
-                  <div className="flex gap-3 px-4">
+                <div className="mt-auto pt-4 border-t border-white/5 space-y-4 pb-safe">
+                  <div className="text-slate-500 text-xs uppercase tracking-[0.2em] font-bold px-2">Language / Язык</div>
+                  <div className="flex gap-3 px-2">
                     {['ru', 'uz'].map((lang) => (
                       <button
                         key={lang}
@@ -186,13 +184,13 @@ export function Header() {
                           setLanguage(lang as 'ru' | 'uz');
                           setIsMenuOpen(false);
                         }}
-                        className={`flex-1 py-4 font-black text-sm uppercase rounded-2xl border transition-all touch-target ${
+                        className={`flex-1 py-3 font-bold text-sm uppercase rounded-lg border transition-all touch-target ${
                           language === lang 
-                            ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_30px_rgba(59,130,246,0.4)]' 
-                            : 'bg-white/5 border-white/10 text-white/40 hover:text-white/80'
+                            ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]' 
+                            : 'bg-white/5 border-white/10 text-white/60 hover:text-white/80'
                         }`}
                       >
-                        {lang === 'ru' ? 'Русский' : 'O\'zbekcha'}
+                        {lang === 'ru' ? 'РУ' : 'УЗ'}
                       </button>
                     ))}
                   </div>

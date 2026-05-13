@@ -69,34 +69,34 @@ export function Landing() {
                 <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-4 sm:mb-6 font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase leading-[0.95] tracking-tighter text-white">
+              <h1 className="mb-3 sm:mb-4 font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
                 {t('hero.title_part1')}<br />
-                <span className="text-blue-500">{t('hero.title_part2')}</span>
+                <span className="text-blue-500 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">{t('hero.title_part2')}</span>
               </h1>
               
-              <p className="mb-8 sm:mb-10 text-sm sm:text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
+              <p className="mb-6 sm:mb-10 text-sm sm:text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
                 {t('hero.description')}
-                <span className="block mt-4 text-blue-400 font-bold text-[10px] sm:text-xs uppercase tracking-widest">{t('hero.tagline_extra')}</span>
+                <span className="block mt-2 text-blue-400/80 font-bold text-xs sm:text-sm">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-col xs:flex-row gap-4 mb-10 sm:mb-16">
+              <div className="flex flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-12">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => navigate('/builder')}
-                  className="group flex items-center justify-center gap-3 bg-blue-600 px-8 py-4 sm:py-5 font-black text-sm sm:text-base text-white rounded-2xl transition-all hover:bg-blue-500 hover:shadow-[0_20px_40px_rgba(59,130,246,0.3)] active:scale-95 touch-target"
+                  className="group flex items-center gap-2 sm:gap-3 bg-blue-600 px-4 sm:px-8 py-3 sm:py-4 font-black text-xs sm:text-sm lg:text-base text-white rounded-lg sm:rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] active:scale-95 touch-target"
                 >
                   {t('hero.cta_primary')}
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 sm:h-5 w-4 sm:w-5 transition-transform group-hover:translate-x-1" />
                 </motion.button>
 
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowAI(true)}
-                  className="flex items-center justify-center gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-8 py-4 sm:py-5 font-black text-sm sm:text-base text-white rounded-2xl transition-all hover:bg-white/10 active:scale-95 touch-target"
+                  className="flex items-center gap-2 sm:gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-4 sm:px-8 py-3 sm:py-4 font-black text-xs sm:text-sm lg:text-base text-white rounded-lg sm:rounded-xl transition-all hover:bg-white/10 active:scale-95 touch-target"
                 >
-                  <Sparkles className="h-5 w-5 text-blue-400" />
+                  <Sparkles className="h-4 sm:h-5 w-4 sm:w-5 text-blue-400" />
                   {t('hero.cta_secondary')}
                 </motion.button>
               </div>
@@ -123,54 +123,54 @@ export function Landing() {
 
             {/* Hardware Visuals */}
             <div className="relative flex items-center justify-center lg:justify-start h-full mt-12 lg:mt-0">
-              <div className="relative z-10 w-full flex items-center justify-center lg:justify-start scale-90 sm:scale-100 lg:scale-110 lg:-translate-x-12 xl:-translate-x-24">
+              <div className="relative z-10 w-full flex items-center justify-center lg:justify-start scale-100 sm:scale-110 lg:scale-125 lg:-translate-x-24 xl:-translate-x-48">
                 <img 
-                   src="/hero_composite.png" 
-                   className="w-full max-w-[300px] sm:max-w-xl lg:max-w-4xl object-contain drop-shadow-[0_0_80px_rgba(59,130,246,0.3)] animate-float"
-                   alt="Premium Hardware" 
-                 />
+                  src="/hero_composite.png" 
+                  className="w-full max-w-[300px] sm:max-w-xl lg:max-w-4xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
+                  alt="Premium Hardware" 
+                />
 
                 {/* Floating Tech Cards - Styled as clean callouts with photos */}
                 <motion.div 
-                   initial={{ opacity: 0, x: 50 }}
-                   animate={{ opacity: 1, x: 0 }}
-                   transition={{ delay: 0.8, duration: 1 }}
-                   className="absolute right-0 top-1/2 -translate-y-1/2 space-y-4 lg:space-y-12 z-30 translate-x-4 xs:translate-x-12 lg:translate-x-24 hidden md:block"
-                 >
-                   <motion.div 
-                     whileHover={{ scale: 1.05 }}
-                     className="relative"
-                   >
-                     <div className="absolute -left-6 lg:-left-12 top-1/2 w-6 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                     <div className="glass-card-dark p-3 lg:p-6 rounded-2xl lg:rounded-[2rem] border border-blue-500/30 w-[12rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
-                       <div className="relative h-10 lg:h-24 w-16 lg:w-32 flex-shrink-0">
-                         <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-full scale-[1.5]" />
-                         <img src="/rtx5090_new.png" className="relative h-full w-full object-contain mix-blend-screen" style={{ filter: 'contrast(1.5) brightness(0.8)' }} alt="RTX 5090" />
-                       </div>
-                       <div className="flex-1">
-                         <div className="text-sm lg:text-3xl font-black text-white uppercase tracking-tight mb-0.5">RTX 5090</div>
-                         <div className="text-[7px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">{t('hero.next_gen')}</div>
-                       </div>
-                     </div>
-                   </motion.div>
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.8, duration: 1 }}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 space-y-4 lg:space-y-12 z-30 translate-x-12 lg:translate-x-24 hidden sm:block"
+                >
+                  <motion.div 
+                    whileHover={{ scale: 1.1 }}
+                    className="relative"
+                  >
+                    <div className="absolute -left-8 lg:-left-12 top-1/2 w-8 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
+                    <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-blue-500/30 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
+                      <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
+                        <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-full scale-[1.5]" />
+                        <img src="/rtx5090_new.png" className="relative h-full w-full object-contain mix-blend-screen" style={{ filter: 'contrast(1.5) brightness(0.8)' }} alt="RTX 5090" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
+                        <div className="text-[8px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">{t('hero.next_gen')}</div>
+                      </div>
+                    </div>
+                  </motion.div>
 
-                   <motion.div 
-                     whileHover={{ scale: 1.05 }}
-                     className="relative"
-                   >
-                     <div className="absolute -left-6 lg:-left-12 top-1/2 w-6 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                     <div className="glass-card-dark p-3 lg:p-6 rounded-2xl lg:rounded-[2rem] border border-white/10 w-[12rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
-                       <div className="relative h-10 lg:h-24 w-16 lg:w-32 flex-shrink-0">
-                         <div className="absolute inset-0 bg-orange-500/20 blur-2xl rounded-full scale-[1.5]" />
-                         <img src="/ryzen9000_new.png" className="relative h-full w-full object-contain mix-blend-screen" style={{ filter: 'contrast(1.5) brightness(0.8)' }} alt="Ryzen 9000 Series" />
-                       </div>
-                       <div className="flex-1">
-                         <div className="text-sm lg:text-3xl font-black text-white uppercase tracking-tight mb-0.5">RYZEN 9000</div>
-                         <div className="text-[7px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">Ultimate Gaming CPU</div>
-                       </div>
-                     </div>
-                   </motion.div>
-                 </motion.div>
+                  <motion.div 
+                    whileHover={{ scale: 1.1 }}
+                    className="relative"
+                  >
+                    <div className="absolute -left-8 lg:-left-12 top-1/2 w-8 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
+                    <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-white/10 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
+                      <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
+                        <div className="absolute inset-0 bg-orange-500/20 blur-2xl rounded-full scale-[1.5]" />
+                        <img src="/ryzen9000_new.png" className="relative h-full w-full object-contain mix-blend-screen" style={{ filter: 'contrast(1.5) brightness(0.8)' }} alt="Ryzen 9000 Series" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RYZEN 9000 SERIES</div>
+                        <div className="text-[8px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">Ultimate Gaming CPU</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
               </div>
             </div>
           </div>

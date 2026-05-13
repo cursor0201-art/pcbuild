@@ -110,12 +110,10 @@
   background: rgba(15, 23, 42, 0.6);
 }
 
-/* Responsive Image Loading & Optimization */
+/* Responsive Image Loading */
 img {
   content-visibility: auto;
   contain-intrinsic-size: auto 400px;
-  image-rendering: -webkit-optimize-contrast;
-  -webkit-user-drag: none;
 }
 
 /* Touch-friendly targets */
@@ -238,43 +236,4 @@ img {
 
 .animate-spin-slow {
   animation: spin-slow 12s linear infinite;
-}
-
-/* Responsive Containers & Utilities */
-.container-responsive {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: clamp(1rem, 5vw, 3rem);
-  padding-left: clamp(1rem, 5vw, 3rem);
-}
-
-.aspect-video-responsive {
-  aspect-ratio: 16 / 9;
-}
-
-@media (max-width: 640px) {
-  .aspect-video-responsive {
-    aspect-ratio: 4 / 3;
-  }
-}
-
-.touch-action-none {
-  touch-action: none;
-}
-
-.overscroll-contain {
-  overscroll-behavior: contain;
-}
-
-/* Scroll Shadow Utilities */
-.scroll-shadow-v {
-  background: linear-gradient(var(--background) 30%, rgba(2, 6, 23, 0)),
-              linear-gradient(rgba(2, 6, 23, 0), var(--background) 70%) 0 100%,
-              radial-gradient(farthest-side at 50% 0, rgba(59, 130, 246, 0.2), rgba(0, 0, 0, 0)),
-              radial-gradient(farthest-side at 50% 100%, rgba(59, 130, 246, 0.2), rgba(0, 0, 0, 0)) 0 100%;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-  background-attachment: local, local, scroll, scroll;
 }
