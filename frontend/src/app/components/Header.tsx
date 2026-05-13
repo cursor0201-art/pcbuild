@@ -59,7 +59,7 @@ export function Header() {
             </svg>
           </div>
           <div className="font-black text-2xl uppercase tracking-tighter text-white leading-none">
-            <span className="text-blue-500">N</span>EON TECH
+            GAME<span className="text-blue-500">ZONE</span>
           </div>
         </Link>
 
@@ -146,7 +146,7 @@ export function Header() {
                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                     </svg>
                   </div>
-                  <div className="font-black text-sm uppercase tracking-tighter text-white leading-none">
+                  <div className="font-bold text-sm uppercase tracking-tighter text-white leading-none">
                     GAME<span className="text-blue-500">ZONE</span>
                   </div>
                 </Link>
