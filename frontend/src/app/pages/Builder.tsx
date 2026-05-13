@@ -526,6 +526,25 @@ export function Builder() {
         onSelect={(component) => toggleComponent(component)}
         isSelected={selectedProduct ? selectedComponents[selectedProduct.category_slug]?.id === selectedProduct.id : false}
       />
+
+      {/* Sticky Mobile Summary Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 block lg:hidden border-t border-[#00d4ff]/30 bg-[#020617]/95 backdrop-blur-md p-4 safe-area-inset-bottom">
+        <div className="flex items-center justify-between gap-4 max-w-[600px] mx-auto">
+          <div className="flex flex-col">
+            <span className="text-[9px] text-white/40 font-black uppercase tracking-widest">{t('builder.total')}</span>
+            <div className="text-xl font-black text-white">
+              {formatPrice(totalPrice)} <span className="text-blue-500 text-xs">{t('currency')}</span>
+            </div>
+          </div>
+          <button
+            onClick={() => navigate('/checkout')}
+            disabled={Object.keys(selectedComponents).length === 0}
+            className="flex-1 bg-blue-600 px-6 py-3 font-black text-xs uppercase tracking-widest text-white rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.3)] disabled:opacity-30"
+          >
+            {t('builder.checkout')}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

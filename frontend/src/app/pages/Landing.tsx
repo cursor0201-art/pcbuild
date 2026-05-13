@@ -122,50 +122,53 @@ export function Landing() {
             </motion.div>
 
             {/* Hardware Visuals */}
-            <div className="relative flex items-center justify-center lg:justify-start h-full mt-12 lg:mt-0">
-              <div className="relative z-10 w-full flex items-center justify-center lg:justify-start scale-100 sm:scale-110 lg:scale-125 lg:-translate-x-24 xl:-translate-x-48">
-                <img 
-                  src="/hero_composite.png" 
-                  className="w-full max-w-[300px] sm:max-w-xl lg:max-w-4xl object-contain drop-shadow-[0_0_100px_rgba(59,130,246,0.2)] animate-float"
-                  alt="Premium Hardware" 
-                />
+            <div className="relative flex items-center justify-center h-full mt-12 lg:mt-0">
+              <div className="relative z-10 w-full flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:scale-110 xl:scale-125">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full scale-150 animate-pulse" />
+                  <img 
+                    src="/hero_composite.png" 
+                    className="relative z-10 w-full max-w-[320px] sm:max-w-md lg:max-w-2xl xl:max-w-3xl object-contain drop-shadow-[0_0_50px_rgba(59,130,246,0.3)] animate-float"
+                    alt="Premium Hardware" 
+                  />
+                </div>
 
-                {/* Floating Tech Cards - Styled as clean callouts with photos */}
+                {/* Floating Tech Cards - Responsive Layout */}
                 <motion.div 
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8, duration: 1 }}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 space-y-4 lg:space-y-12 z-30 translate-x-12 lg:translate-x-24 hidden sm:block"
+                  className="mt-12 lg:mt-0 lg:ml-[-100px] xl:ml-[-150px] space-y-4 lg:space-y-8 z-30"
                 >
                   <motion.div 
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.05 }}
                     className="relative"
                   >
-                    <div className="absolute -left-8 lg:-left-12 top-1/2 w-8 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-blue-500/30 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
-                      <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
-                        <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-full scale-[1.5]" />
+                    <div className="glass-card-dark p-4 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-blue-500/30 w-[18rem] lg:w-[24rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-4 overflow-hidden group"
+                    >
+                      <div className="relative h-16 lg:h-24 w-20 lg:w-32 flex-shrink-0">
+                        <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-full scale-[1.5] group-hover:scale-[2] transition-transform" />
                         <img src="/rtx5090_new.png" className="relative h-full w-full object-contain mix-blend-screen" style={{ filter: 'contrast(1.5) brightness(0.8)' }} alt="RTX 5090" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
+                        <div className="text-xl lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RTX 5090</div>
                         <div className="text-[8px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">{t('hero.next_gen')}</div>
                       </div>
                     </div>
                   </motion.div>
 
                   <motion.div 
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.05 }}
                     className="relative"
                   >
-                    <div className="absolute -left-8 lg:-left-12 top-1/2 w-8 lg:w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-3 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-white/10 w-[15rem] lg:w-[26rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-3 lg:gap-6 overflow-hidden">
-                      <div className="relative h-12 lg:h-24 w-16 lg:w-32 flex-shrink-0">
-                        <div className="absolute inset-0 bg-orange-500/20 blur-2xl rounded-full scale-[1.5]" />
+                    <div className="glass-card-dark p-4 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] border border-white/10 w-[18rem] lg:w-[24rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-4 overflow-hidden group"
+                    >
+                      <div className="relative h-16 lg:h-24 w-20 lg:w-32 flex-shrink-0">
+                        <div className="absolute inset-0 bg-orange-500/20 blur-2xl rounded-full scale-[1.5] group-hover:scale-[2] transition-transform" />
                         <img src="/ryzen9000_new.png" className="relative h-full w-full object-contain mix-blend-screen" style={{ filter: 'contrast(1.5) brightness(0.8)' }} alt="Ryzen 9000 Series" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-lg lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RYZEN 9000 SERIES</div>
+                        <div className="text-xl lg:text-3xl font-black text-white uppercase tracking-tight mb-1">RYZEN 9000</div>
                         <div className="text-[8px] lg:text-xs text-blue-400 font-black uppercase tracking-[0.2em]">Ultimate Gaming CPU</div>
                       </div>
                     </div>
