@@ -165,6 +165,12 @@ export function Cart() {
           </div>
         )}
       </div>
-    </div>
-  );
 }
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })
+              )}
+            </div>
+          </div>
