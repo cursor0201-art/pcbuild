@@ -162,13 +162,13 @@ export function Landing() {
       </section>
 
       {/* Category Section */}
-      <section className="py-24 relative border-t border-white/5">
+      <section id="categories" className="py-24 sm:py-32 md:py-40 relative border-t border-white/5">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <div className="flex flex-col items-center mb-16 space-y-4">
+          <div className="flex flex-col items-center mb-16 sm:mb-24 space-y-4">
              <div className="flex items-center gap-4">
-               <div className="h-px w-12 bg-gradient-to-r from-transparent to-blue-500" />
-               <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight">{t('category.title')}</h2>
-               <div className="h-px w-12 bg-gradient-to-l from-transparent to-blue-500" />
+               <div className="h-px w-12 sm:w-24 bg-gradient-to-r from-transparent to-blue-500" />
+               <h2 className="text-xl sm:text-3xl md:text-5xl font-black uppercase tracking-tighter text-white">{t('category.title')}</h2>
+               <div className="h-px w-12 sm:w-24 bg-gradient-to-l from-transparent to-blue-500" />
              </div>
           </div>
 
