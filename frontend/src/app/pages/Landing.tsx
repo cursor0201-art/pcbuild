@@ -47,56 +47,56 @@ export function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] pt-20 text-white">
+    <div className="min-h-screen bg-[#020617] pt-16 sm:pt-20 text-white">
       {/* Hero Section */}
-      <section className="relative min-h-[calc(100vh-5rem)] flex items-center py-12 sm:py-20 lg:py-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
+      <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center py-8 sm:py-12 md:py-20 lg:py-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-blue-600/10 blur-[80px] sm:blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,212,255,0.02)_25%,rgba(0,212,255,0.02)_50%,transparent_50%,transparent_75%,rgba(0,212,255,0.02)_75%,rgba(0,212,255,0.02))] bg-[length:60px_60px] opacity-30" />
         </div>
 
-        <div className="relative mx-auto flex h-full max-w-[1600px] items-center px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
+        <div className="relative mx-auto flex h-full max-w-[1600px] items-center px-3 sm:px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center w-full">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="z-10"
+              className="z-10 order-2 lg:order-1"
             >
-              <div className="mb-6 flex items-center gap-2 w-fit border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 rounded-full">
+              <div className="mb-4 sm:mb-6 flex items-center gap-2 w-fit border border-blue-500/30 bg-blue-500/10 px-3 sm:px-4 py-1.5 rounded-full touch-target">
                 <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-                <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
+                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-4 font-black text-6xl sm:text-7xl lg:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
+              <h1 className="mb-3 sm:mb-4 font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
                 {t('hero.title_part1')}<br />
-                <span className="text-blue-500">{t('hero.title_part2')}</span>
+                <span className="text-blue-500 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">{t('hero.title_part2')}</span>
               </h1>
               
-              <p className="mb-10 text-lg text-slate-400 max-w-xl leading-relaxed">
+              <p className="mb-6 sm:mb-10 text-sm sm:text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
                 {t('hero.description')}
-                <span className="block mt-2 text-blue-400/80 font-bold">{t('hero.tagline_extra')}</span>
+                <span className="block mt-2 text-blue-400/80 font-bold text-xs sm:text-sm">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-wrap gap-4 mb-12">
+              <div className="flex flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-12">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => navigate('/builder')}
-                  className="group flex items-center gap-3 bg-blue-600 px-8 py-4 font-black text-white rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                  className="group flex items-center gap-2 sm:gap-3 bg-blue-600 px-4 sm:px-8 py-3 sm:py-4 font-black text-xs sm:text-sm lg:text-base text-white rounded-lg sm:rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] active:scale-95 touch-target"
                 >
                   {t('hero.cta_primary')}
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 sm:h-5 w-4 sm:w-5 transition-transform group-hover:translate-x-1" />
                 </motion.button>
 
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowAI(true)}
-                  className="flex items-center gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-8 py-4 font-black text-white rounded-xl transition-all hover:bg-white/10"
+                  className="flex items-center gap-2 sm:gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-4 sm:px-8 py-3 sm:py-4 font-black text-xs sm:text-sm lg:text-base text-white rounded-lg sm:rounded-xl transition-all hover:bg-white/10 active:scale-95 touch-target"
                 >
-                  <Sparkles className="h-5 w-5 text-blue-400" />
+                  <Sparkles className="h-4 sm:h-5 w-4 sm:w-5 text-blue-400" />
                   {t('hero.cta_secondary')}
                 </motion.button>
               </div>

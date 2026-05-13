@@ -202,27 +202,27 @@ export function Builder() {
           </button>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[300px,1fr,400px]">
+        <div className="grid gap-4 sm:gap-6 lg:gap-8 grid-cols-1 lg:grid-cols-[280px,1fr,380px]">
           {/* Categories Sidebar */}
-          <div className="space-y-2">
-            <div className="mb-2 sm:mb-4 font-bold text-[#00d4ff] text-sm uppercase tracking-wider">
+          <div className="space-y-2 order-1 lg:order-1">
+            <div className="mb-2 sm:mb-4 font-bold text-[#00d4ff] text-xs sm:text-sm uppercase tracking-wider">
               {t('builder.select')}
             </div>
-            <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 no-scrollbar snap-x">
+            <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 no-scrollbar snap-x">
               {categories.map((category) => (
                 <button
                   key={category.slug}
                   onClick={() => setActiveCategory(category.slug)}
-                  className={`shrink-0 w-[180px] lg:w-full border px-4 py-3 sm:px-6 sm:py-4 text-left font-bold text-xs sm:text-sm uppercase tracking-wider transition-all snap-start rounded-xl ${
+                  className={`shrink-0 w-[160px] sm:w-[180px] lg:w-full border px-3 sm:px-4 py-2 sm:py-3 lg:py-4 text-left font-bold text-[10px] sm:text-xs lg:text-sm uppercase tracking-wider transition-all snap-start rounded-lg lg:rounded-xl touch-target ${
                     activeCategory === category.slug
-                      ? 'border-blue-500 bg-blue-500/10 text-blue-500'
+                      ? 'border-blue-500 bg-blue-500/10 text-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.2)]'
                       : 'border-white/10 bg-white/5 text-white/60 hover:border-blue-500/50 hover:text-white'
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="truncate mr-2">{category.name}</span>
                     {selectedComponents[category.slug] && (
-                      <Check className="h-4 w-4 shrink-0 text-[#00ff88]" />
+                      <Check className="h-3 sm:h-4 w-3 sm:w-4 shrink-0 text-[#00ff88]" />
                     )}
                   </div>
                 </button>
@@ -231,30 +231,30 @@ export function Builder() {
           </div>
 
           {/* Component Selection */}
-          <div className="space-y-4">
-            <div className="mb-4 sm:mb-6 flex items-center justify-between border-b border-white/10 pb-4">
-            <h2 className="font-black text-lg sm:text-xl md:text-3xl uppercase text-white truncate mr-2">
+          <div className="space-y-4 order-2 lg:order-2">
+            <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-white/10 pb-3 sm:pb-4">
+              <h2 className="font-black text-lg sm:text-xl md:text-2xl lg:text-3xl uppercase text-white truncate">
                 {categories.find(c => c.slug === activeCategory)?.name || 'Components'}
               </h2>
               {selectedInCategory && (
-                <span className="font-bold text-[#00ff88] text-sm uppercase">
-                  {t('component.selected')}
+                <span className="font-bold text-[#00ff88] text-xs sm:text-sm uppercase tracking-wider">
+                  ✓ {t('component.selected')}
                 </span>
               )}
             </div>
 
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-2">
+            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
               {loading ? (
-                <div className="col-span-full text-center py-24">
-                   <div className="relative inline-block">
+                <div className="col-span-full text-center py-16 sm:py-24">
+                  <div className="relative inline-block">
                     <div className="absolute inset-0 bg-blue-500 blur-2xl opacity-20 animate-pulse" />
-                    <Cpu className="h-16 w-16 text-blue-500 animate-spin mb-4 mx-auto" />
+                    <Cpu className="h-12 sm:h-16 w-12 sm:w-16 text-blue-500 animate-spin mb-4 mx-auto" />
                   </div>
-                  <div className="text-white/40 font-black uppercase tracking-widest">{t('builder.loading') || 'Загрузка...'}</div>
+                  <div className="text-white/40 font-black text-sm sm:text-base uppercase tracking-widest">{t('builder.loading') || 'Загрузка...'}</div>
                 </div>
               ) : components.length === 0 ? (
-                <div className="col-span-full text-center py-24">
-                  <div className="text-white/20 font-black uppercase tracking-widest">{t('builder.empty') || 'Нет компонентов в этой категории'}</div>
+                <div className="col-span-full text-center py-16 sm:py-24">
+                  <div className="text-white/20 font-black text-sm sm:text-base uppercase tracking-widest">{t('builder.empty') || 'Нет компонентов в этой категории'}</div>
                 </div>
               ) : (
                 components.map((component) => {
@@ -262,22 +262,23 @@ export function Builder() {
                   return (
                     <motion.div
                       key={component.id}
-                      whileHover={{ y: -6, scale: 1.02 }}
+                      whileHover={{ y: -4, scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`group relative cursor-pointer overflow-hidden border bg-[#0a0a0f]/40 backdrop-blur-xl transition-all duration-300 rounded-[2.5rem] flex flex-col ${
+                      className={`group relative cursor-pointer overflow-hidden border bg-[#0a0a0f]/40 backdrop-blur-xl transition-all duration-300 rounded-xl sm:rounded-2xl flex flex-col touch-target ${
                         isSelected
                           ? 'border-blue-500 shadow-[0_0_50px_rgba(59,130,246,0.2)]'
                           : 'border-white/5 hover:border-blue-500/30'
                       }`}
                     >
                       <div
-                        className="relative h-64 overflow-hidden bg-white/5 flex items-center justify-center p-8"
+                        className="relative h-40 sm:h-48 md:h-56 overflow-hidden bg-white/5 flex items-center justify-center p-4 sm:p-6"
                         onClick={() => toggleComponent(component)}
                       >
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_70%)]" />
                         <img
                           src={component.image}
                           alt={component.name}
+                          loading="lazy"
                           className="relative z-10 h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-[0_0_30px_rgba(59,130,246,0.2)]"
                         />
                         <button
@@ -286,46 +287,46 @@ export function Builder() {
                             setSelectedProduct(component);
                             setShowProductModal(true);
                           }}
-                          className="absolute left-6 top-6 z-20 flex h-10 w-10 items-center justify-center border border-white/10 bg-black/50 backdrop-blur-md transition-all hover:border-blue-500 hover:bg-blue-500 rounded-xl"
+                          className="absolute left-3 top-3 sm:left-4 sm:top-4 z-20 flex h-9 sm:h-10 w-9 sm:w-10 items-center justify-center border border-white/10 bg-black/50 backdrop-blur-md transition-all hover:border-blue-500 hover:bg-blue-500 rounded-lg sm:rounded-xl touch-target"
                         >
-                          <Info className="h-5 w-5 text-white" />
+                          <Info className="h-4 sm:h-5 w-4 sm:w-5 text-white" />
                         </button>
                         {isSelected && (
-                          <div className="absolute right-6 top-6 z-20 flex h-10 w-10 items-center justify-center bg-blue-600 rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)]">
-                            <Check className="h-5 w-5 text-white" />
+                          <div className="absolute right-3 top-3 sm:right-4 sm:top-4 z-20 flex h-9 sm:h-10 w-9 sm:w-10 items-center justify-center bg-blue-600 rounded-lg sm:rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                            <Check className="h-4 sm:h-5 w-4 sm:w-5 text-white" />
                           </div>
                         )}
 
                         {component.performance && (
-                          <div className="absolute bottom-6 right-6 z-20 px-3 py-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg">
-                            <span className="text-[10px] font-black text-blue-400">{Math.round(component.performance)}%</span>
+                          <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20 px-2 sm:px-3 py-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg">
+                            <span className="text-[9px] sm:text-[10px] font-black text-blue-400">{Math.round(component.performance)}%</span>
                           </div>
                         )}
                       </div>
 
-                      <div className="p-8 flex-1 flex flex-col" onClick={() => toggleComponent(component)}>
-                        <div className="mb-2 font-bold text-[#00d4ff] text-xs uppercase tracking-wider">
+                      <div className="p-4 sm:p-6 flex-1 flex flex-col cursor-pointer" onClick={() => toggleComponent(component)}>
+                        <div className="mb-1 sm:mb-2 font-bold text-[#00d4ff] text-[10px] sm:text-xs uppercase tracking-wider truncate">
                           {component.brand}
                         </div>
-                        <h3 className="mb-3 font-black text-white text-xl uppercase leading-tight">
+                        <h3 className="mb-2 sm:mb-3 font-black text-white text-sm sm:text-base lg:text-lg uppercase leading-tight line-clamp-2">
                           {component.name}
                         </h3>
-                        <div className="mb-4 space-y-1">
-                          {component.specs.slice(0, 3).map((spec: string, idx: number) => (
-                            <div key={idx} className="text-white/60 text-xs">
+                        <div className="mb-3 sm:mb-4 space-y-0.5 flex-1">
+                          {component.specs.slice(0, 2).map((spec: string, idx: number) => (
+                            <div key={idx} className="text-white/60 text-[10px] sm:text-xs line-clamp-1">
                               {spec}
                             </div>
                           ))}
                         </div>
-                        <div className="flex items-center justify-between">
-                          <div className="font-black text-2xl text-white">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="font-black text-lg sm:text-xl lg:text-2xl text-white">
                             {formatPrice(component.price)}{' '}
-                            <span className="text-blue-500 text-sm">
+                            <span className="text-blue-500 text-xs sm:text-sm">
                               {t('currency')}
                             </span>
                           </div>
                           {component.performance && (
-                            <div className="border border-[#00ff88]/30 bg-[#00ff88]/10 px-3 py-1 font-bold text-[#00ff88] text-xs">
+                            <div className="border border-[#00ff88]/30 bg-[#00ff88]/10 px-2 py-0.5 font-bold text-[#00ff88] text-[9px] sm:text-xs whitespace-nowrap">
                               {Math.round(component.performance)}%
                             </div>
                           )}
@@ -339,53 +340,53 @@ export function Builder() {
           </div>
 
           {/* Summary Sidebar */}
-          <div className="space-y-6 lg:sticky lg:top-32 lg:h-fit">
-            <div className="border border-blue-500/30 bg-white/5 p-6 rounded-[2rem] glass-card">
-              <h3 className="mb-4 font-black text-2xl uppercase text-blue-500">
+          <div className="space-y-4 sm:space-y-6 lg:sticky lg:top-28 lg:h-fit order-3 lg:order-3">
+            <div className="border border-blue-500/30 bg-white/5 p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card">
+              <h3 className="mb-4 font-black text-xl sm:text-2xl uppercase text-blue-500">
                 {t('builder.total')}
               </h3>
 
-              <div className="mb-6 space-y-3">
+              <div className="mb-4 sm:mb-6 space-y-2 max-h-48 overflow-y-auto">
                 {categories.map((category) => {
                   const comp = selectedComponents[category.slug];
                   return (
                     <div
                       key={category.slug}
-                      className="flex items-center justify-between border-b border-white/5 pb-3"
+                      className="flex items-center justify-between border-b border-white/5 pb-2 text-[10px] sm:text-xs"
                     >
-                      <span className="text-white/60 text-xs uppercase">
+                      <span className="text-white/60 uppercase truncate mr-2">
                         {category.name}
                       </span>
                       {comp ? (
-                        <span className="font-bold text-white text-xs">
+                        <span className="font-bold text-white whitespace-nowrap">
                           {formatPrice(comp.price)}
                         </span>
                       ) : (
-                        <span className="text-white/30 text-xs">-</span>
+                        <span className="text-white/30">-</span>
                       )}
                     </div>
                   );
                 })}
               </div>
 
-              <div className="mb-8 border-t border-white/10 pt-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-black text-white/40 text-[10px] uppercase tracking-[0.2em]">{t('builder.total') || 'Итого'}</span>
-                  <span className="font-black text-3xl sm:text-4xl text-white">
+              <div className="mb-6 sm:mb-8 border-t border-white/10 pt-4 sm:pt-6">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <span className="font-black text-white/40 text-[9px] sm:text-[10px] uppercase tracking-[0.2em]">{t('builder.total') || 'Итого'}</span>
+                  <span className="font-black text-xl sm:text-2xl lg:text-3xl text-white">
                     {formatPrice(Object.values(selectedComponents).reduce((sum, item) => sum + item.price, 0))}{' '}
-                    <span className="text-blue-500 text-lg">{t('currency')}</span>
+                    <span className="text-blue-500 text-xs sm:text-sm lg:text-base">{t('currency')}</span>
                   </span>
                 </div>
 
                 {Object.keys(selectedComponents).length > 0 && (
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="font-black text-white/40 text-[10px] uppercase tracking-[0.2em]">{t('category.performance') || 'Мощность сборки'}</span>
-                      <span className="font-black text-xl text-[#00ff88]">
+                      <span className="font-black text-white/40 text-[9px] sm:text-[10px] uppercase tracking-[0.2em]">{t('category.performance') || 'Мощность'}</span>
+                      <span className="font-black text-lg sm:text-xl text-[#00ff88]">
                         {Math.round(Object.values(selectedComponents).reduce((acc, curr) => acc + (curr.performance || 0), 0) / Object.keys(selectedComponents).length)}%
                       </span>
                     </div>
-                    <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                    <div className="h-1.5 sm:h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${Math.round(Object.values(selectedComponents).reduce((acc, curr) => acc + (curr.performance || 0), 0) / Object.keys(selectedComponents).length)}%` }}
@@ -396,22 +397,22 @@ export function Builder() {
                 )}
               </div>
 
-              <div className="mb-8 flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/5">
+              <div className="mb-6 sm:mb-8 flex items-center gap-2 sm:gap-3 bg-white/5 p-3 sm:p-4 rounded-lg sm:rounded-2xl border border-white/5">
                 {isCompatible ? (
                   <>
-                    <div className="h-8 w-8 flex items-center justify-center bg-[#00ff88]/20 rounded-lg">
-                      <Check className="h-5 w-5 text-[#00ff88]" />
+                    <div className="h-6 sm:h-8 w-6 sm:w-8 flex-shrink-0 flex items-center justify-center bg-[#00ff88]/20 rounded-lg">
+                      <Check className="h-4 sm:h-5 w-4 sm:w-5 text-[#00ff88]" />
                     </div>
-                    <span className="font-bold text-[#00ff88] text-xs uppercase tracking-wider">
+                    <span className="font-bold text-[#00ff88] text-[9px] sm:text-xs uppercase tracking-wider">
                       {t('builder.compatibility.ok')}
                     </span>
                   </>
                 ) : (
                   <>
-                    <div className="h-8 w-8 flex items-center justify-center bg-white/10 rounded-lg">
-                      <X className="h-5 w-5 text-white/30" />
+                    <div className="h-6 sm:h-8 w-6 sm:w-8 flex-shrink-0 flex items-center justify-center bg-white/10 rounded-lg">
+                      <X className="h-4 sm:h-5 w-4 sm:w-5 text-white/30" />
                     </div>
-                    <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest">
+                    <span className="text-white/40 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest">
                       {t('builder.compatibility.min') || 'Выберите минимум 3 компонента'}
                     </span>
                   </>
@@ -421,11 +422,11 @@ export function Builder() {
               <button
                 onClick={() => navigate('/checkout')}
                 disabled={Object.keys(selectedComponents).length === 0}
-                className="group relative w-full overflow-hidden rounded-2xl bg-blue-600 px-8 py-5 font-black uppercase tracking-widest text-white transition-all hover:bg-blue-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.4)] disabled:cursor-not-allowed disabled:opacity-30 active:scale-[0.98]"
+                className="group relative w-full overflow-hidden rounded-lg sm:rounded-2xl bg-blue-600 px-4 sm:px-8 py-4 sm:py-5 font-black uppercase tracking-widest text-xs sm:text-sm lg:text-base text-white transition-all hover:bg-blue-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.4)] disabled:cursor-not-allowed disabled:opacity-30 active:scale-[0.98] touch-target"
               >
-                <div className="relative z-10 flex items-center justify-center gap-3">
+                <div className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
                   {t('builder.checkout')}
-                  <Sparkles className="h-5 w-5 group-hover:animate-pulse" />
+                  <Sparkles className="h-4 sm:h-5 w-4 sm:w-5 group-hover:animate-pulse" />
                 </div>
               </button>
             </div>

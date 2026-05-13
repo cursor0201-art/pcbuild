@@ -1,23 +1,81 @@
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>GameZoneBuild — Профессиональная сборка игровых ПК в Узбекистане</title>
-      <meta name="description" content="GameZoneBuild — ваш надежный партнер по сборке мощных игровых компьютеров и рабочих станций в Узбекистане. Сборка ПК под ключ, гарантия, доставка. Лучшие цены на RTX 5090 и Ryzen 9800X3D.">
-      <meta name="keywords" content="сборка пк узбекистан, купить игровой компьютер ташкент, pc builder uzbekistan, kompyuter yig'ish, игровые компьютеры ташкент, мощные пк на заказ, комплектующие для пк узбекистан, rtx 5090 uzbekistan, ryzen 9800x3d tashkent, gamezone, gamezonebuild">
-      <meta property="og:title" content="GameZoneBuild — Мощные игровые ПК на заказ в Узбекистане">
-      <meta property="og:description" content="Соберите свой идеальный ПК в нашем онлайн-конфигураторе. Гарантия качества, профессиональная сборка, быстрая доставка по всему Узбекистану.">
-      <meta property="og:image" content="/preview.png">
-      <meta name="google-site-verification" content="2TXQziihxU_Qlkszvf8pjzmDCTDlIkiwGl6MhT3TUCs" />
-      <link rel="icon" type="image/png" href="/favicon.png?v=3" />
-      <style>html, body { height: 100%; margin: 0; overflow-x: hidden; } #root { height: 100%; }</style>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes, maximum-scale=5" />
+    <meta name="theme-color" content="#020617" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>GameZoneBuild — Профессиональная сборка игровых ПК в Узбекистане</title>
+    <meta name="description" content="GameZoneBuild — ваш надежный партнер по сборке мощных игровых компьютеров и рабочих станций в Узбекистане. Сборка ПК под ключ, гарантия, доставка. Лучшие цены на RTX 5090 и Ryzen 9800X3D.">
+    <meta name="keywords" content="сборка пк узбекистан, купить игровой компьютер ташкент, pc builder uzbekistan, kompyuter yig'ish, игровые компьютеры ташкент, мощные пк на заказ, комплектующие для пк узбекистан, rtx 5090 uzbekistan, ryzen 9800x3d tashkent, gamezone, gamezonebuild">
+    <meta property="og:title" content="GameZoneBuild — Мощные игровые ПК на заказ в Узбекистане">
+    <meta property="og:description" content="Соберите свой идеальный ПК в нашем онлайн-конфигураторе. Гарантия качества, профессиональная сборка, быстрая доставка по всему Узбекистану.">
+    <meta property="og:image" content="/preview.png">
+    <meta property="og:type" content="website">
+    <meta name="google-site-verification" content="2TXQziihxU_Qlkszvf8pjzmDCTDlIkiwGl6MhT3TUCs" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="/favicon.png?v=3" />
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Inter:wght@400;500;600;700;900&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- DNS Prefetch for performance -->
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html, body {
+        height: 100%;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      #root {
+        height: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      /* Optimize touch interactions */
+      @media (hover: none) and (pointer: coarse) {
+        button, a, input, select, textarea {
+          min-height: 44px;
+          min-width: 44px;
+        }
+      }
+      
+      /* Prevent zoom on input focus on iOS */
+      input, select, textarea {
+        font-size: 16px !important;
+      }
+    </style>
+  </head>
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Preload script optimization -->
+    <script>
+      // Disable animations on low-power devices
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.style.setProperty('--animation-duration', '0.01ms');
+      }
+    </script>
+  </body>
+</html>
   
