@@ -108,20 +108,20 @@ export function Landing() {
                 <div className="relative flex min-w-0 flex-1 items-center justify-center lg:flex-[1.05]">
                   {/* Неоновые кольца за железом — мягкое синее свечение */}
                   <div
-                    className="pointer-events-none absolute aspect-square w-[min(96vw,460px)] max-w-full rounded-full border border-sky-400/20 bg-gradient-to-b from-blue-500/[0.12] via-blue-600/[0.06] to-transparent shadow-[0_0_100px_rgba(56,189,248,0.22),0_0_60px_rgba(59,130,246,0.18)] sm:w-[min(88vw,540px)]"
+                    className="pointer-events-none absolute aspect-square w-[min(100vw,520px)] max-w-full rounded-full border border-sky-400/20 bg-gradient-to-b from-blue-500/[0.12] via-blue-600/[0.06] to-transparent shadow-[0_0_100px_rgba(56,189,248,0.22),0_0_60px_rgba(59,130,246,0.18)] sm:w-[min(94vw,620px)]"
                     aria-hidden
                   />
                   <div
-                    className="pointer-events-none absolute aspect-square w-[min(78vw,380px)] rounded-full border border-blue-400/25 shadow-[inset_0_0_40px_rgba(59,130,246,0.12),0_0_50px_rgba(14,165,233,0.15)] sm:w-[min(70vw,440px)]"
+                    className="pointer-events-none absolute aspect-square w-[min(88vw,440px)] rounded-full border border-blue-400/25 shadow-[inset_0_0_40px_rgba(59,130,246,0.12),0_0_50px_rgba(14,165,233,0.15)] sm:w-[min(82vw,500px)]"
                     aria-hidden
                   />
                   <div
-                    className="pointer-events-none absolute aspect-square w-[min(62vw,300px)] rounded-full border border-white/10 bg-blue-500/5 sm:w-[min(56vw,360px)]"
+                    className="pointer-events-none absolute aspect-square w-[min(72vw,360px)] rounded-full border border-white/10 bg-blue-500/5 sm:w-[min(66vw,420px)]"
                     aria-hidden
                   />
                   <img
                     src="/hero_composite.png"
-                    className="w-full max-w-[280px] sm:max-w-md lg:max-w-2xl xl:max-w-4xl object-contain drop-shadow-[0_0_80px_rgba(59,130,246,0.2)] animate-float"
+                    className="w-full max-w-[320px] sm:max-w-xl lg:max-w-3xl xl:max-w-5xl object-contain drop-shadow-[0_0_80px_rgba(59,130,246,0.2)] animate-float"
                     alt="Premium Hardware"
                   />
                 </div>
