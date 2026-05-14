@@ -102,7 +102,7 @@ export function Landing() {
                   {t('hero.cta_secondary')}
                 </button>
               </div>
-            </motion.div>
+            </div>
 
             {/* Right: hardware + side cards */}
             <div className="relative order-2 mt-12 flex min-h-[300px] items-center justify-center lg:order-2 lg:mt-0 lg:min-h-[450px]">
