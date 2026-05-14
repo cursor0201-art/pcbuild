@@ -132,6 +132,14 @@ const translations = {
     'checkout.empty.title': 'КОРЗИНА ПУСТА',
     'checkout.empty.message': 'Пожалуйста, добавьте комплектующие в корзину перед оформлением заказа.',
     'checkout.empty.button': 'В КОНСТРУКТОР',
+    'checkout.summary': 'СВОДКА ЗАКАЗА',
+    'checkout.subtotal': 'СТОИМОСТЬ ДЕТАЛЕЙ',
+    'checkout.tax': 'НАЛОГИ И СБОРЫ',
+    'checkout.included': 'Включено',
+    'checkout.total': 'ОБЩАЯ СТОИМОСТЬ',
+    'checkout.proceed': 'ПЕРЕЙТИ К ОПЛАТЕ',
+    'checkout.continue': 'ПРОДОЛЖИТЬ ПОКУПКИ',
+    'cart.remove': 'Удалить',
 
     // SEO Content
     'seo.title': 'Профессиональная сборка ПК на заказ',
@@ -261,6 +269,14 @@ const translations = {
     'checkout.empty.title': 'SAVAT BO\'SH',
     'checkout.empty.message': 'Iltimos, buyurtma berishdan oldin savatga butlovchi qismlarni qo\'shing.',
     'checkout.empty.button': 'KONSTRUKTORGA O\'TISH',
+    'checkout.summary': 'BUYURTMA XULOSASI',
+    'checkout.subtotal': 'QISMLAR NARXI',
+    'checkout.tax': 'SOLIQLAR VA YIG\'IMLAR',
+    'checkout.included': 'Kiritilgan',
+    'checkout.total': 'UMUMIY NARX',
+    'checkout.proceed': "TO'LOVGA O'TISH",
+    'checkout.continue': 'XARIDNI DAVOM ETTIRISH',
+    'cart.remove': "O'chirish",
     
     // SEO Content
     'seo.title': 'Buyurtma asosida professional PK yig\'ish',
