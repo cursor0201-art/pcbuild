@@ -166,6 +166,8 @@ export function Checkout() {
   return (
     <div className="min-h-screen bg-[#020617] pt-40 sm:pt-28 lg:pt-32">
       <div className="mx-auto max-w-[1200px] p-3 sm:p-6 lg:p-12">
+        {/* Mobile Spacer */}
+        <div className="h-24 lg:hidden" />
         <h1 className="mb-6 sm:mb-8 lg:mb-12 font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter text-white">
           {t('checkout.title')}
         </h1>
