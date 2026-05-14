@@ -200,7 +200,13 @@ export function Landing() {
       {/* Category Section — заголовок скрыт (ломал вёрстку); якорь #categories сохранён */}
       <section id="categories" className="relative scroll-mt-24 border-t border-white/5 py-16 sm:py-20 md:py-24">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <h2 className="sr-only">{t('category.title')}</h2>
+          <div className="flex items-center justify-center gap-6 mb-16">
+            <div className="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-blue-500/50" />
+            <h2 className="font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter text-white">
+              {t('category.title')}
+            </h2>
+            <div className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-blue-500/50" />
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             {loading ? (
