@@ -57,7 +57,7 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617]">
       {/* Hero Section */}
-      <section className="relative h-auto flex items-start sm:items-center pt-72 pb-32 sm:py-16 lg:py-0 overflow-visible lg:min-h-[calc(100vh-5rem)]">
+      <section className="relative h-auto flex items-start sm:items-center pt-80 pb-32 sm:py-16 lg:py-0 overflow-visible lg:min-h-[calc(100vh-5rem)]">
         <div className="pointer-events-none absolute top-1/4 left-1/4 h-[300px] w-[300px] rounded-full bg-blue-600/10 blur-[80px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
@@ -74,7 +74,7 @@ export function Landing() {
                 {t('hero.next_gen')}
               </div>
 
-              <h1 className="flex flex-col font-outfit font-black text-4xl leading-[1.1] uppercase tracking-tighter sm:text-7xl lg:text-8xl xl:text-9xl">
+              <h1 className="flex flex-col mt-32 lg:mt-0 font-outfit font-black text-4xl leading-[1.1] uppercase tracking-tighter sm:text-7xl lg:text-8xl xl:text-9xl">
                 <span className="text-white">{t('hero.title_part1')}</span>
                 <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]">{t('hero.title_part2')}</span>
               </h1>
