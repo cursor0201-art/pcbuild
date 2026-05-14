@@ -75,16 +75,16 @@ export function Landing() {
                 <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-6 font-black text-5xl uppercase leading-[0.92] tracking-[-0.04em] text-white sm:mb-8 sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl xl:tracking-[-0.045em] [font-weight:950] [text-shadow:0_2px_40px_rgba(0,0,0,0.35)]">
+              <h1 className="mb-6 font-black text-6xl uppercase leading-[0.92] tracking-[-0.04em] text-white sm:mb-8 sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl xl:tracking-[-0.045em] [font-weight:950] [text-shadow:0_2px_40px_rgba(0,0,0,0.35)]">
                 {t('hero.title_part1')}<br />
                 <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-sky-400 bg-clip-text text-transparent [text-shadow:none]">
                   {t('hero.title_part2')}
                 </span>
               </h1>
 
-              <p className="mb-10 max-w-2xl text-lg leading-relaxed text-slate-300 sm:mb-12 sm:text-xl md:text-2xl font-medium">
+              <p className="mb-10 max-w-3xl text-xl leading-relaxed text-slate-200 sm:mb-12 sm:text-2xl md:text-3xl font-medium">
                 <span className="block">{t('hero.description')}</span>
-                <span className="mt-5 block font-black text-xl text-sky-400 sm:mt-6 sm:text-2xl">{t('hero.tagline_extra')}</span>
+                <span className="mt-6 block font-black text-2xl text-sky-400 sm:mt-8 sm:text-3xl">{t('hero.tagline_extra')}</span>
               </p>
 
               <div className="flex flex-wrap items-center gap-4 sm:flex-nowrap sm:items-stretch">
