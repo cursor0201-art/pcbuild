@@ -308,7 +308,11 @@ export function Builder() {
                           src={component.image}
                           alt={component.name}
                           loading="lazy"
-                          className="relative z-10 h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-[0_0_35px_rgba(59,130,246,0.4)] mix-blend-screen"
+                          style={{
+                            maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
+                            WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)'
+                          }}
+                          className="relative z-10 h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-[0_0_35px_rgba(59,130,246,0.4)] mix-blend-lighten brightness-[1.05]"
                         />
                         <button
                           onClick={(e) => {

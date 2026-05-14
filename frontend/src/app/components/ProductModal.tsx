@@ -49,7 +49,11 @@ export function ProductModal({
                 <img
                   src={component.image}
                   alt={component.name}
-                  className="relative z-10 h-full w-full object-contain p-6 sm:p-10 drop-shadow-[0_0_60px_rgba(59,130,246,0.4)] mix-blend-screen"
+                  style={{
+                    maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
+                    WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)'
+                  }}
+                  className="relative z-10 h-full w-full object-contain p-6 sm:p-10 drop-shadow-[0_0_60px_rgba(59,130,246,0.4)] mix-blend-lighten brightness-[1.05]"
                 />
                 {isSelected && (
                   <div className="absolute left-6 top-6 z-10 flex h-12 w-12 items-center justify-center bg-[#00ff88] rounded-2xl shadow-[0_0_20px_rgba(0,255,136,0.4)]">
