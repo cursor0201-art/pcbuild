@@ -20,16 +20,17 @@ const translations = {
     // Landing
     'hero.title_part1': 'ЗАРЯДИ СВОЮ',
     'hero.title_part2': 'ИГРУ',
-    'hero.description': 'Откройте для себя ультимативную коллекцию высокопроизводительных комплектующих, кастомных сборок и игрового снаряжения.',
+    'hero.description': 'Открой для себя ультимативную коллекцию высокопроизводительных комплектующих, кастомных сборок и игрового снаряжения.',
     'hero.tagline_extra': 'Создано для геймеров. Спроектировано для побед.',
     'hero.cta_primary': 'В МАГАЗИН',
     'hero.cta_secondary': 'СОБРАТЬ ПК',
     'hero.next_gen': 'ПРОИЗВОДИТЕЛЬНОСТЬ СЛЕДУЮЩЕГО ПОКОЛЕНИЯ',
+    'hero.card_ryzen_sub': 'ULTIMATE GAMING CPU',
 
     'stats.shipping.label': 'БЕСПЛАТНАЯ ДОСТАВКА',
     'stats.shipping.sub': 'На все заказы свыше 1 000 000 UZS',
-    'stats.warranty.label': '1 ГОД ГАРАНТИИ',
-    'stats.warranty.sub': 'Премиальное качество гарантировано',
+    'stats.warranty.label': '2 ГОДА ГАРАНТИИ',
+    'stats.warranty.sub': 'Премиальное качество каждого компонента',
     'stats.support.label': '24/7 ПОДДЕРЖКА',
     'stats.support.sub': 'Всегда готовы помочь',
 
@@ -156,11 +157,12 @@ const translations = {
     'hero.cta_primary': "DO'KONGA",
     'hero.cta_secondary': "PK YIG'ISH",
     'hero.next_gen': 'YANGI AVLOD UNUMDORLIGI',
+    'hero.card_ryzen_sub': 'ULTIMATE GAMING CPU',
 
     'stats.shipping.label': 'BEPUL YETKAZIB BERISH',
     'stats.shipping.sub': "1 000 000 UZS dan yuqori barcha buyurtmalar uchun",
-    'stats.warranty.label': '1 YILLIK KAFOLAT',
-    'stats.warranty.sub': 'Yuqori sifat kafolatlangan',
+    'stats.warranty.label': '2 YILLIK KAFOLAT',
+    'stats.warranty.sub': 'Har bir komponent uchun yuqori sifat',
     'stats.support.label': '24/7 QO\'LLAB-QUVVATLASH',
     'stats.support.sub': 'Har doim yordamga tayyormiz',
 

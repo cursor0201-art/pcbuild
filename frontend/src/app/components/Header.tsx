@@ -54,12 +54,11 @@ export function Header() {
           <div className="relative h-10 w-10">
             <div className="absolute inset-0 bg-blue-500 blur-md opacity-40 group-hover:opacity-60 transition-opacity" />
             <svg viewBox="0 0 24 24" className="relative h-full w-full text-blue-500 fill-current drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <text x="12" y="16" textAnchor="middle" fontSize="12" fontWeight="900" fill="currentColor">N</text>
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
           <div className="font-black text-2xl uppercase tracking-tighter text-white leading-none">
-            GAME<span className="text-blue-500">ZONE</span>
+            GAMEZONE
           </div>
         </Link>
 
@@ -102,15 +101,9 @@ export function Header() {
             }`}
           >
             <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6" />
-            {cartCount > 0 && (
-              <motion.span 
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="absolute top-1 right-1 h-5 w-5 bg-blue-500 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(59,130,246,0.5)]"
-              >
-                {cartCount}
-              </motion.span>
-            )}
+            <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-blue-500 px-1 text-[10px] font-black text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+              {cartCount}
+            </span>
           </Link>
 
           {/* Mobile Menu Toggle */}
@@ -147,7 +140,7 @@ export function Header() {
                     </svg>
                   </div>
                   <div className="font-bold text-sm uppercase tracking-tighter text-white leading-none">
-                    GAME<span className="text-blue-500">ZONE</span>
+                    GAMEZONE
                   </div>
                 </Link>
                 <button 

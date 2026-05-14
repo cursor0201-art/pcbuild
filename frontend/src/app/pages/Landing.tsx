@@ -1,15 +1,13 @@
 import { useNavigate } from 'react-router';
 import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'motion/react';
-import { Sparkles, Zap, ArrowRight, Shield, Headset, Cpu } from 'lucide-react';
+import { Sparkles, Zap, ArrowRight, Shield, Headset } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { AIBuilderModal } from '../components/AIBuilderModal';
 import { apiService, Category, formatPrice } from '../services/api';
 
 export function Landing() {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const [showAI, setShowAI] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -47,12 +45,12 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617] pt-16 sm:pt-20 text-white">
       {/* Hero Section */}
-      <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center py-8 sm:py-16 lg:py-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-blue-600/10 blur-[80px] sm:blur-[120px] rounded-full pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
+      <section className="relative flex min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex-col overflow-hidden py-8 sm:py-12 lg:py-10">
+        <div className="pointer-events-none absolute top-1/4 left-1/4 h-[300px] w-[300px] rounded-full bg-blue-600/10 blur-[80px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
-        <div className="relative mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
+        <div className="relative mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 sm:px-6 lg:px-12">
+          <div className="grid w-full flex-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
             {/* Left: Text */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -60,95 +58,101 @@ export function Landing() {
               transition={{ duration: 0.8 }}
               className="z-10 order-2 lg:order-1"
             >
-              <div className="mb-5 flex items-center gap-2 w-fit border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 rounded-full">
-                <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-blue-400">{t('hero.next_gen')}</span>
+              <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 sm:mb-5">
+                <div className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
+                <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-5 font-black text-4xl sm:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
+              <h1 className="mb-4 font-black text-4xl uppercase leading-[0.95] tracking-tighter text-white sm:mb-5 sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl">
                 {t('hero.title_part1')}<br />
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
 
-              <p className="mb-10 text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed">
+              <p className="mb-8 max-w-2xl text-base leading-relaxed text-slate-400 sm:mb-10 sm:text-lg md:text-xl">
                 {t('hero.description')}
-                <span className="block mt-4 text-blue-400 font-black text-lg sm:text-xl">{t('hero.tagline_extra')}</span>
+                <span className="mt-3 block font-black text-lg text-blue-400 sm:mt-4 sm:text-xl">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-wrap gap-4 sm:gap-6 mb-12">
+              <div className="flex flex-wrap gap-4 sm:gap-5">
                 <button
-                  onClick={() => navigate('/builder')}
-                  className="group flex items-center gap-3 sm:gap-4 bg-blue-600 px-10 sm:px-14 py-4 sm:py-5 font-black text-lg sm:text-xl text-white rounded-2xl transition-all hover:bg-blue-500 hover:shadow-[0_0_40px_rgba(59,130,246,0.5)]"
+                  type="button"
+                  onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="group flex items-center gap-3 rounded-2xl bg-blue-600 px-8 py-4 font-black text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)] sm:gap-4 sm:px-12 sm:py-[1.125rem] sm:text-lg"
                 >
                   {t('hero.cta_primary')}
-                  <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1 sm:h-6 sm:w-6" />
                 </button>
 
                 <button
-                  onClick={() => setShowAI(true)}
-                  className="flex items-center gap-3 sm:gap-4 border border-white/20 bg-white/5 backdrop-blur-sm px-10 sm:px-14 py-4 sm:py-5 font-black text-lg sm:text-xl text-white rounded-2xl transition-all hover:bg-white/10"
+                  type="button"
+                  onClick={() => navigate('/builder')}
+                  className="flex items-center gap-3 rounded-2xl border border-white/40 bg-[#0b1220] px-8 py-4 font-black text-white transition-all hover:border-white/60 hover:bg-white/[0.06] sm:gap-4 sm:px-12 sm:py-[1.125rem] sm:text-lg"
                 >
-                  <Sparkles className="h-6 w-6 text-blue-400" />
+                  <Sparkles className="h-5 w-5 shrink-0 text-blue-400 sm:h-6 sm:w-6" />
                   {t('hero.cta_secondary')}
                 </button>
               </div>
-
-              {/* Stats Row */}
-              <div className="grid grid-cols-3 gap-3 sm:gap-6 py-6 border-t border-white/5">
-                {[
-                  { icon: Zap, label: t('stats.shipping.label'), sub: t('stats.shipping.sub') },
-                  { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
-                  { icon: Headset, label: t('stats.support.label'), sub: t('stats.support.sub') }
-                ].map((stat, i) => (
-                  <div key={i} className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
-                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
-                      <stat.icon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500" />
-                    </div>
-                    <div>
-                      <div className="text-[8px] sm:text-[10px] font-bold text-white uppercase tracking-wider leading-tight">{stat.label}</div>
-                      <div className="text-[7px] sm:text-[9px] text-slate-500 font-medium leading-tight">{stat.sub}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </motion.div>
 
-            <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-end h-full mt-4 lg:mt-0">
-              <div className="relative z-10 w-full flex items-center justify-center lg:justify-end scale-90 sm:scale-100 lg:scale-110 xl:scale-115">
-                <img
-                  src="/hero_composite.png"
-                  className="w-full max-w-[280px] sm:max-w-md lg:max-w-2xl xl:max-w-4xl object-contain drop-shadow-[0_0_80px_rgba(59,130,246,0.2)] animate-float"
-                  alt="Premium Hardware"
-                />
+            {/* Right: hardware + side cards */}
+            <div className="relative order-1 flex min-h-[240px] items-center justify-center lg:order-2 lg:min-h-[380px] lg:justify-end">
+              <div className="relative z-10 flex w-full max-w-xl flex-row items-center justify-center gap-3 sm:max-w-none sm:gap-5 lg:max-w-none lg:justify-end lg:gap-8">
+                <div className="relative flex flex-1 items-center justify-center lg:flex-[1.1]">
+                  <div
+                    className="pointer-events-none absolute aspect-square w-[min(92vw,440px)] max-w-full rounded-full border border-blue-500/25 bg-blue-500/[0.04] shadow-[0_0_80px_rgba(59,130,246,0.18)] sm:w-[min(85vw,520px)]"
+                    aria-hidden
+                  />
+                  <div
+                    className="pointer-events-none absolute aspect-square w-[min(72vw,360px)] rounded-full border border-blue-400/15 sm:w-[min(65vw,420px)]"
+                    aria-hidden
+                  />
+                  <img
+                    src="/hero_composite.png"
+                    className="animate-float relative z-10 w-full max-w-[260px] object-contain drop-shadow-[0_0_60px_rgba(59,130,246,0.25)] sm:max-w-md lg:max-w-lg xl:max-w-2xl"
+                    alt="Premium Hardware"
+                  />
+                </div>
 
-                {/* Floating Tech Cards */}
                 <motion.div
-                  initial={{ opacity: 0, x: 50 }}
+                  initial={{ opacity: 0, x: 28 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.8, duration: 1 }}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 space-y-3 lg:space-y-8 z-30 translate-x-8 sm:translate-x-12 lg:translate-x-20 hidden sm:block"
+                  transition={{ delay: 0.5, duration: 0.7 }}
+                  className="hidden shrink-0 flex-col justify-center gap-3 sm:flex sm:gap-4 lg:gap-5"
                 >
-                  <motion.div whileHover={{ scale: 1.05 }} className="relative">
-                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-blue-500/20 w-[10rem] sm:w-[14rem] lg:w-[20rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-2 sm:gap-4 lg:gap-5 overflow-hidden bg-black/60 backdrop-blur-xl">
-                      <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-24 flex-shrink-0">
-                        <img src="/rtx5090_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.6)] mix-blend-lighten" alt="RTX 5090" />
+                  <motion.div whileHover={{ scale: 1.02 }} className="w-[9.5rem] sm:w-[12.5rem] lg:w-[14rem]">
+                    <div className="flex items-center gap-2 overflow-hidden rounded-2xl border border-white/10 bg-black/70 p-2.5 shadow-[0_16px_40px_rgba(0,0,0,0.65)] backdrop-blur-xl sm:gap-3 sm:rounded-[1.35rem] sm:p-3.5 lg:p-4">
+                      <div className="relative h-11 w-12 shrink-0 sm:h-14 sm:w-16 lg:h-16 lg:w-[4.5rem]">
+                        <img
+                          src="/rtx5090_clean.png"
+                          className="relative h-full w-full object-contain mix-blend-lighten drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]"
+                          alt="RTX 5090"
+                        />
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm sm:text-lg lg:text-xl font-black text-white uppercase tracking-tight mb-0.5">RTX 5090</div>
-                        <div className="text-[7px] sm:text-[9px] lg:text-[10px] text-blue-400 font-bold uppercase tracking-[0.1em] leading-tight">{t('hero.next_gen')}</div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-xs font-black uppercase tracking-tight text-white sm:text-sm lg:text-base">RTX 5090</div>
+                        <div className="text-[8px] font-bold uppercase leading-tight tracking-wide text-slate-400 sm:text-[9px] lg:text-[10px]">
+                          {t('hero.next_gen')}
+                        </div>
                       </div>
                     </div>
                   </motion.div>
 
-                  <motion.div whileHover={{ scale: 1.05 }} className="relative">
-                    <div className="absolute -left-6 lg:-left-10 top-1/2 w-6 lg:w-10 h-px bg-gradient-to-r from-transparent to-blue-500" />
-                    <div className="glass-card-dark p-2 sm:p-4 lg:p-5 rounded-2xl lg:rounded-[2rem] border border-white/10 w-[10rem] sm:w-[14rem] lg:w-[20rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex items-center gap-2 sm:gap-4 lg:gap-5 overflow-hidden bg-black/60 backdrop-blur-xl">
-                      <div className="relative h-10 sm:h-16 lg:h-20 w-12 sm:w-20 lg:w-24 flex-shrink-0">
-                        <img src="/ryzen9000_clean.png" className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(200,100,0,0.4)] mix-blend-lighten" alt="Ryzen 9800X3D" />
+                  <motion.div whileHover={{ scale: 1.02 }} className="w-[9.5rem] sm:w-[12.5rem] lg:w-[14rem]">
+                    <div className="flex items-center gap-2 overflow-hidden rounded-2xl border border-white/10 bg-black/70 p-2.5 shadow-[0_16px_40px_rgba(0,0,0,0.65)] backdrop-blur-xl sm:gap-3 sm:rounded-[1.35rem] sm:p-3.5 lg:p-4">
+                      <div className="relative h-11 w-12 shrink-0 sm:h-14 sm:w-16 lg:h-16 lg:w-[4.5rem]">
+                        <img
+                          src="/ryzen9000_clean.png"
+                          className="relative h-full w-full object-contain mix-blend-lighten drop-shadow-[0_0_12px_rgba(251,146,60,0.25)]"
+                          alt="Ryzen 9800X3D"
+                        />
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm sm:text-lg lg:text-xl font-black text-white uppercase tracking-tight mb-0.5">RYZEN 9800X3D</div>
-                        <div className="text-[7px] sm:text-[9px] lg:text-[10px] text-blue-400 font-bold uppercase tracking-[0.1em] leading-tight">Ultimate Gaming CPU</div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[10px] font-black uppercase leading-tight tracking-tight text-white sm:text-xs lg:text-sm">
+                          RYZEN 9800X3D
+                        </div>
+                        <div className="text-[8px] font-bold uppercase leading-tight tracking-wide text-slate-400 sm:text-[9px] lg:text-[10px]">
+                          {t('hero.card_ryzen_sub')}
+                        </div>
                       </div>
                     </div>
                   </motion.div>
@@ -156,13 +160,34 @@ export function Landing() {
               </div>
             </div>
           </div>
+
+          {/* Feature strip — full width like reference */}
+          <div className="mt-10 w-full border-t border-white/10 pt-8 sm:mt-12 sm:pt-10 lg:mt-14">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6 lg:gap-10">
+              {[
+                { icon: Zap, label: t('stats.shipping.label'), sub: t('stats.shipping.sub') },
+                { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
+                { icon: Headset, label: t('stats.support.label'), sub: t('stats.support.sub') },
+              ].map((stat, i) => (
+                <div key={i} className="flex gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-blue-500/25 bg-blue-500/10 sm:h-12 sm:w-12">
+                    <stat.icon className="h-5 w-5 text-blue-500 sm:h-6 sm:w-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-xs font-bold uppercase tracking-wide text-white sm:text-sm">{stat.label}</div>
+                    <div className="text-[11px] font-medium leading-snug text-slate-500 sm:text-xs">{stat.sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Category Section */}
-      <section id="categories" className="py-24 sm:py-32 md:py-40 relative border-t border-white/5">
+      <section id="categories" className="relative border-t border-white/5 py-28 sm:py-36 md:py-44">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <div className="flex flex-col items-center mb-16 sm:mb-24 space-y-4">
+          <div className="mb-20 flex flex-col items-center space-y-4 sm:mb-28">
              <div className="flex items-center gap-4">
                <div className="h-px w-12 sm:w-24 bg-gradient-to-r from-transparent to-blue-500" />
                <h2 className="text-xl sm:text-3xl md:text-5xl font-black uppercase tracking-tighter text-white">{t('category.title')}</h2>
@@ -231,14 +256,6 @@ export function Landing() {
         </div>
       </section>
 
-      <AIBuilderModal
-        isOpen={showAI}
-        onClose={() => setShowAI(false)}
-        onBuildGenerated={() => {
-          setShowAI(false);
-          navigate('/builder');
-        }}
-      />
     </div>
   );
 }
