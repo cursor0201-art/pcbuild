@@ -154,7 +154,7 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
                   </div>
                   
                   <div className={`max-w-[85%] space-y-4 ${msg.role === 'user' ? 'items-end' : ''}`}>
-                    <div className={`p-6 rounded-[2rem] text-lg leading-relaxed shadow-xl ${
+                    <div className={`p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] text-base sm:text-lg leading-relaxed shadow-xl ${
                       msg.role === 'user' 
                         ? 'bg-blue-600 text-white rounded-tr-none' 
                         : 'bg-white/5 text-white/90 border border-white/10 rounded-tl-none'
@@ -244,18 +244,18 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
               <div className="relative flex items-end gap-4 max-w-4xl mx-auto">
                 <div className="relative flex-1 group">
                   <div className="absolute -inset-1 bg-gradient-to-r from-[#00d4ff] to-[#ff0080] rounded-[2rem] opacity-20 blur group-focus-within:opacity-40 transition-all" />
-                  <textarea
-                    value={promptText}
-                    onChange={(e) => setPromptText(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        handleSend();
-                      }
-                    }}
-                    placeholder={t('ai.placeholder')}
-                    className="relative w-full min-h-[60px] max-h-[150px] bg-[#12121a] border border-white/10 rounded-[1.5rem] p-4 pr-12 text-white outline-none focus:border-[#00d4ff]/50 transition-all resize-none overflow-hidden"
-                  />
+                    <textarea
+                      value={promptText}
+                      onChange={(e) => setPromptText(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault();
+                          handleSend();
+                        }
+                      }}
+                      placeholder={t('ai.placeholder')}
+                      className="relative w-full min-h-[60px] max-h-[150px] bg-[#12121a] border border-white/10 rounded-[1.5rem] p-4 pr-16 text-white outline-none focus:border-[#00d4ff]/50 transition-all resize-none overflow-hidden"
+                    />
                   <button
                     onClick={handleSend}
                     disabled={isGenerating || !promptText.trim()}
