@@ -187,7 +187,7 @@ export function Builder() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] pb-24">
+    <div className="min-h-screen bg-[#020617] pb-48">
       <div style={{ height: '150px' }}></div>
       <div className="mx-auto max-w-[1800px] p-6 lg:p-12">
         <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -529,7 +529,7 @@ export function Builder() {
       />
 
       {/* Sticky Mobile Summary Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 block lg:hidden border-t border-[#00d4ff]/30 bg-[#020617]/95 backdrop-blur-md p-4 safe-area-inset-bottom">
+      <div className="fixed bottom-0 left-0 right-0 z-[100] block border-t-2 border-blue-500/50 bg-[#020617] p-4 safe-area-inset-bottom shadow-[0_-10px_30px_rgba(0,0,0,0.8)]">
         <div className="flex items-center justify-between gap-4 max-w-[600px] mx-auto">
           <div className="flex flex-col">
             <span className="text-[9px] text-white/40 font-black uppercase tracking-widest">{t('builder.total')}</span>
