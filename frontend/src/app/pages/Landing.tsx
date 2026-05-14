@@ -57,7 +57,7 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617] pt-16 sm:pt-20 text-white">
       {/* Hero Section */}
-      <section className="relative flex min-h-0 flex-col overflow-hidden pt-20 pb-10 sm:pt-28 sm:pb-16 lg:min-h-[calc(100vh-5rem)] lg:py-10">
+      <section className="relative flex min-h-0 flex-col overflow-hidden pt-32 pb-10 sm:pt-40 sm:pb-16 lg:min-h-[calc(100vh-5rem)] lg:py-10">
         <div className="pointer-events-none absolute top-1/4 left-1/4 h-[300px] w-[300px] rounded-full bg-blue-600/10 blur-[80px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
@@ -68,7 +68,7 @@ export function Landing() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="z-10 order-2 lg:order-1 pt-12 sm:pt-0"
+              className="z-10 order-2 lg:order-1 pt-20 sm:pt-0"
             >
               <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 sm:mb-5">
                 <div className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
