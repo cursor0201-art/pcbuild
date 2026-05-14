@@ -3,6 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'motion/react';
 import { Sparkles, Zap, ArrowRight, Shield, Headset } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { AIBuilderModal } from '../components/AIBuilderModal';
 import { apiService, Category, formatPrice } from '../services/api';
 
 /** Hero side cards — тёмный glass (переменные в theme.css) */
@@ -18,6 +19,7 @@ const heroCtaSecondaryClass =
 export function Landing() {
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const [showAI, setShowAI] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -95,7 +97,7 @@ export function Landing() {
                   <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden />
                 </button>
 
-                <button type="button" onClick={() => navigate('/builder')} className={heroCtaSecondaryClass}>
+                <button type="button" onClick={() => setShowAI(true)} className={heroCtaSecondaryClass}>
                   <Sparkles className="h-5 w-5 shrink-0 text-sky-400" strokeWidth={2.25} aria-hidden />
                   {t('hero.cta_secondary')}
                 </button>
@@ -263,6 +265,14 @@ export function Landing() {
         </div>
       </section>
 
+      <AIBuilderModal
+        isOpen={showAI}
+        onClose={() => setShowAI(false)}
+        onBuildGenerated={() => {
+          setShowAI(false);
+          navigate('/builder');
+        }}
+      />
     </div>
   );
 }
