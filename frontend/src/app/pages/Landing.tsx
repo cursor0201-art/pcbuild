@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router';
 import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'motion/react';
-import { Sparkles, Zap, ArrowRight, Shield, Headset } from 'lucide-react';
+import { Sparkles, Zap, ArrowRight, Shield, Headset, Bot } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { AIBuilderModal } from '../components/AIBuilderModal';
 import { apiService, Category, formatPrice } from '../services/api';
 
 export function Landing() {
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const [showAI, setShowAI] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -73,23 +75,32 @@ export function Landing() {
                 <span className="mt-3 block font-black text-lg text-blue-400 sm:mt-4 sm:text-xl">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-wrap gap-4 sm:gap-5">
+              <div className="flex w-full flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-4 sm:gap-y-3 lg:gap-x-5">
                 <button
                   type="button"
                   onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="group flex items-center gap-3 rounded-2xl bg-blue-600 px-8 py-4 font-black text-white transition-all hover:bg-blue-500 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)] sm:gap-4 sm:px-12 sm:py-[1.125rem] sm:text-lg"
+                  className="group inline-flex w-full min-h-[3.25rem] max-w-[20rem] shrink-0 items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-sky-500 px-10 py-3.5 text-sm font-black uppercase tracking-wide text-white shadow-[0_8px_32px_rgba(37,99,235,0.35)] transition-all hover:from-blue-500 hover:via-blue-400 hover:to-sky-400 hover:shadow-[0_12px_40px_rgba(59,130,246,0.45)] active:scale-[0.98] sm:w-auto sm:max-w-none sm:min-h-[3.5rem] sm:gap-3 sm:px-12 sm:py-4 sm:text-base lg:px-14 lg:text-lg"
                 >
                   {t('hero.cta_primary')}
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1 sm:h-6 sm:w-6" />
+                  <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden />
                 </button>
 
                 <button
                   type="button"
                   onClick={() => navigate('/builder')}
-                  className="flex items-center gap-3 rounded-2xl border border-white/40 bg-[#0b1220] px-8 py-4 font-black text-white transition-all hover:border-white/60 hover:bg-white/[0.06] sm:gap-4 sm:px-12 sm:py-[1.125rem] sm:text-lg"
+                  className="inline-flex w-full min-h-[3.25rem] max-w-[20rem] shrink-0 items-center justify-center gap-2.5 rounded-full border-2 border-white/35 bg-slate-950/90 px-10 py-3.5 text-sm font-black uppercase tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm transition-all hover:border-white/55 hover:bg-slate-900/95 hover:shadow-[0_0_24px_rgba(255,255,255,0.06)] active:scale-[0.98] sm:w-auto sm:max-w-none sm:min-h-[3.5rem] sm:gap-3 sm:px-12 sm:py-4 sm:text-base lg:px-14 lg:text-lg"
                 >
-                  <Sparkles className="h-5 w-5 shrink-0 text-blue-400 sm:h-6 sm:w-6" />
+                  <Sparkles className="h-5 w-5 shrink-0 text-sky-400" strokeWidth={2.25} aria-hidden />
                   {t('hero.cta_secondary')}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowAI(true)}
+                  className="inline-flex w-full min-h-[3.25rem] max-w-[20rem] shrink-0 items-center justify-center gap-2.5 rounded-full border-2 border-violet-500/45 bg-violet-950/50 px-10 py-3.5 text-sm font-black uppercase tracking-wide text-violet-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_0_28px_rgba(139,92,246,0.12)] backdrop-blur-sm transition-all hover:border-violet-400/70 hover:bg-violet-900/55 hover:shadow-[0_0_32px_rgba(139,92,246,0.2)] active:scale-[0.98] sm:w-auto sm:max-w-none sm:min-h-[3.5rem] sm:gap-3 sm:px-12 sm:py-4 sm:text-base lg:px-14 lg:text-lg"
+                >
+                  <Bot className="h-5 w-5 shrink-0 text-violet-300" strokeWidth={2.25} aria-hidden />
+                  {t('builder.ai.button')}
                 </button>
               </div>
             </motion.div>
@@ -256,6 +267,14 @@ export function Landing() {
         </div>
       </section>
 
+      <AIBuilderModal
+        isOpen={showAI}
+        onClose={() => setShowAI(false)}
+        onBuildGenerated={() => {
+          setShowAI(false);
+          navigate('/builder');
+        }}
+      />
     </div>
   );
 }
