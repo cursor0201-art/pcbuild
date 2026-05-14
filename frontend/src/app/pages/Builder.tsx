@@ -305,20 +305,16 @@ export function Builder() {
                       >
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_70%)]" />
                         
-                        <div 
-                          className="relative z-10 h-full w-full bg-black flex items-center justify-center overflow-hidden"
+                        <img
+                          src={component.image}
+                          alt={component.name}
+                          loading="lazy"
                           style={{
-                            maskImage: 'radial-gradient(circle, black 40%, transparent 90%)',
-                            WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 90%)'
+                            maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
+                            WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)'
                           }}
-                        >
-                          <img
-                            src={component.image}
-                            alt={component.name}
-                            loading="lazy"
-                            className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 mix-blend-screen brightness-[1.05] contrast-[1.05]"
-                          />
-                        </div>
+                          className="relative z-10 h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 mix-blend-screen contrast-[1.15] brightness-[1.1] drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]"
+                        />
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
