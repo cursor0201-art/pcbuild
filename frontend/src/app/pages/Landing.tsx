@@ -75,16 +75,16 @@ export function Landing() {
                 <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-4 font-black text-[1.65rem] uppercase leading-[0.92] tracking-[-0.04em] text-white sm:mb-6 sm:text-4xl md:mb-8 md:text-6xl lg:text-6xl xl:text-7xl xl:tracking-[-0.045em] [font-weight:950] [text-shadow:0_2px_40px_rgba(0,0,0,0.35)]">
+              <h1 className="mb-6 font-black text-5xl uppercase leading-[0.92] tracking-[-0.04em] text-white sm:mb-8 sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl xl:tracking-[-0.045em] [font-weight:950] [text-shadow:0_2px_40px_rgba(0,0,0,0.35)]">
                 {t('hero.title_part1')}<br />
                 <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-sky-400 bg-clip-text text-transparent [text-shadow:none]">
                   {t('hero.title_part2')}
                 </span>
               </h1>
 
-              <p className="mb-8 max-w-2xl text-[0.9375rem] leading-relaxed text-slate-400 sm:mb-10 sm:text-lg md:mb-12 md:text-xl">
+              <p className="mb-10 max-w-2xl text-lg leading-relaxed text-slate-300 sm:mb-12 sm:text-xl md:text-2xl font-medium">
                 <span className="block">{t('hero.description')}</span>
-                <span className="mt-4 block font-black text-lg text-sky-400 sm:mt-5 sm:text-xl">{t('hero.tagline_extra')}</span>
+                <span className="mt-5 block font-black text-xl text-sky-400 sm:mt-6 sm:text-2xl">{t('hero.tagline_extra')}</span>
               </p>
 
               <div className="flex flex-wrap items-center gap-4 sm:flex-nowrap sm:items-stretch">
@@ -123,7 +123,7 @@ export function Landing() {
                   />
                   <img
                     src="/hero_composite.png"
-                    className="animate-float relative z-10 w-full max-w-[260px] object-contain drop-shadow-[0_0_70px_rgba(56,189,248,0.28),0_0_40px_rgba(59,130,246,0.2)] sm:max-w-md lg:max-w-lg xl:max-w-2xl"
+                    className="animate-float relative z-10 w-full max-w-[320px] sm:max-w-md lg:max-w-lg xl:max-w-2xl object-contain drop-shadow-[0_0_70px_rgba(56,189,248,0.28),0_0_40px_rgba(59,130,246,0.2)] mt-8 lg:mt-0"
                     alt="Premium Hardware"
                   />
                 </div>
