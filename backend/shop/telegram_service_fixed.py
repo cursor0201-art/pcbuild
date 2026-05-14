@@ -59,7 +59,7 @@ class TelegramService:
         item_photos = []
         
         for i, item in enumerate(order.items, 1):
-            items_text += f"  {i}. {item['name']} x{item['quantity']} = {item['price'] * item['quantity']:,.0f} so'm\n"
+            items_text += f"  🔹 <b>{item['name']}</b>\n      └─ x{item['quantity']} | {item['price'] * item['quantity']:,.0f} so'm\n"
             
             # Try to get product photo
             try:
@@ -71,45 +71,51 @@ class TelegramService:
                 pass
         
         status_emoji = {
-            'pending': 'Kutilmoqda',
-            'waiting_for_payment': 'To\'lov kutilmoqda',
-            'checking': 'Tekshirilmoqda',
-            'confirmed': 'Tasdiqlangan',
-            'cancelled': 'Bekor qilingan'
+            'pending': '⏳ Kutilmoqda',
+            'waiting_for_payment': '💳 To\'lov kutilmoqda',
+            'checking': '🔍 Tekshirilmoqda',
+            'confirmed': '✅ Tasdiqlangan',
+            'cancelled': '❌ Bekor qilingan'
         }
         
-        emoji = status_emoji.get(order.status, 'Kutilmoqda')
+        emoji = status_emoji.get(order.status, '⏳ Kutilmoqda')
         
         # Build message header without items
-        message = f"""<b>YANGI BUYURTMA #{str(order.id)[:8]}</b>
+        message = f"""🚀 <b>YANGI BUYURTMA #{str(order.id)[:8]}</b>
 
-<b>Mijoz:</b> {order.customer_name}
-<b>Telefon:</b> {order.phone}
-{f'<b>Email:</b> {order.email}' if order.email else ''}
-<b>Holati:</b> {emoji} {order.get_status_display()}
+👤 <b>Mijoz:</b> {order.customer_name}
+📞 <b>Telefon:</b> {order.phone}
+{f'📧 <b>Email:</b> {order.email}' if order.email else ''}
+🔄 <b>Holati:</b> {emoji}
 
-<b>Mahsulotlar:</b>
+📦 <b>Mahsulotlar:</b>
 {items_text}
 
-<b>Jami summa:</b> {order.total_price:,.0f} UZS
+💰 <b>Jami summa:</b> <code>{order.total_price:,.0f} UZS</code>
 
-{f'<b>Izoh:</b> {order.comment}' if order.comment else ''}
+{f'📝 <b>Izoh:</b> <i>{order.comment}</i>' if order.comment else ''}
 
-<b>Sana:</b> {order.created_at.strftime('%d/%m/%Y %H:%M')}
+📅 <b>Sana:</b> {order.created_at.strftime('%d/%m/%Y %H:%M')}
+
+---
+⚡ <i>GameZoneBuild — Sifatli va kuchli PKlar markazi!</i>
         """
         
         return message, item_photos
 
     def format_order_confirmation_message(self, order):
         """Format order confirmation message for Telegram in Uzbek"""
-        message = f"""<b>BUYURTMA TASDIQLANDI #{str(order.id)[:8]}</b>
+        message = f"""✅ <b>BUYURTMA TASDIQLANDI #{str(order.id)[:8]}</b>
 
-<b>Mijoz:</b> {order.customer_name}
-<b>Jami summa:</b> {order.total_price:,.0f} UZS
+👤 <b>Mijoz:</b> {order.customer_name}
+💰 <b>Jami summa:</b> <code>{order.total_price:,.0f} UZS</code>
 
-<b>Holati:</b> Tasdiqlangan
+🔄 <b>Holati:</b> ✅ Tasdiqlangan
 
-<b>Tasdiqlash vaqti:</b> {order.updated_at.strftime('%d/%m/%Y %H:%M')}
+⏰ <b>Tasdiqlash vaqti:</b> {order.updated_at.strftime('%d/%m/%Y %H:%M')}
+
+---
+⚡ <i>GameZoneBuild — Sifatli va kuchli PKlar markazi!</i>
         """
         
         return message
