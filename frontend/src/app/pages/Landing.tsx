@@ -14,7 +14,7 @@ const heroCtaPrimaryClass =
   'group inline-flex h-12 min-h-12 shrink-0 items-center justify-center gap-2.5 rounded-xl border-0 bg-gradient-to-r from-blue-700 via-blue-600 to-sky-400 px-8 text-sm font-black uppercase tracking-wide text-white shadow-[0_8px_32px_rgba(37,99,235,0.45)] transition-all hover:shadow-[0_0_28px_rgba(255,255,255,0.35),0_12px_48px_rgba(59,130,246,0.55)] active:scale-[0.98] sm:gap-3 sm:px-10 sm:text-base lg:text-lg';
 
 const heroCtaSecondaryClass =
-  'inline-flex h-12 min-h-12 shrink-0 items-center justify-center gap-2.5 rounded-xl border border-white/20 bg-transparent px-8 text-sm font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-white/35 hover:bg-white/[0.04] active:scale-[0.98] sm:gap-3 sm:px-10 sm:text-base lg:text-lg';
+  'inline-flex h-12 min-h-12 shrink-0 items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-8 text-sm font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-white/30 hover:bg-white/[0.08] active:scale-[0.98] sm:gap-3 sm:px-10 sm:text-base lg:text-lg';
 
 export function Landing() {
   const { t } = useLanguage();
@@ -75,7 +75,7 @@ export function Landing() {
                 <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-5 font-black text-4xl sm:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
+              <h1 className="mb-6 font-black text-4xl sm:text-6xl lg:text-7xl xl:text-[5.75rem] uppercase leading-[0.95] tracking-tight text-white">
                 {t('hero.title_part1')}<br />
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
@@ -85,7 +85,7 @@ export function Landing() {
                 <span className="block mt-2 text-blue-400/80 font-bold">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 sm:flex-nowrap sm:items-stretch">
+              <div className="flex flex-wrap items-center gap-4 sm:flex-nowrap">
                 <button
                   type="button"
                   onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
