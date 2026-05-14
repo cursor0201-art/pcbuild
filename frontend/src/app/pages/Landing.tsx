@@ -103,8 +103,8 @@ export function Landing() {
             </motion.div>
 
             {/* Right: hardware + side cards */}
-            <div className="relative order-1 flex min-h-[200px] items-center justify-center pb-2 sm:min-h-[240px] sm:pb-0 lg:order-2 lg:min-h-[450px] lg:justify-start lg:-mt-12">
-              <div className="relative z-10 flex w-full max-w-xl flex-row items-center justify-center gap-2 pr-1 sm:max-w-none sm:gap-5 sm:pr-2 lg:justify-start lg:gap-6">
+            <div className="relative order-1 flex min-h-[200px] items-center justify-center pb-2 sm:min-h-[240px] sm:pb-0 lg:order-2 lg:min-h-[450px] lg:justify-end lg:-mt-12">
+              <div className="relative z-10 flex w-full max-w-xl flex-row items-center justify-center gap-2 pr-1 sm:max-w-none sm:gap-5 sm:pr-2 lg:justify-end lg:gap-6">
                 <div className="relative flex min-w-0 flex-1 items-center justify-center lg:flex-[1.05]">
                   {/* Неоновые кольца за железом — мягкое синее свечение */}
                   <div
@@ -130,13 +130,13 @@ export function Landing() {
                   initial={{ opacity: 0, x: 28 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5, duration: 0.7 }}
-                  className="flex w-[9.25rem] shrink-0 flex-col items-start gap-3 sm:w-[11rem] sm:gap-4 lg:w-[14.5rem] lg:gap-4"
+                  className="flex w-[9.25rem] shrink-0 flex-col items-end gap-3 self-end sm:w-[11rem] sm:gap-4 sm:self-auto lg:w-[14.5rem] lg:gap-4"
                 >
                   <motion.div whileHover={{ scale: 1.02 }} className="w-full">
                     <div className={heroFloatCardClass}>
                       <div className="relative h-14 w-16 shrink-0 sm:h-16 sm:w-20 lg:h-20 lg:w-24">
                         <img
-                          src="/rtx5090.png"
+                          src="/rtx5090_clean.png"
                           className="relative h-full w-full object-contain mix-blend-lighten scale-125 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]"
                           alt="RTX 5090"
                         />
@@ -154,7 +154,7 @@ export function Landing() {
                     <div className={heroFloatCardClass}>
                       <div className="relative h-14 w-16 shrink-0 sm:h-16 sm:w-20 lg:h-20 lg:w-24">
                         <img
-                          src="/9800x3d.png"
+                          src="/ryzen9000_clean.png"
                           className="relative h-full w-full object-contain mix-blend-lighten scale-125 drop-shadow-[0_0_15px_rgba(251,146,60,0.4)]"
                           alt="Ryzen 9800X3D"
                         />
