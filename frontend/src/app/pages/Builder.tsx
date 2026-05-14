@@ -122,47 +122,30 @@ export function Builder() {
               const rawSpecs = product.specs || {};
               const flattened: string[] = [];
               
-              // Helper to process values recursively
-              const processValue = (val: any, prefix = ''): void => {
-                if (val === null || val === undefined) return;
-                
-                if (Array.isArray(val)) {
-                  val.forEach(item => processValue(item, prefix));
-                } else if (typeof val === 'object') {
+              const addToFlattened = (val: any, label?: string) => {
+                if (val === null || val === undefined || val === '') return;
+                if (typeof val === 'object' && !Array.isArray(val)) {
                   Object.entries(val).forEach(([k, v]) => {
-                    const label = t(`spec.${k}`) !== `spec.${k}` ? t(`spec.${k}`) : k;
-                    processValue(v, label);
+                    const cleanK = k.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    addToFlattened(v, cleanK);
                   });
+                } else if (Array.isArray(val)) {
+                  val.forEach(v => addToFlattened(v, label));
                 } else {
-                  const label = prefix ? `${prefix}: ` : '';
-                  flattened.push(`${label}${val}`);
+                  const text = label ? `${label}: ${val}` : String(val);
+                  if (!flattened.includes(text)) flattened.push(text);
                 }
               };
 
-              // Start processing with priorities for common fields
-              const s = Array.isArray(rawSpecs) ? rawSpecs[0] : rawSpecs;
-              if (s && typeof s === 'object') {
-                if (s.chipset) flattened.push(`${s.chipset}`);
-                if (s.series) flattened.push(`${s.series}`);
-                if (s.manufacturer) flattened.push(`${t('spec.manufacturer') || 'Brand'}: ${s.manufacturer}`);
-                if (s.io_ports) flattened.push(`I/O: ${s.io_ports}`);
-                
-                // Add key features if available
-                if (s.key_features && typeof s.key_features === 'object') {
-                  Object.entries(s.key_features).forEach(([k, v]) => {
-                    if (typeof v !== 'object') flattened.push(`${v}`);
-                  });
-                }
+              const startObj = Array.isArray(rawSpecs) ? rawSpecs[0] : rawSpecs;
+              addToFlattened(startObj);
 
-                // Add technologies (only first 3 to keep it clean)
-                if (Array.isArray(s.technologies)) {
-                  s.technologies.slice(0, 3).forEach((tech: any) => flattened.push(String(tech)));
-                }
-              } else {
-                flattened.push(String(s));
+              // If still empty, try to at least show something
+              if (flattened.length === 0) {
+                return [product.brand, product.category_name].filter(Boolean);
               }
 
-              return flattened.filter(Boolean).slice(0, 6); // Limit to 6 items for design
+              return flattened.slice(0, 6);
             })(),
             price: parseFloat(product.price),
             formatted_price: product.formatted_price,
