@@ -46,9 +46,9 @@ export function Cart() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] pt-28 sm:pt-36 lg:pt-40">
+    <div className="min-h-screen bg-[#020617] pt-32 sm:pt-44 lg:pt-48">
       <div className="mx-auto max-w-[1400px] p-4 sm:p-6 lg:p-12">
-        <h1 className="mb-8 sm:mb-12 font-black text-4xl sm:text-6xl lg:text-8xl uppercase tracking-tighter text-white">
+        <h1 className="mb-10 sm:mb-16 font-black text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tighter text-white">
           КОРЗИНА
         </h1>
 
