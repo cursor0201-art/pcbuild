@@ -57,12 +57,12 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617] pt-16 sm:pt-20 text-white">
       {/* Hero Section */}
-      <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center py-12 lg:py-0 overflow-hidden">
+      <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center py-16 lg:py-0 overflow-hidden">
         <div className="pointer-events-none absolute top-1/4 left-1/4 h-[300px] w-[300px] rounded-full bg-blue-600/10 blur-[80px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
         <div className="relative mx-auto flex w-full max-w-[1800px] flex-1 flex-col px-6 sm:px-10 lg:px-16">
-          <div className="grid w-full flex-1 items-start gap-6 sm:items-center sm:gap-8 lg:grid-cols-2 lg:items-center lg:gap-14">
+          <div className="grid w-full flex-1 items-center gap-10 lg:grid-cols-2 lg:gap-20 xl:gap-32">
             {/* Left: Text */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -75,7 +75,7 @@ export function Landing() {
                 <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-6 font-black text-4xl sm:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
+              <h1 className="mb-6 font-black text-4xl sm:text-6xl lg:text-[5rem] xl:text-[6rem] 2xl:text-[7rem] uppercase leading-[0.92] tracking-tighter text-white">
                 {t('hero.title_part1')}<br />
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
@@ -103,7 +103,7 @@ export function Landing() {
             </motion.div>
 
             {/* Right: hardware + side cards */}
-            <div className="relative order-1 flex min-h-[200px] items-center justify-center pb-2 sm:min-h-[240px] sm:pb-0 lg:order-2 lg:min-h-[380px] lg:justify-end">
+            <div className="relative order-1 flex min-h-[200px] items-center justify-center pb-2 sm:min-h-[240px] sm:pb-0 lg:order-2 lg:min-h-[450px] lg:justify-end lg:-mt-12">
               <div className="relative z-10 flex w-full max-w-xl flex-row items-center justify-center gap-2 pr-1 sm:max-w-none sm:gap-5 sm:pr-2 lg:justify-end lg:gap-6">
                 <div className="relative flex min-w-0 flex-1 items-center justify-center lg:flex-[1.05]">
                   {/* Неоновые кольца за железом — мягкое синее свечение */}
