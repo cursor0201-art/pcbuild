@@ -182,13 +182,17 @@ export function Landing() {
                 { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
                 { icon: Headset, label: t('stats.support.label'), sub: t('stats.support.sub') },
               ].map((stat, i) => (
-                <div key={i} className="relative z-0 flex min-w-0 flex-1 flex-row items-start gap-3 sm:max-w-[32%]">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-sky-400/35 bg-blue-500/20 shadow-[0_0_20px_rgba(56,189,248,0.15)] sm:h-12 sm:w-12">
-                    <stat.icon className="h-6 w-6 text-sky-200 drop-shadow-[0_0_8px_rgba(56,189,248,0.45)] sm:h-6 sm:w-6" strokeWidth={2.5} />
+                <div key={i} className="flex min-w-0 flex-1 flex-row items-center gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-sky-400/20 bg-blue-500/10 shadow-[0_0_20px_rgba(56,189,248,0.1)] transition-transform hover:scale-110">
+                    <stat.icon className="h-6 w-6 text-sky-400" strokeWidth={2.5} />
                   </div>
-                  <div className="min-w-0 space-y-1.5 pt-0.5">
-                    <div className="text-sm font-bold uppercase tracking-wide text-white sm:text-sm">{stat.label}</div>
-                    <div className="text-xs font-medium leading-snug text-slate-400 sm:text-xs">{stat.sub}</div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[10px] sm:text-xs lg:text-sm font-black uppercase tracking-wider text-white leading-tight break-words">
+                      {stat.label}
+                    </div>
+                    <div className="text-[9px] sm:text-[10px] lg:text-xs font-medium leading-tight text-white/40 mt-1">
+                      {stat.sub}
+                    </div>
                   </div>
                 </div>
               ))}
