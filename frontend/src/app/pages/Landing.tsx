@@ -70,25 +70,25 @@ export function Landing() {
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
 
-              <p className="mb-8 text-sm sm:text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
+              <p className="mb-10 text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed">
                 {t('hero.description')}
-                <span className="block mt-2 text-blue-400/80 font-bold">{t('hero.tagline_extra')}</span>
+                <span className="block mt-4 text-blue-400 font-black text-lg sm:text-xl">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-wrap gap-3 sm:gap-4 mb-10">
+              <div className="flex flex-wrap gap-4 sm:gap-6 mb-12">
                 <button
                   onClick={() => navigate('/builder')}
-                  className="group flex items-center gap-2 sm:gap-3 bg-blue-600 px-8 sm:px-10 py-4 sm:py-5 font-black text-sm sm:text-base text-white rounded-xl transition-all hover:bg-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                  className="group flex items-center gap-3 sm:gap-4 bg-blue-600 px-10 sm:px-14 py-4 sm:py-5 font-black text-lg sm:text-xl text-white rounded-2xl transition-all hover:bg-blue-500 hover:shadow-[0_0_40px_rgba(59,130,246,0.5)]"
                 >
                   {t('hero.cta_primary')}
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
                 </button>
 
                 <button
                   onClick={() => setShowAI(true)}
-                  className="flex items-center gap-2 sm:gap-3 border border-white/20 bg-white/5 backdrop-blur-sm px-8 sm:px-10 py-4 sm:py-5 font-black text-sm sm:text-base text-white rounded-xl transition-all hover:bg-white/10"
+                  className="flex items-center gap-3 sm:gap-4 border border-white/20 bg-white/5 backdrop-blur-sm px-10 sm:px-14 py-4 sm:py-5 font-black text-lg sm:text-xl text-white rounded-2xl transition-all hover:bg-white/10"
                 >
-                  <Sparkles className="h-5 w-5 text-blue-400" />
+                  <Sparkles className="h-6 w-6 text-blue-400" />
                   {t('hero.cta_secondary')}
                 </button>
               </div>
