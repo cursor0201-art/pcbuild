@@ -118,13 +118,52 @@ export function Builder() {
             id: product.id,
             name: product.name,
             brand: product.brand,
-            specs: Object.entries(product.specs || {}).map(([key, value]) => {
-              if (typeof value === 'object' && value !== null) {
-                const v = value as any;
-                return v.value ? `${v.name ? v.name + ': ' : ''}${v.value}` : JSON.stringify(v);
+            specs: (() => {
+              const rawSpecs = product.specs || {};
+              const flattened: string[] = [];
+              
+              // Helper to process values recursively
+              const processValue = (val: any, prefix = ''): void => {
+                if (val === null || val === undefined) return;
+                
+                if (Array.isArray(val)) {
+                  val.forEach(item => processValue(item, prefix));
+                } else if (typeof val === 'object') {
+                  Object.entries(val).forEach(([k, v]) => {
+                    const label = t(`spec.${k}`) !== `spec.${k}` ? t(`spec.${k}`) : k;
+                    processValue(v, label);
+                  });
+                } else {
+                  const label = prefix ? `${prefix}: ` : '';
+                  flattened.push(`${label}${val}`);
+                }
+              };
+
+              // Start processing with priorities for common fields
+              const s = Array.isArray(rawSpecs) ? rawSpecs[0] : rawSpecs;
+              if (s && typeof s === 'object') {
+                if (s.chipset) flattened.push(`${s.chipset}`);
+                if (s.series) flattened.push(`${s.series}`);
+                if (s.manufacturer) flattened.push(`${t('spec.manufacturer') || 'Brand'}: ${s.manufacturer}`);
+                if (s.io_ports) flattened.push(`I/O: ${s.io_ports}`);
+                
+                // Add key features if available
+                if (s.key_features && typeof s.key_features === 'object') {
+                  Object.entries(s.key_features).forEach(([k, v]) => {
+                    if (typeof v !== 'object') flattened.push(`${v}`);
+                  });
+                }
+
+                // Add technologies (only first 3 to keep it clean)
+                if (Array.isArray(s.technologies)) {
+                  s.technologies.slice(0, 3).forEach((tech: any) => flattened.push(String(tech)));
+                }
+              } else {
+                flattened.push(String(s));
               }
-              return `${key}: ${value}`;
-            }),
+
+              return flattened.filter(Boolean).slice(0, 6); // Limit to 6 items for design
+            })(),
             price: parseFloat(product.price),
             formatted_price: product.formatted_price,
             image: product.image_url || 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400&h=300&fit=crop',
