@@ -32,7 +32,7 @@ const translations = {
 
     'stats.shipping.label': 'БЕСПЛАТНАЯ ДОСТАВКА',
     'stats.shipping.sub': 'На все заказы свыше 1 000 000 UZS',
-    'stats.warranty.label': '2 ГОДА ГАРАНТИИ',
+    'stats.warranty.label': '1 ГОД ГАРАНТИИ',
     'stats.warranty.sub': 'Премиальное качество каждого компонента',
     'stats.support.label': '24/7 ПОДДЕРЖКА',
     'stats.support.sub': 'Всегда готовы помочь',
@@ -178,7 +178,7 @@ const translations = {
 
     'stats.shipping.label': 'BEPUL YETKAZIB BERISH',
     'stats.shipping.sub': "1 000 000 UZS dan yuqori barcha buyurtmalar uchun",
-    'stats.warranty.label': '2 YILLIK KAFOLAT',
+    'stats.warranty.label': '1 YILLIK KAFOLAT',
     'stats.warranty.sub': 'Har bir komponent uchun yuqori sifat',
     'stats.support.label': '24/7 QO\'LLAB-QUVVATLASH',
     'stats.support.sub': 'Har doim yordamga tayyormiz',
