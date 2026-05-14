@@ -187,7 +187,8 @@ export function Builder() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] pt-24 sm:pt-28 lg:pt-32">
+    <div className="min-h-screen bg-[#020617] pb-24">
+      <div style={{ height: '150px' }}></div>
       <div className="mx-auto max-w-[1800px] p-6 lg:p-12">
         <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <h1 className="font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter text-white lg:text-6xl">

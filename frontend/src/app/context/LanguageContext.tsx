@@ -59,6 +59,9 @@ const translations = {
     'builder.ai.button': 'Спросить ИИ',
     'builder.compatibility.ok': 'Совместимо',
     'builder.compatibility.error': 'Проблема совместимости',
+    'builder.compatibility.min': 'Выберите минимум 3 компонента',
+    'builder.loading': 'ЗАГРУЗКА...',
+    'builder.empty': 'Нет компонентов в этой категории',
 
     // Components
     'component.cpu': 'ПРОЦЕССОР',
@@ -202,6 +205,9 @@ const translations = {
     'builder.ai.button': "AI'dan so'rash",
     'builder.compatibility.ok': 'Mos keladi',
     'builder.compatibility.error': 'Moslik muammosi',
+    'builder.compatibility.min': 'Kamida 3 ta komponent tanlang',
+    'builder.loading': 'YUKLANMOQDA...',
+    'builder.empty': 'Ushbu kategoriyada butlovchi qismlar yo\'q',
 
     // Components
     'component.cpu': 'PROTSESSOR',
