@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router';
-import { ShoppingCart, Menu, X } from 'lucide-react';
+import { ShoppingCart, Menu, X, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect } from 'react';
@@ -8,17 +8,16 @@ export function Header() {
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLangPanelOpen, setIsLangPanelOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
   const isActive = (path: string) => location.pathname === path;
 
-  // Sync cart count
   const updateCartCount = () => {
     try {
       const cartData = localStorage.getItem('pcbuilder-cart');
       const items = cartData ? JSON.parse(cartData) : [];
-      // Filter out invalid items
-      const validItems = Array.isArray(items) ? items.filter(item => item && item.id) : [];
+      const validItems = Array.isArray(items) ? items.filter((item) => item && item.id) : [];
       setCartCount(validItems.length);
     } catch (e) {
       setCartCount(0);
@@ -42,6 +41,21 @@ export function Header() {
     { name: t('nav.about'), path: '/about' },
   ];
 
+  const openMenu = () => {
+    setIsLangPanelOpen(false);
+    setIsMenuOpen(true);
+  };
+
+  const openLangPanel = () => {
+    setIsMenuOpen(false);
+    setIsLangPanelOpen(true);
+  };
+
+  const langPanelLinks = [
+    { name: t('nav.builder'), path: '/builder' },
+    { name: t('nav.about'), path: '/about' },
+  ];
+
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -49,26 +63,22 @@ export function Header() {
       className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5"
     >
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-4 lg:px-12">
-        {/* Logo */}
-        <Link to="/" className="group flex items-center gap-3 shrink-0 z-50">
+        <Link to="/" className="group flex shrink-0 items-center gap-3 z-50">
           <div className="relative h-10 w-10">
-            <div className="absolute inset-0 bg-blue-500 blur-md opacity-40 group-hover:opacity-60 transition-opacity" />
-            <svg viewBox="0 0 24 24" className="relative h-full w-full text-blue-500 fill-current drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+            <div className="absolute inset-0 bg-blue-500 blur-md opacity-40 transition-opacity group-hover:opacity-60" />
+            <svg viewBox="0 0 24 24" className="relative h-full w-full fill-current text-blue-500 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
-          <div className="font-black text-2xl uppercase tracking-tighter text-white leading-none">
-            GAMEZONE
-          </div>
+          <div className="font-black text-2xl uppercase leading-none tracking-tighter text-white">GAMEZONE</div>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`font-bold text-sm uppercase tracking-wider transition-colors ${
+              className={`text-sm font-bold uppercase tracking-wider transition-colors ${
                 isActive(link.path) ? 'text-blue-500' : 'text-white/60 hover:text-white'
               }`}
             >
@@ -77,15 +87,14 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Right Actions */}
-        <div className="flex items-center gap-2 sm:gap-6 z-50">
-          {/* Language Switcher (Desktop) */}
-          <div className="hidden md:flex gap-1 bg-white/5 p-1 rounded-lg border border-white/10">
+        <div className="flex items-center gap-2 sm:gap-4 z-50 lg:gap-6">
+          <div className="hidden gap-1 rounded-lg border border-white/10 bg-white/5 p-1 lg:flex">
             {['ru', 'uz'].map((lang) => (
               <button
                 key={lang}
+                type="button"
                 onClick={() => setLanguage(lang as 'ru' | 'uz')}
-                className={`px-3 py-1.5 text-[10px] font-bold rounded-md transition-all touch-target ${
+                className={`touch-target rounded-md px-3 py-1.5 text-[10px] font-bold transition-all ${
                   language === lang ? 'bg-blue-600 text-white' : 'text-slate-500 hover:text-slate-300'
                 }`}
               >
@@ -96,7 +105,7 @@ export function Header() {
 
           <Link
             to="/cart"
-            className={`relative p-2.5 sm:p-3 transition-colors touch-target rounded-lg hover:bg-white/5 ${
+            className={`relative hidden touch-target rounded-lg p-2.5 transition-colors hover:bg-white/5 sm:p-3 lg:flex ${
               isActive('/cart') ? 'text-blue-500' : 'text-white/60 hover:text-white'
             }`}
           >
@@ -106,10 +115,26 @@ export function Header() {
             </span>
           </Link>
 
-          {/* Mobile Menu Toggle */}
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2.5 text-white/60 hover:text-white lg:hidden touch-target rounded-lg hover:bg-white/5"
+            type="button"
+            onClick={() => (isLangPanelOpen ? setIsLangPanelOpen(false) : openLangPanel())}
+            className={`flex touch-target items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-black uppercase transition-all lg:hidden ${
+              isLangPanelOpen
+                ? 'border-blue-500 bg-blue-600/20 text-blue-400'
+                : 'border-white/15 bg-white/5 text-white hover:border-white/25 hover:bg-white/10'
+            }`}
+            aria-expanded={isLangPanelOpen}
+            aria-haspopup="dialog"
+            aria-label={t('nav.lang_menu')}
+          >
+            {language === 'ru' ? 'RU' : 'UZ'}
+            <ChevronDown className={`h-4 w-4 transition-transform ${isLangPanelOpen ? 'rotate-180' : ''}`} aria-hidden />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => (isMenuOpen ? setIsMenuOpen(false) : openMenu())}
+            className="touch-target rounded-lg p-2.5 text-white/60 hover:bg-white/5 hover:text-white lg:hidden"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
           >
@@ -118,7 +143,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -126,62 +150,86 @@ export function Header() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 top-0 h-screen w-screen bg-[#020617] lg:hidden z-[100] overflow-y-auto"
+            className="fixed inset-0 top-0 z-[100] h-screen w-screen overflow-y-auto bg-[#020617] lg:hidden"
             onClick={() => setIsMenuOpen(false)}
           >
-            <div className="flex flex-col h-full" onClick={(e) => e.stopPropagation()}>
-              {/* Menu Header (Logo + Close) */}
-              <div className="flex h-16 items-center justify-between px-3 border-b border-white/5">
+            <div className="flex h-full flex-col" onClick={(e) => e.stopPropagation()}>
+              <div className="flex h-16 items-center justify-between border-b border-white/5 px-3">
                 <Link to="/" onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-2">
                   <div className="relative h-7 w-7">
-                    <div className="absolute inset-0 bg-blue-500 blur-md opacity-50" />
-                    <svg viewBox="0 0 24 24" className="relative h-full w-full text-blue-500 fill-current">
+                    <div className="absolute inset-0 bg-blue-500 opacity-50 blur-md" />
+                    <svg viewBox="0 0 24 24" className="relative h-full w-full fill-current text-blue-500">
                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                     </svg>
                   </div>
-                  <div className="font-bold text-sm uppercase tracking-tighter text-white leading-none">
-                    GAMEZONE
-                  </div>
+                  <div className="text-sm font-bold uppercase leading-none tracking-tighter text-white">GAMEZONE</div>
                 </Link>
-                <button 
-                  onClick={() => setIsMenuOpen(false)} 
-                  className="p-2 text-white/60 hover:text-white touch-target rounded-lg hover:bg-white/5"
+                <button
+                  type="button"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="touch-target rounded-lg p-2 text-white/60 hover:bg-white/5 hover:text-white"
                   aria-label="Close menu"
                 >
                   <X className="h-6 w-6" />
                 </button>
               </div>
 
-              <nav className="flex flex-col p-4 gap-2 flex-1">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`text-xl font-bold uppercase tracking-tight p-4 rounded-xl transition-colors ${
-                      isActive(link.path) 
-                        ? 'text-blue-500 bg-blue-500/10 border border-blue-500/30' 
-                        : 'text-white hover:bg-white/5'
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-                
-                <div className="mt-auto pt-4 border-t border-white/5 space-y-4 pb-safe">
-                  <div className="text-slate-500 text-xs uppercase tracking-[0.2em] font-bold px-2">Language / Язык</div>
-                  <div className="flex gap-3 px-2">
+              <nav className="flex flex-1 flex-col gap-2 p-4">
+                <Link
+                  to="/"
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`rounded-xl p-4 text-xl font-bold uppercase tracking-tight transition-colors ${
+                    isActive('/')
+                      ? 'border border-blue-500/30 bg-blue-500/10 text-blue-500'
+                      : 'text-white hover:bg-white/5'
+                  }`}
+                >
+                  {t('nav.home')}
+                </Link>
+              </nav>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isLangPanelOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed inset-0 top-0 z-[100] h-screen w-screen overflow-y-auto bg-[#020617] lg:hidden"
+            onClick={() => setIsLangPanelOpen(false)}
+          >
+            <div className="flex h-full flex-col" onClick={(e) => e.stopPropagation()}>
+              <div className="flex h-16 items-center justify-between border-b border-white/5 px-3">
+                <span className="text-sm font-bold uppercase tracking-wide text-white/90">{t('nav.lang_menu')}</span>
+                <button
+                  type="button"
+                  onClick={() => setIsLangPanelOpen(false)}
+                  className="touch-target rounded-lg p-2 text-white/60 hover:bg-white/5 hover:text-white"
+                  aria-label="Close"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+
+              <div className="flex flex-1 flex-col gap-6 p-4 pb-safe">
+                <div>
+                  <div className="mb-3 px-1 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
+                    {t('nav.language')}
+                  </div>
+                  <div className="flex gap-3">
                     {['ru', 'uz'].map((lang) => (
                       <button
                         key={lang}
-                        onClick={() => {
-                          setLanguage(lang as 'ru' | 'uz');
-                          setIsMenuOpen(false);
-                        }}
-                        className={`flex-1 py-3 font-bold text-sm uppercase rounded-lg border transition-all touch-target ${
-                          language === lang 
-                            ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]' 
-                            : 'bg-white/5 border-white/10 text-white/60 hover:text-white/80'
+                        type="button"
+                        onClick={() => setLanguage(lang as 'ru' | 'uz')}
+                        className={`flex-1 touch-target rounded-xl border py-3.5 text-sm font-bold uppercase transition-all ${
+                          language === lang
+                            ? 'border-blue-500 bg-blue-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]'
+                            : 'border-white/10 bg-white/5 text-white/60 hover:text-white/85'
                         }`}
                       >
                         {lang === 'ru' ? 'РУ' : 'УЗ'}
@@ -189,7 +237,46 @@ export function Header() {
                     ))}
                   </div>
                 </div>
-              </nav>
+
+                <div>
+                  <div className="mb-3 px-1 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
+                    {t('nav.section_links')}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    {langPanelLinks.map((link) => (
+                      <Link
+                        key={link.path}
+                        to={link.path}
+                        onClick={() => setIsLangPanelOpen(false)}
+                        className={`rounded-xl p-4 text-lg font-bold uppercase tracking-tight transition-colors ${
+                          isActive(link.path)
+                            ? 'border border-blue-500/30 bg-blue-500/10 text-blue-500'
+                            : 'text-white hover:bg-white/5'
+                        }`}
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                    <Link
+                      to="/cart"
+                      onClick={() => setIsLangPanelOpen(false)}
+                      className={`flex items-center justify-between rounded-xl border p-4 transition-colors ${
+                        isActive('/cart')
+                          ? 'border-blue-500/30 bg-blue-500/10 text-blue-500'
+                          : 'border-white/10 bg-white/5 text-white hover:bg-white/10'
+                      }`}
+                    >
+                      <span className="text-lg font-bold uppercase tracking-tight">{t('nav.cart')}</span>
+                      <span className="flex items-center gap-2">
+                        <ShoppingCart className="h-5 w-5" />
+                        <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-blue-500 px-1.5 text-xs font-black text-white">
+                          {cartCount}
+                        </span>
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         )}

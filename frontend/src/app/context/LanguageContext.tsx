@@ -16,6 +16,9 @@ const translations = {
     'nav.catalog': 'Каталог',
     'nav.cart': 'Корзина',
     'nav.about': 'О нас',
+    'nav.lang_menu': 'Язык и разделы',
+    'nav.language': 'Язык',
+    'nav.section_links': 'Разделы',
 
     // Landing
     'hero.title_part1': 'ЗАРЯДИ СВОЮ',
@@ -148,6 +151,9 @@ const translations = {
     'nav.catalog': 'Katalog',
     'nav.cart': 'Savat',
     'nav.about': 'Biz haqimizda',
+    'nav.lang_menu': 'Til va bo\'limlar',
+    'nav.language': 'Til',
+    'nav.section_links': 'Bo\'limlar',
 
     // Landing
     'hero.title_part1': "O'YININGIZNI",
