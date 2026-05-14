@@ -102,7 +102,7 @@ export function AIBuilderModal({ isOpen, onClose, onBuildGenerated }: AIBuilderM
     <AnimatePresence>
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-6"
+          className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-6"
           onClick={onClose}
         >
           <motion.div
