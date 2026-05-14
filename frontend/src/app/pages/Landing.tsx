@@ -57,7 +57,7 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617] pt-16 sm:pt-20 text-white">
       {/* Hero Section */}
-      <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center py-16 lg:py-0 overflow-hidden">
+      <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-start sm:items-center py-20 sm:py-16 lg:py-0 overflow-visible">
         <div className="pointer-events-none absolute top-1/4 left-1/4 h-[300px] w-[300px] rounded-full bg-blue-600/10 blur-[80px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
