@@ -529,7 +529,7 @@ export function Builder() {
       />
 
       {/* Sticky Mobile Summary Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 block lg:hidden border-t border-white/10 bg-[#020617]/95 backdrop-blur-md p-4 safe-area-inset-bottom">
+      <div className="fixed bottom-0 left-0 right-0 z-[9999] flex lg:hidden border-t border-white/10 bg-[#020617]/95 backdrop-blur-md p-4 safe-area-inset-bottom shadow-[0_-10px_40px_rgba(0,0,0,0.9)]">
         <div className="flex items-center justify-between gap-4 max-w-[600px] mx-auto">
           <div className="flex flex-col">
             <span className="text-[9px] text-white/40 font-black uppercase tracking-widest">{t('builder.total')}</span>
