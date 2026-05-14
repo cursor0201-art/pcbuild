@@ -75,16 +75,27 @@ export function Landing() {
                 <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-8 font-black text-[3.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[7rem] xl:text-[9rem] uppercase leading-[0.88] tracking-[-0.05em] text-white [font-weight:950] [text-shadow:0_4px_60px_rgba(0,0,0,0.5)]">
+              <h1 
+                className="mb-8 font-black uppercase leading-[0.88] tracking-[-0.05em] text-white [font-weight:950] [text-shadow:0_4px_60px_rgba(0,0,0,0.5)]"
+                style={{ fontSize: 'clamp(3.5rem, 15vw, 10rem)' }}
+              >
                 {t('hero.title_part1')}<br />
                 <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-sky-400 bg-clip-text text-transparent [text-shadow:none]">
                   {t('hero.title_part2')}
                 </span>
               </h1>
 
-              <p className="mb-12 max-w-4xl text-[1.25rem] sm:text-[1.75rem] md:text-[2.25rem] leading-[1.6] text-white font-medium">
+              <p 
+                className="mb-12 max-w-4xl text-white font-medium leading-[1.6]"
+                style={{ fontSize: 'clamp(1.25rem, 4vw, 2.5rem)' }}
+              >
                 <span className="block opacity-90">{t('hero.description')}</span>
-                <span className="mt-8 block font-black text-[1.5rem] sm:text-[2rem] text-sky-400 drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]">{t('hero.tagline_extra')}</span>
+                <span 
+                  className="mt-8 block font-black text-sky-400 drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]"
+                  style={{ fontSize: 'clamp(1.5rem, 5vw, 3rem)' }}
+                >
+                  {t('hero.tagline_extra')}
+                </span>
               </p>
 
               <div className="flex flex-wrap items-center gap-4 sm:flex-nowrap sm:items-stretch">
