@@ -11,10 +11,10 @@ const heroFloatCardClass =
   'flex w-full items-center gap-3 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:gap-4 sm:rounded-[1.5rem] sm:p-4';
 
 const heroCtaPrimaryClass =
-  'group inline-flex h-12 min-h-12 shrink-0 items-center justify-center gap-2.5 rounded-xl border-0 bg-gradient-to-r from-blue-700 via-blue-600 to-sky-400 px-8 text-sm font-black uppercase tracking-wide text-white shadow-[0_8px_32px_rgba(37,99,235,0.45)] transition-all hover:shadow-[0_0_28px_rgba(255,255,255,0.35),0_12px_48px_rgba(59,130,246,0.55)] active:scale-[0.98] sm:gap-3 sm:px-10 sm:text-base lg:text-lg';
+  'group inline-flex h-14 min-h-14 sm:h-16 sm:min-h-16 shrink-0 items-center justify-center gap-3 rounded-2xl border-0 bg-gradient-to-r from-blue-700 via-blue-600 to-sky-400 px-10 text-base sm:px-12 sm:text-lg lg:text-xl font-black uppercase tracking-wide text-white shadow-[0_12px_48px_rgba(37,99,235,0.5)] transition-all hover:shadow-[0_0_40px_rgba(255,255,255,0.4),0_16px_64px_rgba(59,130,246,0.6)] active:scale-[0.98]';
 
 const heroCtaSecondaryClass =
-  'inline-flex h-12 min-h-12 shrink-0 items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-8 text-sm font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-white/30 hover:bg-white/[0.08] active:scale-[0.98] sm:gap-3 sm:px-10 sm:text-base lg:text-lg';
+  'inline-flex h-14 min-h-14 sm:h-16 sm:min-h-16 shrink-0 items-center justify-center gap-3 rounded-2xl border-2 border-white/10 bg-white/5 px-10 text-base sm:px-12 sm:text-lg lg:text-xl font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-white/30 hover:bg-white/[0.08] active:scale-[0.98]';
 
 export function Landing() {
   const { t } = useLanguage();
@@ -80,23 +80,27 @@ export function Landing() {
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
 
-              <p className="mb-10 text-base sm:text-lg lg:text-xl text-slate-400 max-w-2xl leading-relaxed">
+              <p className="mb-12 text-lg sm:text-xl lg:text-2xl text-slate-400 max-w-2xl leading-relaxed">
                 {t('hero.description')}
-                <span className="block mt-4 text-blue-400 font-bold text-lg sm:text-xl">{t('hero.tagline_extra')}</span>
+                <span className="block mt-6 text-blue-400 font-black text-xl sm:text-2xl lg:text-3xl tracking-tight">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 sm:flex-nowrap">
+              <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6">
                 <button
                   type="button"
                   onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
-                  className={heroCtaPrimaryClass}
+                  className={`${heroCtaPrimaryClass} w-full sm:w-auto`}
                 >
                   {t('hero.cta_primary')}
-                  <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden />
+                  <ArrowRight className="h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" aria-hidden />
                 </button>
 
-                <button type="button" onClick={() => setShowAI(true)} className={heroCtaSecondaryClass}>
-                  <Sparkles className="h-5 w-5 shrink-0 text-sky-400" strokeWidth={2.25} aria-hidden />
+                <button 
+                  type="button" 
+                  onClick={() => setShowAI(true)} 
+                  className={`${heroCtaSecondaryClass} w-full sm:w-auto`}
+                >
+                  <Sparkles className="h-6 w-6 shrink-0 text-sky-400" strokeWidth={2.5} aria-hidden />
                   {t('hero.cta_secondary')}
                 </button>
               </div>
