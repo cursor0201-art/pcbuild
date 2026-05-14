@@ -183,14 +183,14 @@ export function Landing() {
                 { icon: Headset, label: t('stats.support.label'), sub: t('stats.support.sub') },
               ].map((stat, i) => (
                 <div key={i} className="flex min-w-0 flex-1 flex-row items-center gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-sky-400/20 bg-blue-500/10 shadow-[0_0_20px_rgba(56,189,248,0.1)] transition-transform hover:scale-110">
-                    <stat.icon className="h-6 w-6 text-sky-400" strokeWidth={2.5} />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-sky-400/20 bg-blue-500/10 shadow-[0_0_15px_rgba(56,189,248,0.1)] transition-transform hover:scale-110">
+                    <stat.icon className="h-5 w-5 text-sky-400" strokeWidth={2.5} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="text-[10px] sm:text-xs lg:text-sm font-black uppercase tracking-wider text-white leading-tight break-words">
+                    <div className="text-[9px] sm:text-xs lg:text-sm font-black uppercase tracking-wider text-white leading-tight whitespace-nowrap">
                       {stat.label}
                     </div>
-                    <div className="text-[9px] sm:text-[10px] lg:text-xs font-medium leading-tight text-white/40 mt-1">
+                    <div className="text-[8px] sm:text-[10px] lg:text-xs font-medium leading-tight text-white/40 mt-0.5">
                       {stat.sub}
                     </div>
                   </div>
