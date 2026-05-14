@@ -197,9 +197,6 @@ export function Landing() {
         </div>
       </section>
 
-          </div>
-        </div>
-      </section>
       
       {/* Features Section */}
       <section className="bg-[#020617] py-24 border-t border-white/5 relative overflow-hidden">
