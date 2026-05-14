@@ -168,17 +168,7 @@ export function Header() {
               </div>
 
               <nav className="flex flex-1 flex-col gap-2 p-4">
-                <Link
-                  to="/"
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`rounded-xl p-4 text-xl font-bold uppercase tracking-tight transition-colors ${
-                    isActive('/')
-                      ? 'border border-blue-500/30 bg-blue-500/10 text-blue-500'
-                      : 'text-white hover:bg-white/5'
-                  }`}
-                >
-                  {t('nav.home')}
-                </Link>
+
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
