@@ -87,7 +87,7 @@ export function Landing() {
               <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6 w-full">
                 <button
                   type="button"
-                  onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => navigate('/builder')}
                   className={`${heroCtaPrimaryClass} w-full sm:w-auto`}
                 >
                   {t('hero.cta_primary')}
