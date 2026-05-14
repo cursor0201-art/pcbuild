@@ -63,21 +63,20 @@ export function Landing() {
 
         <div className="relative mx-auto flex w-full max-w-[1800px] flex-1 flex-col px-6 sm:px-10 lg:px-16">
           <div className="grid w-full flex-1 items-center gap-10 lg:grid-cols-2 lg:gap-20 xl:gap-32">
-            {/* Left: Text Content */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="relative z-10 order-1 flex flex-col items-start gap-6 mt-20 lg:order-1 lg:max-w-3xl lg:mt-0"
+            {/* Left: Text Content - FORCED VISIBILITY FIX */}
+            <div
+              className="relative z-10 order-1 flex flex-col items-start gap-6 lg:order-1 lg:max-w-3xl lg:mt-0 border-red-500 border-2"
+              style={{ marginTop: '200px' }}
             >
               <div className="flex items-center gap-3 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 sm:text-xs">
                 <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
                 {t('hero.next_gen')}
               </div>
 
-              <h1 className="flex flex-col font-black text-2xl leading-[1.2] uppercase tracking-tighter sm:text-7xl lg:text-8xl xl:text-9xl">
-                <span className="text-white">{t('hero.title_part1')}</span>
-                <span className="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]">{t('hero.title_part2')}</span>
-              </h1>
+              <div className="font-black text-3xl leading-tight uppercase tracking-tighter sm:text-7xl lg:text-8xl xl:text-9xl text-white">
+                <div>{t('hero.title_part1')}</div>
+                <div className="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]">{t('hero.title_part2')}</div>
+              </div>
 
               <p className="mb-12 text-lg sm:text-xl lg:text-2xl text-slate-400 max-w-2xl leading-relaxed">
                 {t('hero.description')}
