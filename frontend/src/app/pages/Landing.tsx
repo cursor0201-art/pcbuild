@@ -8,7 +8,7 @@ import { apiService, Category, formatPrice } from '../services/api';
 
 /** Hero side cards — тёмный glass (переменные в theme.css) */
 const heroFloatCardClass =
-  'flex w-full items-center gap-2.5 overflow-hidden rounded-2xl border border-[var(--hero-float-border)] bg-[var(--hero-float-bg)] p-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.5)] [backdrop-filter:blur(var(--hero-float-blur))] [-webkit-backdrop-filter:blur(var(--hero-float-blur))] sm:gap-3 sm:rounded-[1.25rem] sm:p-3.5';
+  'flex w-full items-center gap-3 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:gap-4 sm:rounded-[1.5rem] sm:p-4';
 
 const heroCtaPrimaryClass =
   'group inline-flex h-12 min-h-12 shrink-0 items-center justify-center gap-2.5 rounded-xl border-0 bg-gradient-to-r from-blue-700 via-blue-600 to-sky-400 px-8 text-sm font-black uppercase tracking-wide text-white shadow-[0_8px_32px_rgba(37,99,235,0.45)] transition-all hover:shadow-[0_0_28px_rgba(255,255,255,0.35),0_12px_48px_rgba(59,130,246,0.55)] active:scale-[0.98] sm:gap-3 sm:px-10 sm:text-base lg:text-lg';
@@ -134,10 +134,10 @@ export function Landing() {
                 >
                   <motion.div whileHover={{ scale: 1.02 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="relative h-11 w-12 shrink-0 sm:h-14 sm:w-16 lg:h-16 lg:w-[4.5rem]">
+                      <div className="relative h-14 w-16 shrink-0 sm:h-16 sm:w-20 lg:h-20 lg:w-24">
                         <img
                           src="/rtx5090_clean.png"
-                          className="relative h-full w-full object-contain mix-blend-lighten drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]"
+                          className="relative h-full w-full object-contain mix-blend-lighten scale-125 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]"
                           alt="RTX 5090"
                         />
                       </div>
@@ -152,10 +152,10 @@ export function Landing() {
 
                   <motion.div whileHover={{ scale: 1.02 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="relative h-11 w-12 shrink-0 sm:h-14 sm:w-16 lg:h-16 lg:w-[4.5rem]">
+                      <div className="relative h-14 w-16 shrink-0 sm:h-16 sm:w-20 lg:h-20 lg:w-24">
                         <img
                           src="/ryzen9000_clean.png"
-                          className="relative h-full w-full object-contain mix-blend-lighten drop-shadow-[0_0_12px_rgba(251,146,60,0.25)]"
+                          className="relative h-full w-full object-contain mix-blend-lighten scale-125 drop-shadow-[0_0_15px_rgba(251,146,60,0.4)]"
                           alt="Ryzen 9800X3D"
                         />
                       </div>
