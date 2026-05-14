@@ -57,7 +57,7 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617] pt-16 sm:pt-20 text-white">
       {/* Hero Section */}
-      <section className="relative flex min-h-0 flex-col overflow-hidden pt-32 pb-10 sm:pt-40 sm:pb-16 lg:min-h-[calc(100vh-5rem)] lg:py-10">
+      <section className="relative min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex items-center py-12 lg:py-0 overflow-hidden">
         <div className="pointer-events-none absolute top-1/4 left-1/4 h-[300px] w-[300px] rounded-full bg-blue-600/10 blur-[80px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
@@ -68,25 +68,21 @@ export function Landing() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="z-10 order-2 lg:order-1 pt-20 sm:pt-0"
+              className="z-10 order-2 lg:order-1"
             >
               <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 sm:mb-5">
                 <div className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
                 <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-6 font-black text-[clamp(2.5rem,8vw,6.5rem)] uppercase leading-[0.92] tracking-[-0.045em] text-white [font-weight:950] [text-shadow:0_4px_40px_rgba(0,0,0,0.35)]">
+              <h1 className="mb-5 font-black text-4xl sm:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
                 {t('hero.title_part1')}<br />
-                <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-sky-400 bg-clip-text text-transparent [text-shadow:none]">
-                  {t('hero.title_part2')}
-                </span>
+                <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
 
-              <p className="mb-10 max-w-3xl text-[clamp(1.1rem,2.5vw,1.75rem)] leading-relaxed text-slate-200 font-medium">
-                <span className="block opacity-90">{t('hero.description')}</span>
-                <span className="mt-6 block font-black text-[clamp(1.2rem,3vw,2.2rem)] text-sky-400 drop-shadow-[0_0_20px_rgba(56,189,248,0.25)]">
-                  {t('hero.tagline_extra')}
-                </span>
+              <p className="mb-8 text-sm sm:text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
+                {t('hero.description')}
+                <span className="block mt-2 text-blue-400/80 font-bold">{t('hero.tagline_extra')}</span>
               </p>
 
               <div className="flex flex-wrap items-center gap-4 sm:flex-nowrap sm:items-stretch">
@@ -125,7 +121,7 @@ export function Landing() {
                   />
                   <img
                     src="/hero_composite.png"
-                    className="animate-float relative z-10 w-full max-w-[320px] sm:max-w-md lg:max-w-lg xl:max-w-2xl object-contain drop-shadow-[0_0_70px_rgba(56,189,248,0.28),0_0_40px_rgba(59,130,246,0.2)] mt-8 lg:mt-0"
+                    className="w-full max-w-[280px] sm:max-w-md lg:max-w-2xl xl:max-w-4xl object-contain drop-shadow-[0_0_80px_rgba(59,130,246,0.2)] animate-float"
                     alt="Premium Hardware"
                   />
                 </div>
