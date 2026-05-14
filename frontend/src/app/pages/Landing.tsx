@@ -74,7 +74,7 @@ export function Landing() {
                 {t('hero.next_gen')}
               </div>
 
-              <h1 className="flex flex-col font-black text-4xl leading-[1.1] uppercase tracking-tighter sm:text-7xl lg:text-8xl xl:text-9xl">
+              <h1 className="flex flex-col font-outfit font-black text-4xl leading-[1.1] uppercase tracking-tighter sm:text-7xl lg:text-8xl xl:text-9xl">
                 <span className="text-white">{t('hero.title_part1')}</span>
                 <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]">{t('hero.title_part2')}</span>
               </h1>

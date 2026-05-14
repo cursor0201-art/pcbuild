@@ -21,8 +21,8 @@ const translations = {
     'nav.section_links': 'Разделы',
 
     // Landing
-    'hero.title_part1': 'ЗАРЯДИ СВОЮ',
-    'hero.title_part2': 'ИГРУ',
+    'hero.title_part1': 'ПОДНИМИ СВОЙ ПК',
+    'hero.title_part2': 'НА НОВЫЙ УРОВЕНЬ',
     'hero.description': 'Открой для себя ультимативную коллекцию высокопроизводительных комплектующих, кастомных сборок и игрового снаряжения.',
     'hero.tagline_extra': 'Создано для геймеров. Спроектировано для побед.',
     'hero.cta_primary': 'В МАГАЗИН',
@@ -167,8 +167,8 @@ const translations = {
     'nav.section_links': 'Bo\'limlar',
 
     // Landing
-    'hero.title_part1': "O'YININGIZNI",
-    'hero.title_part2': 'ZARYADLANG',
+    'hero.title_part1': 'KOMPYUTERINGIZNI',
+    'hero.title_part2': "YANGI DARAJAGA KO'TARING",
     'hero.description': "Yuqori unumdorlikka ega butlovchi qismlar, maxsus yig'malar va o'yin jihozlarining ajoyib to'plamini kashf eting.",
     'hero.tagline_extra': "Geymerlar uchun yaratilgan. G'alaba uchun mo'ljallangan.",
     'hero.cta_primary': "DO'KONGA",
