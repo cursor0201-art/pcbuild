@@ -46,15 +46,19 @@ export function ProductModal({
             <div className="flex flex-col md:flex-row max-h-[90vh] overflow-y-auto no-scrollbar">
               <div className="relative h-[300px] sm:h-[450px] md:h-auto md:w-1/2 overflow-hidden flex items-center justify-center border-b md:border-b-0 md:border-r border-white/5">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.15)_0%,transparent_70%)]" />
-                <img
-                  src={component.image}
-                  alt={component.name}
+                <div 
+                  className="relative z-10 h-full w-full bg-black flex items-center justify-center overflow-hidden"
                   style={{
-                    maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
-                    WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)'
+                    maskImage: 'radial-gradient(circle, black 40%, transparent 90%)',
+                    WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 90%)'
                   }}
-                  className="relative z-10 h-full w-full object-contain p-6 sm:p-10 drop-shadow-[0_0_60px_rgba(59,130,246,0.4)] mix-blend-lighten brightness-[1.05]"
-                />
+                >
+                  <img
+                    src={component.image}
+                    alt={component.name}
+                    className="h-full w-full object-contain p-6 sm:p-10 mix-blend-screen brightness-[1.05] contrast-[1.05]"
+                  />
+                </div>
                 {isSelected && (
                   <div className="absolute left-6 top-6 z-10 flex h-12 w-12 items-center justify-center bg-[#00ff88] rounded-2xl shadow-[0_0_20px_rgba(0,255,136,0.4)]">
                     <Check className="h-6 w-6 text-black" />
