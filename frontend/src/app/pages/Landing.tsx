@@ -197,61 +197,6 @@ export function Landing() {
         </div>
       </section>
 
-      {/* Category Section — заголовок скрыт (ломал вёрстку); якорь #categories сохранён */}
-      <section id="categories" className="relative scroll-mt-24 border-t border-white/5 py-16 sm:py-20 md:py-24">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <div className="flex items-center justify-center gap-6 mb-16">
-            <div className="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-blue-500/50" />
-            <h2 className="font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter text-white">
-              {t('category.title')}
-            </h2>
-            <div className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-blue-500/50" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {loading ? (
-              [...Array(4)].map((_, i) => (
-                <div key={i} className="h-80 glass-card-dark animate-pulse rounded-3xl" />
-              ))
-            ) : categories.length > 0 ? (
-              categories.slice(0, 4).map((category) => {
-                const fallback = getCategoryFallback(category.slug);
-                const categoryImg = category.image_url || fallback.img;
-                const minPrice = category.min_price;
-                
-                return (
-                  <motion.div
-                    key={category.id}
-                    whileHover={{ y: -8 }}
-                    onClick={() => navigate('/builder')}
-                    className="glass-card-dark p-6 rounded-[2rem] space-y-6 group cursor-pointer border border-white/5 hover:border-blue-500/50 transition-all duration-500"
-                  >
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-blue-400 transition-colors">{category.name}</h3>
-                        <div className="h-8 w-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
-                          <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-white" />
-                        </div>
-                      </div>
-                      <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{fallback.sub}</p>
-                    </div>
-
-                    <div className="relative h-48 flex items-center justify-center">
-                       <img src={categoryImg} alt={category.name} className="max-h-full w-auto object-contain group-hover:scale-110 transition-transform duration-700" />
-                    </div>
-
-                    <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                      <div className="space-y-1">
-                        <div className="text-[9px] text-slate-500 uppercase font-black tracking-[0.2em]">{t('category.starting')}</div>
-                        <div className="text-2xl font-black text-blue-500">
-                          {minPrice ? <>{formatPrice(minPrice)} <span className="text-xs">{t('currency')}</span></> : '---'}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })
-            ) : null}
           </div>
         </div>
       </section>
@@ -313,6 +258,65 @@ export function Landing() {
                 </p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Category Section — Теперь ПОСЛЕ "Почему мы" */}
+      <section id="categories" className="relative scroll-mt-24 border-t border-white/5 py-16 sm:py-20 md:py-24">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
+          <div className="flex items-center justify-center gap-6 mb-16">
+            <div className="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-blue-500/50" />
+            <h2 className="font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter text-white">
+              {t('category.title')}
+            </h2>
+            <div className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-blue-500/50" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {loading ? (
+              [...Array(4)].map((_, i) => (
+                <div key={i} className="h-80 glass-card-dark animate-pulse rounded-3xl" />
+              ))
+            ) : categories.length > 0 ? (
+              categories.slice(0, 4).map((category) => {
+                const fallback = getCategoryFallback(category.slug);
+                const categoryImg = category.image_url || fallback.img;
+                const minPrice = category.min_price;
+                
+                return (
+                  <motion.div
+                    key={category.id}
+                    whileHover={{ y: -8 }}
+                    onClick={() => navigate('/builder')}
+                    className="glass-card-dark p-6 rounded-[2rem] space-y-6 group cursor-pointer border border-white/5 hover:border-blue-500/50 transition-all duration-500"
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-blue-400 transition-colors">{category.name}</h3>
+                        <div className="h-8 w-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
+                          <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-white" />
+                        </div>
+                      </div>
+                      <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{fallback.sub}</p>
+                    </div>
+
+                    <div className="relative h-48 flex items-center justify-center">
+                       <img src={categoryImg} alt={category.name} className="max-h-full w-auto object-contain group-hover:scale-110 transition-transform duration-700" />
+                    </div>
+
+                    <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                      <div className="space-y-1">
+                        <div className="text-[9px] text-slate-500 uppercase font-black tracking-[0.2em]">{t('category.starting')}</div>
+                        <div className="text-2xl font-black text-blue-500">
+                          {minPrice ? <>{formatPrice(minPrice)} <span className="text-xs">{t('currency')}</span></> : '---'}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })
+            ) : null}
           </div>
         </div>
       </section>
