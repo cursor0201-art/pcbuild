@@ -341,7 +341,7 @@ export function Builder() {
           </div>
 
           {/* Summary Sidebar */}
-          <div className="space-y-4 sm:space-y-6 lg:sticky lg:top-28 lg:h-fit order-3 lg:order-3">
+          <div className="hidden lg:block space-y-4 sm:space-y-6 lg:sticky lg:top-28 lg:h-fit order-3 lg:order-3">
             <div className="border border-blue-500/30 bg-white/5 p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card">
               <h3 className="mb-4 font-black text-xl sm:text-2xl uppercase text-blue-500">
                 {t('builder.total')}
