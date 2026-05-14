@@ -118,7 +118,13 @@ export function Builder() {
             id: product.id,
             name: product.name,
             brand: product.brand,
-            specs: Object.entries(product.specs).map(([key, value]) => `${value}`),
+            specs: Object.entries(product.specs || {}).map(([key, value]) => {
+              if (typeof value === 'object' && value !== null) {
+                const v = value as any;
+                return v.value ? `${v.name ? v.name + ': ' : ''}${v.value}` : JSON.stringify(v);
+              }
+              return `${key}: ${value}`;
+            }),
             price: parseFloat(product.price),
             formatted_price: product.formatted_price,
             image: product.image_url || 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400&h=300&fit=crop',
