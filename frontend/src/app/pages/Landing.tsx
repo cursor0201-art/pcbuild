@@ -62,7 +62,7 @@ export function Landing() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
         <div className="relative mx-auto flex w-full max-w-[1800px] flex-1 flex-col px-6 sm:px-10 lg:px-16">
-          <div className="grid w-full flex-1 items-start gap-6 sm:items-center sm:gap-8 lg:grid-cols-2 lg:items-center lg:gap-14">
+          <div className="grid w-full flex-1 grid-cols-2 items-center gap-14">
             {/* Left: Text */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -176,7 +176,7 @@ export function Landing() {
 
           {/* Feature strip — без лишних слоёв поверх иконок */}
           <div className="relative z-0 mx-auto mt-8 w-full max-w-[1100px] border-t border-white/10 pt-6 sm:mt-10 sm:pt-8 lg:mt-14 lg:pt-10">
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-6 lg:gap-10">
+            <div className="flex flex-row items-start justify-between gap-10">
               {[
                 { icon: Zap, label: t('stats.shipping.label'), sub: t('stats.shipping.sub') },
                 { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
@@ -202,7 +202,7 @@ export function Landing() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <h2 className="sr-only">{t('category.title')}</h2>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-4 gap-6">
             {loading ? (
               [...Array(4)].map((_, i) => (
                 <div key={i} className="h-80 glass-card-dark animate-pulse rounded-3xl" />

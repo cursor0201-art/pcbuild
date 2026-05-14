@@ -73,7 +73,7 @@ export function Header() {
           <div className="font-black text-2xl uppercase leading-none tracking-tighter text-white">GAMEZONE</div>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -88,7 +88,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-4 z-50 lg:gap-6">
-          <div className="hidden gap-1 rounded-lg border border-white/10 bg-white/5 p-1 lg:flex">
+          <div className="flex gap-1 rounded-lg border border-white/10 bg-white/5 p-1">
             {['ru', 'uz'].map((lang) => (
               <button
                 key={lang}
@@ -105,7 +105,7 @@ export function Header() {
 
           <Link
             to="/cart"
-            className={`relative hidden touch-target rounded-lg p-2.5 transition-colors hover:bg-white/5 sm:p-3 lg:flex ${
+            className={`relative flex touch-target rounded-lg p-2.5 transition-colors hover:bg-white/5 sm:p-3 ${
               isActive('/cart') ? 'text-blue-500' : 'text-white/60 hover:text-white'
             }`}
           >
@@ -115,31 +115,7 @@ export function Header() {
             </span>
           </Link>
 
-          <button
-            type="button"
-            onClick={() => (isLangPanelOpen ? setIsLangPanelOpen(false) : openLangPanel())}
-            className={`flex touch-target items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-black uppercase transition-all lg:hidden ${
-              isLangPanelOpen
-                ? 'border-blue-500 bg-blue-600/20 text-blue-400'
-                : 'border-white/15 bg-white/5 text-white hover:border-white/25 hover:bg-white/10'
-            }`}
-            aria-expanded={isLangPanelOpen}
-            aria-haspopup="dialog"
-            aria-label={t('nav.lang_menu')}
-          >
-            {language === 'ru' ? 'RU' : 'UZ'}
-            <ChevronDown className={`h-4 w-4 transition-transform ${isLangPanelOpen ? 'rotate-180' : ''}`} aria-hidden />
-          </button>
-
-          <button
-            type="button"
-            onClick={() => (isMenuOpen ? setIsMenuOpen(false) : openMenu())}
-            className="touch-target rounded-lg p-2.5 text-white/60 hover:bg-white/5 hover:text-white lg:hidden"
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          {/* Mobile menu triggers removed */}
         </div>
       </div>
 
