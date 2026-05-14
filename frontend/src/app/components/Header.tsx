@@ -117,18 +117,11 @@ export function Header() {
 
           <button
             type="button"
-            onClick={() => (isLangPanelOpen ? setIsLangPanelOpen(false) : openLangPanel())}
-            className={`flex touch-target items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-black uppercase transition-all lg:hidden ${
-              isLangPanelOpen
-                ? 'border-blue-500 bg-blue-600/20 text-blue-400'
-                : 'border-white/15 bg-white/5 text-white hover:border-white/25 hover:bg-white/10'
-            }`}
-            aria-expanded={isLangPanelOpen}
-            aria-haspopup="dialog"
-            aria-label={t('nav.lang_menu')}
+            onClick={() => setLanguage(language === 'ru' ? 'uz' : 'ru')}
+            className="flex touch-target items-center justify-center rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-black uppercase text-white transition-all hover:border-white/25 hover:bg-white/10 lg:hidden"
+            aria-label="Toggle language"
           >
             {language === 'ru' ? 'RU' : 'UZ'}
-            <ChevronDown className={`h-4 w-4 transition-transform ${isLangPanelOpen ? 'rotate-180' : ''}`} aria-hidden />
           </button>
 
           <button
@@ -186,97 +179,21 @@ export function Header() {
                 >
                   {t('nav.home')}
                 </Link>
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`rounded-xl p-4 text-xl font-bold uppercase tracking-tight transition-colors ${
+                      isActive(link.path)
+                        ? 'border border-blue-500/30 bg-blue-500/10 text-blue-500'
+                        : 'text-white hover:bg-white/5'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
               </nav>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {isLangPanelOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 top-0 z-[100] h-screen w-screen overflow-y-auto bg-[#020617] lg:hidden"
-            onClick={() => setIsLangPanelOpen(false)}
-          >
-            <div className="flex h-full flex-col" onClick={(e) => e.stopPropagation()}>
-              <div className="flex h-16 items-center justify-between border-b border-white/5 px-3">
-                <span className="text-sm font-bold uppercase tracking-wide text-white/90">{t('nav.lang_menu')}</span>
-                <button
-                  type="button"
-                  onClick={() => setIsLangPanelOpen(false)}
-                  className="touch-target rounded-lg p-2 text-white/60 hover:bg-white/5 hover:text-white"
-                  aria-label="Close"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-
-              <div className="flex flex-1 flex-col gap-6 p-4 pb-safe">
-                <div>
-                  <div className="mb-3 px-1 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
-                    {t('nav.language')}
-                  </div>
-                  <div className="flex gap-3">
-                    {['ru', 'uz'].map((lang) => (
-                      <button
-                        key={lang}
-                        type="button"
-                        onClick={() => setLanguage(lang as 'ru' | 'uz')}
-                        className={`flex-1 touch-target rounded-xl border py-3.5 text-sm font-bold uppercase transition-all ${
-                          language === lang
-                            ? 'border-blue-500 bg-blue-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]'
-                            : 'border-white/10 bg-white/5 text-white/60 hover:text-white/85'
-                        }`}
-                      >
-                        {lang === 'ru' ? 'РУ' : 'УЗ'}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <div className="mb-3 px-1 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
-                    {t('nav.section_links')}
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    {langPanelLinks.map((link) => (
-                      <Link
-                        key={link.path}
-                        to={link.path}
-                        onClick={() => setIsLangPanelOpen(false)}
-                        className={`rounded-xl p-4 text-lg font-bold uppercase tracking-tight transition-colors ${
-                          isActive(link.path)
-                            ? 'border border-blue-500/30 bg-blue-500/10 text-blue-500'
-                            : 'text-white hover:bg-white/5'
-                        }`}
-                      >
-                        {link.name}
-                      </Link>
-                    ))}
-                    <Link
-                      to="/cart"
-                      onClick={() => setIsLangPanelOpen(false)}
-                      className={`flex items-center justify-between rounded-xl border p-4 transition-colors ${
-                        isActive('/cart')
-                          ? 'border-blue-500/30 bg-blue-500/10 text-blue-500'
-                          : 'border-white/10 bg-white/5 text-white hover:bg-white/10'
-                      }`}
-                    >
-                      <span className="text-lg font-bold uppercase tracking-tight">{t('nav.cart')}</span>
-                      <span className="flex items-center gap-2">
-                        <ShoppingCart className="h-5 w-5" />
-                        <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-blue-500 px-1.5 text-xs font-black text-white">
-                          {cartCount}
-                        </span>
-                      </span>
-                    </Link>
-                  </div>
-                </div>
-              </div>
             </div>
           </motion.div>
         )}
