@@ -78,7 +78,13 @@ export function ProductModal({
                           className="flex items-center gap-3 bg-white/5 border border-white/5 p-4 rounded-2xl"
                         >
                           <Zap className="h-4 w-4 text-blue-400" />
-                          <span className="text-white/90 text-sm font-medium">{spec}</span>
+                          <span className="text-white/90 text-sm font-medium">
+                            {typeof spec === 'object' && spec !== null
+                              ? ((spec as any).name && (spec as any).value 
+                                  ? `${(spec as any).name}: ${(spec as any).value}` 
+                                  : JSON.stringify(spec))
+                              : String(spec)}
+                          </span>
                         </div>
                       ))}
                     </div>
