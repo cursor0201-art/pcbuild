@@ -107,7 +107,7 @@ export function Checkout() {
 
   if (submitted) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0a0a0f] pt-16 sm:pt-20 px-3 sm:px-6">
+      <div className="flex min-h-screen items-center justify-center bg-[#0a0a0f] pt-24 sm:pt-32 px-3 sm:px-6">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -139,7 +139,7 @@ export function Checkout() {
   // Check if cart is empty and show empty cart message
   if (cartItems.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#020617] pt-16 sm:pt-20 px-3 sm:px-6">
+      <div className="flex min-h-screen items-center justify-center bg-[#020617] pt-24 sm:pt-32 px-3 sm:px-6">
         <div className="text-center w-full max-w-md">
           <div className="mb-6 sm:mb-8 flex justify-center">
             <div className="flex h-20 sm:h-24 w-20 sm:w-24 items-center justify-center border-4 border-red-500 bg-red-500/10 rounded-full">
@@ -164,7 +164,7 @@ export function Checkout() {
   }
 
   return (
-    <div className="min-h-screen bg-[#020617] pt-16 sm:pt-20">
+    <div className="min-h-screen bg-[#020617] pt-24 sm:pt-28 lg:pt-32">
       <div className="mx-auto max-w-[1200px] p-3 sm:p-6 lg:p-12">
         <h1 className="mb-6 sm:mb-8 lg:mb-12 font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter text-white">
           {t('checkout.title')}

@@ -46,7 +46,7 @@ export function Cart() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] pt-16 sm:pt-20">
+    <div className="min-h-screen bg-[#020617] pt-24 sm:pt-28 lg:pt-32">
       <div className="mx-auto max-w-[1400px] p-3 sm:p-6 lg:p-12">
         <h1 className="mb-6 sm:mb-8 lg:mb-12 font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter text-white">
           {t('cart.title')}
