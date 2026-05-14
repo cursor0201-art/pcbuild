@@ -196,9 +196,9 @@ export function Builder() {
           </h1>
           <button
             onClick={() => setShowAIModal(true)}
-            className="flex items-center gap-2 border border-blue-500 bg-transparent px-6 py-3 font-bold text-sm uppercase text-blue-500 transition-all hover:bg-blue-500 hover:text-white rounded-xl"
+            className="flex items-center gap-3 border-2 border-blue-500 bg-blue-500/10 px-8 py-4 font-black text-base uppercase text-blue-500 transition-all hover:bg-blue-500 hover:text-white hover:shadow-[0_0_30px_rgba(59,130,246,0.6)] rounded-2xl active:scale-95"
           >
-            <Sparkles className="h-4 w-4" />
+            <Sparkles className="h-5 w-5 animate-pulse" />
             {t('builder.ai.button')}
           </button>
         </div>
