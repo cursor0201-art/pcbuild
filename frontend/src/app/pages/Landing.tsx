@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'motion/react';
-import { Sparkles, Zap, ArrowRight, Shield, Headset } from 'lucide-react';
+import { Sparkles, Zap, ArrowRight, Shield, Headset, DollarSign } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { AIBuilderModal } from '../components/AIBuilderModal';
 import { apiService, Category, formatPrice } from '../services/api';
@@ -246,6 +246,67 @@ export function Landing() {
                 );
               })
             ) : null}
+          </div>
+        </div>
+      </section>
+      
+      {/* Features Section */}
+      <section className="bg-[#020617] py-24 border-t border-white/5 relative overflow-hidden">
+        <div className="pointer-events-none absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-blue-600/5 blur-[100px]" />
+        
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-12 relative z-10">
+          <h2 className="mb-16 font-black text-4xl md:text-6xl uppercase tracking-tighter text-white">
+            {t('features.title')}
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Sparkles,
+                title: t('features.ai.title'),
+                desc: t('features.ai.desc'),
+                color: '#ec4899',
+              },
+              {
+                icon: Zap,
+                title: t('features.compatibility.title'),
+                desc: t('features.compatibility.desc'),
+                color: '#0ea5e9',
+              },
+              {
+                icon: DollarSign,
+                title: t('features.price.title'),
+                desc: t('features.price.desc'),
+                color: '#22c55e',
+              },
+            ].map((feature, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -10 }}
+                className="glass-card-dark p-10 rounded-[2.5rem] border border-white/5 hover:border-white/10 transition-all duration-500 group relative overflow-hidden"
+              >
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                  style={{
+                    background: `radial-gradient(circle at top left, ${feature.color}15, transparent 70%)`
+                  }}
+                />
+                
+                <feature.icon 
+                  className="h-14 w-14 mb-8 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3"
+                  style={{ color: feature.color }}
+                  strokeWidth={2.5}
+                />
+                
+                <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-4">
+                  {feature.title}
+                </h3>
+                
+                <p className="text-slate-400 text-lg leading-relaxed font-medium">
+                  {feature.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
