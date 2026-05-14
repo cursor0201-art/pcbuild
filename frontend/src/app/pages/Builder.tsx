@@ -300,15 +300,15 @@ export function Builder() {
                       }`}
                     >
                       <div
-                        className="relative h-40 sm:h-48 md:h-56 overflow-hidden bg-white/5 flex items-center justify-center p-4 sm:p-6"
+                        className="relative h-40 sm:h-48 md:h-56 overflow-hidden flex items-center justify-center p-4 sm:p-6"
                         onClick={() => toggleComponent(component)}
                       >
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_70%)]" />
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.08)_0%,transparent_70%)]" />
                         <img
                           src={component.image}
                           alt={component.name}
                           loading="lazy"
-                          className="relative z-10 h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-[0_0_30px_rgba(59,130,246,0.2)]"
+                          className="relative z-10 h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-[0_0_35px_rgba(59,130,246,0.4)] mix-blend-screen"
                         />
                         <button
                           onClick={(e) => {

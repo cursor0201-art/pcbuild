@@ -44,12 +44,12 @@ export function ProductModal({
             </button>
 
             <div className="flex flex-col md:flex-row max-h-[90vh] overflow-y-auto no-scrollbar">
-              <div className="relative h-[300px] sm:h-[450px] md:h-auto md:w-1/2 overflow-hidden bg-white/[0.02] flex items-center justify-center border-b md:border-b-0 md:border-r border-white/5">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_70%)]" />
+              <div className="relative h-[300px] sm:h-[450px] md:h-auto md:w-1/2 overflow-hidden flex items-center justify-center border-b md:border-b-0 md:border-r border-white/5">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.15)_0%,transparent_70%)]" />
                 <img
                   src={component.image}
                   alt={component.name}
-                  className="relative z-10 h-full w-full object-contain p-6 sm:p-10 drop-shadow-[0_0_50px_rgba(59,130,246,0.3)]"
+                  className="relative z-10 h-full w-full object-contain p-6 sm:p-10 drop-shadow-[0_0_60px_rgba(59,130,246,0.4)] mix-blend-screen"
                 />
                 {isSelected && (
                   <div className="absolute left-6 top-6 z-10 flex h-12 w-12 items-center justify-center bg-[#00ff88] rounded-2xl shadow-[0_0_20px_rgba(0,255,136,0.4)]">
