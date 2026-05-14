@@ -57,32 +57,32 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617] pt-16 sm:pt-20 text-white">
       {/* Hero Section */}
-      <section className="relative flex min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex-col overflow-hidden py-8 sm:py-12 lg:py-10">
+      <section className="relative flex min-h-0 flex-col overflow-hidden py-6 sm:py-10 lg:min-h-[calc(100vh-5rem)] lg:py-10">
         <div className="pointer-events-none absolute top-1/4 left-1/4 h-[300px] w-[300px] rounded-full bg-blue-600/10 blur-[80px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
-        <div className="relative mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 sm:px-6 lg:px-12">
-          <div className="grid w-full flex-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
+        <div className="relative mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-3 sm:px-6 lg:px-12">
+          <div className="grid w-full flex-1 items-start gap-6 sm:items-center sm:gap-8 lg:grid-cols-2 lg:items-center lg:gap-14">
             {/* Left: Text */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="z-10 order-2 lg:order-1"
+              className="z-10 order-2 lg:order-1 pt-2 sm:pt-0"
             >
               <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 sm:mb-5">
                 <div className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
                 <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-6 font-black text-4xl uppercase leading-[0.92] tracking-[-0.04em] text-white sm:mb-8 sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl xl:tracking-[-0.045em] [font-weight:950] [text-shadow:0_2px_40px_rgba(0,0,0,0.35)]">
+              <h1 className="mb-4 font-black text-[1.65rem] uppercase leading-[0.92] tracking-[-0.04em] text-white sm:mb-6 sm:text-4xl md:mb-8 md:text-6xl lg:text-6xl xl:text-7xl xl:tracking-[-0.045em] [font-weight:950] [text-shadow:0_2px_40px_rgba(0,0,0,0.35)]">
                 {t('hero.title_part1')}<br />
                 <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-sky-400 bg-clip-text text-transparent [text-shadow:none]">
                   {t('hero.title_part2')}
                 </span>
               </h1>
 
-              <p className="mb-10 max-w-2xl text-base leading-relaxed text-slate-400 sm:mb-12 sm:text-lg md:text-xl">
+              <p className="mb-8 max-w-2xl text-[0.9375rem] leading-relaxed text-slate-400 sm:mb-10 sm:text-lg md:mb-12 md:text-xl">
                 <span className="block">{t('hero.description')}</span>
                 <span className="mt-4 block font-black text-lg text-sky-400 sm:mt-5 sm:text-xl">{t('hero.tagline_extra')}</span>
               </p>
@@ -105,8 +105,8 @@ export function Landing() {
             </motion.div>
 
             {/* Right: hardware + side cards */}
-            <div className="relative order-1 flex min-h-[240px] items-center justify-center lg:order-2 lg:min-h-[380px] lg:justify-end">
-              <div className="relative z-10 flex w-full max-w-xl flex-row items-center justify-center gap-4 sm:max-w-none sm:items-center sm:justify-end sm:gap-6 lg:max-w-none">
+            <div className="relative order-1 flex min-h-[200px] items-center justify-center pb-2 sm:min-h-[240px] sm:pb-0 lg:order-2 lg:min-h-[380px] lg:justify-end">
+              <div className="relative z-10 flex w-full max-w-xl flex-row items-center justify-center gap-2 pr-1 sm:max-w-none sm:gap-5 sm:pr-2 lg:justify-end lg:gap-6">
                 <div className="relative flex min-w-0 flex-1 items-center justify-center lg:flex-[1.05]">
                   {/* Неоновые кольца за железом — мягкое синее свечение */}
                   <div
@@ -132,7 +132,7 @@ export function Landing() {
                   initial={{ opacity: 0, x: 28 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5, duration: 0.7 }}
-                  className="hidden w-[11rem] shrink-0 flex-col items-end gap-4 sm:flex sm:w-[12.75rem] lg:w-[14.5rem] lg:gap-4"
+                  className="flex w-[9.25rem] shrink-0 flex-col items-end gap-3 self-end sm:w-[11rem] sm:gap-4 sm:self-auto lg:w-[14.5rem] lg:gap-4"
                 >
                   <motion.div whileHover={{ scale: 1.02 }} className="w-full">
                     <div className={heroFloatCardClass}>
@@ -145,7 +145,7 @@ export function Landing() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="text-xs font-black uppercase tracking-tight text-white sm:text-sm lg:text-base">RTX 5090</div>
-                        <div className="text-[8px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[9px] lg:text-[10px]">
+                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[9px] lg:text-[10px]">
                           {t('hero.next_gen')}
                         </div>
                       </div>
@@ -165,7 +165,7 @@ export function Landing() {
                         <div className="text-[10px] font-black uppercase leading-tight tracking-tight text-white sm:text-xs lg:text-sm">
                           RYZEN 9800X3D
                         </div>
-                        <div className="text-[8px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[9px] lg:text-[10px]">
+                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[9px] lg:text-[10px]">
                           {t('hero.card_ryzen_sub')}
                         </div>
                       </div>
@@ -177,20 +177,20 @@ export function Landing() {
           </div>
 
           {/* Feature strip — без лишних слоёв поверх иконок */}
-          <div className="relative z-0 mx-auto mt-10 w-full max-w-[1100px] border-t border-white/10 pt-8 sm:mt-12 sm:pt-10 lg:mt-14">
-            <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between sm:gap-6 lg:gap-10">
+          <div className="relative z-0 mx-auto mt-8 w-full max-w-[1100px] border-t border-white/10 pt-6 sm:mt-10 sm:pt-8 lg:mt-14 lg:pt-10">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-6 lg:gap-10">
               {[
                 { icon: Zap, label: t('stats.shipping.label'), sub: t('stats.shipping.sub') },
                 { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
                 { icon: Headset, label: t('stats.support.label'), sub: t('stats.support.sub') },
               ].map((stat, i) => (
                 <div key={i} className="relative z-0 flex min-w-0 flex-1 flex-row items-start gap-3 sm:max-w-[32%]">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-sky-400/35 bg-blue-500/20 shadow-[0_0_20px_rgba(56,189,248,0.15)] sm:h-12 sm:w-12">
-                    <stat.icon className="h-5 w-5 text-sky-300 drop-shadow-[0_0_8px_rgba(56,189,248,0.45)] sm:h-6 sm:w-6" strokeWidth={2.5} />
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-sky-400/35 bg-blue-500/20 shadow-[0_0_20px_rgba(56,189,248,0.15)] sm:h-12 sm:w-12">
+                    <stat.icon className="h-6 w-6 text-sky-200 drop-shadow-[0_0_8px_rgba(56,189,248,0.45)] sm:h-6 sm:w-6" strokeWidth={2.5} />
                   </div>
-                  <div className="min-w-0 space-y-1 pt-0.5">
-                    <div className="text-xs font-bold uppercase tracking-wide text-white sm:text-sm">{stat.label}</div>
-                    <div className="text-[11px] font-medium leading-snug text-slate-400 sm:text-xs">{stat.sub}</div>
+                  <div className="min-w-0 space-y-1.5 pt-0.5">
+                    <div className="text-sm font-bold uppercase tracking-wide text-white sm:text-sm">{stat.label}</div>
+                    <div className="text-xs font-medium leading-snug text-slate-400 sm:text-xs">{stat.sub}</div>
                   </div>
                 </div>
               ))}
