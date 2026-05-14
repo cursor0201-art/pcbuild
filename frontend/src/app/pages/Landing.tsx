@@ -61,7 +61,7 @@ export function Landing() {
         <div className="pointer-events-none absolute top-1/4 left-1/4 h-[300px] w-[300px] rounded-full bg-blue-600/10 blur-[80px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
-        <div className="relative mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-3 sm:px-6 lg:px-12">
+        <div className="relative mx-auto flex w-full max-w-[1800px] flex-1 flex-col px-6 sm:px-10 lg:px-16">
           <div className="grid w-full flex-1 items-start gap-6 sm:items-center sm:gap-8 lg:grid-cols-2 lg:items-center lg:gap-14">
             {/* Left: Text */}
             <motion.div
@@ -75,14 +75,14 @@ export function Landing() {
                 <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-6 font-black text-4xl sm:text-6xl lg:text-7xl xl:text-[5.75rem] uppercase leading-[0.95] tracking-tight text-white">
-                {t('hero.title_part1')}<br />
+              <h1 className="mb-8 font-black text-5xl sm:text-7xl lg:text-8xl xl:text-[7rem] 2xl:text-[8.5rem] uppercase leading-[0.92] tracking-tighter text-white">
+                {t('hero.title_part1')}{' '}
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
 
-              <p className="mb-8 text-sm sm:text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
+              <p className="mb-10 text-base sm:text-lg lg:text-xl text-slate-400 max-w-2xl leading-relaxed">
                 {t('hero.description')}
-                <span className="block mt-2 text-blue-400/80 font-bold">{t('hero.tagline_extra')}</span>
+                <span className="block mt-4 text-blue-400 font-bold text-lg sm:text-xl">{t('hero.tagline_extra')}</span>
               </p>
 
               <div className="flex flex-wrap items-center gap-4 sm:flex-nowrap">
