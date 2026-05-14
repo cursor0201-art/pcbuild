@@ -62,7 +62,7 @@ export function Landing() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
         <div className="relative mx-auto flex w-full max-w-[1800px] flex-1 flex-col px-6 sm:px-10 lg:px-16">
-          <div className="grid w-full flex-1 grid-cols-2 items-center gap-14">
+          <div className="grid w-full flex-1 items-start gap-6 sm:items-center sm:gap-8 lg:grid-cols-2 lg:items-center lg:gap-14">
             {/* Left: Text */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -75,8 +75,8 @@ export function Landing() {
                 <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
               </div>
 
-              <h1 className="mb-8 font-black text-5xl sm:text-7xl lg:text-8xl xl:text-[7rem] 2xl:text-[8.5rem] uppercase leading-[0.92] tracking-tighter text-white">
-                {t('hero.title_part1')}{' '}
+              <h1 className="mb-6 font-black text-4xl sm:text-6xl lg:text-7xl xl:text-8xl uppercase leading-[0.9] tracking-tighter text-white">
+                {t('hero.title_part1')}<br />
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
 
@@ -202,7 +202,7 @@ export function Landing() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <h2 className="sr-only">{t('category.title')}</h2>
 
-          <div className="grid grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             {loading ? (
               [...Array(4)].map((_, i) => (
                 <div key={i} className="h-80 glass-card-dark animate-pulse rounded-3xl" />
