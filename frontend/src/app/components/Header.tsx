@@ -60,17 +60,17 @@ export function Header() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b-4 border-yellow-400"
+      className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5"
     >
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-4 lg:px-12">
         <Link to="/" className="group flex shrink-0 items-center gap-3 z-50">
           <div className="relative h-10 w-10">
             <div className="absolute inset-0 bg-blue-500 blur-md opacity-40 transition-opacity group-hover:opacity-60" />
-            <svg viewBox="0 0 24 24" className="relative h-full w-full fill-current text-red-500 drop-shadow-[0_0_20px_rgba(239,68,68,0.8)]">
+            <svg viewBox="0 0 24 24" className="relative h-full w-full fill-current text-blue-500 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
-          <div className="font-black text-2xl uppercase leading-none tracking-tighter text-red-500">GAMEZONE</div>
+          <div className="font-black text-2xl uppercase leading-none tracking-tighter text-white">GAMEZONE</div>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

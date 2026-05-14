@@ -46,12 +46,9 @@ export function Cart() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] pt-24 sm:pt-28 lg:pt-32">
-      <div className="mx-auto max-w-[1400px] p-3 sm:p-6 lg:p-12">
-        <div className="bg-red-600 text-white p-4 text-center font-bold text-2xl mb-10">
-          DEBUG: CART PAGE LOADED
-        </div>
-        <h1 className="mb-6 sm:mb-8 lg:mb-12 font-black text-4xl sm:text-6xl lg:text-8xl uppercase tracking-tighter text-blue-500 text-center">
+    <div className="min-h-screen bg-[#020617] pt-28 sm:pt-36 lg:pt-40">
+      <div className="mx-auto max-w-[1400px] p-4 sm:p-6 lg:p-12">
+        <h1 className="mb-8 sm:mb-12 font-black text-4xl sm:text-6xl lg:text-8xl uppercase tracking-tighter text-white">
           КОРЗИНА
         </h1>
 
@@ -93,9 +90,25 @@ export function Cart() {
                       <h3 className="mb-1 sm:mb-2 font-black text-base sm:text-lg lg:text-xl uppercase text-white">
                         {item.name}
                       </h3>
-                      <p className="text-white/60 text-xs sm:text-sm line-clamp-2">
-                        {Array.isArray(item.specs) ? item.specs.join(', ') : String(item.specs)}
-                      </p>
+                      <div className="mb-4 space-y-1">
+                        {Array.isArray(item.specs) ? (
+                          item.specs.slice(0, 3).map((spec, idx) => (
+                            <div key={idx} className="text-white/40 text-xs sm:text-sm line-clamp-1">
+                              • {String(spec)}
+                            </div>
+                          ))
+                        ) : typeof item.specs === 'object' && item.specs !== null ? (
+                          Object.entries(item.specs).slice(0, 3).map(([key, value], idx) => (
+                            <div key={idx} className="text-white/40 text-xs sm:text-sm line-clamp-1">
+                              • {String(value)}
+                            </div>
+                          ))
+                        ) : (
+                          <div className="text-white/40 text-xs sm:text-sm line-clamp-1">
+                            {String(item.specs)}
+                          </div>
+                        )}
+                      </div>
                     </div>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-3 sm:mt-0">
                       <div className="font-black text-lg sm:text-xl lg:text-2xl text-white">
