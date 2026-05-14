@@ -65,18 +65,17 @@ export function Landing() {
           <div className="grid w-full flex-1 items-center gap-10 lg:grid-cols-2 lg:gap-20 xl:gap-32">
             {/* Left: Text */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="z-10 order-2 lg:order-1"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="relative z-10 order-1 flex flex-col items-start gap-8 lg:order-1 lg:max-w-3xl"
             >
-              <div className="mb-4 flex w-fit items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 sm:mb-5">
-                <div className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
-                <span className="text-[9px] font-bold uppercase tracking-widest text-blue-400 sm:text-[10px]">{t('hero.next_gen')}</span>
+              <div className="flex items-center gap-3 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 sm:text-xs">
+                <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+                {t('hero.next_gen')}
               </div>
 
-              <h1 className="mb-6 font-black text-4xl sm:text-6xl lg:text-[5rem] xl:text-[6rem] 2xl:text-[7rem] uppercase leading-[0.92] tracking-tighter text-white">
-                {t('hero.title_part1')}<br />
+              <h1 className="flex flex-col font-black text-5xl leading-[0.9] uppercase tracking-tighter sm:text-7xl lg:text-8xl xl:text-9xl">
+                <span className="text-white">{t('hero.title_part1')}</span>
                 <span className="text-blue-500">{t('hero.title_part2')}</span>
               </h1>
 
@@ -85,7 +84,7 @@ export function Landing() {
                 <span className="block mt-6 text-blue-400 font-black text-xl sm:text-2xl lg:text-3xl tracking-tight">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6">
+              <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6 w-full">
                 <button
                   type="button"
                   onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
@@ -107,7 +106,7 @@ export function Landing() {
             </motion.div>
 
             {/* Right: hardware + side cards */}
-            <div className="relative order-1 flex min-h-[200px] items-center justify-center pb-2 sm:min-h-[240px] sm:pb-0 lg:order-2 lg:min-h-[450px] lg:justify-start lg:-mt-12">
+            <div className="relative order-2 mt-12 flex min-h-[300px] items-center justify-center lg:order-2 lg:mt-0 lg:min-h-[450px]">
               <div className="relative z-10 flex w-full max-w-xl flex-row items-center justify-center gap-2 pr-1 sm:max-w-none sm:gap-5 sm:pr-2 lg:justify-start lg:gap-6">
                 <div className="relative flex min-w-0 flex-1 items-center justify-center lg:flex-[1.05]">
                   {/* Неоновые кольца за железом — мягкое синее свечение */}
