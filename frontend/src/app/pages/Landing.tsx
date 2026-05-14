@@ -176,21 +176,21 @@ export function Landing() {
 
           {/* Feature strip — без лишних слоёв поверх иконок */}
           <div className="relative z-0 mx-auto mt-8 w-full max-w-[1100px] border-t border-white/10 pt-6 sm:mt-10 sm:pt-8 lg:mt-14 lg:pt-10">
-            <div className="flex flex-row items-start justify-between gap-10">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
               {[
                 { icon: Zap, label: t('stats.shipping.label'), sub: t('stats.shipping.sub') },
                 { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
                 { icon: Headset, label: t('stats.support.label'), sub: t('stats.support.sub') },
               ].map((stat, i) => (
-                <div key={i} className="flex min-w-0 flex-1 flex-row items-center gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-sky-400/20 bg-blue-500/10 shadow-[0_0_15px_rgba(56,189,248,0.1)] transition-transform hover:scale-110">
-                    <stat.icon className="h-5 w-5 text-sky-400" strokeWidth={2.5} />
+                <div key={i} className="flex min-w-0 flex-1 flex-row items-center gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl transition-all hover:border-blue-500/50 hover:bg-blue-500/5 group">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-sky-400/20 bg-blue-500/10 shadow-[0_0_30px_rgba(56,189,248,0.15)] group-hover:scale-110 transition-transform">
+                    <stat.icon className="h-8 w-8 text-sky-400" strokeWidth={2.5} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="text-[9px] sm:text-xs lg:text-sm font-black uppercase tracking-wider text-white leading-tight whitespace-nowrap">
+                    <div className="text-sm sm:text-base lg:text-lg font-black uppercase tracking-wider text-white leading-tight">
                       {stat.label}
                     </div>
-                    <div className="text-[8px] sm:text-[10px] lg:text-xs font-medium leading-tight text-white/40 mt-0.5">
+                    <div className="text-xs sm:text-xs lg:text-sm font-medium leading-tight text-white/50 mt-1.5">
                       {stat.sub}
                     </div>
                   </div>
