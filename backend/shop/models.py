@@ -5,7 +5,7 @@ import uuid
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Nombre de la categoría")
+    name = models.CharField(max_length=100, verbose_name="Название категории")
     slug = models.SlugField(max_length=100, unique=True, verbose_name="Slug")
     parent = models.ForeignKey(
         'self', 
@@ -13,20 +13,20 @@ class Category(models.Model):
         null=True, 
         blank=True, 
         related_name='children',
-        verbose_name="Categoría padre"
+        verbose_name="Родительская категория"
     )
     image = models.ImageField(
         upload_to='categories/', 
         blank=True, 
         null=True,
-        verbose_name="Imagen de la categoría"
+        verbose_name="Изображение категории"
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "Categoría"
-        verbose_name_plural = "Categorías"
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
         ordering = ['name']
 
     def __str__(self):
@@ -52,48 +52,48 @@ class Category(models.Model):
 
 class Product(models.Model):
     CONDITION_CHOICES = [
-        ('new', 'Nuevo'),
-        ('used', 'Usado'),
-        ('refurbished', 'Reacondicionado'),
+        ('new', 'Новый'),
+        ('used', 'Б/У'),
+        ('refurbished', 'Восстановленный'),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=200, verbose_name="Nombre del producto")
+    name = models.CharField(max_length=200, verbose_name="Название товара")
     slug = models.SlugField(max_length=200, unique=True, verbose_name="Slug")
     category = models.ForeignKey(
         Category, 
         on_delete=models.PROTECT, 
         related_name='products',
-        verbose_name="Categoría"
+        verbose_name="Категория"
     )
     price = models.DecimalField(
         max_digits=12, 
         decimal_places=2, 
-        verbose_name="Precio (UZS)"
+        verbose_name="Цена (UZS)"
     )
-    brand = models.CharField(max_length=100, verbose_name="Marca")
-    specs = models.JSONField(default=dict, verbose_name="Especificaciones")
-    description = models.TextField(blank=True, verbose_name="Descripción")
+    brand = models.CharField(max_length=100, verbose_name="Бренд")
+    specs = models.JSONField(default=dict, verbose_name="Характеристики")
+    description = models.TextField(blank=True, verbose_name="Описание")
     image = models.ImageField(
         upload_to='products/', 
         blank=True, 
         null=True,
-        verbose_name="Imagen del producto"
+        verbose_name="Изображение товара"
     )
-    stock = models.PositiveIntegerField(default=0, verbose_name="Stock")
-    is_active = models.BooleanField(default=True, verbose_name="Activo")
+    stock = models.PositiveIntegerField(default=0, verbose_name="Остаток на складе")
+    is_active = models.BooleanField(default=True, verbose_name="Активен")
     condition = models.CharField(
         max_length=20, 
         choices=CONDITION_CHOICES, 
         default='new',
-        verbose_name="Condición"
+        verbose_name="Состояние"
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "Producto"
-        verbose_name_plural = "Productos"
+        verbose_name = "Товар"
+        verbose_name_plural = "Товары"
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['name']),
@@ -126,51 +126,51 @@ class Product(models.Model):
 
 class Order(models.Model):
     STATUS_CHOICES = [
-        ('pending', 'Pendiente'),
-        ('waiting_for_payment', 'Esperando pago'),
-        ('checking', 'Verificando pago'),
-        ('confirmed', 'Confirmado'),
-        ('cancelled', 'Cancelado'),
+        ('pending', 'Ожидает'),
+        ('waiting_for_payment', 'Ожидает оплату'),
+        ('checking', 'Проверка оплаты'),
+        ('confirmed', 'Подтверждён'),
+        ('cancelled', 'Отменён'),
     ]
 
     phone_validator = RegexValidator(
         regex=r'^\+998\d{9}$',
-        message="El número de teléfono debe empezar con +998 y tener 12 dígitos"
+        message="Номер телефона должен начинаться с +998 и содержать 12 цифр"
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    customer_name = models.CharField(max_length=100, verbose_name="Nombre del cliente")
+    customer_name = models.CharField(max_length=100, verbose_name="Имя клиента")
     phone = models.CharField(
         max_length=13, 
         validators=[phone_validator],
-        verbose_name="Teléfono"
+        verbose_name="Телефон"
     )
     email = models.EmailField(blank=True, verbose_name="Email")
-    comment = models.TextField(blank=True, verbose_name="Comentarios")
-    items = models.JSONField(verbose_name="Items del pedido")
+    comment = models.TextField(blank=True, verbose_name="Комментарий")
+    items = models.JSONField(verbose_name="Товары в заказе")
     total_price = models.DecimalField(
         max_digits=12, 
         decimal_places=2, 
-        verbose_name="Precio total (UZS)"
+        verbose_name="Итого (UZS)"
     )
     status = models.CharField(
         max_length=20, 
         choices=STATUS_CHOICES, 
         default='pending',
-        verbose_name="Estado"
+        verbose_name="Статус"
     )
     receipt_image = models.ImageField(
         upload_to='receipts/', 
         blank=True, 
         null=True,
-        verbose_name="Imagen del recibo"
+        verbose_name="Чек оплаты"
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "Pedido"
-        verbose_name_plural = "Pedidos"
+        verbose_name = "Заказ"
+        verbose_name_plural = "Заказы"
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['status']),
@@ -179,7 +179,7 @@ class Order(models.Model):
         ]
 
     def __str__(self):
-        return f"Pedido {self.id} - {self.customer_name}"
+        return f"Заказ {self.id} - {self.customer_name}"
 
     def get_absolute_url(self):
         return f'/api/orders/{self.id}/'
@@ -213,7 +213,7 @@ class Order(models.Model):
         """Get formatted items summary for display"""
         summary = []
         for item in self.items:
-            product_name = item.get('name', 'Producto desconocido')
+            product_name = item.get('name', 'Неизвестный товар')
             quantity = item.get('quantity', 1)
             price = item.get('price', 0)
             summary.append(f"{product_name} x{quantity} - {price:,} UZS")

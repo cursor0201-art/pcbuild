@@ -16,10 +16,10 @@ class CategoryAdmin(admin.ModelAdmin):
     ordering = ['name']
     
     fieldsets = (
-        ('Basic Information', {
+        ('Основная информация', {
             'fields': ('name', 'slug', 'parent')
         }),
-        ('Timestamps', {
+        ('Даты', {
             'fields': ('created_at', 'updated_at', 'product_count_display'),
             'classes': ('collapse',)
         }),
@@ -27,31 +27,31 @@ class CategoryAdmin(admin.ModelAdmin):
     
     def product_count(self, obj):
         return obj.products.filter(is_active=True).count()
-    product_count.short_description = 'Active Products'
+    product_count.short_description = 'Активные товары'
     
     def product_count_display(self, obj):
         count = self.product_count(obj)
-        return f"{count} active products"
-    product_count_display.short_description = 'Product Count'
+        return f"{count} активных товаров"
+    product_count_display.short_description = 'Кол-во товаров'
     
     def is_parent(self, obj):
         return not obj.parent
     is_parent.boolean = True
-    is_parent.short_description = 'Is Parent'
+    is_parent.short_description = 'Родительская'
     
     def get_queryset(self, request):
         return super().get_queryset(request).prefetch_related('products', 'children')
 
 
 class ProductFilter(admin.SimpleListFilter):
-    title = 'Stock Status'
+    title = 'Наличие'
     parameter_name = 'stock_status'
     
     def lookups(self, request, model_admin):
         return [
-            ('in_stock', 'In Stock'),
-            ('out_of_stock', 'Out of Stock'),
-            ('low_stock', 'Low Stock (< 5)'),
+            ('in_stock', 'В наличии'),
+            ('out_of_stock', 'Нет в наличии'),
+            ('low_stock', 'Мало (< 5)'),
         ]
     
     def queryset(self, request, queryset):
@@ -82,19 +82,19 @@ class ProductAdmin(admin.ModelAdmin):
     ordering = ['-created_at']
     
     fieldsets = (
-        ('Basic Information', {
+        ('Основная информация', {
             'fields': ('name', 'slug', 'category', 'brand', 'condition')
         }),
-        ('Pricing & Stock', {
+        ('Цена и склад', {
             'fields': ('price', 'stock', 'is_active', 'formatted_price', 'stock_status')
         }),
-        ('Details', {
+        ('Детали', {
             'fields': ('description', 'specs')
         }),
-        ('Media', {
+        ('Изображение', {
             'fields': ('image', 'image_preview')
         }),
-        ('Timestamps', {
+        ('Даты', {
             'fields': ('created_at', 'updated_at'),
             'classes': ('collapse',)
         }),
@@ -106,25 +106,25 @@ class ProductAdmin(admin.ModelAdmin):
                 '<img src="{}" style="width: 50px; height: 50px; object-fit: cover;" />',
                 obj.image.url
             )
-        return "No image"
-    image_preview.short_description = 'Image Preview'
+        return "Нет изображения"
+    image_preview.short_description = 'Превью'
     
     def formatted_price(self, obj):
         if obj.price is None:
             return "0 UZS"
         return f"{obj.price:,.0f} UZS"
-    formatted_price.short_description = 'Formatted Price'
+    formatted_price.short_description = 'Цена'
     
     def stock_status(self, obj):
         if obj.stock is None:
-            return '<span style="color: gray;">No Stock Info</span>'
+            return '<span style="color: gray;">Нет данных</span>'
         elif obj.stock == 0:
-            return '<span style="color: red;">Out of Stock</span>'
+            return '<span style="color: red;">Нет в наличии</span>'
         elif obj.stock < 5:
-            return format_html('<span style="color: orange;">Low Stock ({})</span>', obj.stock)
+            return format_html('<span style="color: orange;">Мало ({})</span>', obj.stock)
         else:
-            return format_html('<span style="color: green;">In Stock ({})</span>', obj.stock)
-    stock_status.short_description = 'Stock Status'
+            return format_html('<span style="color: green;">В наличии ({})</span>', obj.stock)
+    stock_status.short_description = 'Статус склада'
     
     def get_queryset(self, request):
         return super().get_queryset(request).select_related('category')
@@ -133,30 +133,30 @@ class ProductAdmin(admin.ModelAdmin):
     
     def mark_as_active(self, request, queryset):
         queryset.update(is_active=True)
-        self.message_user(request, f"{queryset.count()} products marked as active.")
-    mark_as_active.short_description = "Mark selected products as active"
+        self.message_user(request, f"{queryset.count()} товаров активировано.")
+    mark_as_active.short_description = "Активировать выбранные товары"
     
     def mark_as_inactive(self, request, queryset):
         queryset.update(is_active=False)
-        self.message_user(request, f"{queryset.count()} products marked as inactive.")
-    mark_as_inactive.short_description = "Mark selected products as inactive"
+        self.message_user(request, f"{queryset.count()} товаров деактивировано.")
+    mark_as_inactive.short_description = "Деактивировать выбранные товары"
     
     def duplicate_product(self, request, queryset):
         for product in queryset:
             product.pk = None
-            product.name = f"{product.name} (Copy)"
+            product.name = f"{product.name} (Копия)"
             product.slug = f"{product.slug}-copy"
             product.save()
-        self.message_user(request, f"{queryset.count()} products duplicated.")
-    duplicate_product.short_description = "Duplicate selected products"
+        self.message_user(request, f"{queryset.count()} товаров скопировано.")
+    duplicate_product.short_description = "Дублировать выбранные товары"
 
 
 class OrderItemInline(admin.TabularInline):
     model = Order
     extra = 0
     can_delete = False
-    verbose_name = "Order Item"
-    verbose_name_plural = "Order Items"
+    verbose_name = "Товар в заказе"
+    verbose_name_plural = "Товары в заказе"
     
     fields = ('product_name', 'quantity', 'price', 'total_price')
     readonly_fields = ('product_name', 'quantity', 'price', 'total_price')
@@ -164,8 +164,8 @@ class OrderItemInline(admin.TabularInline):
     def product_name(self, obj):
         # Try to get from items JSON
         if hasattr(obj, 'items') and obj.items:
-            return obj.items[0].get('name', 'Unknown')
-        return "Unknown"
+            return obj.items[0].get('name', 'Неизвестно')
+        return "Неизвестно"
     
     def quantity(self, obj):
         if hasattr(obj, 'items') and obj.items:
@@ -188,13 +188,13 @@ class OrderItemInline(admin.TabularInline):
 def format_order_items(items):
     """Format order items for display"""
     if not items:
-        return "No items"
+        return "Нет товаров"
     
     html = "<table style='width: 100%; border: 1px solid #ddd;'>"
-    html += "<tr style='background: #f5f5f5;'><th>Product</th><th>Qty</th><th>Price</th><th>Total</th></tr>"
+    html += "<tr style='background: #f5f5f5;'><th>Товар</th><th>Кол-во</th><th>Цена</th><th>Итого</th></tr>"
     
     for item in items:
-        name = item.get('name', 'Unknown')
+        name = item.get('name', 'Неизвестно')
         quantity = item.get('quantity', 1)
         price = item.get('price', 0)
         total = price * quantity
@@ -229,16 +229,16 @@ class OrderAdmin(admin.ModelAdmin):
     ordering = ['-created_at']
     
     fieldsets = (
-        ('Order Information', {
+        ('Информация о заказе', {
             'fields': ('id', 'customer_name', 'phone', 'email', 'status')
         }),
-        ('Order Details', {
+        ('Детали заказа', {
             'fields': ('items_display', 'formatted_total', 'comment')
         }),
-        ('Receipt', {
+        ('Чек оплаты', {
             'fields': ('receipt_image', 'receipt_image_preview')
         }),
-        ('Timestamps', {
+        ('Даты', {
             'fields': ('created_at', 'updated_at'),
             'classes': ('collapse',)
         }),
@@ -248,15 +248,15 @@ class OrderAdmin(admin.ModelAdmin):
         if obj.items:
             return len(obj.items)
         return 0
-    items_count.short_description = 'Items Count'
+    items_count.short_description = 'Кол-во товаров'
     
     def items_display(self, obj):
         return format_order_items(obj.items)
-    items_display.short_description = 'Order Items'
+    items_display.short_description = 'Товары в заказе'
     
     def formatted_total(self, obj):
         return f"{obj.total_price:,.0f} UZS"
-    formatted_total.short_description = 'Total Price'
+    formatted_total.short_description = 'Итого'
     
     def receipt_image_preview(self, obj):
         if obj.receipt_image:
@@ -265,8 +265,8 @@ class OrderAdmin(admin.ModelAdmin):
                 obj.receipt_image.url,
                 obj.receipt_image.url
             )
-        return "No receipt"
-    receipt_image_preview.short_description = 'Receipt Preview'
+        return "Нет чека"
+    receipt_image_preview.short_description = 'Превью чека'
     
     actions = ['confirm_orders', 'cancel_orders']
     
@@ -276,8 +276,8 @@ class OrderAdmin(admin.ModelAdmin):
             if order.status in ['pending', 'waiting_for_payment', 'checking']:
                 order.confirm()
                 confirmed += 1
-        self.message_user(request, f"{confirmed} orders confirmed.")
-    confirm_orders.short_description = "Confirm selected orders"
+        self.message_user(request, f"{confirmed} заказов подтверждено.")
+    confirm_orders.short_description = "Подтвердить выбранные заказы"
     
     def cancel_orders(self, request, queryset):
         cancelled = 0
@@ -293,8 +293,8 @@ class OrderAdmin(admin.ModelAdmin):
                 
                 order.cancel()
                 cancelled += 1
-        self.message_user(request, f"{cancelled} orders cancelled (stock restored).")
-    cancel_orders.short_description = "Cancel selected orders"
+        self.message_user(request, f"{cancelled} заказов отменено (склад восстановлен).")
+    cancel_orders.short_description = "Отменить выбранные заказы"
     
     def get_actions(self, request):
         actions = super().get_actions(request)
@@ -308,6 +308,6 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 # Customize admin site
-admin.site.site_header = "GameZoneBuild Administration"
-admin.site.site_title = "GameZoneBuild Admin"
-admin.site.index_title = "Welcome to GameZoneBuild Admin Panel"
+admin.site.site_header = "GameZoneBuild — Панель управления"
+admin.site.site_title = "GameZoneBuild Админ"
+admin.site.index_title = "Добро пожаловать в панель управления"
