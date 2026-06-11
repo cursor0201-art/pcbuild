@@ -141,8 +141,8 @@ export function Landing() {
                     <div className={heroFloatCardClass}>
                       <div className="relative h-14 w-16 shrink-0 sm:h-16 sm:w-20 lg:h-20 lg:w-24">
                         <img
-                          src="/rtx5090_final.jpg?v=2"
-                          className="relative h-full w-full object-contain mix-blend-multiply brightness-[1.1] contrast-[1.1]"
+                          src="/rtx5090_clean.png"
+                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.2)]"
                           alt="RTX 5090"
                         />
                       </div>
@@ -159,8 +159,8 @@ export function Landing() {
                     <div className={heroFloatCardClass}>
                       <div className="relative h-14 w-16 shrink-0 sm:h-16 sm:w-20 lg:h-20 lg:w-24">
                         <img
-                          src="/ryzen7_final.jpg?v=2"
-                          className="relative h-full w-full object-contain mix-blend-multiply brightness-[1.1] contrast-[1.1]"
+                          src="/ryzen9000_clean.png"
+                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.2)]"
                           alt="Ryzen 9800X3D"
                         />
                       </div>
