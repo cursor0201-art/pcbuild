@@ -308,7 +308,20 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>('ru');
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('pcbuild_lang');
+      if (saved === 'ru' || saved === 'uz') return saved as Language;
+    }
+    return 'ru';
+  });
+
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('pcbuild_lang', lang);
+    }
+  };
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations.ru] || key;
