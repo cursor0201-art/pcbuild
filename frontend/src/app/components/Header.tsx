@@ -70,7 +70,7 @@ export function Header() {
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
-          <div className="font-black text-2xl uppercase leading-none tracking-tighter text-white">GAMEZONE</div>
+          <div className="font-black text-xl uppercase leading-none tracking-tighter text-white"><span className="text-blue-500">G</span>AMEZONE</div>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -155,7 +155,7 @@ export function Header() {
                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                     </svg>
                   </div>
-                  <div className="text-sm font-bold uppercase leading-none tracking-tighter text-white">GAMEZONE</div>
+                  <div className="text-sm font-bold uppercase leading-none tracking-tighter text-white"><span className="text-blue-500">G</span>AMEZONE</div>
                 </Link>
                 <button
                   type="button"

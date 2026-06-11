@@ -57,12 +57,12 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617]">
       {/* Hero Section */}
-      <section className="relative h-auto flex items-start sm:items-center pt-[320px] pb-32 sm:py-16 lg:py-0 overflow-visible lg:min-h-[calc(100vh-5rem)]">
+      <section className="relative flex items-center py-12 sm:py-16 lg:py-0 overflow-visible lg:min-h-[calc(100vh-5rem)]">
         <div className="pointer-events-none absolute top-1/4 left-1/4 h-[300px] w-[300px] rounded-full bg-blue-600/10 blur-[80px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
 
         <div className="relative mx-auto flex w-full max-w-[1800px] flex-1 flex-col px-6 sm:px-10 lg:px-16">
-          <div className="grid w-full flex-1 items-center gap-10 lg:grid-cols-2 lg:gap-20 xl:gap-32">
+          <div className="grid w-full flex-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-20">
             {/* Left: Text Content */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -76,14 +76,14 @@ export function Landing() {
                 {t('hero.next_gen')}
               </div>
 
-              <h1 className="flex flex-col lg:mt-0 font-outfit font-black text-4xl leading-[1.05] uppercase tracking-tighter sm:text-6xl lg:text-7xl xl:text-8xl">
+              <h1 className="flex flex-col font-outfit font-black text-3xl leading-[1.0] uppercase tracking-tighter sm:text-5xl lg:text-6xl xl:text-7xl">
                 <span className="text-white">{t('hero.title_part1')}</span>
                 <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]">{t('hero.title_part2')}</span>
               </h1>
 
-              <p className="text-base sm:text-lg lg:text-xl text-slate-400 max-w-2xl leading-relaxed">
+              <p className="text-sm sm:text-base lg:text-lg text-slate-400 max-w-xl leading-relaxed">
                 {t('hero.description')}
-                <span className="block mt-3 text-blue-400 font-black text-lg sm:text-xl lg:text-2xl tracking-tight">{t('hero.tagline_extra')}</span>
+                <span className="block mt-2 text-blue-400 font-black text-base sm:text-lg lg:text-xl tracking-tight">{t('hero.tagline_extra')}</span>
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
