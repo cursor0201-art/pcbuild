@@ -76,7 +76,7 @@ export function Landing() {
                 {t('hero.next_gen')}
               </div>
 
-              <h1 className="flex flex-col font-outfit font-black text-3xl leading-[1.0] uppercase tracking-tighter sm:text-5xl lg:text-6xl xl:text-7xl">
+              <h1 className="flex flex-col font-outfit font-black text-2xl leading-[1.0] uppercase tracking-tighter sm:text-4xl lg:text-5xl xl:text-6xl">
                 <span className="text-white">{t('hero.title_part1')}</span>
                 <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]">{t('hero.title_part2')}</span>
               </h1>
@@ -135,7 +135,7 @@ export function Landing() {
                   initial={{ opacity: 0, x: 28 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5, duration: 0.7 }}
-                  className="flex w-[11rem] shrink-0 flex-col items-start gap-3 sm:w-[13rem] sm:gap-4 lg:w-[17rem] lg:gap-5"
+                  className="flex w-[11rem] shrink-0 flex-col items-start gap-3 sm:w-[13rem] sm:gap-4 lg:w-[16rem] lg:gap-5"
                 >
                   <motion.div whileHover={{ scale: 1.03 }} className="w-full">
                     <div className={heroFloatCardClass}>
@@ -147,8 +147,8 @@ export function Landing() {
                         />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="text-sm font-black uppercase tracking-tight text-white sm:text-base lg:text-lg">RTX 5090</div>
-                        <div className="text-[10px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-xs lg:text-xs mt-1">
+                        <div className="text-sm font-black uppercase tracking-tight text-white sm:text-base lg:text-base">RTX 5090</div>
+                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[10px] lg:text-[10px] mt-1 line-clamp-2">
                           {t('hero.next_gen')}
                         </div>
                       </div>
@@ -165,10 +165,10 @@ export function Landing() {
                         />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="text-xs font-black uppercase leading-tight tracking-tight text-white sm:text-sm lg:text-base">
+                        <div className="text-xs font-black uppercase leading-tight tracking-tight text-white sm:text-sm lg:text-sm">
                           RYZEN 9800X3D
                         </div>
-                        <div className="text-[10px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-xs lg:text-xs mt-1">
+                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[10px] lg:text-[10px] mt-1 line-clamp-2">
                           {t('hero.card_ryzen_sub')}
                         </div>
                       </div>
@@ -212,7 +212,7 @@ export function Landing() {
         <div className="pointer-events-none absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-blue-600/5 blur-[100px]" />
         
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12 relative z-10">
-          <h2 className="mb-16 font-black text-4xl md:text-6xl uppercase tracking-tighter text-white">
+          <h2 className="mb-10 font-black text-2xl md:text-4xl uppercase tracking-tighter text-white">
             {t('features.title')}
           </h2>
           
@@ -273,7 +273,7 @@ export function Landing() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <div className="flex items-center justify-center gap-6 mb-16">
             <div className="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-blue-500/50" />
-            <h2 className="font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter text-white">
+            <h2 className="font-black text-2xl sm:text-3xl md:text-4xl uppercase tracking-tighter text-white">
               {t('category.title')}
             </h2>
             <div className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-blue-500/50" />
@@ -330,7 +330,7 @@ export function Landing() {
       {/* SEO Text Section */}
       <section className="bg-[#050508] py-24 sm:py-32 border-t border-white/5">
         <div className="mx-auto max-w-[900px] px-6 lg:px-12 text-slate-400 space-y-8">
-          <h2 className="mb-10 font-black text-3xl md:text-5xl uppercase tracking-tighter text-white leading-tight">
+          <h2 className="mb-8 font-black text-2xl md:text-4xl uppercase tracking-tighter text-white leading-tight">
             {t('seo.title')}
           </h2>
           <div className="space-y-6 sm:space-y-8 text-base sm:text-lg leading-[1.8] sm:leading-[1.9]">
