@@ -126,7 +126,7 @@ export function Landing() {
                   />
                   <img
                     src="/hero_composite.png"
-                    className="w-full max-w-[320px] sm:max-w-xl lg:max-w-3xl xl:max-w-5xl object-contain drop-shadow-[0_0_80px_rgba(59,130,246,0.2)] animate-float"
+                    className="w-full max-w-[320px] sm:max-w-xl lg:max-w-3xl xl:max-w-5xl object-contain mix-blend-lighten brightness-110 animate-float"
                     alt="Premium Hardware"
                   />
                 </div>
