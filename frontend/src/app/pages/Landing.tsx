@@ -67,26 +67,26 @@ export function Landing() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="relative z-10 order-1 flex flex-col items-start gap-6 pt-16 lg:order-1 lg:max-w-3xl lg:pt-0"
+              className="relative z-10 order-1 flex flex-col items-start gap-4 pt-16 lg:order-1 lg:max-w-3xl lg:pt-0"
             >
               {/* Spacer for mobile to avoid header overlap */}
-              <div className="h-32 lg:hidden" />
+              <div className="h-20 lg:hidden" />
               <div className="flex items-center gap-3 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 sm:text-xs">
                 <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
                 {t('hero.next_gen')}
               </div>
 
-              <h1 className="flex flex-col mt-64 lg:mt-0 font-outfit font-black text-4xl leading-[1.1] uppercase tracking-tighter sm:text-7xl lg:text-8xl xl:text-9xl">
+              <h1 className="flex flex-col lg:mt-0 font-outfit font-black text-4xl leading-[1.05] uppercase tracking-tighter sm:text-6xl lg:text-7xl xl:text-8xl">
                 <span className="text-white">{t('hero.title_part1')}</span>
                 <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]">{t('hero.title_part2')}</span>
               </h1>
 
-              <p className="mb-8 text-lg sm:text-xl lg:text-2xl text-slate-400 max-w-2xl leading-relaxed">
+              <p className="text-base sm:text-lg lg:text-xl text-slate-400 max-w-2xl leading-relaxed">
                 {t('hero.description')}
-                <span className="block mt-6 text-blue-400 font-black text-xl sm:text-2xl lg:text-3xl tracking-tight">{t('hero.tagline_extra')}</span>
+                <span className="block mt-3 text-blue-400 font-black text-lg sm:text-xl lg:text-2xl tracking-tight">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6 w-full">
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
                 <button
                   type="button"
                   onClick={() => navigate('/builder')}
@@ -135,40 +135,40 @@ export function Landing() {
                   initial={{ opacity: 0, x: 28 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5, duration: 0.7 }}
-                  className="flex w-[9.25rem] shrink-0 flex-col items-start gap-3 sm:w-[11rem] sm:gap-4 lg:w-[14.5rem] lg:gap-4"
+                  className="flex w-[11rem] shrink-0 flex-col items-start gap-3 sm:w-[13rem] sm:gap-4 lg:w-[17rem] lg:gap-5"
                 >
-                  <motion.div whileHover={{ scale: 1.02 }} className="w-full">
+                  <motion.div whileHover={{ scale: 1.03 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="relative h-14 w-16 shrink-0 sm:h-16 sm:w-20 lg:h-20 lg:w-24">
+                      <div className="relative h-20 w-24 shrink-0 sm:h-24 sm:w-28 lg:h-28 lg:w-32">
                         <img
                           src="/rtx5090_clean.png"
-                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.2)]"
+                          className="relative h-full w-full object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]"
                           alt="RTX 5090"
                         />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="text-xs font-black uppercase tracking-tight text-white sm:text-sm lg:text-base">RTX 5090</div>
-                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[9px] lg:text-[10px]">
+                        <div className="text-sm font-black uppercase tracking-tight text-white sm:text-base lg:text-lg">RTX 5090</div>
+                        <div className="text-[10px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-xs lg:text-xs mt-1">
                           {t('hero.next_gen')}
                         </div>
                       </div>
                     </div>
                   </motion.div>
 
-                  <motion.div whileHover={{ scale: 1.02 }} className="w-full">
+                  <motion.div whileHover={{ scale: 1.03 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="relative h-14 w-16 shrink-0 sm:h-16 sm:w-20 lg:h-20 lg:w-24">
+                      <div className="relative h-20 w-24 shrink-0 sm:h-24 sm:w-28 lg:h-28 lg:w-32">
                         <img
                           src="/ryzen9000_clean.png"
-                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.2)]"
+                          className="relative h-full w-full object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]"
                           alt="Ryzen 9800X3D"
                         />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="text-[10px] font-black uppercase leading-tight tracking-tight text-white sm:text-xs lg:text-sm">
+                        <div className="text-xs font-black uppercase leading-tight tracking-tight text-white sm:text-sm lg:text-base">
                           RYZEN 9800X3D
                         </div>
-                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[9px] lg:text-[10px]">
+                        <div className="text-[10px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-xs lg:text-xs mt-1">
                           {t('hero.card_ryzen_sub')}
                         </div>
                       </div>
