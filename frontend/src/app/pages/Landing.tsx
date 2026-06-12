@@ -73,7 +73,7 @@ export function Landing() {
                 {t('hero.next_gen')}
               </div>
 
-              <h1 className="flex flex-col font-outfit font-black text-4xl sm:text-5xl lg:text-[4.5rem] leading-[0.95] uppercase tracking-tighter w-full">
+              <h1 className="flex flex-col font-outfit font-black text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-[4rem] leading-[1.0] uppercase tracking-tighter w-full">
                 <span className="text-white drop-shadow-md">{t('hero.title_part1')}</span>
                 <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.5)] mt-1">{t('hero.title_part2')}</span>
               </h1>
@@ -132,10 +132,10 @@ export function Landing() {
                 >
                   <motion.div whileHover={{ scale: 1.02 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-sky-400/30 bg-[#060b18] shadow-[inset_0_0_15px_rgba(56,189,248,0.2)]">
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-sky-400/30 bg-[#060b18] shadow-[inset_0_0_15px_rgba(56,189,248,0.2)] p-2">
                         <img
-                          src="/rtx5090_clean.png"
-                          className="h-10 w-10 object-contain drop-shadow-[0_0_10px_rgba(56,189,248,0.4)]"
+                          src="/gpu.png"
+                          className="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(56,189,248,0.4)]"
                           alt="RTX 5090"
                         />
                       </div>
@@ -151,10 +151,10 @@ export function Landing() {
 
                   <motion.div whileHover={{ scale: 1.02 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-sky-400/30 bg-[#060b18] shadow-[inset_0_0_15px_rgba(56,189,248,0.2)]">
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-sky-400/30 bg-[#060b18] shadow-[inset_0_0_15px_rgba(56,189,248,0.2)] p-2">
                         <img
-                          src="/ryzen9000_clean.png"
-                          className="h-10 w-10 object-contain drop-shadow-[0_0_10px_rgba(56,189,248,0.4)]"
+                          src="/cpu.png"
+                          className="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(56,189,248,0.4)]"
                           alt="Ryzen 9800X3D"
                         />
                       </div>
