@@ -202,10 +202,11 @@ export function Landing() {
 
           {/* Integrated Shop By Category Panel */}
           <div className="relative z-0 mx-auto mt-24 w-full max-w-[1200px] rounded-3xl border border-sky-500/20 bg-[#060b18]/80 backdrop-blur-xl p-6 sm:p-8 shadow-[0_0_50px_rgba(56,189,248,0.1)] mb-12">
-            <div className="text-center mb-10">
-              <h2 className="text-xl sm:text-2xl font-black uppercase tracking-widest text-white drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+            <div className="text-center mb-12 mt-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-[0.15em] text-white drop-shadow-[0_0_20px_rgba(56,189,248,0.4)]">
                 SHOP BY <span className="text-sky-400">CATEGORY</span>
               </h2>
+              <div className="mx-auto mt-4 h-1.5 w-24 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 shadow-[0_0_15px_rgba(56,189,248,0.6)]" />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -224,14 +225,14 @@ export function Landing() {
                       key={category.id}
                       whileHover={{ scale: 1.02 }}
                       onClick={() => navigate('/builder')}
-                      className="relative flex flex-col p-5 rounded-2xl bg-gradient-to-br from-[#0a101e] to-[#040812] border border-sky-500/20 shadow-[inset_0_0_15px_rgba(59,130,246,0.05)] cursor-pointer hover:border-sky-400/50 transition-all overflow-hidden h-52 group"
+                      className="relative flex flex-col p-6 rounded-2xl bg-gradient-to-br from-[#0a101e] to-[#040812] border border-sky-500/20 shadow-[inset_0_0_15px_rgba(59,130,246,0.05)] cursor-pointer hover:border-sky-400/50 transition-all overflow-hidden h-56 group"
                     >
-                      <div className="space-y-1.5 z-10 relative">
-                        <h3 className="text-base font-black uppercase tracking-wider text-white">{category.name}</h3>
-                        <p className="text-[11px] text-slate-300 font-semibold tracking-wide pr-8">{fallback.sub}</p>
+                      <div className="space-y-2 z-10 relative">
+                        <h3 className="text-lg sm:text-xl font-black uppercase tracking-wider text-white group-hover:text-sky-400 transition-colors">{category.name}</h3>
+                        <p className="text-xs sm:text-sm text-slate-300 font-semibold tracking-wide pr-8">{fallback.sub}</p>
                       </div>
 
-                      <div className="absolute top-5 right-5 h-6 w-6 rounded-full border border-sky-500/30 bg-sky-500/10 flex items-center justify-center group-hover:bg-sky-500 group-hover:border-sky-400 transition-colors z-10">
+                      <div className="absolute top-6 right-6 h-6 w-6 rounded-full border border-sky-500/30 bg-sky-500/10 flex items-center justify-center group-hover:bg-sky-500 group-hover:border-sky-400 transition-colors z-10">
                          <ArrowRight className="h-3 w-3 text-sky-400 group-hover:text-white" />
                       </div>
 
@@ -239,10 +240,10 @@ export function Landing() {
                          <img src={categoryImg} alt={category.name} className="h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]" />
                       </div>
 
-                      <div className="absolute bottom-5 left-5 z-10">
-                         <div className="text-[9px] text-slate-400 uppercase font-semibold tracking-widest">{t('category.starting') || 'STARTING FROM'}</div>
-                         <div className="text-lg font-black text-sky-400 mt-0.5">
-                           {minPrice ? <>{formatPrice(minPrice)} <span className="text-xs text-sky-400/70">{t('currency')}</span></> : '---'}
+                      <div className="absolute bottom-6 left-6 z-10">
+                         <div className="text-[10px] text-slate-400 uppercase font-bold tracking-widest">{t('category.starting') || 'STARTING FROM'}</div>
+                         <div className="text-xl font-black text-sky-400 mt-1">
+                           {minPrice ? <>{formatPrice(minPrice)} <span className="text-xs sm:text-sm text-sky-400/70">{t('currency')}</span></> : '---'}
                          </div>
                       </div>
                     </motion.div>
