@@ -78,9 +78,9 @@ export function Landing() {
                 <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.5)] mt-1">{t('hero.title_part2')}</span>
               </h1>
 
-              <p className="text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed">
                 {t('hero.description')}
-                <span className="block mt-2 text-sky-400 font-bold">{t('hero.tagline_extra')}</span>
+                <span className="block mt-2 text-sky-400 font-bold text-lg">{t('hero.tagline_extra')}</span>
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full mt-2">
@@ -140,8 +140,8 @@ export function Landing() {
                         />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="text-sm font-black uppercase text-white tracking-wide">RTX 5090</div>
-                        <div className="text-[9px] text-slate-400 leading-tight mt-0.5 uppercase font-medium">Performance Beast<br/>24GB GDDR7</div>
+                        <div className="text-base font-black uppercase text-white tracking-wide">RTX 5090</div>
+                        <div className="text-[11px] text-slate-300 leading-tight mt-1 uppercase font-semibold">Performance Beast<br/>24GB GDDR7</div>
                       </div>
                       <div className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 group-hover:bg-sky-500/30 transition-colors">
                         <ArrowRight className="h-3 w-3 text-sky-400" />
@@ -159,8 +159,8 @@ export function Landing() {
                         />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="text-sm font-black uppercase text-white tracking-wide">RYZEN 9800X3D</div>
-                        <div className="text-[9px] text-slate-400 leading-tight mt-0.5 uppercase font-medium">Ultimate Gaming CPU<br/>5.2GHz Boost</div>
+                        <div className="text-base font-black uppercase text-white tracking-wide">RYZEN 9800X3D</div>
+                        <div className="text-[11px] text-slate-300 leading-tight mt-1 uppercase font-semibold">Ultimate Gaming CPU<br/>5.2GHz Boost</div>
                       </div>
                       <div className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 group-hover:bg-sky-500/30 transition-colors">
                         <ArrowRight className="h-3 w-3 text-sky-400" />
@@ -172,7 +172,7 @@ export function Landing() {
             </div>
           </div>
 
-          <div className="relative z-0 mx-auto mt-12 w-full max-w-[1000px] rounded-[1.5rem] border border-sky-500/30 bg-[#060b18]/90 backdrop-blur-md px-4 py-2 sm:px-8 sm:py-4 shadow-[0_0_40px_rgba(56,189,248,0.1)]">
+          <div className="relative z-0 mx-auto mt-12 w-full max-w-[1100px] rounded-[1.5rem] border border-sky-500/30 bg-[#060b18]/90 backdrop-blur-md px-4 py-3 sm:px-8 sm:py-5 shadow-[0_0_40px_rgba(56,189,248,0.1)]">
             <div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-sky-500/20">
               {[
                 { icon: Zap, label: 'FREE SHIPPING', sub: 'On all orders over $99' },
@@ -184,10 +184,10 @@ export function Landing() {
                     <stat.icon className="h-5 w-5 text-sky-400" strokeWidth={2} />
                   </div>
                   <div className="flex flex-col items-start text-left">
-                    <div className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-white leading-none mb-1.5">
+                    <div className="text-[12px] sm:text-sm font-black uppercase tracking-widest text-white leading-none mb-1.5">
                       {stat.label}
                     </div>
-                    <div className="text-[9px] sm:text-[10px] font-medium leading-none text-slate-400">
+                    <div className="text-[10px] sm:text-[11px] font-semibold leading-none text-slate-300">
                       {stat.sub}
                     </div>
                   </div>
@@ -221,25 +221,25 @@ export function Landing() {
                       key={category.id}
                       whileHover={{ scale: 1.02 }}
                       onClick={() => navigate('/builder')}
-                      className="relative flex flex-col p-4 rounded-2xl bg-gradient-to-br from-[#0a101e] to-[#040812] border border-sky-500/20 shadow-[inset_0_0_15px_rgba(59,130,246,0.05)] cursor-pointer hover:border-sky-400/50 transition-all overflow-hidden h-48 group"
+                      className="relative flex flex-col p-5 rounded-2xl bg-gradient-to-br from-[#0a101e] to-[#040812] border border-sky-500/20 shadow-[inset_0_0_15px_rgba(59,130,246,0.05)] cursor-pointer hover:border-sky-400/50 transition-all overflow-hidden h-52 group"
                     >
-                      <div className="space-y-1 z-10 relative">
-                        <h3 className="text-sm font-black uppercase tracking-wider text-white">{category.name}</h3>
-                        <p className="text-[9px] text-slate-400 font-medium tracking-wide pr-8">{fallback.sub}</p>
+                      <div className="space-y-1.5 z-10 relative">
+                        <h3 className="text-base font-black uppercase tracking-wider text-white">{category.name}</h3>
+                        <p className="text-[11px] text-slate-300 font-semibold tracking-wide pr-8">{fallback.sub}</p>
                       </div>
 
-                      <div className="absolute top-4 right-4 h-6 w-6 rounded-full border border-sky-500/30 bg-sky-500/10 flex items-center justify-center group-hover:bg-sky-500 group-hover:border-sky-400 transition-colors z-10">
+                      <div className="absolute top-5 right-5 h-6 w-6 rounded-full border border-sky-500/30 bg-sky-500/10 flex items-center justify-center group-hover:bg-sky-500 group-hover:border-sky-400 transition-colors z-10">
                          <ArrowRight className="h-3 w-3 text-sky-400 group-hover:text-white" />
                       </div>
 
-                      <div className="absolute bottom-[-10%] right-[-10%] h-32 w-32 flex items-center justify-center z-0 opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-500">
+                      <div className="absolute bottom-[-5%] right-[-5%] h-36 w-36 flex items-center justify-center z-0 opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-500">
                          <img src={categoryImg} alt={category.name} className="h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]" />
                       </div>
 
-                      <div className="absolute bottom-4 left-4 z-10">
-                         <div className="text-[8px] text-slate-500 uppercase font-medium tracking-widest">{t('category.starting') || 'STARTING FROM'}</div>
-                         <div className="text-base font-bold text-sky-400">
-                           {minPrice ? <>{formatPrice(minPrice)} <span className="text-[8px] text-sky-400/70">{t('currency')}</span></> : '---'}
+                      <div className="absolute bottom-5 left-5 z-10">
+                         <div className="text-[9px] text-slate-400 uppercase font-semibold tracking-widest">{t('category.starting') || 'STARTING FROM'}</div>
+                         <div className="text-lg font-black text-sky-400 mt-0.5">
+                           {minPrice ? <>{formatPrice(minPrice)} <span className="text-xs text-sky-400/70">{t('currency')}</span></> : '---'}
                          </div>
                       </div>
                     </motion.div>
