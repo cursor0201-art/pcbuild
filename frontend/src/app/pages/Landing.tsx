@@ -139,10 +139,10 @@ export function Landing() {
                 >
                   <motion.div whileHover={{ scale: 1.03 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="relative h-16 w-20 shrink-0 sm:h-20 sm:w-24 lg:h-24 lg:w-28 flex items-center justify-center rounded-xl border border-sky-500/20 bg-sky-500/5 shadow-[inset_0_0_15px_rgba(56,189,248,0.1)] overflow-hidden">
+                      <div className="relative h-20 w-24 shrink-0 sm:h-24 sm:w-28 lg:h-28 lg:w-32 flex items-center justify-center">
                         <img
                           src="/rtx5090_clean.png"
-                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)] mix-blend-lighten"
+                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]"
                           alt="RTX 5090"
                         />
                       </div>
@@ -160,10 +160,10 @@ export function Landing() {
 
                   <motion.div whileHover={{ scale: 1.03 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="relative h-16 w-20 shrink-0 sm:h-20 sm:w-24 lg:h-24 lg:w-28 flex items-center justify-center rounded-xl border border-sky-500/20 bg-sky-500/5 shadow-[inset_0_0_15px_rgba(56,189,248,0.1)] overflow-hidden">
+                      <div className="relative h-20 w-24 shrink-0 sm:h-24 sm:w-28 lg:h-28 lg:w-32 flex items-center justify-center">
                         <img
                           src="/ryzen9000_clean.png"
-                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)] mix-blend-lighten"
+                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]"
                           alt="Ryzen 9800X3D"
                         />
                       </div>
@@ -186,8 +186,8 @@ export function Landing() {
           </div>
 
           {/* Feature strip — без лишних слоёв поверх иконок */}
-          <div className="relative z-0 mx-auto mt-10 w-full max-w-[1000px] border border-sky-500/40 bg-[#020617]/50 backdrop-blur-xl rounded-[2rem] sm:rounded-full p-2 sm:p-3 shadow-[0_0_30px_rgba(56,189,248,0.1),inset_0_0_20px_rgba(56,189,248,0.05)]">
-            <div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-sky-500/20">
+          <div className="relative z-0 mx-auto mt-10 w-full max-w-[1000px] border border-sky-400/50 bg-[#020617]/70 backdrop-blur-xl rounded-[2rem] sm:rounded-full p-2 sm:p-3 shadow-[0_0_30px_rgba(56,189,248,0.15),inset_0_0_20px_rgba(56,189,248,0.1)]">
+            <div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-sky-400/30">
               {[
                 { icon: Zap, label: 'FREE SHIPPING', sub: 'On all orders over $99' },
                 { icon: Shield, label: '2 YEARS WARRANTY', sub: 'Premium quality assured' },
