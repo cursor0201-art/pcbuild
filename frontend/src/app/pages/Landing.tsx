@@ -65,12 +65,12 @@ export function Landing() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-[#030712] to-[#030712]" />
 
         <div className="relative mx-auto flex w-full max-w-[1800px] flex-1 flex-col px-6 sm:px-10 lg:px-16">
-          <div className="grid w-full flex-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-20">
+          <div className="grid w-full flex-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-20 pt-24 lg:pt-28">
             {/* Left: Text Content */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="relative z-10 order-1 flex flex-col items-start gap-5 pt-16 lg:order-1 lg:max-w-2xl lg:pt-0"
+              className="relative z-10 order-1 flex flex-col items-start gap-5 lg:order-1 lg:max-w-2xl"
             >
               <div className="flex items-center gap-2 rounded-full border border-sky-500/30 bg-[#0a101e] px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.15)]">
                 <div className="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,1)]" />
