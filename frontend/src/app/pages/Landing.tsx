@@ -8,13 +8,13 @@ import { apiService, Category, formatPrice } from '../services/api';
 
 /** Hero side cards — тёмный glass (переменные в theme.css) */
 const heroFloatCardClass =
-  'relative flex w-full items-center gap-4 overflow-hidden rounded-[1.25rem] border border-sky-400/50 bg-[#020617]/60 p-3 sm:p-4 shadow-[0_0_20px_rgba(56,189,248,0.15),inset_0_0_15px_rgba(56,189,248,0.1)] backdrop-blur-md hover:border-sky-400/80 transition-all';
+  'relative flex w-full items-center gap-4 overflow-hidden rounded-xl border border-sky-400/40 bg-[#0a101e]/80 p-3 sm:p-4 shadow-[0_0_30px_rgba(56,189,248,0.1)] backdrop-blur-md transition-all hover:border-sky-400/70 hover:shadow-[0_0_40px_rgba(56,189,248,0.2)] group';
 
 const heroCtaPrimaryClass =
-  'group inline-flex h-12 sm:h-14 lg:h-16 shrink-0 items-center justify-center gap-2 rounded-xl border-0 bg-blue-600 px-8 sm:px-10 lg:px-12 text-sm sm:text-base lg:text-lg font-black uppercase tracking-wide text-white shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all hover:bg-blue-500 hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] active:scale-[0.98]';
+  'group inline-flex h-12 sm:h-14 shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-600 px-8 text-sm sm:text-base font-black uppercase tracking-wide text-white shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all hover:bg-blue-500 hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] active:scale-[0.98]';
 
 const heroCtaSecondaryClass =
-  'group inline-flex h-12 sm:h-14 lg:h-16 shrink-0 items-center justify-center gap-2 rounded-xl border border-white/20 bg-transparent px-8 sm:px-10 lg:px-12 text-sm sm:text-base lg:text-lg font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-white/40 hover:bg-white/5 active:scale-[0.98]';
+  'group inline-flex h-12 sm:h-14 shrink-0 items-center justify-center gap-2 rounded-xl border border-sky-400/30 bg-transparent px-8 text-sm sm:text-base font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-sky-400/60 hover:bg-sky-500/10 active:scale-[0.98]';
 
 export function Landing() {
   const { t } = useLanguage();
@@ -57,9 +57,8 @@ export function Landing() {
   return (
     <div className="min-h-screen bg-[#020617]">
       {/* Hero Section */}
-      <section className="relative flex items-center py-12 sm:py-16 lg:py-0 overflow-visible lg:min-h-[calc(100vh-5rem)]">
-        <div className="pointer-events-none absolute top-1/4 left-1/4 h-[300px] w-[300px] rounded-full bg-blue-600/10 blur-[80px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5" />
+      <section className="relative flex items-center py-12 sm:py-16 lg:py-0 overflow-visible lg:min-h-[calc(100vh-4rem)] bg-[#030712]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-[#030712] to-[#030712]" />
 
         <div className="relative mx-auto flex w-full max-w-[1800px] flex-1 flex-col px-6 sm:px-10 lg:px-16">
           <div className="grid w-full flex-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-20">
@@ -67,33 +66,31 @@ export function Landing() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="relative z-10 order-1 flex flex-col items-start gap-4 pt-16 lg:order-1 lg:max-w-3xl lg:pt-0"
+              className="relative z-10 order-1 flex flex-col items-start gap-5 pt-16 lg:order-1 lg:max-w-2xl lg:pt-0"
             >
-              {/* Spacer for mobile to avoid header overlap */}
-              <div className="h-20 lg:hidden" />
-              <div className="flex items-center gap-2 rounded-full border border-blue-500/30 bg-[#0b101e] px-3 py-1.5 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-blue-400">
-                <div className="h-1.5 w-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,1)]" />
+              <div className="flex items-center gap-2 rounded-full border border-sky-500/30 bg-[#0a101e] px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.15)]">
+                <div className="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,1)]" />
                 {t('hero.next_gen')}
               </div>
 
-              <h1 className="flex flex-col font-outfit font-black text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[0.9] uppercase tracking-tighter w-full mt-2">
-                <span className="text-white block">{t('hero.title_part1')}</span>
-                <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)] block mt-1 lg:mt-2">{t('hero.title_part2')}</span>
+              <h1 className="flex flex-col font-outfit font-black text-4xl sm:text-5xl lg:text-[4.5rem] leading-[0.95] uppercase tracking-tighter w-full">
+                <span className="text-white drop-shadow-md">{t('hero.title_part1')}</span>
+                <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.5)] mt-1">{t('hero.title_part2')}</span>
               </h1>
 
-              <p className="text-sm sm:text-base text-slate-400 max-w-xl leading-relaxed mt-4">
-                {t('hero.description')}
-                <span className="block mt-1 text-blue-400 font-bold text-sm sm:text-base tracking-tight">{t('hero.tagline_extra')}</span>
+              <p className="text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed">
+                Discover the ultimate collection of high-performance PC components, custom builds, and gaming gear.
+                <span className="block mt-2 text-sky-400 font-bold">Built for gamers. Designed to win.</span>
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center gap-4 w-full mt-6">
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full mt-2">
                 <button
                   type="button"
                   onClick={() => navigate('/builder')}
                   className={`${heroCtaPrimaryClass} w-full sm:w-auto`}
                 >
-                  {t('hero.cta_primary')}
-                  <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" aria-hidden />
+                  SHOP NOW
+                  <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" aria-hidden />
                 </button>
 
                 <button 
@@ -101,8 +98,8 @@ export function Landing() {
                   onClick={() => setShowAI(true)} 
                   className={`${heroCtaSecondaryClass} w-full sm:w-auto`}
                 >
-                  <Sparkles className="h-5 w-5 shrink-0 text-white/70 group-hover:text-white transition-colors" strokeWidth={2} aria-hidden />
-                  {t('hero.cta_secondary')}
+                  <Sparkles className="h-4 w-4 shrink-0 text-sky-400" strokeWidth={2} aria-hidden />
+                  BUILD YOUR PC
                 </button>
               </div>
             </motion.div>
@@ -110,23 +107,19 @@ export function Landing() {
             {/* Right: hardware + side cards */}
             <div className="relative order-2 mt-12 flex min-h-[300px] items-center justify-center lg:order-2 lg:mt-0 lg:min-h-[450px]">
               <div className="relative z-10 flex w-full max-w-xl flex-row items-center justify-center gap-2 pr-1 sm:max-w-none sm:gap-5 sm:pr-2 lg:justify-start lg:gap-6">
-                <div className="relative flex min-w-0 flex-1 items-center justify-center lg:flex-[1.05]">
-                  {/* Неоновые кольца за железом — мягкое синее свечение */}
+                <div className="relative flex min-w-0 flex-1 items-center justify-center lg:flex-[1.1]">
+                  {/* Glowing rings exactly like the mockup */}
                   <div
-                    className="pointer-events-none absolute aspect-square w-[min(100vw,520px)] max-w-full rounded-full border border-sky-400/20 bg-gradient-to-b from-blue-500/[0.12] via-blue-600/[0.06] to-transparent shadow-[0_0_100px_rgba(56,189,248,0.22),0_0_60px_rgba(59,130,246,0.18)] sm:w-[min(94vw,620px)]"
+                    className="pointer-events-none absolute aspect-square w-[min(100vw,480px)] max-w-full rounded-full border-[3px] border-sky-500/20 shadow-[0_0_80px_rgba(56,189,248,0.15)] sm:w-[min(94vw,560px)]"
                     aria-hidden
                   />
                   <div
-                    className="pointer-events-none absolute aspect-square w-[min(88vw,440px)] rounded-full border border-blue-400/25 shadow-[inset_0_0_40px_rgba(59,130,246,0.12),0_0_50px_rgba(14,165,233,0.15)] sm:w-[min(82vw,500px)]"
-                    aria-hidden
-                  />
-                  <div
-                    className="pointer-events-none absolute aspect-square w-[min(72vw,360px)] rounded-full border border-white/10 bg-blue-500/5 sm:w-[min(66vw,420px)]"
+                    className="pointer-events-none absolute aspect-square w-[min(88vw,420px)] rounded-full border-[8px] border-blue-500/40 shadow-[0_0_60px_rgba(59,130,246,0.5),inset_0_0_40px_rgba(59,130,246,0.5)] sm:w-[min(82vw,480px)]"
                     aria-hidden
                   />
                   <img
                     src="/hero_composite.png"
-                    className="w-full max-w-[360px] sm:max-w-2xl lg:max-w-4xl xl:max-w-6xl object-contain mix-blend-lighten brightness-110 animate-float scale-110"
+                    className="relative z-10 w-full max-w-[340px] sm:max-w-lg lg:max-w-2xl xl:max-w-3xl object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] scale-105"
                     alt="Premium Hardware"
                   />
                 </div>
@@ -137,45 +130,39 @@ export function Landing() {
                   transition={{ delay: 0.5, duration: 0.7 }}
                   className="flex w-[11rem] shrink-0 flex-col items-start gap-3 sm:w-[13rem] sm:gap-4 lg:w-[16rem] lg:gap-5"
                 >
-                  <motion.div whileHover={{ scale: 1.03 }} className="w-full">
+                  <motion.div whileHover={{ scale: 1.02 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="relative h-20 w-24 shrink-0 sm:h-24 sm:w-28 lg:h-28 lg:w-32 flex items-center justify-center">
+                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-sky-400/30 bg-[#060b18] shadow-[inset_0_0_15px_rgba(56,189,248,0.2)]">
                         <img
                           src="/rtx5090_clean.png"
-                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]"
+                          className="h-10 w-10 object-contain drop-shadow-[0_0_10px_rgba(56,189,248,0.4)]"
                           alt="RTX 5090"
                         />
                       </div>
-                      <div className="min-w-0 flex-1 py-1">
-                        <div className="text-sm font-black uppercase tracking-tight text-white sm:text-base lg:text-base mb-1">RTX 5090</div>
-                        <div className="text-[9px] font-medium leading-tight tracking-wide text-sky-200/70 sm:text-[10px] lg:text-[10px] line-clamp-2 pr-6">
-                          Performance Beast 24GB GDDR7
-                        </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-sm font-black uppercase text-white tracking-wide">RTX 5090</div>
+                        <div className="text-[9px] text-slate-400 leading-tight mt-0.5 uppercase font-medium">Performance Beast<br/>24GB GDDR7</div>
                       </div>
-                      <div className="absolute bottom-3 right-3 flex h-6 w-6 items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 group-hover:bg-sky-500/30 transition-colors">
+                      <div className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 group-hover:bg-sky-500/30 transition-colors">
                         <ArrowRight className="h-3 w-3 text-sky-400" />
                       </div>
                     </div>
                   </motion.div>
 
-                  <motion.div whileHover={{ scale: 1.03 }} className="w-full">
+                  <motion.div whileHover={{ scale: 1.02 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="relative h-20 w-24 shrink-0 sm:h-24 sm:w-28 lg:h-28 lg:w-32 flex items-center justify-center">
+                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-sky-400/30 bg-[#060b18] shadow-[inset_0_0_15px_rgba(56,189,248,0.2)]">
                         <img
                           src="/ryzen9000_clean.png"
-                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]"
+                          className="h-10 w-10 object-contain drop-shadow-[0_0_10px_rgba(56,189,248,0.4)]"
                           alt="Ryzen 9800X3D"
                         />
                       </div>
-                      <div className="min-w-0 flex-1 py-1">
-                        <div className="text-sm font-black uppercase tracking-tight text-white sm:text-base lg:text-base mb-1">
-                          RYZEN 9800X3D
-                        </div>
-                        <div className="text-[9px] font-medium leading-tight tracking-wide text-sky-200/70 sm:text-[10px] lg:text-[10px] line-clamp-2 pr-6">
-                          Ultimate Gaming CPU
-                        </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-sm font-black uppercase text-white tracking-wide">RYZEN 9800X3D</div>
+                        <div className="text-[9px] text-slate-400 leading-tight mt-0.5 uppercase font-medium">Ultimate Gaming CPU<br/>5.2GHz Boost</div>
                       </div>
-                      <div className="absolute bottom-3 right-3 flex h-6 w-6 items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 group-hover:bg-sky-500/30 transition-colors">
+                      <div className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 group-hover:bg-sky-500/30 transition-colors">
                         <ArrowRight className="h-3 w-3 text-sky-400" />
                       </div>
                     </div>
@@ -185,23 +172,22 @@ export function Landing() {
             </div>
           </div>
 
-          {/* Feature strip — без лишних слоёв поверх иконок */}
-          <div className="relative z-0 mx-auto mt-10 w-full max-w-[1000px] border border-sky-400/50 bg-[#020617]/70 backdrop-blur-xl rounded-[2rem] sm:rounded-full p-2 sm:p-3 shadow-[0_0_30px_rgba(56,189,248,0.15),inset_0_0_20px_rgba(56,189,248,0.1)]">
-            <div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-sky-400/30">
+          <div className="relative z-0 mx-auto mt-12 w-full max-w-[1000px] rounded-[1.5rem] border border-sky-500/30 bg-[#060b18]/90 backdrop-blur-md px-4 py-2 sm:px-8 sm:py-4 shadow-[0_0_40px_rgba(56,189,248,0.1)]">
+            <div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-sky-500/20">
               {[
                 { icon: Zap, label: 'FREE SHIPPING', sub: 'On all orders over $99' },
                 { icon: Shield, label: '2 YEARS WARRANTY', sub: 'Premium quality assured' },
                 { icon: Headset, label: '24/7 SUPPORT', sub: 'Always here to help' },
               ].map((stat, i) => (
-                <div key={i} className="flex-1 flex flex-row items-center justify-center gap-3 py-3 sm:py-2 px-4 group w-full sm:w-auto">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-sky-400/30 bg-sky-500/10 shadow-[0_0_15px_rgba(56,189,248,0.2)] group-hover:scale-110 transition-transform">
+                <div key={i} className="flex-1 flex flex-row items-center justify-center gap-4 py-4 sm:py-2 px-2 sm:px-6 w-full sm:w-auto">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-sky-400/20 bg-sky-500/10 shadow-[0_0_10px_rgba(56,189,248,0.15)]">
                     <stat.icon className="h-5 w-5 text-sky-400" strokeWidth={2} />
                   </div>
                   <div className="flex flex-col items-start text-left">
-                    <div className="text-xs font-black uppercase tracking-wider text-white leading-none mb-1">
+                    <div className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-white leading-none mb-1.5">
                       {stat.label}
                     </div>
-                    <div className="text-[10px] font-medium leading-none text-sky-200/60">
+                    <div className="text-[9px] sm:text-[10px] font-medium leading-none text-slate-400">
                       {stat.sub}
                     </div>
                   </div>
