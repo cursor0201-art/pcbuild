@@ -209,7 +209,12 @@ export function Landing() {
               <div className="mx-auto mt-4 h-1.5 w-24 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 shadow-[0_0_15px_rgba(56,189,248,0.6)]" />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className={`grid gap-6 w-full ${
+              categories.length === 1 ? 'grid-cols-1 max-w-xl mx-auto' :
+              categories.length === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto' :
+              categories.length === 3 ? 'grid-cols-1 md:grid-cols-3 max-w-5xl mx-auto' :
+              'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
+            }`}>
               {loading ? (
                 [...Array(4)].map((_, i) => (
                   <div key={i} className="h-48 glass-card-dark animate-pulse rounded-2xl" />
@@ -225,24 +230,42 @@ export function Landing() {
                       key={category.id}
                       whileHover={{ scale: 1.02 }}
                       onClick={() => navigate('/builder')}
-                      className="relative flex flex-col p-6 rounded-2xl bg-gradient-to-br from-[#0a101e] to-[#040812] border border-sky-500/20 shadow-[inset_0_0_15px_rgba(59,130,246,0.05)] cursor-pointer hover:border-sky-400/50 transition-all overflow-hidden h-56 group"
+                      className={`relative flex flex-col rounded-3xl bg-gradient-to-br from-[#0a101e] to-[#040812] border border-sky-500/20 shadow-[inset_0_0_20px_rgba(59,130,246,0.05)] cursor-pointer hover:border-sky-400/50 transition-all overflow-hidden group ${
+                        categories.length <= 2 
+                          ? 'p-8 h-64' 
+                          : 'p-6 h-56'
+                      }`}
                     >
                       <div className="space-y-2 z-10 relative">
-                        <h3 className="text-lg sm:text-xl font-black uppercase tracking-wider text-white group-hover:text-sky-400 transition-colors">{category.name}</h3>
-                        <p className="text-xs sm:text-sm text-slate-300 font-semibold tracking-wide pr-8">{fallback.sub}</p>
+                        <h3 className={`font-black uppercase tracking-wider text-white group-hover:text-sky-400 transition-colors ${
+                          categories.length <= 2 ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'
+                        }`}>{category.name}</h3>
+                        <p className={`text-slate-300 font-semibold tracking-wide pr-12 ${
+                          categories.length <= 2 ? 'text-xs sm:text-sm' : 'text-xs'
+                        }`}>{fallback.sub}</p>
                       </div>
 
-                      <div className="absolute top-6 right-6 h-6 w-6 rounded-full border border-sky-500/30 bg-sky-500/10 flex items-center justify-center group-hover:bg-sky-500 group-hover:border-sky-400 transition-colors z-10">
-                         <ArrowRight className="h-3 w-3 text-sky-400 group-hover:text-white" />
+                      <div className={`absolute rounded-full border border-sky-500/30 bg-sky-500/10 flex items-center justify-center group-hover:bg-sky-500 group-hover:border-sky-400 transition-colors z-10 ${
+                        categories.length <= 2 ? 'top-8 right-8 h-8 w-8' : 'top-6 right-6 h-6 w-6'
+                      }`}>
+                         <ArrowRight className="h-4 w-4 text-sky-400 group-hover:text-white" />
                       </div>
 
-                      <div className="absolute bottom-[-5%] right-[-5%] h-36 w-36 flex items-center justify-center z-0 opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-500">
-                         <img src={categoryImg} alt={category.name} className="h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]" />
+                      <div className={`absolute flex items-center justify-center z-0 opacity-90 group-hover:scale-110 group-hover:opacity-100 transition-all duration-500 ${
+                        categories.length <= 2 
+                          ? 'bottom-[-5%] right-[-5%] h-44 w-44' 
+                          : 'bottom-[-5%] right-[-5%] h-36 w-36'
+                      }`}>
+                         <img src={categoryImg} alt={category.name} className="h-full w-full object-contain drop-shadow-[0_0_20px_rgba(56,189,248,0.4)]" />
                       </div>
 
-                      <div className="absolute bottom-6 left-6 z-10">
+                      <div className={`absolute z-10 ${
+                        categories.length <= 2 ? 'bottom-8 left-8' : 'bottom-6 left-6'
+                      }`}>
                          <div className="text-[10px] text-slate-400 uppercase font-bold tracking-widest">{t('category.starting') || 'STARTING FROM'}</div>
-                         <div className="text-xl font-black text-sky-400 mt-1">
+                         <div className={`font-black text-sky-400 mt-1 ${
+                           categories.length <= 2 ? 'text-2xl' : 'text-xl'
+                         }`}>
                            {minPrice ? <>{formatPrice(minPrice)} <span className="text-xs sm:text-sm text-sky-400/70">{t('currency')}</span></> : '---'}
                          </div>
                       </div>
