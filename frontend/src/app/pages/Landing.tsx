@@ -8,7 +8,7 @@ import { apiService, Category, formatPrice } from '../services/api';
 
 /** Hero side cards — тёмный glass (переменные в theme.css) */
 const heroFloatCardClass =
-  'flex w-full items-center gap-3 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:gap-4 sm:rounded-[1.5rem] sm:p-4';
+  'relative flex w-full items-center gap-3 overflow-hidden rounded-2xl border border-blue-500/30 bg-[#0a0f1c]/80 p-2.5 shadow-[inset_0_0_20px_rgba(59,130,246,0.1),0_12px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:gap-4 sm:rounded-[1rem] sm:p-4 hover:border-blue-400/60 transition-colors';
 
 const heroCtaPrimaryClass =
   'group inline-flex h-14 min-h-14 sm:h-16 sm:min-h-16 shrink-0 items-center justify-center gap-3 rounded-2xl border-0 bg-gradient-to-r from-blue-700 via-blue-600 to-sky-400 px-10 text-base sm:px-12 sm:text-lg lg:text-xl font-black uppercase tracking-wide text-white shadow-[0_12px_48px_rgba(37,99,235,0.5)] transition-all hover:shadow-[0_0_40px_rgba(255,255,255,0.4),0_16px_64px_rgba(59,130,246,0.6)] active:scale-[0.98]';
@@ -148,9 +148,12 @@ export function Landing() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="text-sm font-black uppercase tracking-tight text-white sm:text-base lg:text-base">RTX 5090</div>
-                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[10px] lg:text-[10px] mt-1 line-clamp-2">
+                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[10px] lg:text-[10px] mt-1 line-clamp-2 pr-4">
                           Performance Beast 24GB GDDR7
                         </div>
+                      </div>
+                      <div className="absolute bottom-2 right-2 flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full border border-blue-500/40 bg-blue-500/10 group-hover:bg-blue-500/30 transition-colors">
+                        <ArrowRight className="h-3 w-3 text-blue-400" />
                       </div>
                     </div>
                   </motion.div>
@@ -168,9 +171,12 @@ export function Landing() {
                         <div className="text-xs font-black uppercase leading-tight tracking-tight text-white sm:text-sm lg:text-sm">
                           RYZEN 9800X3D
                         </div>
-                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[10px] lg:text-[10px] mt-1 line-clamp-2">
+                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[10px] lg:text-[10px] mt-1 line-clamp-2 pr-4">
                           Ultimate Gaming CPU
                         </div>
+                      </div>
+                      <div className="absolute bottom-2 right-2 flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full border border-blue-500/40 bg-blue-500/10 group-hover:bg-blue-500/30 transition-colors">
+                        <ArrowRight className="h-3 w-3 text-blue-400" />
                       </div>
                     </div>
                   </motion.div>
@@ -180,22 +186,22 @@ export function Landing() {
           </div>
 
           {/* Feature strip — без лишних слоёв поверх иконок */}
-          <div className="relative z-0 mx-auto mt-8 w-full max-w-[1100px] border-t border-white/10 pt-6 sm:mt-10 sm:pt-8 lg:mt-14 lg:pt-10">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
+          <div className="relative z-0 mx-auto mt-8 w-full max-w-[1100px] border border-blue-500/20 bg-[#0a0f1c]/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:mt-14 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-blue-500/20">
               {[
                 { icon: Zap, label: 'FREE SHIPPING', sub: 'On all orders over $99' },
                 { icon: Shield, label: '2 YEARS WARRANTY', sub: 'Premium quality assured' },
                 { icon: Headset, label: '24/7 SUPPORT', sub: 'Always here to help' },
               ].map((stat, i) => (
-                <div key={i} className="flex min-w-0 flex-1 flex-row items-center gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl transition-all hover:border-blue-500/50 hover:bg-blue-500/5 group">
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-sky-400/20 bg-blue-500/10 shadow-[0_0_30px_rgba(56,189,248,0.15)] group-hover:scale-110 transition-transform">
-                    <stat.icon className="h-8 w-8 text-sky-400" strokeWidth={2.5} />
+                <div key={i} className="flex min-w-0 flex-1 flex-row items-center gap-4 px-2 sm:px-6 group pt-4 sm:pt-0 first:pt-0">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-sky-400/20 bg-blue-500/10 shadow-[0_0_20px_rgba(56,189,248,0.15)] group-hover:scale-110 transition-transform">
+                    <stat.icon className="h-5 w-5 text-sky-400" strokeWidth={2} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="text-sm sm:text-base lg:text-lg font-black uppercase tracking-wider text-white leading-tight">
+                    <div className="text-xs sm:text-sm font-black uppercase tracking-wider text-white leading-tight">
                       {stat.label}
                     </div>
-                    <div className="text-xs sm:text-xs lg:text-sm font-medium leading-tight text-white/50 mt-1.5">
+                    <div className="text-[10px] sm:text-xs font-medium leading-tight text-white/50 mt-1">
                       {stat.sub}
                     </div>
                   </div>
@@ -271,12 +277,13 @@ export function Landing() {
       {/* Category Section — Теперь ПОСЛЕ "Почему мы" */}
       <section id="categories" className="relative scroll-mt-24 border-t border-white/5 py-16 sm:py-20 md:py-24">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-          <div className="flex items-center justify-center gap-6 mb-16">
-            <div className="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-blue-500/50" />
-            <h2 className="font-black text-2xl sm:text-3xl md:text-4xl uppercase tracking-tighter text-white">
-              {t('category.title')}
-            </h2>
-            <div className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-blue-500/50" />
+          <div className="flex items-center justify-center mb-16 relative">
+            <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-blue-500/20" />
+            <div className="relative bg-[#020617] px-8 py-2 border border-blue-500/30 rounded-full shadow-[0_0_30px_rgba(59,130,246,0.15)] flex items-center">
+               <h2 className="font-black text-xl sm:text-2xl md:text-3xl uppercase tracking-widest text-white m-0">
+                 {t('category.title') || 'SHOP BY CATEGORY'}
+               </h2>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -295,29 +302,26 @@ export function Landing() {
                     key={category.id}
                     whileHover={{ y: -8 }}
                     onClick={() => navigate('/builder')}
-                    className="glass-card-dark p-6 rounded-[2rem] space-y-6 group cursor-pointer border border-white/5 hover:border-blue-500/50 transition-all duration-500"
+                    className="relative flex flex-col p-6 rounded-[1.5rem] bg-gradient-to-b from-[#0a0f1c] to-[#020617] border border-blue-500/30 shadow-[inset_0_0_20px_rgba(59,130,246,0.05),0_10px_30px_rgba(0,0,0,0.5)] group cursor-pointer hover:border-blue-400/60 transition-all duration-500 overflow-hidden"
                   >
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-blue-400 transition-colors">{category.name}</h3>
-                        <div className="h-8 w-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
-                          <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-white" />
-                        </div>
-                      </div>
-                      <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{fallback.sub}</p>
+                    <div className="space-y-1 z-10">
+                      <h3 className="text-lg font-black uppercase tracking-wider text-white group-hover:text-blue-400 transition-colors">{category.name}</h3>
+                      <p className="text-[10px] text-slate-400 font-medium tracking-wide">{fallback.sub}</p>
                     </div>
 
-                    <div className="relative h-48 flex items-center justify-center">
-                       <img src={categoryImg} alt={category.name} className="max-h-full w-auto object-contain group-hover:scale-110 transition-transform duration-700" />
+                    <div className="absolute bottom-6 left-6 h-8 w-8 rounded-full border border-blue-500/30 bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all z-10">
+                       <ArrowRight className="h-4 w-4 text-blue-400 group-hover:text-white" />
                     </div>
 
-                    <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                      <div className="space-y-1">
-                        <div className="text-[9px] text-slate-500 uppercase font-black tracking-[0.2em]">{t('category.starting')}</div>
-                        <div className="text-2xl font-black text-blue-500">
-                          {minPrice ? <>{formatPrice(minPrice)} <span className="text-xs">{t('currency')}</span></> : '---'}
-                        </div>
-                      </div>
+                    <div className="relative h-32 sm:h-40 mt-6 flex items-center justify-center mb-10 z-0">
+                       <img src={categoryImg} alt={category.name} className="max-h-full max-w-[140px] sm:max-w-[180px] object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-[0_0_15px_rgba(59,130,246,0.2)]" />
+                    </div>
+
+                    <div className="absolute bottom-6 right-6 text-right z-10">
+                       <div className="text-[9px] text-slate-500 uppercase font-medium tracking-widest">{t('category.starting') || 'STARTING FROM'}</div>
+                       <div className="text-lg sm:text-xl font-bold text-blue-400">
+                         {minPrice ? <>{formatPrice(minPrice)} <span className="text-[10px] sm:text-xs text-blue-400/70">{t('currency')}</span></> : '---'}
+                       </div>
                     </div>
                   </motion.div>
                 );
