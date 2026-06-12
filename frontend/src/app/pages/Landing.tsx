@@ -8,7 +8,7 @@ import { apiService, Category, formatPrice } from '../services/api';
 
 /** Hero side cards — тёмный glass (переменные в theme.css) */
 const heroFloatCardClass =
-  'relative flex w-full items-center gap-3 overflow-hidden rounded-2xl border border-blue-500/30 bg-[#0a0f1c]/80 p-2.5 shadow-[inset_0_0_20px_rgba(59,130,246,0.1),0_12px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:gap-4 sm:rounded-[1rem] sm:p-4 hover:border-blue-400/60 transition-colors';
+  'relative flex w-full items-center gap-4 overflow-hidden rounded-[1.25rem] border border-sky-400/50 bg-[#020617]/60 p-3 sm:p-4 shadow-[0_0_20px_rgba(56,189,248,0.15),inset_0_0_15px_rgba(56,189,248,0.1)] backdrop-blur-md hover:border-sky-400/80 transition-all';
 
 const heroCtaPrimaryClass =
   'group inline-flex h-14 min-h-14 sm:h-16 sm:min-h-16 shrink-0 items-center justify-center gap-3 rounded-2xl border-0 bg-gradient-to-r from-blue-700 via-blue-600 to-sky-400 px-10 text-base sm:px-12 sm:text-lg lg:text-xl font-black uppercase tracking-wide text-white shadow-[0_12px_48px_rgba(37,99,235,0.5)] transition-all hover:shadow-[0_0_40px_rgba(255,255,255,0.4),0_16px_64px_rgba(59,130,246,0.6)] active:scale-[0.98]';
@@ -139,44 +139,44 @@ export function Landing() {
                 >
                   <motion.div whileHover={{ scale: 1.03 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="relative h-20 w-24 shrink-0 sm:h-24 sm:w-28 lg:h-28 lg:w-32">
+                      <div className="relative h-16 w-20 shrink-0 sm:h-20 sm:w-24 lg:h-24 lg:w-28 flex items-center justify-center rounded-xl border border-sky-500/20 bg-sky-500/5 shadow-[inset_0_0_15px_rgba(56,189,248,0.1)] overflow-hidden">
                         <img
                           src="/rtx5090_clean.png"
-                          className="relative h-full w-full object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]"
+                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)] mix-blend-lighten"
                           alt="RTX 5090"
                         />
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="text-sm font-black uppercase tracking-tight text-white sm:text-base lg:text-base">RTX 5090</div>
-                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[10px] lg:text-[10px] mt-1 line-clamp-2 pr-4">
+                      <div className="min-w-0 flex-1 py-1">
+                        <div className="text-sm font-black uppercase tracking-tight text-white sm:text-base lg:text-base mb-1">RTX 5090</div>
+                        <div className="text-[9px] font-medium leading-tight tracking-wide text-sky-200/70 sm:text-[10px] lg:text-[10px] line-clamp-2 pr-6">
                           Performance Beast 24GB GDDR7
                         </div>
                       </div>
-                      <div className="absolute bottom-2 right-2 flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full border border-blue-500/40 bg-blue-500/10 group-hover:bg-blue-500/30 transition-colors">
-                        <ArrowRight className="h-3 w-3 text-blue-400" />
+                      <div className="absolute bottom-3 right-3 flex h-6 w-6 items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 group-hover:bg-sky-500/30 transition-colors">
+                        <ArrowRight className="h-3 w-3 text-sky-400" />
                       </div>
                     </div>
                   </motion.div>
 
                   <motion.div whileHover={{ scale: 1.03 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="relative h-20 w-24 shrink-0 sm:h-24 sm:w-28 lg:h-28 lg:w-32">
+                      <div className="relative h-16 w-20 shrink-0 sm:h-20 sm:w-24 lg:h-24 lg:w-28 flex items-center justify-center rounded-xl border border-sky-500/20 bg-sky-500/5 shadow-[inset_0_0_15px_rgba(56,189,248,0.1)] overflow-hidden">
                         <img
                           src="/ryzen9000_clean.png"
-                          className="relative h-full w-full object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]"
+                          className="relative h-full w-full object-contain drop-shadow-[0_0_15px_rgba(56,189,248,0.3)] mix-blend-lighten"
                           alt="Ryzen 9800X3D"
                         />
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="text-xs font-black uppercase leading-tight tracking-tight text-white sm:text-sm lg:text-sm">
+                      <div className="min-w-0 flex-1 py-1">
+                        <div className="text-sm font-black uppercase tracking-tight text-white sm:text-base lg:text-base mb-1">
                           RYZEN 9800X3D
                         </div>
-                        <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[10px] lg:text-[10px] mt-1 line-clamp-2 pr-4">
+                        <div className="text-[9px] font-medium leading-tight tracking-wide text-sky-200/70 sm:text-[10px] lg:text-[10px] line-clamp-2 pr-6">
                           Ultimate Gaming CPU
                         </div>
                       </div>
-                      <div className="absolute bottom-2 right-2 flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full border border-blue-500/40 bg-blue-500/10 group-hover:bg-blue-500/30 transition-colors">
-                        <ArrowRight className="h-3 w-3 text-blue-400" />
+                      <div className="absolute bottom-3 right-3 flex h-6 w-6 items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 group-hover:bg-sky-500/30 transition-colors">
+                        <ArrowRight className="h-3 w-3 text-sky-400" />
                       </div>
                     </div>
                   </motion.div>
@@ -186,22 +186,22 @@ export function Landing() {
           </div>
 
           {/* Feature strip — без лишних слоёв поверх иконок */}
-          <div className="relative z-0 mx-auto mt-8 w-full max-w-[1100px] border border-blue-500/20 bg-[#0a0f1c]/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:mt-14 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-blue-500/20">
+          <div className="relative z-0 mx-auto mt-10 w-full max-w-[1000px] border border-sky-500/40 bg-[#020617]/50 backdrop-blur-xl rounded-[2rem] sm:rounded-full p-2 sm:p-3 shadow-[0_0_30px_rgba(56,189,248,0.1),inset_0_0_20px_rgba(56,189,248,0.05)]">
+            <div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-sky-500/20">
               {[
                 { icon: Zap, label: 'FREE SHIPPING', sub: 'On all orders over $99' },
                 { icon: Shield, label: '2 YEARS WARRANTY', sub: 'Premium quality assured' },
                 { icon: Headset, label: '24/7 SUPPORT', sub: 'Always here to help' },
               ].map((stat, i) => (
-                <div key={i} className="flex min-w-0 flex-1 flex-row items-center gap-4 px-2 sm:px-6 group pt-4 sm:pt-0 first:pt-0">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-sky-400/20 bg-blue-500/10 shadow-[0_0_20px_rgba(56,189,248,0.15)] group-hover:scale-110 transition-transform">
+                <div key={i} className="flex-1 flex flex-row items-center justify-center gap-3 py-3 sm:py-2 px-4 group w-full sm:w-auto">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-sky-400/30 bg-sky-500/10 shadow-[0_0_15px_rgba(56,189,248,0.2)] group-hover:scale-110 transition-transform">
                     <stat.icon className="h-5 w-5 text-sky-400" strokeWidth={2} />
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-xs sm:text-sm font-black uppercase tracking-wider text-white leading-tight">
+                  <div className="flex flex-col items-start text-left">
+                    <div className="text-xs font-black uppercase tracking-wider text-white leading-none mb-1">
                       {stat.label}
                     </div>
-                    <div className="text-[10px] sm:text-xs font-medium leading-tight text-white/50 mt-1">
+                    <div className="text-[10px] font-medium leading-none text-sky-200/60">
                       {stat.sub}
                     </div>
                   </div>
