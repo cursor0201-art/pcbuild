@@ -1,9 +1,30 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.utils.html import format_html
-from django.urls import reverse
+from django.urls import reverse, path
 from django.utils.safestring import mark_safe
-from .models import Category, Product, Order
+from django.shortcuts import render, redirect
+from .models import Category, Product, Order, ProductImage
 import json
+import re
+import csv
+import io
+
+def cyrillic_slugify(text):
+    rus = {
+        'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z',
+        'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r',
+        'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch',
+        'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya',
+        'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'Yo', 'Ж': 'Zh', 'З': 'Z',
+        'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M', 'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R',
+        'С': 'S', 'Т': 'T', 'У': 'U', 'Ф': 'F', 'Х': 'Kh', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Shch',
+        'Ъ': '', 'Ы': 'Y', 'Ь': '', 'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya'
+    }
+    translit = "".join(rus.get(char, char) for char in text)
+    slug = translit.lower()
+    slug = re.sub(r'[^a-z0-9\s-]', '', slug)
+    slug = re.sub(r'[\s-]+', '-', slug).strip('-')
+    return slug
 
 
 @admin.register(Category)
@@ -63,8 +84,55 @@ class ProductFilter(admin.SimpleListFilter):
             return queryset.filter(stock__gt=0, stock__lt=5)
 
 
+from django import forms
+
+class MultipleFileInput(forms.FileInput):
+    allow_multiple_selected = True
+
+class MultipleFileField(forms.FileField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("widget", MultipleFileInput(attrs={'multiple': True}))
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data, (list, tuple)):
+            return [single_file_clean(d, initial) for d in data]
+        return single_file_clean(data, initial)
+
+
+class ProductAdminForm(forms.ModelForm):
+    additional_images = MultipleFileField(
+        required=False,
+        label="Добавить несколько дополнительных изображений",
+        help_text="Вы можете выбрать сразу несколько файлов для загрузки."
+    )
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 1
+    readonly_fields = ['image_preview']
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" style="max-height: 100px; border-radius: 5px;" />',
+                obj.image.url
+            )
+        return "Нет изображения"
+    image_preview.short_description = "Предпросмотр"
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    form = ProductAdminForm
+    inlines = [ProductImageInline]
+
     list_display = [
         'name', 'category', 'brand', 'price', 'stock', 
         'is_active', 'condition', 'image_preview', 'created_at'
@@ -92,13 +160,134 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('description', 'specs')
         }),
         ('Изображение', {
-            'fields': ('image', 'image_preview')
+            'fields': ('image', 'image_preview', 'additional_images')
         }),
         ('Даты', {
             'fields': ('created_at', 'updated_at'),
             'classes': ('collapse',)
         }),
     )
+    
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        files = request.FILES.getlist('additional_images')
+        for f in files:
+            ProductImage.objects.create(product=obj, image=f)
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('bulk-add/', self.admin_site.admin_view(self.bulk_add), name='shop_product_bulk_add'),
+        ]
+        return custom_urls + urls
+
+    def bulk_add(self, request):
+        if request.method == 'POST':
+            action_type = request.POST.get('action_type')
+            
+            if action_type == 'text_list':
+                category_id = request.POST.get('category')
+                brand = request.POST.get('brand')
+                price = request.POST.get('price')
+                stock = request.POST.get('stock')
+                names_text = request.POST.get('names', '')
+                
+                category = Category.objects.get(id=category_id)
+                names = [n.strip() for n in names_text.split('\n') if n.strip()]
+                
+                created_count = 0
+                for name in names:
+                    base_slug = cyrillic_slugify(name)
+                    slug = base_slug
+                    counter = 1
+                    while Product.objects.filter(slug=slug).exists():
+                        slug = f"{base_slug}-{counter}"
+                        counter += 1
+                        
+                    Product.objects.create(
+                        category=category,
+                        name=name,
+                        slug=slug,
+                        brand=brand,
+                        price=price,
+                        stock=stock,
+                        is_active=True
+                    )
+                    created_count += 1
+                
+                messages.success(request, f"Успешно создано {created_count} товаров.")
+                return redirect('admin:shop_product_changelist')
+                
+            elif action_type == 'csv_file':
+                csv_file = request.FILES.get('csv_file')
+                if not csv_file.name.endswith('.csv'):
+                    messages.error(request, "Пожалуйста, загрузите файл формата CSV.")
+                    return redirect(request.path)
+                    
+                try:
+                    file_data = csv_file.read().decode('utf-8')
+                    csv_data = csv.reader(io.StringIO(file_data), delimiter=',')
+                    
+                    try:
+                        header = next(csv_data)
+                    except StopIteration:
+                        messages.error(request, "CSV файл пуст.")
+                        return redirect(request.path)
+                    
+                    created_count = 0
+                    for row in csv_data:
+                        if len(row) < 5:
+                            continue
+                        name = row[0].strip()
+                        category_slug = row[1].strip()
+                        brand = row[2].strip()
+                        price = row[3].strip()
+                        stock = row[4].strip()
+                        description = row[5].strip() if len(row) > 5 else name
+                        
+                        try:
+                            category = Category.objects.get(slug=category_slug)
+                        except Category.DoesNotExist:
+                            try:
+                                category = Category.objects.get(name__iexact=category_slug)
+                            except Category.DoesNotExist:
+                                category = Category.objects.first()
+                                if not category:
+                                    continue
+                        
+                        base_slug = cyrillic_slugify(name)
+                        slug = base_slug
+                        counter = 1
+                        while Product.objects.filter(slug=slug).exists():
+                            slug = f"{base_slug}-{counter}"
+                            counter += 1
+                            
+                        Product.objects.create(
+                            category=category,
+                            name=name,
+                            slug=slug,
+                            brand=brand,
+                            price=price,
+                            stock=stock,
+                            description=description,
+                            is_active=True
+                        )
+                        created_count += 1
+                        
+                    messages.success(request, f"Успешно импортировано {created_count} товаров из CSV.")
+                    return redirect('admin:shop_product_changelist')
+                except Exception as e:
+                    messages.error(request, f"Ошибка при разборе CSV: {str(e)}")
+                    return redirect(request.path)
+
+        categories = Category.objects.all()
+        context = {
+            **self.admin_site.each_context(request),
+            'opts': self.model._meta,
+            'categories': categories,
+            'title': 'Массовое добавление товаров',
+        }
+        return render(request, 'admin/shop/product/bulk_add.html', context)
     
     def image_preview(self, obj):
         if obj.image:

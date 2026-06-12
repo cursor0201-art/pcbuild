@@ -218,3 +218,26 @@ class Order(models.Model):
             price = item.get('price', 0)
             summary.append(f"{product_name} x{quantity} - {price:,} UZS")
         return summary
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='additional_images',
+        verbose_name="Товар"
+    )
+    image = models.ImageField(
+        upload_to='products/additional/',
+        verbose_name="Изображение"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Дополнительное изображение"
+        verbose_name_plural = "Дополнительные изображения"
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"Изображение для {self.product.name}"
+

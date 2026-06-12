@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Product, Order
+from .models import Category, Product, Order, ProductImage
 from django.conf import settings
 
 
@@ -70,10 +70,27 @@ class CategoryCreateUpdateSerializer(serializers.ModelSerializer):
         return value
 
 
+class ProductImageSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ProductImage
+        fields = ['id', 'image', 'image_url', 'created_at']
+
+    def get_image_url(self, obj):
+        if obj.image:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.image.url)
+            return obj.image.url
+        return None
+
+
 class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.name', read_only=True)
     category_slug = serializers.CharField(source='category.slug', read_only=True)
     image_url = serializers.SerializerMethodField()
+    additional_images = ProductImageSerializer(many=True, read_only=True)
     is_in_stock = serializers.BooleanField(read_only=True)
     formatted_price = serializers.SerializerMethodField()
 
@@ -82,7 +99,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'name', 'slug', 'category', 'category_name', 'category_slug',
             'price', 'formatted_price', 'brand', 'specs', 'description',
-            'image', 'image_url', 'stock', 'is_in_stock', 'is_active',
+            'image', 'image_url', 'additional_images', 'stock', 'is_in_stock', 'is_active',
             'condition', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']

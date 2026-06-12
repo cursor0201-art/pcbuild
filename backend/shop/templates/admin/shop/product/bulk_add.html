@@ -1,0 +1,72 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural }}</a>
+&rsaquo; Массовое добавление
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <h2>Массовое добавление товаров</h2>
+  
+  <div style="background: var(--body-bg, #f8f9fa); border: 1px solid var(--border-color, #dee2e6); padding: 20px; border-radius: 6px; margin-bottom: 20px; color: var(--body-fg, #333);">
+    <h3 style="margin-top: 0;">Способ 1: Добавить списком названий</h3>
+    <form method="post" action="">
+      {% csrf_token %}
+      <input type="hidden" name="action_type" value="text_list">
+      
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 5px;">Категория:</label>
+        <select name="category" required style="padding: 6px 12px; width: 100%; max-width: 400px; border-radius: 4px; border: 1px solid #ccc; background: var(--darkened-bg, #fff); color: var(--body-fg);">
+          {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 5px;">Бренд:</label>
+        <input type="text" name="brand" required style="padding: 6px 12px; width: 100%; max-width: 400px; border-radius: 4px; border: 1px solid #ccc; background: var(--darkened-bg, #fff); color: var(--body-fg);" placeholder="Например: Razer">
+      </div>
+
+      <div style="margin-bottom: 15px; display: flex; gap: 20px; flex-wrap: wrap;">
+        <div>
+          <label style="display: block; font-weight: bold; margin-bottom: 5px;">Цена:</label>
+          <input type="number" name="price" value="0" step="0.01" required style="padding: 6px 12px; border-radius: 4px; border: 1px solid #ccc; background: var(--darkened-bg, #fff); color: var(--body-fg);">
+        </div>
+        <div>
+          <label style="display: block; font-weight: bold; margin-bottom: 5px;">Количество на складе:</label>
+          <input type="number" name="stock" value="10" required style="padding: 6px 12px; border-radius: 4px; border: 1px solid #ccc; background: var(--darkened-bg, #fff); color: var(--body-fg);">
+        </div>
+      </div>
+
+      <div style="margin-bottom: 15px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 5px;">Список названий товаров (по одному на строку):</label>
+        <textarea name="names" rows="10" required style="padding: 6px 12px; width: 100%; border-radius: 4px; border: 1px solid #ccc; background: var(--darkened-bg, #fff); color: var(--body-fg);" placeholder="Игровая мышь Razer DeathAdder V3&#10;Механическая клавиатура Razer BlackWidow V4"></textarea>
+      </div>
+
+      <button type="submit" class="button" style="background: var(--button-bg, #79aec8); color: var(--button-fg, #fff); padding: 10px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Создать товары</button>
+    </form>
+  </div>
+
+  <div style="background: var(--body-bg, #f8f9fa); border: 1px solid var(--border-color, #dee2e6); padding: 20px; border-radius: 6px; color: var(--body-fg, #333);">
+    <h3 style="margin-top: 0;">Способ 2: Импорт через CSV файл</h3>
+    <p>Файл должен быть в кодировке UTF-8 с разделителем-запятой. Колонки: <strong>name, category_slug, brand, price, stock, description</strong></p>
+    <form method="post" enctype="multipart/form-data" action="">
+      {% csrf_token %}
+      <input type="hidden" name="action_type" value="csv_file">
+      
+      <div style="margin-bottom: 15px;">
+        <input type="file" name="csv_file" accept=".csv" required style="padding: 10px 0;">
+      </div>
+
+      <button type="submit" class="button" style="background: var(--button-bg, #79aec8); color: var(--button-fg, #fff); padding: 10px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Загрузить и импортировать</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
