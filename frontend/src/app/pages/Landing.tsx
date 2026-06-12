@@ -126,7 +126,7 @@ export function Landing() {
                   />
                   <img
                     src="/hero_composite.png"
-                    className="w-full max-w-[320px] sm:max-w-xl lg:max-w-3xl xl:max-w-5xl object-contain mix-blend-lighten brightness-110 animate-float"
+                    className="w-full max-w-[360px] sm:max-w-2xl lg:max-w-4xl xl:max-w-6xl object-contain mix-blend-lighten brightness-110 animate-float scale-110"
                     alt="Premium Hardware"
                   />
                 </div>
@@ -149,7 +149,7 @@ export function Landing() {
                       <div className="min-w-0 flex-1">
                         <div className="text-sm font-black uppercase tracking-tight text-white sm:text-base lg:text-base">RTX 5090</div>
                         <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[10px] lg:text-[10px] mt-1 line-clamp-2">
-                          {t('hero.next_gen')}
+                          Performance Beast 24GB GDDR7
                         </div>
                       </div>
                     </div>
@@ -169,7 +169,7 @@ export function Landing() {
                           RYZEN 9800X3D
                         </div>
                         <div className="text-[9px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-[10px] lg:text-[10px] mt-1 line-clamp-2">
-                          {t('hero.card_ryzen_sub')}
+                          Ultimate Gaming CPU
                         </div>
                       </div>
                     </div>
@@ -183,9 +183,9 @@ export function Landing() {
           <div className="relative z-0 mx-auto mt-8 w-full max-w-[1100px] border-t border-white/10 pt-6 sm:mt-10 sm:pt-8 lg:mt-14 lg:pt-10">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
               {[
-                { icon: Zap, label: t('stats.shipping.label'), sub: t('stats.shipping.sub') },
-                { icon: Shield, label: t('stats.warranty.label'), sub: t('stats.warranty.sub') },
-                { icon: Headset, label: t('stats.support.label'), sub: t('stats.support.sub') },
+                { icon: Zap, label: 'FREE SHIPPING', sub: 'On all orders over $99' },
+                { icon: Shield, label: '2 YEARS WARRANTY', sub: 'Premium quality assured' },
+                { icon: Headset, label: '24/7 SUPPORT', sub: 'Always here to help' },
               ].map((stat, i) => (
                 <div key={i} className="flex min-w-0 flex-1 flex-row items-center gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl transition-all hover:border-blue-500/50 hover:bg-blue-500/5 group">
                   <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-sky-400/20 bg-blue-500/10 shadow-[0_0_30px_rgba(56,189,248,0.15)] group-hover:scale-110 transition-transform">
