@@ -11,10 +11,10 @@ const heroFloatCardClass =
   'relative flex w-full items-center gap-4 overflow-hidden rounded-[1.25rem] border border-sky-400/50 bg-[#020617]/60 p-3 sm:p-4 shadow-[0_0_20px_rgba(56,189,248,0.15),inset_0_0_15px_rgba(56,189,248,0.1)] backdrop-blur-md hover:border-sky-400/80 transition-all';
 
 const heroCtaPrimaryClass =
-  'group inline-flex h-14 min-h-14 sm:h-16 sm:min-h-16 shrink-0 items-center justify-center gap-3 rounded-2xl border-0 bg-gradient-to-r from-blue-700 via-blue-600 to-sky-400 px-10 text-base sm:px-12 sm:text-lg lg:text-xl font-black uppercase tracking-wide text-white shadow-[0_12px_48px_rgba(37,99,235,0.5)] transition-all hover:shadow-[0_0_40px_rgba(255,255,255,0.4),0_16px_64px_rgba(59,130,246,0.6)] active:scale-[0.98]';
+  'group inline-flex h-12 sm:h-14 lg:h-16 shrink-0 items-center justify-center gap-2 rounded-xl border-0 bg-blue-600 px-8 sm:px-10 lg:px-12 text-sm sm:text-base lg:text-lg font-black uppercase tracking-wide text-white shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all hover:bg-blue-500 hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] active:scale-[0.98]';
 
 const heroCtaSecondaryClass =
-  'inline-flex h-14 min-h-14 sm:h-16 sm:min-h-16 shrink-0 items-center justify-center gap-3 rounded-2xl border-2 border-white/10 bg-white/5 px-10 text-base sm:px-12 sm:text-lg lg:text-xl font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-white/30 hover:bg-white/[0.08] active:scale-[0.98]';
+  'group inline-flex h-12 sm:h-14 lg:h-16 shrink-0 items-center justify-center gap-2 rounded-xl border border-white/20 bg-transparent px-8 sm:px-10 lg:px-12 text-sm sm:text-base lg:text-lg font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-white/40 hover:bg-white/5 active:scale-[0.98]';
 
 export function Landing() {
   const { t } = useLanguage();
@@ -71,29 +71,29 @@ export function Landing() {
             >
               {/* Spacer for mobile to avoid header overlap */}
               <div className="h-20 lg:hidden" />
-              <div className="flex items-center gap-3 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 sm:text-xs">
-                <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+              <div className="flex items-center gap-2 rounded-full border border-blue-500/30 bg-[#0b101e] px-3 py-1.5 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-blue-400">
+                <div className="h-1.5 w-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,1)]" />
                 {t('hero.next_gen')}
               </div>
 
-              <h1 className="flex flex-col font-outfit font-black text-2xl leading-[1.0] uppercase tracking-tighter sm:text-4xl lg:text-5xl xl:text-6xl">
-                <span className="text-white">{t('hero.title_part1')}</span>
-                <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]">{t('hero.title_part2')}</span>
+              <h1 className="flex flex-col font-outfit font-black text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[0.9] uppercase tracking-tighter w-full mt-2">
+                <span className="text-white block">{t('hero.title_part1')}</span>
+                <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.4)] block mt-1 lg:mt-2">{t('hero.title_part2')}</span>
               </h1>
 
-              <p className="text-sm sm:text-base lg:text-lg text-slate-400 max-w-xl leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-400 max-w-xl leading-relaxed mt-4">
                 {t('hero.description')}
-                <span className="block mt-2 text-blue-400 font-black text-base sm:text-lg lg:text-xl tracking-tight">{t('hero.tagline_extra')}</span>
+                <span className="block mt-1 text-blue-400 font-bold text-sm sm:text-base tracking-tight">{t('hero.tagline_extra')}</span>
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full mt-6">
                 <button
                   type="button"
                   onClick={() => navigate('/builder')}
                   className={`${heroCtaPrimaryClass} w-full sm:w-auto`}
                 >
                   {t('hero.cta_primary')}
-                  <ArrowRight className="h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" aria-hidden />
+                  <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" aria-hidden />
                 </button>
 
                 <button 
@@ -101,7 +101,7 @@ export function Landing() {
                   onClick={() => setShowAI(true)} 
                   className={`${heroCtaSecondaryClass} w-full sm:w-auto`}
                 >
-                  <Sparkles className="h-6 w-6 shrink-0 text-sky-400" strokeWidth={2.5} aria-hidden />
+                  <Sparkles className="h-5 w-5 shrink-0 text-white/70 group-hover:text-white transition-colors" strokeWidth={2} aria-hidden />
                   {t('hero.cta_secondary')}
                 </button>
               </div>
