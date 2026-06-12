@@ -10,6 +10,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangPanelOpen, setIsLangPanelOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -29,9 +30,16 @@ export function Header() {
     const handleCartUpdate = () => updateCartCount();
     window.addEventListener('cart-updated', handleCartUpdate);
     window.addEventListener('storage', handleCartUpdate);
+    
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('cart-updated', handleCartUpdate);
       window.removeEventListener('storage', handleCartUpdate);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -60,7 +68,11 @@ export function Header() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-[#020617]/80 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/10'
+          : 'bg-transparent border-b border-transparent'
+      }`}
     >
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-4 lg:px-12">
         <Link to="/" className="group flex shrink-0 items-center gap-3 z-50">
