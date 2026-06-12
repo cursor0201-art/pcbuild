@@ -79,8 +79,8 @@ export function Landing() {
               </h1>
 
               <p className="text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed">
-                Discover the ultimate collection of high-performance PC components, custom builds, and gaming gear.
-                <span className="block mt-2 text-sky-400 font-bold">Built for gamers. Designed to win.</span>
+                {t('hero.description')}
+                <span className="block mt-2 text-sky-400 font-bold">{t('hero.tagline_extra')}</span>
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full mt-2">
@@ -89,7 +89,7 @@ export function Landing() {
                   onClick={() => navigate('/builder')}
                   className={`${heroCtaPrimaryClass} w-full sm:w-auto`}
                 >
-                  SHOP NOW
+                  {t('hero.cta_primary')}
                   <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" aria-hidden />
                 </button>
 
@@ -99,7 +99,7 @@ export function Landing() {
                   className={`${heroCtaSecondaryClass} w-full sm:w-auto`}
                 >
                   <Sparkles className="h-4 w-4 shrink-0 text-sky-400" strokeWidth={2} aria-hidden />
-                  BUILD YOUR PC
+                  {t('hero.cta_secondary')}
                 </button>
               </div>
             </motion.div>
