@@ -45,13 +45,17 @@ export function Landing() {
   }, []);
 
   const getCategoryFallback = (slug: string) => {
+    const cleanSlug = slug.toLowerCase();
     const fallbacks: Record<string, { img: string; sub: string }> = {
       'videokarty': { img: '/gpu.png', sub: 'Ultimate graphics performance.' },
+      'gpu': { img: '/gpu.png', sub: 'Ultimate graphics performance.' },
       'protsessory': { img: '/cpu.png', sub: 'Raw power for limitless gaming.' },
+      'cpu': { img: '/cpu.png', sub: 'Raw power for limitless gaming.' },
+      'plata': { img: '/cpu.png', sub: 'High-performance motherboard setup.' },
       'korpusa': { img: '/gaming_pc.png', sub: 'Pre-built. Tested. Game Ready.' },
       'periferiya': { img: '/peripherals.png', sub: 'Gear up. Play at your best.' },
     };
-    return fallbacks[slug] || { img: '/gaming_pc.png', sub: 'High-quality components.' };
+    return fallbacks[cleanSlug] || { img: '/gaming_pc.png', sub: 'High-quality components.' };
   };
 
   return (
@@ -197,12 +201,11 @@ export function Landing() {
           </div>
 
           {/* Integrated Shop By Category Panel */}
-          <div className="relative z-0 mx-auto mt-12 w-full max-w-[1200px] rounded-3xl border border-sky-500/20 bg-[#060b18]/80 backdrop-blur-xl p-6 sm:p-8 shadow-[0_0_50px_rgba(56,189,248,0.1)] mb-12">
-            <div className="flex items-center justify-center mb-8 relative">
-              <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-sky-500/20" />
-              <div className="relative bg-[#060b18] px-6 py-1 border border-sky-500/30 rounded-full text-base sm:text-lg font-black uppercase tracking-widest text-white flex items-center gap-2">
-                <span className="text-white">SHOP BY</span> <span className="text-sky-400">CATEGORY</span>
-              </div>
+          <div className="relative z-0 mx-auto mt-24 w-full max-w-[1200px] rounded-3xl border border-sky-500/20 bg-[#060b18]/80 backdrop-blur-xl p-6 sm:p-8 shadow-[0_0_50px_rgba(56,189,248,0.1)] mb-12">
+            <div className="text-center mb-10">
+              <h2 className="text-xl sm:text-2xl font-black uppercase tracking-widest text-white drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+                SHOP BY <span className="text-sky-400">CATEGORY</span>
+              </h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
