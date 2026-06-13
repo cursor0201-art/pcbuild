@@ -70,19 +70,19 @@ export function Header() {
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#020617]/80 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/10'
+          ? 'bg-[#030308]/85 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-4 lg:px-12">
         <Link to="/" className="group flex shrink-0 items-center gap-3 z-50">
           <div className="relative h-10 w-10">
-            <div className="absolute inset-0 bg-blue-500 blur-md opacity-40 transition-opacity group-hover:opacity-60" />
-            <svg viewBox="0 0 24 24" className="relative h-full w-full fill-current text-blue-500 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+            <div className="absolute inset-0 bg-primary/45 blur-md opacity-40 transition-opacity group-hover:opacity-60" />
+            <svg viewBox="0 0 24 24" className="relative h-full w-full fill-current text-primary drop-shadow-[0_0_10px_rgba(0,212,255,0.55)]">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
-          <div className="font-black text-xl uppercase leading-none tracking-tighter text-white"><span className="text-blue-500">G</span>AMEZONE</div>
+          <div className="font-black text-xl uppercase leading-none tracking-tighter text-white"><span className="text-primary">G</span>AMEZONE</div>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -91,7 +91,7 @@ export function Header() {
               key={link.path}
               to={link.path}
               className={`text-sm font-bold uppercase tracking-wider transition-colors ${
-                isActive(link.path) ? 'text-blue-500' : 'text-white/60 hover:text-white'
+                isActive(link.path) ? 'text-primary' : 'text-white/60 hover:text-white'
               }`}
             >
               {link.name}
@@ -107,7 +107,7 @@ export function Header() {
                 type="button"
                 onClick={() => setLanguage(lang as 'ru' | 'uz')}
                 className={`touch-target rounded-md px-3 py-1.5 text-[10px] font-bold transition-all ${
-                  language === lang ? 'bg-blue-600 text-white' : 'text-slate-500 hover:text-slate-300'
+                  language === lang ? 'bg-primary text-slate-950' : 'text-slate-500 hover:text-slate-300'
                 }`}
               >
                 {lang.toUpperCase()}
@@ -118,11 +118,11 @@ export function Header() {
           <Link
             to="/cart"
             className={`relative hidden touch-target rounded-lg p-2.5 transition-colors hover:bg-white/5 sm:p-3 lg:flex ${
-              isActive('/cart') ? 'text-blue-500' : 'text-white/60 hover:text-white'
+              isActive('/cart') ? 'text-primary' : 'text-white/60 hover:text-white'
             }`}
           >
             <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6" />
-            <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-blue-500 px-1 text-[10px] font-black text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+            <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-black text-slate-950 shadow-[0_0_10px_rgba(0,212,255,0.6)]">
               {cartCount}
             </span>
           </Link>
@@ -155,19 +155,19 @@ export function Header() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 top-0 z-[100] h-screen w-screen overflow-y-auto bg-[#020617] lg:hidden"
+            className="fixed inset-0 top-0 z-[100] h-screen w-screen overflow-y-auto bg-[#030308] lg:hidden"
             onClick={() => setIsMenuOpen(false)}
           >
             <div className="flex h-full flex-col" onClick={(e) => e.stopPropagation()}>
               <div className="flex h-16 items-center justify-between border-b border-white/5 px-3">
                 <Link to="/" onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-2">
                   <div className="relative h-7 w-7">
-                    <div className="absolute inset-0 bg-blue-500 opacity-50 blur-md" />
-                    <svg viewBox="0 0 24 24" className="relative h-full w-full fill-current text-blue-500">
+                    <div className="absolute inset-0 bg-primary opacity-50 blur-md" />
+                    <svg viewBox="0 0 24 24" className="relative h-full w-full fill-current text-primary">
                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                     </svg>
                   </div>
-                  <div className="text-sm font-bold uppercase leading-none tracking-tighter text-white"><span className="text-blue-500">G</span>AMEZONE</div>
+                  <div className="text-sm font-bold uppercase leading-none tracking-tighter text-white"><span className="text-primary">G</span>AMEZONE</div>
                 </Link>
                 <button
                   type="button"
@@ -180,7 +180,6 @@ export function Header() {
               </div>
 
               <nav className="flex flex-1 flex-col gap-2 p-4">
-
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
@@ -188,7 +187,7 @@ export function Header() {
                     onClick={() => setIsMenuOpen(false)}
                     className={`rounded-xl p-4 text-xl font-bold uppercase tracking-tight transition-colors ${
                       isActive(link.path)
-                        ? 'border border-blue-500/30 bg-blue-500/10 text-blue-500'
+                        ? 'border border-primary/30 bg-primary/10 text-primary'
                         : 'text-white hover:bg-white/5'
                     }`}
                   >
