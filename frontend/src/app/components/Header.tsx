@@ -78,7 +78,7 @@ export function Header() {
         <Link to="/" className="group flex shrink-0 items-center gap-3 z-50">
           <div className="relative h-10 w-10">
             <div className="absolute inset-0 bg-primary/45 blur-md opacity-40 transition-opacity group-hover:opacity-60" />
-            <svg viewBox="0 0 24 24" className="relative h-full w-full fill-current text-primary drop-shadow-[0_0_10px_rgba(0,212,255,0.55)]">
+            <svg viewBox="0 0 24 24" className="relative h-full w-full fill-current text-primary drop-shadow-[0_0_10px_rgba(35,35,255,0.65)]">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
@@ -107,7 +107,7 @@ export function Header() {
                 type="button"
                 onClick={() => setLanguage(lang as 'ru' | 'uz')}
                 className={`touch-target rounded-md px-3 py-1.5 text-[10px] font-bold transition-all ${
-                  language === lang ? 'bg-primary text-slate-950' : 'text-slate-500 hover:text-slate-300'
+                  language === lang ? 'bg-primary text-white shadow-[0_0_10px_rgba(35,35,255,0.4)]' : 'text-slate-500 hover:text-slate-300'
                 }`}
               >
                 {lang.toUpperCase()}
@@ -122,7 +122,7 @@ export function Header() {
             }`}
           >
             <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6" />
-            <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-black text-slate-950 shadow-[0_0_10px_rgba(0,212,255,0.6)]">
+            <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-black text-white shadow-[0_0_10px_rgba(35,35,255,0.75)]">
               {cartCount}
             </span>
           </Link>

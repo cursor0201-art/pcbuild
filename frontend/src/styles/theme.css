@@ -6,8 +6,8 @@
   --card-foreground: #f8fafc;
   --popover: #06080f;
   --popover-foreground: #f8fafc;
-  --primary: #00d4ff;
-  --primary-foreground: #030308;
+  --primary: #2323ff;
+  --primary-foreground: #ffffff;
   --secondary: #0f172a;
   --secondary-foreground: #f8fafc;
   --muted: #0f172a;
@@ -16,25 +16,25 @@
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: rgba(0, 212, 255, 0.25);
+  --border: rgba(35, 35, 255, 0.35);
   --input: rgba(255, 255, 255, 0.05);
   --input-background: #080a14;
   --switch-background: #1e293b;
   --font-weight-medium: 600;
   --font-weight-normal: 400;
-  --ring: #00d4ff;
+  --ring: #2323ff;
   --radius: 0.85rem;
   
   --glass-bg: rgba(6, 10, 20, 0.65);
-  --glass-border: rgba(0, 212, 255, 0.25);
+  --glass-border: rgba(35, 35, 255, 0.35);
   --glass-blur: blur(16px);
 
   /* Hero float cards (RTX / Ryzen) — как референс */
   --hero-float-bg: rgba(3, 5, 10, 0.6);
-  --hero-float-border: rgba(0, 212, 255, 0.25);
+  --hero-float-border: rgba(35, 35, 255, 0.35);
   --hero-float-blur: 16px;
   
-  --neon-blue: #00d4ff;
+  --neon-blue: #2323ff;
   --neon-pink: #ff007f;
   --neon-green: #00ff88;
   --neon-purple: #9d4edd;

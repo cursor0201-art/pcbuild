@@ -59,7 +59,7 @@ export function Cart() {
             <p className="mb-8 text-lg sm:text-xl md:text-2xl text-white/40">{t('cart.empty')}</p>
             <button
               onClick={() => navigate('/builder')}
-              className="bg-blue-600 px-6 sm:px-12 py-3 sm:py-5 font-black uppercase tracking-widest text-white text-sm sm:text-base transition-all hover:bg-blue-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.3)] rounded-lg sm:rounded-2xl active:scale-95 touch-target"
+              className="bg-primary px-6 sm:px-12 py-3 sm:py-5 font-black uppercase tracking-widest text-white text-sm sm:text-base transition-all hover:bg-primary/80 hover:shadow-[0_20px_50px_rgba(35,35,255,0.4)] rounded-lg sm:rounded-2xl active:scale-95 touch-target"
             >
               {t('checkout.empty.button')}
             </button>
@@ -85,7 +85,7 @@ export function Cart() {
                   </div>
                   <div className="flex flex-1 flex-col justify-between">
                     <div>
-                      <div className="mb-1 sm:mb-2 font-bold text-blue-500 text-[10px] sm:text-xs uppercase tracking-wider">
+                      <div className="mb-1 sm:mb-2 font-bold text-primary text-[10px] sm:text-xs uppercase tracking-wider">
                         {item.category_name}
                       </div>
                       <h3 className="mb-1 sm:mb-2 font-black text-base sm:text-lg lg:text-xl uppercase text-white">
@@ -114,7 +114,7 @@ export function Cart() {
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-3 sm:mt-0">
                       <div className="font-black text-lg sm:text-xl lg:text-2xl text-white">
                         {formatPrice(item.price)}{' '}
-                        <span className="text-blue-500 text-xs sm:text-sm lg:text-base">{t('currency')}</span>
+                        <span className="text-primary text-xs sm:text-sm lg:text-base">{t('currency')}</span>
                       </div>
                       <button 
                         onClick={() => removeFromCart(item.id)}
@@ -130,8 +130,8 @@ export function Cart() {
             </div>
 
             {/* Order Summary Sidebar */}
-            <div className="border border-blue-500/30 bg-white/5 p-4 sm:p-6 rounded-lg sm:rounded-2xl glass-card lg:sticky lg:top-28 lg:h-fit">
-              <h2 className="mb-4 font-black text-lg sm:text-xl uppercase text-blue-500">
+            <div className="border border-primary/30 bg-white/5 p-4 sm:p-6 rounded-lg sm:rounded-2xl glass-card lg:sticky lg:top-28 lg:h-fit">
+              <h2 className="mb-4 font-black text-lg sm:text-xl uppercase text-primary">
                 {t('checkout.summary')}
               </h2>
 
@@ -160,14 +160,14 @@ export function Cart() {
                   <span className="font-black text-[10px] uppercase text-white/60">{t('checkout.total')}</span>
                   <div className="font-black text-2xl sm:text-3xl text-white">
                     {formatPrice(total)}{' '}
-                    <div className="text-blue-500 text-xs sm:text-sm leading-none">{t('currency')}</div>
+                    <div className="text-primary text-xs sm:text-sm leading-none">{t('currency')}</div>
                   </div>
                 </div>
               </div>
 
               <button
                 onClick={() => navigate('/checkout')}
-                className="group w-full bg-blue-600 px-4 sm:px-6 py-3 sm:py-4 font-black uppercase tracking-widest text-white text-xs sm:text-sm transition-all hover:bg-blue-500 hover:shadow-[0_20px_50px_rgba(37,99,235,0.4)] rounded-lg sm:rounded-xl active:scale-[0.98] touch-target"
+                className="group w-full bg-primary px-4 sm:px-6 py-3 sm:py-4 font-black uppercase tracking-widest text-white text-xs sm:text-sm transition-all hover:bg-primary/80 hover:shadow-[0_20px_50px_rgba(35,35,255,0.45)] rounded-lg sm:rounded-xl active:scale-[0.98] touch-target"
               >
                 {t('checkout.proceed')}
               </button>

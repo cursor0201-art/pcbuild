@@ -101,7 +101,7 @@ export function ProductModal({
                             initial={{ width: 0 }}
                             animate={{ width: `${component.performance}%` }}
                             transition={{ duration: 1.5, ease: "easeOut" }}
-                            className="h-full bg-gradient-to-r from-blue-600 to-cyan-400 shadow-[0_0_20px_rgba(59,130,246,0.5)]"
+                            className="h-full bg-gradient-to-r from-primary to-accent shadow-[0_0_20px_rgba(35,35,255,0.5)]"
                           />
                         </div>
                         <span className="font-black text-3xl text-white">
@@ -117,7 +117,7 @@ export function ProductModal({
                     <span className="font-black text-white/30 text-[10px] uppercase tracking-[0.2em]">{t('category.price')}</span>
                     <div className="font-black text-4xl sm:text-5xl text-white text-right">
                       {formatPrice(component.price)}{' '}
-                      <div className="text-blue-500 text-lg leading-none">{t('currency')}</div>
+                      <div className="text-primary text-lg leading-none">{t('currency')}</div>
                     </div>
                   </div>
 
@@ -130,7 +130,7 @@ export function ProductModal({
                       className={`w-full py-6 rounded-[2rem] font-black text-lg uppercase tracking-widest transition-all duration-300 transform active:scale-95 ${
                         isSelected
                           ? 'bg-[#00ff88] text-black shadow-[0_20px_50px_rgba(0,255,136,0.3)]'
-                          : 'bg-blue-600 text-white shadow-[0_20px_50px_rgba(37,99,235,0.4)] hover:bg-blue-500'
+                          : 'bg-primary text-white shadow-[0_20px_50px_rgba(35,35,255,0.45)] hover:bg-primary/80'
                       }`}
                     >
                       {isSelected ? t('component.selected') : t('component.select')}

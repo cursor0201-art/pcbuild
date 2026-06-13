@@ -8,13 +8,13 @@ import { apiService, Category, formatPrice } from '../services/api';
 
 /** Hero side cards — тёмный glass (переменные в theme.css) */
 const heroFloatCardClass =
-  'relative flex w-full items-center gap-4 overflow-hidden rounded-xl border border-cyan-400/30 bg-[#070c18]/85 p-3 sm:p-4 shadow-[0_0_30px_rgba(0,212,255,0.08)] backdrop-blur-md transition-all hover:border-cyan-400/65 hover:shadow-[0_0_45px_rgba(0,212,255,0.22)] group';
+  'relative flex w-full items-center gap-4 overflow-hidden rounded-xl border border-primary/25 bg-[#070c18]/85 p-3 sm:p-4 shadow-[0_0_30px_rgba(35,35,255,0.08)] backdrop-blur-md transition-all hover:border-primary/50 hover:shadow-[0_0_45px_rgba(35,35,255,0.22)] group';
 
 const heroCtaPrimaryClass =
-  'group inline-flex h-12 sm:h-14 shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 px-8 text-sm sm:text-base font-black uppercase tracking-wide text-slate-950 shadow-[0_0_30px_rgba(0,212,255,0.45)] transition-all hover:from-cyan-300 hover:to-blue-500 hover:shadow-[0_0_40px_rgba(0,212,255,0.7)] active:scale-[0.98]';
+  'group inline-flex h-12 sm:h-14 shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2323ff] to-[#ff007f] px-8 text-sm sm:text-base font-black uppercase tracking-wide text-white shadow-[0_0_30px_rgba(35,35,255,0.55)] transition-all hover:from-[#3b3bff] hover:to-[#ff2a93] hover:shadow-[0_0_40px_rgba(35,35,255,0.8)] active:scale-[0.98]';
 
 const heroCtaSecondaryClass =
-  'group inline-flex h-12 sm:h-14 shrink-0 items-center justify-center gap-2 rounded-xl border border-cyan-400/35 bg-transparent px-8 text-sm sm:text-base font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-cyan-400/70 hover:bg-cyan-500/10 active:scale-[0.98]';
+  'group inline-flex h-12 sm:h-14 shrink-0 items-center justify-center gap-2 rounded-xl border border-primary/35 bg-transparent px-8 text-sm sm:text-base font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-primary/60 hover:bg-primary/10 active:scale-[0.98]';
 
 export function Landing() {
   const { t } = useLanguage();
@@ -72,19 +72,19 @@ export function Landing() {
               animate={{ opacity: 1, y: 0 }}
               className="relative z-10 order-1 flex flex-col items-start gap-5 lg:order-1 lg:max-w-2xl"
             >
-              <div className="flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-950/25 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 shadow-[0_0_15px_rgba(0,212,255,0.15)]">
-                <div className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(0,212,255,1)]" />
+              <div className="flex items-center gap-2 rounded-full border border-primary/35 bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-primary shadow-[0_0_15px_rgba(35,35,255,0.2)]">
+                <div className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(35,35,255,1)]" />
                 {t('hero.next_gen')}
               </div>
 
               <h1 className="flex flex-col font-outfit font-black text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-[4rem] leading-[1.0] uppercase tracking-tight w-full">
                 <span className="text-white drop-shadow-md">{t('hero.title_part1')}</span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 drop-shadow-[0_0_25px_rgba(0,212,255,0.4)] mt-1">{t('hero.title_part2')}</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#7d23ff] to-accent drop-shadow-[0_0_25px_rgba(35,35,255,0.6)] mt-1">{t('hero.title_part2')}</span>
               </h1>
 
               <p className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed">
                 {t('hero.description')}
-                <span className="block mt-2 text-cyan-400 font-bold text-lg">{t('hero.tagline_extra')}</span>
+                <span className="block mt-2 text-primary font-bold text-lg">{t('hero.tagline_extra')}</span>
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full mt-2">
@@ -102,7 +102,7 @@ export function Landing() {
                   onClick={() => setShowAI(true)} 
                   className={`${heroCtaSecondaryClass} w-full sm:w-auto`}
                 >
-                  <Sparkles className="h-4 w-4 shrink-0 text-sky-400" strokeWidth={2} aria-hidden />
+                  <Sparkles className="h-4 w-4 shrink-0 text-primary" strokeWidth={2} aria-hidden />
                   {t('hero.cta_secondary')}
                 </button>
               </div>
@@ -114,23 +114,26 @@ export function Landing() {
                 <div className="relative flex min-w-0 flex-1 items-center justify-center lg:flex-[1.1]">
                   {/* Glowing RGB Backlight (LED Ambient Glow behind the black circle) */}
                   <div
-                    className="pointer-events-none absolute aspect-square w-[75%] rounded-full bg-[radial-gradient(circle,_rgba(0,212,255,0.3)_0%,_rgba(217,70,239,0.15)_50%,_rgba(0,0,0,0)_70%)] blur-[40px] animate-pulse"
+                    className="pointer-events-none absolute aspect-square w-[75%] rounded-full bg-[radial-gradient(circle,_rgba(35,35,255,0.45)_0%,_rgba(255,0,127,0.2)_50%,_rgba(0,0,0,0)_70%)] blur-[35px] animate-pulse"
                     style={{ animationDuration: '3s' }}
                     aria-hidden
                   />
                   
-                  {/* Addressable RGB LED Strip Ring (Spins slowly) */}
+                  {/* Neon Blue Active Ring (White-hot core + Intense #2323FF Glow) */}
                   <div
-                    className="pointer-events-none absolute aspect-square w-[76%] rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 p-[3px] sm:p-[4px] shadow-[0_0_35px_rgba(0,212,255,0.75),0_0_60px_rgba(217,70,239,0.45),inset_0_0_20px_rgba(0,212,255,0.3)] animate-spin"
-                    style={{ animationDuration: '14s' }}
+                    className="pointer-events-none absolute aspect-square w-[76%] rounded-full neon-ring-active"
                     aria-hidden
-                  >
-                    <div className="h-full w-full rounded-full bg-[#030308]" />
-                  </div>
+                  />
 
-                  {/* Outer Faint Neon Halo */}
+                  {/* Neon Pink Accent Ring (White-hot core + Intense #FF007F Glow) */}
                   <div
-                    className="pointer-events-none absolute aspect-square w-[min(96vw,500px)] rounded-full border border-cyan-500/20 shadow-[0_0_60px_rgba(0,212,255,0.1)]"
+                    className="pointer-events-none absolute aspect-square w-[83%] rounded-full neon-ring-accent"
+                    aria-hidden
+                  />
+
+                  {/* Outer Ambient Halo */}
+                  <div
+                    className="pointer-events-none absolute aspect-square w-[min(96vw,500px)] rounded-full border border-primary/20 shadow-[0_0_60px_rgba(35,35,255,0.15)]"
                     aria-hidden
                   />
 
@@ -149,10 +152,10 @@ export function Landing() {
                 >
                   <motion.div whileHover={{ scale: 1.02 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-sky-400/30 bg-[#060b18] shadow-[inset_0_0_15px_rgba(56,189,248,0.2)] p-2">
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-primary/35 bg-[#060b18] shadow-[inset_0_0_15px_rgba(35,35,255,0.25)] p-2">
                         <img
                           src="/gpu.png"
-                          className="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(56,189,248,0.4)]"
+                          className="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(35,35,255,0.5)]"
                           alt="RTX 5090"
                         />
                       </div>
@@ -160,18 +163,18 @@ export function Landing() {
                         <div className="text-base font-black uppercase text-white tracking-wide">RTX 5090</div>
                         <div className="text-[11px] text-slate-300 leading-tight mt-1 uppercase font-semibold">Performance Beast<br/>24GB GDDR7</div>
                       </div>
-                      <div className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 group-hover:bg-sky-500/30 transition-colors">
-                        <ArrowRight className="h-3 w-3 text-sky-400" />
+                      <div className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-primary/35 bg-primary/10 group-hover:bg-primary/30 transition-colors">
+                        <ArrowRight className="h-3 w-3 text-primary" />
                       </div>
                     </div>
                   </motion.div>
 
                   <motion.div whileHover={{ scale: 1.02 }} className="w-full">
                     <div className={heroFloatCardClass}>
-                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-sky-400/30 bg-[#060b18] shadow-[inset_0_0_15px_rgba(56,189,248,0.2)] p-2">
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-primary/35 bg-[#060b18] shadow-[inset_0_0_15px_rgba(35,35,255,0.25)] p-2">
                         <img
                           src="/cpu.png"
-                          className="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(56,189,248,0.4)]"
+                          className="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(35,35,255,0.5)]"
                           alt="Ryzen 9800X3D"
                         />
                       </div>
@@ -179,8 +182,8 @@ export function Landing() {
                         <div className="text-base font-black uppercase text-white tracking-wide">RYZEN 9800X3D</div>
                         <div className="text-[11px] text-slate-300 leading-tight mt-1 uppercase font-semibold">Ultimate Gaming CPU<br/>5.2GHz Boost</div>
                       </div>
-                      <div className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-sky-400/40 bg-sky-500/10 group-hover:bg-sky-500/30 transition-colors">
-                        <ArrowRight className="h-3 w-3 text-sky-400" />
+                      <div className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-primary/35 bg-primary/10 group-hover:bg-primary/30 transition-colors">
+                        <ArrowRight className="h-3 w-3 text-primary" />
                       </div>
                     </div>
                   </motion.div>
@@ -189,16 +192,16 @@ export function Landing() {
             </div>
           </div>
 
-          <div className="relative z-0 mx-auto mt-12 w-full max-w-[1100px] rounded-[1.5rem] border border-cyan-500/25 bg-[#060b18]/90 backdrop-blur-md px-4 py-3 sm:px-8 sm:py-5 shadow-[0_0_40px_rgba(0,212,255,0.12)]">
-            <div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-cyan-500/20">
+          <div className="relative z-0 mx-auto mt-12 w-full max-w-[1100px] rounded-[1.5rem] border border-primary/25 bg-[#060b18]/90 backdrop-blur-md px-4 py-3 sm:px-8 sm:py-5 shadow-[0_0_40px_rgba(35,35,255,0.15)]">
+            <div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-primary/20">
               {[
                 { icon: Zap, label: 'FREE SHIPPING', sub: 'On all orders over $99' },
                 { icon: Shield, label: '2 YEARS WARRANTY', sub: 'Premium quality assured' },
                 { icon: Headset, label: '24/7 SUPPORT', sub: 'Always here to help' },
               ].map((stat, i) => (
                 <div key={i} className="flex-1 flex flex-row items-center justify-center gap-4 py-4 sm:py-2 px-2 sm:px-6 w-full sm:w-auto">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-cyan-400/25 bg-cyan-500/10 shadow-[0_0_10px_rgba(0,212,255,0.15)]">
-                    <stat.icon className="h-5 w-5 text-cyan-400" strokeWidth={2} />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-primary/35 bg-primary/10 shadow-[0_0_10px_rgba(35,35,255,0.25)]">
+                    <stat.icon className="h-5 w-5 text-primary" strokeWidth={2} />
                   </div>
                   <div className="flex flex-col items-start text-left">
                     <div className="text-[12px] sm:text-sm font-black uppercase tracking-widest text-white leading-none mb-1.5">
@@ -214,12 +217,12 @@ export function Landing() {
           </div>
 
           {/* Integrated Shop By Category Panel */}
-          <div className="relative z-0 mx-auto mt-24 w-full max-w-[1200px] rounded-3xl border border-cyan-500/20 bg-[#060b18]/80 backdrop-blur-xl p-6 sm:p-8 shadow-[0_0_55px_rgba(0,212,255,0.08)] mb-12">
+          <div className="relative z-0 mx-auto mt-24 w-full max-w-[1200px] rounded-3xl border border-primary/20 bg-[#060b18]/80 backdrop-blur-xl p-6 sm:p-8 shadow-[0_0_55px_rgba(35,35,255,0.12)] mb-12">
             <div className="text-center mb-12 mt-4">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-[0.15em] text-white drop-shadow-[0_0_20px_rgba(0,212,255,0.5)]">
-                SHOP BY <span className="text-cyan-400">CATEGORY</span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-[0.15em] text-white drop-shadow-[0_0_20px_rgba(35,35,255,0.65)]">
+                SHOP BY <span className="text-primary">CATEGORY</span>
               </h2>
-              <div className="mx-auto mt-4 h-1.5 w-24 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 shadow-[0_0_15px_rgba(0,212,255,0.7)]" />
+              <div className="mx-auto mt-4 h-1.5 w-24 rounded-full bg-gradient-to-r from-primary to-accent shadow-[0_0_15px_rgba(35,35,255,0.85)]" />
             </div>
 
             <div className={`grid gap-6 w-full ${
@@ -243,14 +246,14 @@ export function Landing() {
                       key={category.id}
                       whileHover={{ scale: 1.02 }}
                       onClick={() => navigate('/builder')}
-                      className={`relative flex flex-col rounded-3xl bg-gradient-to-br from-[#0a101e] to-[#040812] border border-cyan-500/25 shadow-[inset_0_0_20px_rgba(0,212,255,0.08)] cursor-pointer hover:border-cyan-400/65 hover:shadow-[0_0_35px_rgba(0,212,255,0.22),inset_0_0_20px_rgba(0,212,255,0.1)] transition-all overflow-hidden group ${
+                      className={`relative flex flex-col rounded-3xl bg-gradient-to-br from-[#0a101e] to-[#040812] border border-primary/25 shadow-[inset_0_0_20px_rgba(35,35,255,0.08)] cursor-pointer hover:border-primary/65 hover:shadow-[0_0_35px_rgba(35,35,255,0.22),inset_0_0_20px_rgba(35,35,255,0.1)] transition-all overflow-hidden group ${
                         categories.length <= 2 
                           ? 'p-8 h-64' 
                           : 'p-6 h-56'
                       }`}
                     >
                       <div className="space-y-2 z-10 relative">
-                        <h3 className={`font-black uppercase tracking-wider text-white group-hover:text-cyan-400 transition-colors ${
+                        <h3 className={`font-black uppercase tracking-wider text-white group-hover:text-primary transition-colors ${
                           categories.length <= 2 ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'
                         }`}>{category.name}</h3>
                         <p className={`text-slate-300 font-semibold tracking-wide pr-12 ${
@@ -258,10 +261,10 @@ export function Landing() {
                         }`}>{fallback.sub}</p>
                       </div>
 
-                      <div className={`absolute rounded-full border border-cyan-500/35 bg-cyan-500/10 flex items-center justify-center group-hover:bg-cyan-500 group-hover:border-cyan-400 transition-colors z-10 ${
+                      <div className={`absolute rounded-full border border-primary/35 bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors z-10 ${
                         categories.length <= 2 ? 'top-8 right-8 h-8 w-8' : 'top-6 right-6 h-6 w-6'
                       }`}>
-                         <ArrowRight className="h-4 w-4 text-cyan-400 group-hover:text-white" />
+                         <ArrowRight className="h-4 w-4 text-primary group-hover:text-white" />
                       </div>
 
                       <div className={`absolute flex items-center justify-center z-0 opacity-90 group-hover:scale-110 group-hover:opacity-100 transition-all duration-500 ${
@@ -269,17 +272,17 @@ export function Landing() {
                           ? 'bottom-[-5%] right-[-5%] h-44 w-44' 
                           : 'bottom-[-5%] right-[-5%] h-36 w-36'
                       }`}>
-                         <img src={categoryImg} alt={category.name} className="h-full w-full object-contain drop-shadow-[0_0_25px_rgba(0,212,255,0.45)]" />
+                         <img src={categoryImg} alt={category.name} className="h-full w-full object-contain drop-shadow-[0_0_25px_rgba(35,35,255,0.45)]" />
                       </div>
 
                       <div className={`absolute z-10 ${
                         categories.length <= 2 ? 'bottom-8 left-8' : 'bottom-6 left-6'
                       }`}>
                          <div className="text-[10px] text-slate-400 uppercase font-bold tracking-widest">{t('category.starting') || 'STARTING FROM'}</div>
-                         <div className={`font-black text-cyan-400 mt-1 ${
+                         <div className={`font-black text-primary mt-1 ${
                            categories.length <= 2 ? 'text-2xl' : 'text-xl'
                          }`}>
-                           {minPrice ? <>{formatPrice(minPrice)} <span className="text-xs sm:text-sm text-cyan-400/70">{t('currency')}</span></> : '---'}
+                           {minPrice ? <>{formatPrice(minPrice)} <span className="text-xs sm:text-sm text-primary/70">{t('currency')}</span></> : '---'}
                          </div>
                       </div>
                     </motion.div>
