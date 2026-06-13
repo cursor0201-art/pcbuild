@@ -12,7 +12,7 @@
   --secondary-foreground: #f8fafc;
   --muted: #0f172a;
   --muted-foreground: #94a3b8;
-  --accent: #00f0ff;
+  --accent: #7070ff;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
@@ -35,7 +35,7 @@
   --hero-float-blur: 16px;
   
   --neon-blue: #2323ff;
-  --neon-pink: #00f0ff;
+  --neon-pink: #7070ff;
   --neon-green: #00ff88;
   --neon-purple: #9d4edd;
   

@@ -11,7 +11,7 @@ const heroFloatCardClass =
   'relative flex w-full items-center gap-4 overflow-hidden rounded-xl border border-primary/25 bg-[#070c18]/85 p-3 sm:p-4 shadow-[0_0_30px_rgba(35,35,255,0.08)] backdrop-blur-md transition-all hover:border-primary/50 hover:shadow-[0_0_45px_rgba(35,35,255,0.22)] group';
 
 const heroCtaPrimaryClass =
-  'group inline-flex h-12 sm:h-14 shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2323ff] to-[#00f0ff] px-8 text-sm sm:text-base font-black uppercase tracking-wide text-white shadow-[0_0_30px_rgba(35,35,255,0.55)] transition-all hover:from-[#3b3bff] hover:to-[#33f3ff] hover:shadow-[0_0_40px_rgba(35,35,255,0.8)] active:scale-[0.98]';
+  'group inline-flex h-12 sm:h-14 shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2323ff] to-[#7070ff] px-8 text-sm sm:text-base font-black uppercase tracking-wide text-white shadow-[0_0_30px_rgba(35,35,255,0.55)] transition-all hover:from-[#3b3bff] hover:to-[#8a8aff] hover:shadow-[0_0_40px_rgba(35,35,255,0.8)] active:scale-[0.98]';
 
 const heroCtaSecondaryClass =
   'group inline-flex h-12 sm:h-14 shrink-0 items-center justify-center gap-2 rounded-xl border border-primary/35 bg-transparent px-8 text-sm sm:text-base font-black uppercase tracking-wide text-white shadow-none transition-all hover:border-primary/60 hover:bg-primary/10 active:scale-[0.98]';
