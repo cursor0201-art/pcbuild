@@ -114,7 +114,7 @@ export function Landing() {
                 <div className="relative flex min-w-0 flex-1 items-center justify-center lg:flex-[1.1]">
                   {/* Glowing RGB Backlight (LED Ambient Glow behind the black circle) */}
                   <div
-                    className="pointer-events-none absolute aspect-square w-[75%] rounded-full bg-[radial-gradient(circle,_rgba(35,35,255,0.45)_0%,_rgba(255,0,127,0.2)_50%,_rgba(0,0,0,0)_70%)] blur-[35px] animate-pulse"
+                    className="pointer-events-none absolute aspect-square w-[75%] rounded-full bg-[radial-gradient(circle,_rgba(35,35,255,0.45)_0%,_rgba(112,112,255,0.2)_50%,_rgba(0,0,0,0)_70%)] blur-[35px] animate-pulse"
                     style={{ animationDuration: '3s' }}
                     aria-hidden
                   />
