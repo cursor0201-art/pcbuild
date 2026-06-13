@@ -16,11 +16,11 @@
   box-shadow: 
     0 0 6px #ffffff,
     inset 0 0 6px #ffffff,
-    0 0 15px #ff007f,
-    inset 0 0 15px #ff007f,
-    0 0 35px #ff007f,
-    inset 0 0 35px #ff007f,
-    0 0 70px rgba(255, 0, 127, 0.5);
+    0 0 15px var(--accent),
+    inset 0 0 15px var(--accent),
+    0 0 35px var(--accent),
+    inset 0 0 35px var(--accent),
+    0 0 70px rgba(0, 240, 255, 0.5);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -36,19 +36,19 @@ body {
 /* Cyberpunk Effects */
 @keyframes glitch {
   0% {
-    text-shadow: 2px 2px 0px #00d4ff, -2px -2px 0px #ff0080;
+    text-shadow: 2px 2px 0px #00f0ff, -2px -2px 0px #2323ff;
   }
   25% {
-    text-shadow: -2px -2px 0px #00d4ff, 2px 2px 0px #ff0080;
+    text-shadow: -2px -2px 0px #00f0ff, 2px 2px 0px #2323ff;
   }
   50% {
-    text-shadow: 2px -2px 0px #00d4ff, -2px 2px 0px #ff0080;
+    text-shadow: 2px -2px 0px #00f0ff, -2px 2px 0px #2323ff;
   }
   75% {
-    text-shadow: -2px 2px 0px #00d4ff, 2px -2px 0px #ff0080;
+    text-shadow: -2px 2px 0px #00f0ff, 2px -2px 0px #2323ff;
   }
   100% {
-    text-shadow: 2px 2px 0px #00d4ff, -2px -2px 0px #ff0080;
+    text-shadow: 2px 2px 0px #00f0ff, -2px -2px 0px #2323ff;
   }
 }
 
